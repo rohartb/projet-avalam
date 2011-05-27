@@ -21,14 +21,15 @@ public class Avalam{
 	static final int ABANDONNER=11;
 	static final int ACTUALISER=12;
 	//popups
-	//pour les popup on reviens a l'etat sauvegardé dans etatSuivant /!\
+	//pour les popup on reviens a l'etat sauvegardé dans etatSuivant
 	static final int CHARGER=100;
 	static final int SAUVER=13;
 	static final int FIN=14;
 	static final int OPTIONS=15;
 	static final int APPARENCE=16;
 
-	static final int QUITTER=16;
+	
+	static final int QUITTER=42;
 
 
 	int etat,etatSuivant;
@@ -104,6 +105,7 @@ public class Avalam{
 				*/
 				// on attend une interraction du joueur humain
 				else{
+					//atente de la fin du chargement de la fenetre
 					pause();
 				}
 				//etat changé par les ecouteurs puis unpause()
@@ -192,6 +194,8 @@ public class Avalam{
 
 			case OPTIONS:
 				System.out.println("options");
+				f.o.affichierOptions();
+				pause();
 				etat=etatSuivant;
 				break;
 
@@ -226,7 +230,7 @@ public class Avalam{
 				//calcul fin de partie
 				f.m.actualiser();
 				f.g.repaint();
-				etat=JEU;
+				etat=etatSuivant;
 				break;
 
 			case QUITTER:

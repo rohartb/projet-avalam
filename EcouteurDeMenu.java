@@ -12,12 +12,13 @@ class EcouteurDeMenu implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
+		a.etatSuivant=a.etat;
 		String cmd = e.getActionCommand();
 		if(cmd.equals("ticseconde")){
 			//a.start.setTime(a.start.getTime()+1000);
 			//a.temps.setText("  " + a.sdf.format(a.start));
 		}else if (cmd.equals("nouveau")){
-			a.etat=a.NOUVEAU;
+			
 			a.unpause();
 		}else if (cmd.equals("pause")){
 			a.etatSuivant=a.etat;
@@ -28,7 +29,6 @@ class EcouteurDeMenu implements ActionListener{
 			a.etat=a.ACTUALISER;
 			a.unpause();
 		}else if(cmd.equals("charger")){
-			a.etat=a.etatSuivant;
 			a.etat=a.CHARGER;
 			a.unpause();			
  		}else if(cmd.equals("sauvegarder")){
@@ -39,6 +39,7 @@ class EcouteurDeMenu implements ActionListener{
 			a.etat=a.ABANDONNER;
 			a.unpause();
 		}else if(cmd.equals("options")){
+			a.etatSuivant=a.etat;
 			a.etat=a.OPTIONS;
 			a.unpause();
 		}else if(cmd.equals("quitter")){
@@ -52,7 +53,7 @@ class EcouteurDeMenu implements ActionListener{
 			a.unpause();
 		}else if(cmd.equals("apparence")){
 			a.etat=a.etatSuivant;
-		
+			a.unpause();
 		}else if(cmd.equals("aide")){
 		
 		}else if(cmd.equals("regle")){		
