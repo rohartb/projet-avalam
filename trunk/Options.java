@@ -45,7 +45,8 @@ public class Options extends JDialog{
 		typeJ1Tmp = typeJ1;
 		typeJ2Tmp = typeJ2;
 
-		eo = new EcouteurDOptions(a);
+		eo = new EcouteurDOptions(a, this);
+
 
 		this.setTitle("Options");
 		this.setModal(true);
