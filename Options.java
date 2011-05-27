@@ -266,6 +266,10 @@ public class Options extends JDialog{
 		/////// Panel Bouton Ok / Annuler
 
 		JPanel PanelOkAnnuler = new JPanel(); //Panel du boutons ok/annuler
+		JButton appliquerRelancer = new JButton("Appliquer et relancer");
+		appliquerRelancer.setActionCommand("appliquerrelancer");
+		appliquerRelancer.addActionListener(eo);
+
 		JButton ok = new JButton("Appliquer");
 		ok.setActionCommand("ok");
 		ok.addActionListener(eo);
@@ -273,8 +277,10 @@ public class Options extends JDialog{
 		JButton annuler = new JButton("Annuler");
 		annuler.setActionCommand("annuler");
 		annuler.addActionListener(eo);
+
 		PanelOkAnnuler.add(annuler);
 		PanelOkAnnuler.add(ok);
+		PanelOkAnnuler.add(appliquerRelancer);
 
 		// Ajout des panels à la fenetre
 		this.add(PanelChoixJoueur, BorderLayout.NORTH);

@@ -19,6 +19,8 @@ public class EcouteurDOptions implements ActionListener,
 			traiterOk();
 		} else if (cmd.equals("annuler" )) {
 			traiterAnnuler();
+		} else if (cmd.equals("appliquerrelancer")) {
+			traiterAppliquerRelancer();
 		} else if (cmd.equals("machine1")) {
 			o.n10.setSelected(true);
 			o.n10.setEnabled(true);
@@ -127,18 +129,13 @@ public class EcouteurDOptions implements ActionListener,
 		//Changement des params sur le joueur actuel
 		a.j.J1.type = o.typeJ1;
 		a.j.J2.type = o.typeJ2;
-
-		//sauvegarder à faire des param
-
-		//fermeture de la fenetre
-
-		int rep = JOptionPane.showConfirmDialog(null,"Voulez-vous démarrer une nouvelle partie?","Avalam",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-		if(rep==JOptionPane.YES_OPTION){
-			a.etatSuivant = a.NOUVEAU;
-		} else {
-			a.etatSuivant = a.ACTUALISER;
-		}
 		o.setVisible(false);
+		//a.etat = a.ACTUALISER;
+	}
+
+	public void traiterAppliquerRelancer() {
+		traiterOk();
+		a.etatSuivant = a.NOUVEAU;
 	}
 
 	public void traiterAnnuler() {
