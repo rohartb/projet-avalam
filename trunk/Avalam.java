@@ -89,6 +89,7 @@ public class Avalam{
 				j.init();
 				t.init();
 				System.out.println("nouveau");
+				etatSuivant=JEU;
 				etat = ACTUALISER;
 				break;
 
