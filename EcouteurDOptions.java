@@ -147,6 +147,7 @@ public class EcouteurDOptions implements ActionListener,
 		o.typeJ1Tmp = o.typeJ1;
 		o.typeJ2Tmp = o.typeJ2;
 		a.unpause();
+		System.out.println("unpause");
 		o.setVisible(false);
 	}
 

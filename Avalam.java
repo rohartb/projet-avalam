@@ -196,7 +196,7 @@ public class Avalam{
 			case OPTIONS:
 				System.out.println("options");
 				f.o.afficherOptions();
-				pause();
+				//pause();
 				etat=etatSuivant;
 				break;
 

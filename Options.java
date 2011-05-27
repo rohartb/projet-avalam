@@ -111,14 +111,6 @@ public class Options extends JDialog{
 
 
 		//////////// Panel de niveau du Bot
-		// JPanel BotLevelPanelJ1 = new JPanel();
-		// BotLevelPanelJ1.setLayout(new GridLayout(4,1));
-		// BotLevelPanelJ1.add(machine1);
-		// BotLevelPanelJ1.add(n10);
-		// BotLevelPanelJ1.add(n11);
-		// BotLevelPanelJ1.add(n12);
-
-
 		//// Sous Panel Textfield Nom J1
 		TextFieldNomJ1 = new JTextField(6);
 		TextFieldNomJ1.addKeyListener(eo);
@@ -131,11 +123,7 @@ public class Options extends JDialog{
 		PanelTextFieldNomJ1.add(LabelTextFieldNomJ1);
 		PanelTextFieldNomJ1.add(TextFieldNomJ1);
 
-
 		JPanel PanelTypeJ1 = new JPanel();
-		// PanelTypeJ1.setLayout(new GridLayout(1,2));
-		// PanelTypeJ1.add(humain1, BorderLayout.NORTH);
-		// PanelTypeJ1.add(BotLevelPanelJ1);
 
 		JPanel PanelJ1 = new JPanel();
 		PanelJ1.setBorder(BorderFactory.createTitledBorder("Joueur 1"));
@@ -147,9 +135,6 @@ public class Options extends JDialog{
 		PanelJ1.add(n10);
 		PanelJ1.add(n11);
 		PanelJ1.add(n12);
-
-		//PanelJ1.add(PanelTextFieldNomJ1);
-		//PanelJ1.add(PanelTypeJ1);
 
 		//////// Partie Droite - J2
 
