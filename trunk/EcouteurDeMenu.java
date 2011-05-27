@@ -36,7 +36,6 @@ class EcouteurDeMenu implements ActionListener{
 			a.etat=a.ABANDONNER;
 			a.unpause();
 		}else if(cmd.equals("options")){
-			a.etatSuivant=a.etat;
 			a.etat=a.OPTIONS;
 			a.unpause();
 		}else if(cmd.equals("quitter")){
