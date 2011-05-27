@@ -10,6 +10,7 @@ class Fenetre extends JFrame implements Runnable{
 	EcouteurDeMenu em;
 	EcouteurDeSouris es;
 	EcouteurDeFenetre ef;
+	Options o;
 	TerrainGraphique g;
 
 	boolean pleinEcran;
@@ -18,6 +19,7 @@ class Fenetre extends JFrame implements Runnable{
 	Fenetre(Avalam a) {
 		this.a=a;
 		pleinEcran = false;
+
 	}
 
 	void pleinEcran(){
@@ -93,13 +95,15 @@ class Fenetre extends JFrame implements Runnable{
 		g.addMouseListener(es);
 		this.addWindowListener(ef);
 
+		// Creation des popups
+		o = new Options(a);
 
 		//action fermeture fenetre
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		this.validate();
 		this.setVisible(true);
-		
+
 		a.unpause();
 	}
 }
