@@ -96,6 +96,7 @@ public class Avalam{
 				//verifier l'etat du jeu + attente d'un coup
 			case JEU:
 				System.out.println("jeu");
+				System.out.println("joueur:"+j.joueurCourant);
 				if(j.finPartie)
 					etat=FIN;
 				/*
@@ -169,6 +170,7 @@ public class Avalam{
 				j.h.viderRejouer();
 				t.deplacer(j.c);
 				etat=ACTUALISER;
+				j.changerJoueur();
 				break;
 
 				//TODO methode charger
@@ -182,7 +184,8 @@ public class Avalam{
 				// puis on joue directement
 				etat=ACTUALISER;
 				break;
-
+			
+			//TODO lors de la fermeture de la popup sauver soit 
 			case SAUVER:
 				System.out.println("sauver");
 				etat=etatSuivant;
