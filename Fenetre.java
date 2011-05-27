@@ -4,22 +4,22 @@ import java.awt.event.*;
 
 class Fenetre extends JFrame implements Runnable{
 	Avalam a;
-	
+
 	MenuAvalam m;
 	BarreStatus b;
 	EcouteurDeMenu em;
 	EcouteurDeSouris es;
 	EcouteurDeFenetre ef;
 	TerrainGraphique g;
-	
+
 	boolean pleinEcran;
-	
-	
+
+
 	Fenetre(Avalam a) {
 		this.a=a;
 		pleinEcran = false;
 	}
-	
+
 	void pleinEcran(){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice gs = ge.getDefaultScreenDevice();
@@ -46,8 +46,8 @@ class Fenetre extends JFrame implements Runnable{
 			m.itemPleinEcran.setText("Plein écran");
 		}
 	}
-	
-	
+
+
 	public void run() {
 		//recuperation theme system
 		try {
@@ -55,10 +55,10 @@ class Fenetre extends JFrame implements Runnable{
 		} catch(Exception e) {
 			System.out.println("Error setting native LAF: " + e);
 		}
-		
+
 		//titre
 		this.setTitle("Avalam");
-		
+
 		// position initiale de la fenetre sur l'ecran
 		int resHauteur = Toolkit.getDefaultToolkit().getScreenSize().height;
 		int resLargeur = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -70,33 +70,33 @@ class Fenetre extends JFrame implements Runnable{
 		int largeur  = (resLargeur - this.getSize().width)/2;
 		this.setLocation(largeur, hauteur);
 		this.setMinimumSize(new Dimension(400, 400));
-		
+
 		//creation d'ecouteurs
 		em = new EcouteurDeMenu(a);
 		es = new EcouteurDeSouris(a);
 		ef = new EcouteurDeFenetre(a);
-				
+
 		//ajout menu
 		m = new MenuAvalam(a);
 		this.setJMenuBar(m);
-		
+
 		//ajout plateau
 		g = new TerrainGraphique(a);
 		this.add(g);
-		
+
 		//ajout barre status
 		b = new BarreStatus(a);
 		this.add(b, BorderLayout.SOUTH);
-		
+
 		//ajout ecouteurs
 		g.addMouseMotionListener(es);
 		g.addMouseListener(es);
 		this.addWindowListener(ef);
-		
-		
+
+
 		//action fermeture fenetre
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
+
 		this.validate();
 		this.setVisible(true);
 	}
