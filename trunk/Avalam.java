@@ -26,9 +26,9 @@ public class Avalam{
 	static final int SAUVER=13;
 	static final int FIN=14;
 	static final int OPTIONS=15;
-	static final int APPARENCE=16;
+	static final int APPARENCE=17;
 
-	
+
 	static final int QUITTER=42;
 
 
@@ -194,7 +194,7 @@ public class Avalam{
 
 			case OPTIONS:
 				System.out.println("options");
-				f.o.affichierOptions();
+				f.o.afficherOptions();
 				pause();
 				etat=etatSuivant;
 				break;
