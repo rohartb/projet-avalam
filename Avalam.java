@@ -7,7 +7,7 @@ public class Avalam{
 	Terrain t;
 	Jeu j;
 
-	static final int INIT=0;
+	static final int INIT=-1;
 	static final int NOUVEAU=1;
 	static final int JEU=2;
 	static final int PAUSE=3;

@@ -18,21 +18,18 @@ class EcouteurDeMenu implements ActionListener{
 			//a.start.setTime(a.start.getTime()+1000);
 			//a.temps.setText("  " + a.sdf.format(a.start));
 		}else if (cmd.equals("nouveau")){
-			
+			a.etat=a.SAUVER;
 			a.unpause();
 		}else if (cmd.equals("pause")){
-			a.etatSuivant=a.etat;
 			a.etat=a.PAUSE;
 			a.unpause();
 		}else if (cmd.equals("reprendre")){
-			System.out.println("cmd reprendre");
 			a.etat=a.ACTUALISER;
 			a.unpause();
 		}else if(cmd.equals("charger")){
 			a.etat=a.CHARGER;
 			a.unpause();			
  		}else if(cmd.equals("sauvegarder")){
- 			a.etatSuivant=a.etat;
 			a.etat=a.SAUVER;
 			a.unpause();
 		}else if(cmd.equals("abandonner")){
