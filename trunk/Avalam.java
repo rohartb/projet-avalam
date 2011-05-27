@@ -77,7 +77,7 @@ public class Avalam{
 					f = new Fenetre(this);
 					thFenetre = new Thread(f);
 					thFenetre.start();
-					pause(2000);
+					pause();
 					//charger preferences
 					etat = NOUVEAU;
 					break;

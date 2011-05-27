@@ -99,5 +99,7 @@ class Fenetre extends JFrame implements Runnable{
 
 		this.validate();
 		this.setVisible(true);
+		
+		a.unpause();
 	}
 }
