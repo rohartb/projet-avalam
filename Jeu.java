@@ -11,8 +11,8 @@ class Jeu{
 	
 	public Jeu(Avalam a){
 		this.a = a;
-		J1 = new Joueur();
-		J1 = new Joueur();
+		J1 = new Joueur(a);
+		J1 = new Joueur(a);
 	}
 	
 	void calculerCoup(){
