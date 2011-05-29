@@ -16,10 +16,10 @@ public class Jeu{
 	static final int BOTLVL2=2;
 	static final int BOTLVL3=3;
 	static final int RESEAU =4;
-	
+
 	static final int JOUEUR1=0;
 	static final int JOUEUR2=1;
-	
+
 	public Jeu(Avalam a){
 		this.a = a;
 		J1 = new Joueur(a);
@@ -40,7 +40,7 @@ public class Jeu{
 		J2.type=BOTLVL1;
 		J2.joueur=JOUEUR2;
 	}
-	
+
 	void changerJoueur(){
 		joueurCourant = (joueurCourant+1) %2;
 	}
