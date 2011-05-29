@@ -184,8 +184,9 @@ public class Avalam{
 				// puis on joue directement
 				etat=ACTUALISER;
 				break;
-			
-			//TODO lors de la fermeture de la popup sauver soit 
+
+
+			//TODO lors de la fermeture de la popup sauver soit
 			case SAUVER:
 				System.out.println("sauver");
 				etat=etatSuivant;
@@ -234,6 +235,7 @@ public class Avalam{
 				//calcul fin de partie
 				f.m.actualiser();
 				f.g.repaint();
+				f.s.actualiser();
 				etat=etatSuivant;
 				break;
 

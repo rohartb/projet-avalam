@@ -87,35 +87,8 @@ class Fenetre extends JFrame implements Runnable{
 		this.add(g);
 
 		//ajout barre status
-		StatusBarPanel PanelTemps = new StatusBarPanel() ;
-		PanelTemps.setPanelWidth(10);
-		PanelTemps.setWidthFixed(true);
-		PanelTemps.setPanelBorder();
-		PanelTemps.setLayout(new BorderLayout());
-		//temps.setHorizontalAlignment(JLabel.CENTER);
-		PanelTemps.add(new JLabel ("Blabla time"));
-
-		StatusBarPanel PanelCoups = new StatusBarPanel() ;
-		PanelCoups.setPanelWidth(100);
-		PanelCoups.setWidthFixed(false);
-		PanelCoups.setPanelBorder();
-		PanelCoups.setLayout(new BorderLayout());
-		//m.coupsRestants.setHorizontalAlignment(JLabel.CENTER);
-		PanelCoups.add(new JLabel("Score restant"));
-
-		StatusBarPanel PanelMode = new StatusBarPanel() ;
-		PanelMode.setPanelWidth(100);
-		PanelMode.setWidthFixed(true);
-		PanelMode.setPanelBorder();
-		PanelMode.setLayout(new BorderLayout());
-		//m.mode.setHorizontalAlignment(JLabel.CENTER);
-		PanelMode.add(new JLabel("Blabla mode"));
-		StatusBarPanel[] BarStatut = {PanelTemps, PanelCoups,PanelMode};
-
-		s = new StatusBar(BarStatut);
+		s = new StatusBar(a);
 		this.add(s, BorderLayout.SOUTH);
-
-
 
 		//ajout ecouteurs
 		g.addMouseMotionListener(es);
