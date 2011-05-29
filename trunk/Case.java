@@ -3,12 +3,12 @@ import java.lang.String;
 public class Case{
 
 	private String contenu;
-	
+
 	//constructeur
 	public Case(String c){
 		contenu = c;
 	}
-	
+
 	public String getContenu(){
 		return contenu;
 	}
@@ -25,7 +25,7 @@ public class Case{
 		return contenu.charAt(0);
 	}
 
-	
+
 	public boolean estVide(){
 		return contenu.length()==0;
 	}
