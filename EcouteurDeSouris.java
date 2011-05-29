@@ -2,8 +2,8 @@ import java.awt.event.*;
 import java.awt.*;
 
 class EcouteurDeSouris implements MouseListener, MouseMotionListener{
-	Avalam a;	
-	
+	Avalam a;
+
 	boolean actif;
 	//TerrainGraphique tg;
 	EcouteurDeSouris(Avalam a){
@@ -11,7 +11,17 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener{
 	}
 
 	public void mousePressed(MouseEvent e){
-		a.f.g.click=new Point(e.getX(),e.getY());
+		int x = e.getX();
+		int y = e.getY();
+		a.f.g.click=new Point(x,y);
+		a.f.g.animation = true;
+
+		Point xy = new Point(x,y);
+		Point lc = a.f.g.coordToIndince(xy);
+		a.f.g.resetBIFondAnimation(lc);
+		a.f.g.setPlusXY(xy,lc);
+		a.f.g.setXYAnimation(x,y);
+		a.f.g.repaint();
 		a.etat=a.JOUERMANU;
 		a.unpause();
 	}
@@ -19,12 +29,16 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener{
 
 	public void mouseReleased(MouseEvent e){
 		a.f.g.release=new Point(e.getX(),e.getY());
+		a.f.g.animation = false;
+		a.f.g.repaint();
 		a.unpause();
 	}
 
 	public void mouseDragged(MouseEvent e){
 		int x =(int) e.getX();
 		int y =(int) e.getY();
+		a.f.g.setXYAnimation(x,y);
+		a.f.g.repaint();
 	}
 
 
