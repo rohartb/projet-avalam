@@ -6,9 +6,9 @@ import java.util.*;
 class TerrainGraphique extends JComponent{
 	Avalam a;
 
-	//Theme th
 	public Terrain t;
 	public int N;
+	public int theme;
 
 	public int tailleCase,gapV,gapH;
 	public Dimension p;
@@ -25,6 +25,7 @@ class TerrainGraphique extends JComponent{
 		N=a.t.TAB_SIZE;
 		click=null;
 		release=null;
+		theme =1;
 	}
 
 	//methode qui calcule le "coté" du plateau
@@ -65,7 +66,7 @@ class TerrainGraphique extends JComponent{
 		x=coord.x;
 		y=coord.y;
 		drawable.fillOval(x+tailleCase/6, y+tailleCase/6, (int) (tailleCase*0.7), (int) (tailleCase*0.7));
-		drawable.setPaint(Color.white);
+		drawable.setPaint(Themes.getCouleurChiffre(theme));
 		drawable.setFont(new Font("Garuda", 0, tailleCase/3));
 		drawable.drawString("" + t.plateau[i][j].getTaille(),x+2*tailleCase/5, y+3*tailleCase/5);
 	}
@@ -75,7 +76,7 @@ class TerrainGraphique extends JComponent{
 		Point coord = indiceToCoord(new Point(i,j));
 		x=coord.x;
 		y=coord.y;
-		drawable.setPaint(Color.gray);
+		drawable.setPaint(Themes.getCouleurVide(theme));
 		drawable.fillOval(x+tailleCase/4, y+tailleCase/4, tailleCase/2, tailleCase/2);
 	}
 
@@ -83,18 +84,18 @@ class TerrainGraphique extends JComponent{
 		BIFondAnimation = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D drawable = BIFondAnimation.createGraphics();
 		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		drawable.setPaint(Color.black);
+		drawable.setPaint(Themes.getCouleurFond(theme));
 		drawable.fillRect(0,0, getSize().width, getSize().height);
-		drawable.setPaint(Color.black);
+		//drawable.setPaint(Color.black);
 
 		for (int i=0; i<N; i++) {
 			for (int j=0; j<N; j++) {
 				if (!t.plateau[i][j].estVide() && (i!=lc.x || j!=lc.y)){
 					if (t.plateau[i][j].estJ1()) {
-						drawable.setPaint(Color.blue);
+						drawable.setPaint(Themes.getCouleurPionJ1(theme));
 						dessineCase(i, j, drawable);
 					} else if (t.plateau[i][j].estJ2()) {
-						drawable.setPaint(Color.red);
+						drawable.setPaint(Themes.getCouleurPionJ2(theme));
 						dessineCase(i, j, drawable);
 					}
 				} else {
@@ -111,7 +112,6 @@ class TerrainGraphique extends JComponent{
 		plusY = p.y - xy.y;
 		lAnimation = lc.x;
 		cAnimation = lc.y;
-		System.out.println(plusX + " " + plusY + " " + lAnimation + " " + cAnimation);
 	}
 
 	public void setXYAnimation(int x, int y) {
@@ -131,16 +131,16 @@ class TerrainGraphique extends JComponent{
 		int largeur = p.width;
 
 		if (!animation) {
-			drawable.setPaint(Color.black);
+			drawable.setPaint(Themes.getCouleurFond(theme));
 			drawable.fillRect(0,0, largeur, hauteur);
 			for(int i=0; i<N; i++){
 				for(int j=0; j<N; j++){
 					if(!t.plateau[i][j].estVide()){
 						if(t.plateau[i][j].estJ1()){
-							drawable.setPaint(Color.blue);
+							drawable.setPaint(Themes.getCouleurPionJ1(theme));
 							dessineCase(i,j,drawable);
 						}else if(t.plateau[i][j].estJ2()){
-							drawable.setPaint(Color.red);
+							drawable.setPaint(Themes.getCouleurPionJ2(theme));
 							dessineCase(i,j,drawable);
 						}
 					} else {
@@ -151,16 +151,16 @@ class TerrainGraphique extends JComponent{
 		} else {
 			drawable.drawImage(BIFondAnimation, 0, 0, null);
 			if (t.plateau[lAnimation][cAnimation].estJ1()) {
-				drawable.setPaint(Color.blue);
+				drawable.setPaint(Themes.getCouleurPionJ1(theme));
 			} else if (t.plateau[lAnimation][cAnimation].estJ2()) {
-				drawable.setPaint(Color.red);
+				drawable.setPaint(Themes.getCouleurPionJ2(theme));
 			}
 
 			// dessine le pion en déplacement
 			drawable.fillOval(xAnimation+plusX+tailleCase/6, yAnimation+plusY+tailleCase/6,
 			                  (int) (tailleCase*0.7), (int) (tailleCase* 0.7));
 			drawable.setFont(new Font("Garuda", 0, 2*tailleCase/6));
-			drawable.setPaint(Color.white);
+			drawable.setPaint(Themes.getCouleurChiffre(theme));
 			drawable.drawString("" + t.plateau[lAnimation][cAnimation].getTaille(),
 			                    xAnimation+plusX+2*tailleCase/5, yAnimation+plusY+3*tailleCase/5);
 		}
