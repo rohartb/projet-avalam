@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 class MenuAvalam extends JMenuBar{
 	Avalam a;
-	
+
 	JMenu avalam;
 	JMenuItem nouveau, pause, sauvegarder, charger, abandonner, options, quitter;
 	JMenu edition;
@@ -17,7 +17,7 @@ class MenuAvalam extends JMenuBar{
 	MenuAvalam(Avalam a){
 		this.a=a;
 		EcouteurDeMenu em = a.f.em;
-		
+
 		avalam = new JMenu("Avalam");
 		avalam.setMnemonic(KeyEvent.VK_A);
 		nouveau = new JMenuItem("Nouveau");
@@ -109,7 +109,7 @@ class MenuAvalam extends JMenuBar{
 		aide.add(regle);
 		this.add(regle);
 	}
-	
+
 	void actualiser(){
 		annuler.setEnabled(!a.j.h.annulerVide());
 		rejouer.setEnabled(!a.j.h.rejouerVide());

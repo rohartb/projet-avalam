@@ -53,7 +53,7 @@ public class Options extends JDialog{
 
 		this.setResizable(false);
 		this.addWindowListener(eo);
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 
 		/// CHOIX

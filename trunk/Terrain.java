@@ -9,7 +9,7 @@ public class Terrain{
 	public  Terrain(){
 		init();
 	}
-	
+
 	void init(){
 		plateau = new Case[][] {
 			{new Case("X"), new Case("X"), new Case("X"), new Case("X"), new Case("B"), new Case("N"), new Case("X"), new Case("X"), new Case("X")},
@@ -23,7 +23,7 @@ public class Terrain{
 			{new Case("X"), new Case("X"), new Case("X"), new Case("N"), new Case("B"), new Case("X"), new Case("X"), new Case("X"), new Case("X")}
 		};
 	}
-	
+
 	//methodes de tests
 	boolean estPossible(Coups c){
 		if(estAdjacent(c.pDep.x,c.pDep.y,c.pArr.x,c.pArr.y)
@@ -31,7 +31,7 @@ public class Terrain{
 			return 	true;
 		else
 			return false;
-	}	
+	}
 	//Verifie que la case de destination est adjacente à la case source
 	// (donc qu'elles sont différentes
 	// Et qu'elle n'est pas vide
@@ -48,12 +48,12 @@ public class Terrain{
 	public boolean estInferieurASix(int lSource, int cSource, int lDest, int cDest) {
 		return (plateau[lSource][cSource].getTaille()+plateau[lDest][cDest].getTaille() <= 5);
 	}
-	
+
 	public boolean resteDeplacement(){
 		return nbDeplRestant()==0;
 	}
-	
-	
+
+
 	//deplacements
 	public void deplacer(int lSource, int cSource, int lDest, int cDest){
 		plateau[lDest][cDest].setContenu(plateau[lSource][cSource].getContenu()+plateau[lDest][cDest].getContenu());
@@ -67,13 +67,13 @@ public class Terrain{
 		plateau[lDest][cDest].setContenu(plateau[lSource][cSource].getContenu()+plateau[lDest][cDest].getContenu());
 		plateau[lSource][cSource].setContenu("");
 	}
-	
+
 	public void annuler(ElemHist e){
 		plateau[e.lSource][e.cSource].setContenu(e.Source);
 		plateau[e.lDest][e.cDest].setContenu(e.Dest);
 	}
-	
-	
+
+
 	//renvoi une liste de point
 	public LinkedList<Point> adjacents(int i, int j){
 		LinkedList<Point> list = new LinkedList<Point>();
@@ -94,7 +94,7 @@ public class Terrain{
 		}
 	return list;
 	}
-	
+
 	public int nbDeplRestant(){
 		int nbCoups = 0;
 		int i,j;

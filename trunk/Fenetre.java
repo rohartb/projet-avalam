@@ -7,6 +7,7 @@ class Fenetre extends JFrame implements Runnable{
 
 	MenuAvalam m;
 
+	Apparence app;
 	EcouteurDeMenu em;
 	EcouteurDeSouris es;
 	EcouteurDeFenetre ef;
@@ -97,6 +98,7 @@ class Fenetre extends JFrame implements Runnable{
 
 		// Creation des popups
 		o = new Options(a);
+		app = new Apparence(a);
 
 		//action fermeture fenetre
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

@@ -6,7 +6,7 @@ import java.text.*;
 
 class EcouteurDeMenu implements ActionListener{
 	Avalam a;
-	
+
 	EcouteurDeMenu(Avalam a){
 		this.a=a;
 	}
@@ -28,7 +28,7 @@ class EcouteurDeMenu implements ActionListener{
 			a.unpause();
 		}else if(cmd.equals("charger")){
 			a.etat=a.CHARGER;
-			a.unpause();			
+			a.unpause();
  		}else if(cmd.equals("sauvegarder")){
 			a.etat=a.SAUVER;
 			a.unpause();
@@ -48,12 +48,12 @@ class EcouteurDeMenu implements ActionListener{
 			a.etat=a.REJOUER;
 			a.unpause();
 		}else if(cmd.equals("apparence")){
-			a.etat=a.etatSuivant;
+			a.etat=a.APPARENCE;
 			a.unpause();
 		}else if(cmd.equals("aide")){
-		
-		}else if(cmd.equals("regle")){		
-			
+
+		}else if(cmd.equals("regle")){
+
 		}else if(cmd.equals("pleinEcran")){
 			a.f.pleinEcran();
 		}else{

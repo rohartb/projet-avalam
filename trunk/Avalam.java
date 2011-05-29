@@ -206,6 +206,7 @@ public class Avalam{
 
 			case APPARENCE:
 				System.out.println("apparence");
+				f.app.afficherApparence();
 				etat=etatSuivant;
 				break;
 
