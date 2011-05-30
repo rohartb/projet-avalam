@@ -10,6 +10,7 @@ public class Jeu{
 	boolean pause;
 	int joueurCourant;
 	int nbCoupsRestants;
+	int mode;
 
 	static final int HUMAIN =0;
 	static final int BOTLVL1=1;
@@ -17,8 +18,8 @@ public class Jeu{
 	static final int BOTLVL3=3;
 	static final int RESEAU =4;
 
-	static final int JOUEUR1=0;
-	static final int JOUEUR2=1;
+	static final int JOUEUR1=1;
+	static final int JOUEUR2=2;
 
 	public Jeu(Avalam a){
 		this.a = a;

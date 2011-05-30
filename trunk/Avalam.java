@@ -6,8 +6,10 @@ public class Avalam{
 	Thread thFenetre;
 	Terrain t;
 	Jeu j;
+	Sauvegarde s;
 
 	static final int INIT=-1;
+	
 	static final int NOUVEAU=1;
 	static final int JEU=2;
 	static final int PAUSE=3;
@@ -28,12 +30,11 @@ public class Avalam{
 	static final int FIN=14;
 	static final int OPTIONS=15;
 	static final int APPARENCE=17;
-
-
+	
 	static final int QUITTER=42;
 
 
-	int etat,etatSuivant;
+	int etat,etatSuivant,etatPause;
 
 	public static void main(String[] args) {
 		new Avalam();
@@ -43,14 +44,6 @@ public class Avalam{
 		try{
 			//System.out.println("pause");
 			this.wait();
-		}catch(InterruptedException e){
-			System.out.println(e);
-		}
-	}
-
-	synchronized void pause(int time){
-		try{
-			this.wait(time);
 		}catch(InterruptedException e){
 			System.out.println(e);
 		}
@@ -78,6 +71,7 @@ public class Avalam{
 				t = new Terrain();
 				j = new Jeu(this);
 				f = new Fenetre(this);
+				s = new Sauvegarde(this);
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();
@@ -120,9 +114,12 @@ public class Avalam{
 			case PAUSE:
 				System.out.println("pause");
 				j.pause=true;
+				etatPause=etatSuivant;
 				f.m.actualiser();
 				pause();
 				j.pause=false;
+				etatSuivant=etatPause;
+				etat=ACTUALISER;
 				break;
 
 				//fin de partie
@@ -192,6 +189,7 @@ public class Avalam{
 			//TODO lors de la fermeture de la popup sauver soit
 			case SAUVER:
 				System.out.println("sauver");
+				s.sauver();
 				etat=etatSuivant;
 				break;
 
@@ -237,7 +235,7 @@ public class Avalam{
 				System.out.println("actualiser");
 				//calcul score
 				//calcul fin de partie
-				f.m.actualiser();
+				
 				f.g.repaint();
 				j.nbCoupsRestants = t.nbDeplRestant();
 				f.s.actualiser();
