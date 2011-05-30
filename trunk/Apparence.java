@@ -6,6 +6,7 @@ public class Apparence extends JDialog {
 	Avalam a;
 	EcouteurDApparence ea;
 	int dimension;
+	JComboBox ComboTheme;
 
 	public Apparence(Avalam a) {
 		this.a = a;
@@ -18,7 +19,7 @@ public class Apparence extends JDialog {
 		// class de gestion de l'apparence du jeu
 		String[] themeStrings = {"Theme 1", "Theme 2", "Theme 3"};
 
-		JComboBox ComboTheme = new JComboBox(themeStrings);
+		ComboTheme = new JComboBox(themeStrings);
 		if ( a.f.g.theme == Themes.THEME1 )
 			ComboTheme.setSelectedIndex(0);
 		else if ( a.f.g.theme == Themes.THEME2 )
@@ -104,5 +105,10 @@ public class Apparence extends JDialog {
 
 	public void afficherApparence() {
 		this.setVisible(true);
+	}
+
+	public void fermerApparence() {
+		this.setVisible(false);
+		ComboTheme.setSelectedIndex(a.f.g.theme-1);
 	}
 }

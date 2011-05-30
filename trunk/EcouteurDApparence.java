@@ -11,7 +11,6 @@ public class EcouteurDApparence implements ActionListener,
 
 	private int themeTmp;
 
-
 	public EcouteurDApparence(Avalam a, Apparence app) {
 		this.a   = a;
 		this.app = app;
@@ -43,6 +42,7 @@ public class EcouteurDApparence implements ActionListener,
 		cmd = e.getActionCommand() ;
 		if (cmd.equals("ok")) {
 			//ap.getMoteur().sp.sauvegarder();
+			app.fermerApparence();
 			app.setVisible(false);
 			themeTmp = -1;
 		} else if (cmd.equals("annuler")) {
@@ -50,8 +50,7 @@ public class EcouteurDApparence implements ActionListener,
 				a.f.g.theme = themeTmp;
 				a.f.g.repaint();
 			}
-			app.setVisible(false);
-
+			app.fermerApparence();
 			themeTmp = -1;
 		}
 	}
@@ -77,7 +76,7 @@ public class EcouteurDApparence implements ActionListener,
 				a.f.g.theme = themeTmp;
 				a.f.g.repaint();
 			}
-			app.setVisible(false);
+			app.fermerApparence();
 			themeTmp = -1;
 	}
 

@@ -81,7 +81,6 @@ public class EcouteurDOptions implements ActionListener,
 
 	//// Ecouteur du texte tapé pr les noms
 	public void keyReleased(KeyEvent e) {
-
 		JTextField tf = (JTextField) e.getSource();
 
 		if (tf == o.TextFieldNomJ1) {
@@ -129,7 +128,7 @@ public class EcouteurDOptions implements ActionListener,
 		//Changement des params sur le joueur actuel
 		a.j.J1.type = o.typeJ1;
 		a.j.J2.type = o.typeJ2;
-		o.setVisible(false);
+		o.fermerOptions();
 		//a.etat = a.ACTUALISER;
 	}
 
@@ -143,16 +142,18 @@ public class EcouteurDOptions implements ActionListener,
 		o.nomJ2Tmp  = o.nomJ2;
 		o.typeJ1Tmp = o.typeJ1;
 		o.typeJ2Tmp = o.typeJ2;
+
 		a.unpause();
-		System.out.println("unpause");
-		o.setVisible(false);
+		o.fermerOptions();
 	}
 
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent e) {}
 
+	public void windowClosing(WindowEvent e) {
+		o.fermerOptions();
 	}
 
-	public void windowClosing      (WindowEvent e) {}
+
 	public void windowOpened       (WindowEvent e) {}
 	public void windowIconified    (WindowEvent e) {}
 	public void windowDeiconified  (WindowEvent e) {}
@@ -161,4 +162,5 @@ public class EcouteurDOptions implements ActionListener,
 	public void windowGainedFocus  (WindowEvent e) {}
 	public void windowLostFocus    (WindowEvent e) {}
 	public void windowStateChanged (WindowEvent e) {}
+
 }
