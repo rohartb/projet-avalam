@@ -68,13 +68,17 @@ public class EcouteurDApparence implements ActionListener,
 
 	public void windowClosed(WindowEvent e) {
 		// gestion de la validation des param
-		a.f.g.theme = themeTmp;
-		a.f.g.repaint();
-		themeTmp = -1;
 	}
 
-	public void windowClosing      (WindowEvent e) {
 
+	public void windowClosing      (WindowEvent e) {
+		// Quand on clic sur la croix (revient à faire annuler)
+			if (themeTmp != -1) {
+				a.f.g.theme = themeTmp;
+				a.f.g.repaint();
+			}
+			app.setVisible(false);
+			themeTmp = -1;
 	}
 
 	public void windowOpened       (WindowEvent e) {}

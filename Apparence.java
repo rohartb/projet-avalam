@@ -83,6 +83,8 @@ public class Apparence extends JDialog {
 		OkAnnuler.add(Ok);
 
 		ApparencePanel.add(OkAnnuler, BorderLayout.SOUTH);
+
+		this.addWindowListener(ea);
 		this.add(ApparencePanel);
 		this.validate();
 		this.pack();
