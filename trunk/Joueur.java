@@ -1,7 +1,7 @@
 public class Joueur{
 	Avalam a;
 	
-	Skynet s;
+	Bot b;
 
 	String nom;
 	int type;
