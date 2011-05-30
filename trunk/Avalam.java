@@ -20,7 +20,7 @@ public class Avalam{
 	static final int REJOUER=10;
 	static final int ABANDONNER=11;
 	static final int ACTUALISER=12;
-	
+
 	//popups
 	//pour les popup on reviens a l'etat sauvegardé dans etatSuivant
 	static final int CHARGER=100;
@@ -159,6 +159,8 @@ public class Avalam{
 				if(t.estPossible(j.c)){
 					etat=JOUER;
 				}else{
+					if (f.g.release.x != f.g.click.x)
+						f.g.animationRetourPion();
 					etat=JEU;
 				}
 				break;

@@ -32,6 +32,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener{
 		a.f.g.animation = false;
 		a.f.g.repaint();
 		a.unpause();
+
 	}
 
 	public void mouseDragged(MouseEvent e){
