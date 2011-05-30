@@ -11,6 +11,5 @@ public class Joueur{
 		this.a=a;
 	}
 	
-	
 }
 
