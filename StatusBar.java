@@ -1,5 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
+import java.text.*;
+import java.sql.*;
 
 public class StatusBar extends JPanel {
 	Avalam a;
@@ -9,8 +11,22 @@ public class StatusBar extends JPanel {
 	public StatusBarPanel[] panels;
 	private static final long serialVersionUID = 1L;
 
+	SimpleDateFormat sdf;
+	Time start;
+	JLabel labelTemps;
+	Timer timer;
+
 	public StatusBar(Avalam a) {
 		super();
+
+		sdf = new SimpleDateFormat("mm:ss");
+		start = new Time(0);
+		EcouteurDeTimer et = new EcouteurDeTimer(this);
+		timer = new Timer(1000, et);
+		timer.setActionCommand("ticseconde");
+		labelTemps = new JLabel("  " + sdf.format(start));
+		timer.start();
+
 		this.a = a;
 		PanelTemps = new StatusBarPanel() ;
 		PanelTemps.setPanelWidth(10);
@@ -18,7 +34,7 @@ public class StatusBar extends JPanel {
 		PanelTemps.setPanelBorder();
 		PanelTemps.setLayout(new BorderLayout());
 		//temps.setHorizontalAlignment(JLabel.CENTER);
-		PanelTemps.add(new JLabel ("Blabla time"));
+		PanelTemps.add(labelTemps);
 
 		PanelCoups = new StatusBarPanel() ;
 		PanelCoups.setPanelWidth(100);
