@@ -119,6 +119,58 @@ class TerrainGraphique extends JComponent{
 		yAnimation = y;
 	}
 
+
+	public void animationRetourPion() {
+		Point lc = new Point(lAnimation, cAnimation);
+		Point xyDestination = indiceToCoord(lc);
+		int xDestination = xyDestination.x-plusX;
+		int yDestination = xyDestination.y-plusY;
+		int xSrc = release.x;
+		int ySrc = release.y;
+		animation = true;
+		float direction = (yDestination - ySrc) / (xDestination - xSrc);
+		while (xDestination != xSrc || yDestination != ySrc) {
+			direction = Math.abs(direction);
+			// System.out.println("direction : " + direction + " " +
+			//                    xDestination + " " + xSrc + "  " +
+			//                    yDestination + " " + ySrc);
+
+			if (direction < 1) {
+				if (xDestination > xSrc)
+					xSrc++;
+				else if (xDestination < xSrc)
+					xSrc--;
+			} else if (direction > 1) {
+				if (yDestination > ySrc)
+					ySrc++;
+				else if (yDestination < ySrc)
+					ySrc--;
+			} else {
+				if (xDestination > xSrc)
+					xSrc++;
+				else if (xDestination < xSrc)
+					xSrc--;
+				if (yDestination > ySrc)
+					ySrc++;
+				else if (yDestination < ySrc)
+					ySrc--;
+			}
+			xAnimation = xSrc;
+			yAnimation = ySrc;
+			repaint();
+			try {
+				a.thFenetre.sleep(5);
+			} catch (InterruptedException e) {}
+
+			if ( xDestination - xSrc == 0)
+				break;
+			else
+				direction = (yDestination - ySrc) / (xDestination - xSrc);
+		}
+		animation = false;
+	}
+
+
 	public void paintComponent(Graphics g){
 		calculTaille();
 
