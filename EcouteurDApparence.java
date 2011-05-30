@@ -48,8 +48,10 @@ public class EcouteurDApparence implements ActionListener,
 		} else if (cmd.equals("annuler")) {
 			if (themeTmp != -1) {
 				a.f.g.theme = themeTmp;
+				a.f.g.repaint();
 			}
 			app.setVisible(false);
+
 			themeTmp = -1;
 		}
 	}
