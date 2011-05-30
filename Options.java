@@ -307,6 +307,61 @@ public class Options extends JDialog{
 		this.setVisible(true);
 	}
 
+	public void fermerOptions() {
+		if(typeJ1 == Jeu.HUMAIN) {
+			humain1.setSelected(true);
+			machine1.setSelected(false);
+			n10.setEnabled(false);
+			n11.setEnabled(false);
+			n12.setEnabled(false);
+		} else if (typeJ1 == Jeu.BOTLVL1) {
+			n10.setSelected(true);
+			n10.setEnabled(true);
+			n11.setEnabled(true);
+			n12.setEnabled(true);
+			machine1.setSelected(true);
+		} else if (typeJ1 == Jeu.BOTLVL2) {
+			n11.setSelected(true);
+			n10.setEnabled(true);
+			n11.setEnabled(true);
+			n12.setEnabled(true);
+			machine1.setSelected(true);
+		} else if (typeJ1 == Jeu.BOTLVL3) {
+			n10.setEnabled(true);
+			n10.setEnabled(true);
+			n11.setEnabled(true);
+			n12.setSelected(true);
+			machine1.setSelected(true);
+		}
+
+		if(typeJ2 == Jeu.HUMAIN) {
+			humain2.setSelected(true);
+			machine2.setSelected(false);
+			n20.setEnabled(false);
+			n21.setEnabled(false);
+			n22.setEnabled(false);
+		} else if (typeJ2 == Jeu.BOTLVL1) {
+			machine2.setSelected(true);
+			n20.setSelected(true);
+			n20.setEnabled(true);
+			n21.setEnabled(true);
+			n22.setEnabled(true);
+		} else if (typeJ2 == Jeu.BOTLVL2){
+			machine2.setSelected(true);
+			n21.setSelected(true);
+			n20.setEnabled(true);
+			n21.setEnabled(true);
+			n22.setEnabled(true);
+		} else if (typeJ2 == Jeu.BOTLVL3) {
+			machine2.setSelected(true);
+			n22.setSelected(true);
+			n20.setEnabled(true);
+			n21.setEnabled(true);
+			n22.setEnabled(true);
+		}
+		this.setVisible(false);
+	}
+
 
 	public static boolean estRobot(int type) {
 		return ( type == Jeu.BOTLVL1 || type == Jeu.BOTLVL2 ||
