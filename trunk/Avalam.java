@@ -237,6 +237,7 @@ public class Avalam{
 				//calcul fin de partie
 				f.m.actualiser();
 				f.g.repaint();
+				j.nbCoupsRestants = t.nbDeplRestant();
 				f.s.actualiser();
 				etat=etatSuivant;
 				break;
