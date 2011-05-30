@@ -107,7 +107,7 @@ class MenuAvalam extends JMenuBar{
 		regle.addActionListener(em);
 		regle.setMnemonic(KeyEvent.VK_R);
 		aide.add(regle);
-		this.add(regle);
+		this.add(aide);
 	}
 
 	void actualiser(){
