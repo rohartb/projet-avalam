@@ -14,16 +14,18 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener{
 		int x = e.getX();
 		int y = e.getY();
 		a.f.g.click=new Point(x,y);
-		a.f.g.animation = true;
 
 		Point xy = new Point(x,y);
 		Point lc = a.f.g.coordToIndince(xy);
-		a.f.g.resetBIFondAnimation(lc);
-		a.f.g.setPlusXY(xy,lc);
-		a.f.g.setXYAnimation(x,y);
-		a.f.g.repaint();
-		a.etat=a.JOUERMANU;
-		a.unpause();
+		if (a.t.plateau[lc.x][lc.y].estOccupee()) {
+			a.f.g.animation = true;
+			a.f.g.resetBIFondAnimation(lc);
+			a.f.g.setPlusXY(xy,lc);
+			a.f.g.setXYAnimation(x,y);
+			a.f.g.repaint();
+			a.etat=a.JOUERMANU;
+			a.unpause();
+		}
 	}
 
 
@@ -36,10 +38,12 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener{
 	}
 
 	public void mouseDragged(MouseEvent e){
-		int x =(int) e.getX();
-		int y =(int) e.getY();
-		a.f.g.setXYAnimation(x,y);
-		a.f.g.repaint();
+		if (a.f.g.animation) {
+			int x =(int) e.getX();
+			int y =(int) e.getY();
+			a.f.g.setXYAnimation(x,y);
+			a.f.g.repaint();
+		}
 	}
 
 
