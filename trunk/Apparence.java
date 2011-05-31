@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class Apparence extends JDialog {
 	Avalam a;
@@ -110,5 +111,24 @@ public class Apparence extends JDialog {
 	public void fermerApparence() {
 		this.setVisible(false);
 		ComboTheme.setSelectedIndex(a.f.g.theme-1);
+	}
+	
+	public void sauver(){
+		try {
+			File config = new File(System.getProperty("user.home")+"/.Avalam/Config/");
+			if(!config.exists())
+				config.mkdir();
+			File f = new File(System.getProperty("user.home")+"/.Avalam/Config/apparence.cfg");
+			f.setWritable(true);
+			
+			String s = "";
+
+			s += a.f.g.theme;
+
+			FileOutputStream o = new FileOutputStream(f);
+			PrintStream ps = new PrintStream(f);
+			ps.print(s);
+			f.setReadOnly();
+		} catch (FileNotFoundException ex) {}
 	}
 }

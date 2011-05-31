@@ -1,3 +1,6 @@
+import java.util.*;
+import java.io.*;
+
 public class Jeu{
 	Avalam a;
 
@@ -10,7 +13,7 @@ public class Jeu{
 	boolean pause;
 	int joueurCourant;
 	int nbCoupsRestants;
-	int mode;
+	boolean modeNormal;
 
 	static final int HUMAIN =0;
 	static final int BOTLVL1=1;
@@ -40,10 +43,26 @@ public class Jeu{
 		finPartie=false;
 		pause=false;
 		h = new Historique();
-		J1.type=HUMAIN;
-		J1.joueur=JOUEUR1;
-		J2.type=BOTLVL1;
-		J2.joueur=JOUEUR2;
+		File option = new File(System.getProperty("user.home")+"/.Avalam/Config/options.cfg");
+		if(!option.exists()){
+			J1.type=HUMAIN;
+			J1.joueur=JOUEUR1;
+			J1.nom="Joueur 1";
+			J2.type=BOTLVL1;
+			J2.joueur=JOUEUR2;
+			J2.nom="Jôzay";
+		}else{
+			try{
+				FileInputStream in = new FileInputStream(option);
+				Scanner s = new Scanner(in);
+				J1.type = s.nextInt();
+				J2.type = s.nextInt();
+				modeNormal = s.nextBoolean();
+				s.nextLine();
+				J1.nom = s.nextLine();
+				J2.nom = s.nextLine();
+			}catch(FileNotFoundException e){}			
+		}
 		a.f.s.initTimer();
 	}
 
@@ -68,5 +87,26 @@ public class Jeu{
 		finPartie = nbCoupsRestants == 0;
 			
 	}
+	
+	public void sauverOptions(){
+		try {
+			File config = new File(System.getProperty("user.home")+"/.Avalam/Config/");
+			if(!config.exists())
+				config.mkdir();
+			File f = new File(System.getProperty("user.home")+"/.Avalam/Config/options.cfg");
+			f.setWritable(true);
+			String s = "";
+		
+			s += J1.type +" "+ J2.type +" "+a.j.modeNormal+"\n";
+			s += J1.nom +"\n";
+			s += J2.nom +"\n";
+
+			FileOutputStream o = new FileOutputStream(f);
+			PrintStream ps = new PrintStream(f);
+			ps.print(s);
+			f.setReadOnly();
+		} catch (FileNotFoundException ex) {}
+	}
+	
 }
 
