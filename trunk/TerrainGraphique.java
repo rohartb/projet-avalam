@@ -123,36 +123,34 @@ class TerrainGraphique extends JComponent{
 	public void animationRetourPion() {
 		Point lc = new Point(lAnimation, cAnimation);
 		Point xyDestination = indiceToCoord(lc);
-		int xDestination = xyDestination.x-plusX;
-		int yDestination = xyDestination.y-plusY;
+		int xDes = xyDestination.x-plusX;
+		int yDes = xyDestination.y-plusY;
 		int xSrc = release.x;
 		int ySrc = release.y;
+		float coef = (float)(xDes-xSrc)/(yDes-ySrc);
+		System.out.println(coef);
 		animation = true;
-		float direction = (yDestination - ySrc) / (xDestination - xSrc);
-		while (xDestination != xSrc || yDestination != ySrc) {
+		float direction = (yDes - ySrc) / (xDes - xSrc);
+		while (xDes != xSrc || yDes != ySrc) {
 			direction = Math.abs(direction);
-			// System.out.println("direction : " + direction + " " +
-			//                    xDestination + " " + xSrc + "  " +
-			//                    yDestination + " " + ySrc);
-
 			if (direction < 1) {
-				if (xDestination > xSrc)
+				if (xDes > xSrc)
 					xSrc++;
-				else if (xDestination < xSrc)
+				else if (xDes < xSrc)
 					xSrc--;
 			} else if (direction > 1) {
-				if (yDestination > ySrc)
-					ySrc++;
-				else if (yDestination < ySrc)
-					ySrc--;
+				if (yDes > ySrc)
+					ySrc+=coef;
+				else if (yDes < ySrc)
+					ySrc+=coef;
 			} else {
-				if (xDestination > xSrc)
+				if (xDes > xSrc)
 					xSrc++;
-				else if (xDestination < xSrc)
+				else if (xDes < xSrc)
 					xSrc--;
-				if (yDestination > ySrc)
+				if (yDes > ySrc)
 					ySrc++;
-				else if (yDestination < ySrc)
+				else if (yDes < ySrc)
 					ySrc--;
 			}
 			xAnimation = xSrc;
@@ -162,10 +160,10 @@ class TerrainGraphique extends JComponent{
 				a.thFenetre.sleep(5);
 			} catch (InterruptedException e) {}
 
-			if ( xDestination - xSrc == 0)
+			if ( xDes - xSrc == 0)
 				break;
 			else
-				direction = (yDestination - ySrc) / (xDestination - xSrc);
+				direction = (yDes - ySrc) / (xDes - xSrc);
 		}
 		animation = false;
 	}
