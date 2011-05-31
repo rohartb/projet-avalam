@@ -1,14 +1,18 @@
 import javax.swing.*;
 import java.awt.Point;
 import java.io.File;
+import java.net.*;
 
 public class Avalam{
 	Fenetre f;
 	Thread thFenetre;
+	Thread thServeur;
+	Thread thReseau;
 	Terrain t;
 	Jeu j;
+	Reseau r;
 	Sauvegarde s;
-	Regle r;
+	Serveur serv;
 	boolean quit;
 
 	static final int INIT=-1;
@@ -26,12 +30,14 @@ public class Avalam{
 	static final int ABANDONNER=11;
 	static final int ACTUALISER=12;
 
+
 	//popups
 	//pour les popup on reviens a l'etat sauvegardé dans etatSuivant
 	static final int CHARGER=100;
 	static final int SAUVER=13;
 	static final int FIN=14;
 	static final int OPTIONS=15;
+	static final int CONNEXION=16;
 	static final int APPARENCE=17;
 	static final int REGLE = 24;
 
@@ -72,16 +78,19 @@ public class Avalam{
 				//initialisation
 			case INIT:
 				System.out.println("init");
-				
+
 				//creation du dossier .Avalam s'il n'existe pas
 				File dossier = new File(System.getProperty("user.home")+"/.Avalam");
 				if(!dossier.exists())
-					dossier.mkdir();				
+					dossier.mkdir();
 				t = new Terrain();
 				j = new Jeu(this);
 				f = new Fenetre(this);
 				s = new Sauvegarde(this);
 				quit=false;
+				serv = new Serveur();
+				thServeur = new Thread(serv);
+				thServeur.start();
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();
@@ -100,6 +109,25 @@ public class Avalam{
 				break;
 
 				//verifier l'etat du jeu + attente d'un coup
+
+			case CONNEXION:
+				String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire");
+				try {
+				InetAddress addr = InetAddress.getByName(result);
+				int port = 8100;
+				Socket sock = new Socket(addr, port);
+				r = new Reseau(sock);
+				thReseau = new Thread(r);
+				thReseau.start();
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				// celui qui établie la connexion devient J1
+				// a.j.J1 = Jeu.HUMAIN;
+				// a.j2.J2 = Jeu.RESEAU;
+				// on active le mode match ?
+
+				etat = JEU;
 			case JEU:
 				System.out.println("jeu");
 				if(j.finPartie){
@@ -120,7 +148,7 @@ public class Avalam{
 				}
 				//  if(courant=resau)
 				//  etat=RESEAU;
-				
+
 				// on attend une interraction du joueur humain
 					//atente de la fin du chargement de la fenetre
 				pause();
@@ -227,7 +255,7 @@ public class Avalam{
 				f.app.afficherApparence();
 				etat=etatSuivant;
 				break;
-			
+
 			case REGLE:
 				System.out.println("regle");
 				f.r.afficherRegle();
@@ -269,7 +297,7 @@ public class Avalam{
 				f.s.timer.stop();
 				if(!j.finPartie && !quit){
 					String[] options = {"Sauvegarder" , "Quitter sans sauvegarder" , "Annuler"};
-					int choix  = JOptionPane.showOptionDialog(null, "Quitter Avalam :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0] );
+					int choix  = JOptionPane.showOptionDialog(null, "Quitter Avalam :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
 					if (choix == JOptionPane.YES_OPTION) {
 						etat=SAUVER;
 						etatSuivant=QUITTER;

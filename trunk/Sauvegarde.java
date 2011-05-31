@@ -6,32 +6,32 @@ import java.sql.Time;
 
 class Sauvegarde{
 	Avalam a;
-	
+
 	String path, nom, s;
 	File f;
-	
+
 	public Sauvegarde(Avalam a){
 		this.a = a;
-		
+
 		//creation du dossier .Avalam/Sauvegardes
 		File sauver = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes");
 		if(!sauver.exists())
 			sauver.mkdir();
-			
+
 		path = System.getProperty("user.home")+"/.Avalam/Sauvegardes/";
 	}
-	
-	void sauver(){	
-	
+
+	void sauver(){
+
 		a.f.s.timer.stop();
-		
+
 		nom = (String)JOptionPane.showInputDialog(a.f,"Entrez votre nom de sauvegarde","Sauvegarder",JOptionPane.INFORMATION_MESSAGE, new ImageIcon("Images/icone_sauvegarder.png"), null,a.j.J1.nom);
 		f = new File(path+nom+".save");
 		while(nom!=null && (f.exists() || nom.equals(""))){
 			nom = (String) JOptionPane.showInputDialog(a.f,"Erreur : Fichier déjà existant ou nom vide! \n Entrez un autre nom de sauvegarde","Sauvegarder",JOptionPane.INFORMATION_MESSAGE, new ImageIcon("Images/icone_sauvegarder.png"), null,a.j.J1.nom);
 			f = new File(path+nom+".save");
 		}
-		
+
 		if(nom!=null){
 			s=new String();
 			s += a.j.joueurCourant+" ";
@@ -46,7 +46,7 @@ class Sauvegarde{
 					s += a.t.plateau[i][j].getContenu()+"\n";
 			s += a.j.finPartie+"\n";
 			s += a.j.h.toString();
-		
+
 			try{
 				FileOutputStream o = new FileOutputStream(f);
 				PrintStream ps = new PrintStream(f);
@@ -59,13 +59,13 @@ class Sauvegarde{
 			a.etatSuivant = a.JEU;
 			a.quit=false;
 		}
-		
+
 		a.f.s.timer.start();
 	}
-	
+
 	void charger(){
 		a.f.s.timer.stop();
-		
+
 		//Pour afficher uniquement les .save
 		FilenameFilter ff = new FilenameFilter() {
 			public boolean accept(File f,String name) {
@@ -73,13 +73,13 @@ class Sauvegarde{
 			}
 		};
 		System.out.println("avaant");
-		
+
 		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
 		String st = (String)JOptionPane.showInputDialog(a.f, "Choisissez votre partie à charger","Charger",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("./Images/icone_charger.png"),dossier.list(ff),null);
 		st = System.getProperty("user.home")+"/.Avalam/Sauvegardes/" + st;
 		File f = new File(st);
 		System.out.println(f.getPath());
-		
+
 		if(f.exists()){
 			try{
 				FileInputStream in = new FileInputStream(f);
@@ -95,16 +95,16 @@ class Sauvegarde{
 				for(int i=0; i<9; i++)
 					for(int j=0; j<9; j++)
 						a.t.plateau[i][j].setContenu(s.nextLine());
-						
+
 				//historique
 				a.j.h = new Historique();
 				a.j.finPartie = s.nextBoolean();
 				s.nextLine(); //on revient a la ligne
-				
+
 				while(s.hasNext()){
 					a.j.h.ajouterAnnuler(new ElemHist(s.nextLine()));
 				}
-				
+
 				a.f.s.start = new Time(temps);
 				a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
 
@@ -120,10 +120,10 @@ class Sauvegarde{
 				}else{
 					a.f.m.rejouer.setEnabled(true);
 				}
-				
+
 				a.f.m.dernierCoup.setEnabled(false);
-				
-				
+
+
 			}catch(Exception e){
 				System.out.println(e);
 			}
