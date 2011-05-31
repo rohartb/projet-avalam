@@ -49,6 +49,7 @@ public class Bot {
 	
 	
 	public Coups jouerMinMax(int profondeur){
+		Random r = new Random();
 		Simulation s = new Simulation(a.t.plateau);
 		/*System.out.println("toursGagnees"+s.evaluerToursGagnees(bot));
 		System.out.println("tour 5: "+s.tour5Possible());
@@ -75,9 +76,16 @@ public class Bot {
 					c = new Coups(pSrc, pDst);
 					s.simulerCoup(c);
 					val = min(s,profondeur);
-					if(val>=max){
+					if(val>max){
 						max = val;
 						meilleurCoup = c;
+					}
+					if(val==max){
+						int e = r.nextInt(2);
+						if(e==0){
+							max = val;
+							meilleurCoup = c;
+						}
 					}
 					s.annulerCoup(c,tailleCoup);
 				}
@@ -87,6 +95,7 @@ public class Bot {
 	}
 
 	public int min(Simulation s, int prof){
+		Random r = new Random();
 		if(prof==0 || s.partieFinie()){
 			return evalMin(s);
 		}
@@ -109,6 +118,12 @@ public class Bot {
 						if(val<min){
 							min = val;
 						}
+						if(val==min){
+							int e = r.nextInt(2);
+							if(e==0){
+								min = val;
+							}
+						}
 						s.annulerCoup(c,tailleCoup);
 					}
 				}
@@ -120,6 +135,7 @@ public class Bot {
 
 
 	public int max(Simulation s, int prof){
+		Random r = new Random();
 		if(prof==0 || s.partieFinie()){
 			return evalMax(s);			
 		}
@@ -141,6 +157,12 @@ public class Bot {
 						val = min(s,prof-1);;
 						if(val>max){
 							max = val;
+						}
+						if(val==max){
+							int e = r.nextInt(2);
+							if(e==0){
+								max = val;
+							}
 						}
 						s.annulerCoup(c,tailleCoup);
 					}
