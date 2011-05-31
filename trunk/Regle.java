@@ -54,14 +54,11 @@ public class Regle extends JDialog {
 		+ "Attention! Qu'une tour comporte 1,2,... ou 5 pions,<br>"
 		+ "elle vaut toujours UN point.<br>"
 		+ "<br>"
+		+ "<i>Source :http://jeuxstrategie.free.fr/Avalam_complet.php</i><br>"
+		+ "<br>"
 		+ "</P>"
 		+ "</html>");
 		
-		
- 
- 
-
-	
 		JScrollPane sc = new JScrollPane (lesRegles);
 		this.add(sc);
 		this.setSize(600,350);
