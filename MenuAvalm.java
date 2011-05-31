@@ -6,7 +6,7 @@ class MenuAvalam extends JMenuBar{
 	Avalam a;
 
 	JMenu avalam;
-	JMenuItem nouveau, pause, sauvegarder, charger, abandonner, options, quitter;
+	JMenuItem nouveau, reseau, pause, sauvegarder, charger, abandonner, options, quitter;
 	JMenu edition;
 	JMenuItem annuler, rejouer, dernierCoup;
 	JMenu affichage;
@@ -26,6 +26,12 @@ class MenuAvalam extends JMenuBar{
 		nouveau.addActionListener(em);
 		nouveau.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
 		avalam.add(nouveau);
+		reseau = new JMenuItem("Nouvelle partie en réseau");
+		reseau.setMnemonic(KeyEvent.VK_R);
+		reseau.setActionCommand("reseau");
+		reseau.addActionListener(em);
+		reseau.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+		avalam.add(reseau);
 		pause = new JMenuItem("Pause");
 		pause.setMnemonic(KeyEvent.VK_P);
 		pause.setActionCommand("pause");

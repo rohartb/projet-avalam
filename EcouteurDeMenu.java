@@ -14,11 +14,11 @@ class EcouteurDeMenu implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		a.etatSuivant=a.etat;
 		String cmd = e.getActionCommand();
-		if(cmd.equals("ticseconde")){
-			//a.start.setTime(a.start.getTime()+1000);
-			//a.temps.setText("  " + a.sdf.format(a.start));
-		}else if (cmd.equals("nouveau")){
+		if (cmd.equals("nouveau")){
 			a.etat=a.NOUVEAU;
+			a.unpause();
+		}else if (cmd.equals("reseau")){
+			a.etat=a.CONNEXION;
 			a.unpause();
 		}else if (cmd.equals("pause")){
 			a.etat=a.PAUSE;

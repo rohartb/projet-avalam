@@ -55,7 +55,12 @@ class Fenetre extends JFrame implements Runnable{
 	public void run() {
 		//recuperation theme system
 		try {
-      		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			if (System.getProperty("os.name").equals("Mac OS X")) {
+			System.setProperty ("apple.laf.useScreenMenuBar","true");
+			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Test");
+			} else {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
 		} catch(Exception e) {
 			System.out.println("Error setting native LAF: " + e);
 		}
