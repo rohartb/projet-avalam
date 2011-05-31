@@ -6,10 +6,10 @@ public class Avalam{
 	Thread thFenetre;
 	Terrain t;
 	Jeu j;
-	Sauvegarde s;
+	//Sauvegarde s;
 
 	static final int INIT=-1;
-	
+
 	static final int NOUVEAU=1;
 	static final int JEU=2;
 	static final int PAUSE=3;
@@ -30,7 +30,7 @@ public class Avalam{
 	static final int FIN=14;
 	static final int OPTIONS=15;
 	static final int APPARENCE=17;
-	
+
 	static final int QUITTER=42;
 
 
@@ -71,7 +71,7 @@ public class Avalam{
 				t = new Terrain();
 				j = new Jeu(this);
 				f = new Fenetre(this);
-				s = new Sauvegarde(this);
+				//s = new Sauvegarde(this);
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();
@@ -189,7 +189,7 @@ public class Avalam{
 			//TODO lors de la fermeture de la popup sauver soit
 			case SAUVER:
 				System.out.println("sauver");
-				s.sauver();
+				//s.sauver();
 				etat=etatSuivant;
 				break;
 
@@ -235,7 +235,7 @@ public class Avalam{
 				System.out.println("actualiser");
 				//calcul score
 				//calcul fin de partie
-				
+
 				f.g.repaint();
 				j.nbCoupsRestants = t.nbDeplRestant();
 				f.s.actualiser();

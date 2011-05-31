@@ -1,7 +1,7 @@
 import java.awt.event.*;
 import java.awt.*;
 
-class EcouteurDeSouris implements MouseListener, MouseMotionListener{
+class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentListener {
 	Avalam a;
 
 	boolean actif;
@@ -51,5 +51,14 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener{
  	public void mouseClicked(MouseEvent e){}
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
+
+	public void componentResized(ComponentEvent e) {
+		a.f.g.calculTaille();
+		a.f.g.reinitialisationBIPlateau();
+	}
+
+	public void componentHidden(ComponentEvent e) {}
+	public void componentShown(ComponentEvent e) {}
+	public void componentMoved(ComponentEvent e) {}
 
 }

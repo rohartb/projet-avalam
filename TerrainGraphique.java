@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;;
 import java.util.*;
+import javax.imageio.*;
+import java.io.*;
+
 
 class TerrainGraphique extends JComponent{
 	Avalam a;
@@ -18,6 +21,7 @@ class TerrainGraphique extends JComponent{
 	public boolean animation;
 	private int plusX, plusY, xAnimation, yAnimation, lAnimation, cAnimation;
 	private BufferedImage BIFondAnimation;
+	private Image BIPlateau;
 
 	TerrainGraphique(Avalam a){
 		this.a=a;
@@ -86,6 +90,7 @@ class TerrainGraphique extends JComponent{
 		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		drawable.setPaint(Themes.getCouleurFond(theme));
 		drawable.fillRect(0,0, getSize().width, getSize().height);
+		drawable.drawImage(BIPlateau, gapH-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 		//drawable.setPaint(Color.black);
 
 		for (int i=0; i<N; i++) {
@@ -168,21 +173,41 @@ class TerrainGraphique extends JComponent{
 		animation = false;
 	}
 
+	public void reinitialisationBIPlateau() {
+		try {
+			BufferedImage resized;
+			resized = ImageIO.read(new File("images/plateau.png"));
+
+			ImageFilter filter = new SetColorFilter(Themes.getCouleurPlateau(theme));
+			FilteredImageSource filteredSrc = new FilteredImageSource(resized.getSource(), filter);
+			BIPlateau = Toolkit.getDefaultToolkit().createImage(filteredSrc);
+		} catch (Exception e) {}
+	}
+
 
 	public void paintComponent(Graphics g){
 		calculTaille();
-
 		Graphics2D drawable = (Graphics2D) g;
 		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		drawable.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+		                          RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		drawable.setRenderingHint(RenderingHints.KEY_RENDERING,
+		                          RenderingHints.VALUE_RENDER_QUALITY);
 
 		//dimensions de la partie dessin
 		Dimension p = getSize();
 		int hauteur = p.height;
 		int largeur = p.width;
 
+
 		if (!animation) {
 			drawable.setPaint(Themes.getCouleurFond(theme));
 			drawable.fillRect(0,0, largeur, hauteur);
+
+		if (BIPlateau == null) {
+			reinitialisationBIPlateau();
+		}
+		drawable.drawImage(BIPlateau, gapH-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 			for(int i=0; i<N; i++){
 				for(int j=0; j<N; j++){
 					if(!t.plateau[i][j].estVide()){
