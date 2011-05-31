@@ -132,6 +132,8 @@ public class EcouteurDOptions implements ActionListener,
 		a.j.sauverOptions();
 		a.f.g.reinitialisationDesBI();
 		o.fermerOptions();
+		a.f.g.reinitialisationDesBI();
+		a.f.g.repaint();
 		//a.etat = a.ACTUALISER;
 	}
 

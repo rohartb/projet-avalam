@@ -50,11 +50,16 @@ class TerrainGraphique extends JComponent{
 
 	//methodes de conversion coord//indices
 	Point coordToIndince(Point coor){
-		Point indice;
-		int i = (coor.y-gapV)/tailleCase;
-		int	j = (coor.x-gapH)/tailleCase;
-		indice = new Point(i,j);
-		return indice;
+		if (coor.y < gapV || coor.y > p.height-gapV ||
+		    coor.x < gapH || coor.x > p.width-gapH) {
+			return null;
+		} else {
+			Point indice;
+			int i = (coor.y-gapV)/tailleCase;
+			int	j = (coor.x-gapH)/tailleCase;
+			indice = new Point(i,j);
+			return indice;
+		}
 	}
 
 	Point indiceToCoord(Point indice){
@@ -189,7 +194,7 @@ class TerrainGraphique extends JComponent{
 				a.thFenetre.sleep(5);
 			}catch(InterruptedException e){
 			}
-			
+
 		}
 		animation = false;
 	}
@@ -238,9 +243,7 @@ class TerrainGraphique extends JComponent{
 
 		BIJ1Big = new BufferedImage(tailleCase*2, tailleCase*2, BufferedImage.TYPE_INT_ARGB);
 		drawable = BIJ1Big.createGraphics();
-
-
-
+		setAntiAlias(drawable);
 		drawable.drawImage(filteredRes, 0, 0,tailleCase*2, tailleCase*2,null);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -265,7 +268,6 @@ class TerrainGraphique extends JComponent{
 
 		BIJ2Big = new BufferedImage(tailleCase*2, tailleCase*2, BufferedImage.TYPE_INT_ARGB);
 		drawable = BIJ2Big.createGraphics();
-
 
 		setAntiAlias(drawable);
 		drawable.drawImage(filteredRes, 0, 0,tailleCase*2, tailleCase*2,null);
