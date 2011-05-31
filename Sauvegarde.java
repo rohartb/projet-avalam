@@ -55,6 +55,10 @@ class Sauvegarde{
 				JOptionPane.showMessageDialog(a.f,"Partie sauvegardée","Avalam",JOptionPane.INFORMATION_MESSAGE);
 			}catch(Exception e){}
 		}
+		else{
+			a.etatSuivant = a.JEU;
+			a.quit=false;
+		}
 		
 		a.f.s.timer.start();
 	}
