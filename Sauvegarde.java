@@ -38,7 +38,7 @@ class Sauvegarde{
 			s += a.j.J1.type+" ";
 			s += a.j.J2.type+" ";
 			s += a.f.s.start.getTime()+" ";
-			s += a.j.mode+"\n";
+			s += a.j.modeNormal+"\n";
 			s += a.j.J1.nom+"\n";
 			s += a.j.J2.nom+"\n";
 			for(int i=0; i<9; i++)
@@ -88,7 +88,7 @@ class Sauvegarde{
 				a.j.J1.type = s.nextInt();
 				a.j.J2.type = s.nextInt();
 				long temps = s.nextLong();
-				a.j.mode = s.nextInt();
+				a.j.modeNormal = s.nextBoolean();
 				s.nextLine(); //on revient a la ligne
 				a.j.J1.nom = s.nextLine();
 				a.j.J2.nom = s.nextLine();
@@ -109,7 +109,7 @@ class Sauvegarde{
 				a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
 
 				//grisage des options annuler et refaire
-				if((!a.j.h.annulerVide() && a.j.mode==a.j.NORMAL) || a.j.finPartie){
+				if((!a.j.h.annulerVide() && a.j.modeNormal) || a.j.finPartie){
 					a.f.m.annuler.setEnabled(true);
 				}
 				else{

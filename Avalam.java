@@ -76,8 +76,7 @@ public class Avalam{
 				//creation du dossier .Avalam s'il n'existe pas
 				File dossier = new File(System.getProperty("user.home")+"/.Avalam");
 				if(!dossier.exists())
-					dossier.mkdir();
-				
+					dossier.mkdir();				
 				t = new Terrain();
 				j = new Jeu(this);
 				f = new Fenetre(this);
@@ -210,7 +209,7 @@ public class Avalam{
 				System.out.println("options");
 				f.o.afficherOptions();
 				//pause();
-				etat=etatSuivant;
+				etat=ACTUALISER;
 				break;
 
 			case APPARENCE:

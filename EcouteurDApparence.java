@@ -41,6 +41,7 @@ public class EcouteurDApparence implements ActionListener,
 		cmd = e.getActionCommand() ;
 		if (cmd.equals("ok")) {
 			//ap.getMoteur().sp.sauvegarder();
+			app.sauver();
 			app.fermerApparence();
 			themeTmp = -1;
 		} else if (cmd.equals("annuler")) {

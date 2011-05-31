@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.io.*;
 
 public class Options extends JDialog{
 	Avalam a;
@@ -34,11 +35,11 @@ public class Options extends JDialog{
 	public Options (Avalam a) {
 		this.a = a;
 
-		typeJ1 = a.j.HUMAIN;
-		typeJ2 = a.j.BOTLVL1;
-		nomJ1 = "Joueur 1";
-		nomJ2 = "Easy";
-		modeNormal=true;
+		typeJ1 = a.j.J1.type;
+		typeJ2 = a.j.J2.type;
+		nomJ1 = a.j.J1.nom;
+		nomJ2 = a.j.J2.nom;
+		modeNormal= a.j.modeNormal;
 
 		nomJ1Tmp = nomJ1;
 		nomJ2Tmp = nomJ2;
@@ -368,6 +369,5 @@ public class Options extends JDialog{
 		         type == Jeu.BOTLVL3 );
 
 	}
-
-
+	
 }
