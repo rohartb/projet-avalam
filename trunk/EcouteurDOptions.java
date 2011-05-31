@@ -110,14 +110,14 @@ public class EcouteurDOptions implements ActionListener,
 		// si le bot n'existe pas on le cree
 		// si il existe, on remplace son niveau
 		if(o.estRobot(o.typeJ1) && a.j.J1.b == null ) {
-			a.j.J1.b = new Bot(a);
+			a.j.J1.b = new Bot(a, o.typeJ1, 1);
 		} else if(o.estRobot(o.typeJ1) && a.j.J1.b != null ) {
 			a.j.J1.b.niveau = o.typeJ1;
 		}
 
 
 		if(o.estRobot(o.typeJ2) && a.j.J2.b == null ) {
-			a.j.J1.b = new Bot(a);
+			a.j.J1.b = new Bot(a, o.typeJ2, 2);
 		} else if(o.estRobot(o.typeJ2) && a.j.J2.b != null ) {
 			a.j.J1.b.niveau = o.typeJ2;
 		}

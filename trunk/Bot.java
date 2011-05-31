@@ -21,30 +21,31 @@ public class Bot {
 		nbcoupsjoues=0;
 	}
 	
-	public Coups choisirBot(){
+	public Coups jouerBot(){
 	//On choisit pour chaque niveau de l'ordinateur une partie a jouer
 		switch(niveau){
 			case 1 : //bot lvl1
-				return partieFacile();
-				break;
+				return partieFacile();			
 			case 2 : // botlvl2
-				return partieMoyen();			
-				break;
+				return partieMoyen();		
 			case 3 : 
 				return partieDifficile();
-				break;
+			default :
+				return null;
 		}
+		
 	}
 	
 	public Coups partieFacile(){
-	
+		return jouerMinMax(0);
 	}
 	
 	public Coups partieMoyen(){
-	
+		return jouerMinMax(0);
 	}
 	
 	public Coups partieDifficile(){
+		System.out.println("partieDiff");
 		if(nbcoupsjoues<40){
 			nbcoupsjoues++;
 			return jouerMinMax(1);
@@ -57,8 +58,8 @@ public class Bot {
 	
 	public Coups jouerMinMax(int profondeur){
 		Simulation s = new Simulation(a.t.plateau);
-		/*System.out.println("toursGagnees"+s.evaluerToursGagnees(bot));
-		System.out.println("tour 5: "+s.tour5Possible());
+		System.out.println("toursGagnees"+s.evaluerToursGagnees(bot));
+		/*System.out.println("tour 5: "+s.tour5Possible());
 		System.out.println("tourDef3Bot: "+s.tourDefinitive3AuCentre(bot));
 		System.out.println("tourDef3Adv: "+s.tourDefinitive3AuCentre(adv));
 		System.out.println("tourDef2Bot: "+s.tourDefinitive2AuCentre(bot));
