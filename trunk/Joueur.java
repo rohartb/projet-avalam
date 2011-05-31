@@ -5,7 +5,7 @@ public class Joueur{
 
 	String nom;
 	int type;
-	int joueur;
+	int joueur; // 1 ou 2
 
 	public Joueur(Avalam a){
 		this.a=a;

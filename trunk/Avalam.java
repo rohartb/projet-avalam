@@ -102,16 +102,20 @@ public class Avalam{
 				//verifier l'etat du jeu + attente d'un coup
 			case JEU:
 				System.out.println("jeu");
-				if(j.finPartie)
+				if(j.finPartie){
 					etat=FIN;
-				/*
-				  if(courant==bot)
-				  etat=BOT;
-				  if(courant=resau)
-				  etat=RESEAU;
-				*/
+				}else if(j.joueurCourant==1){
+					if(j.J1.type>0)
+				  		etat=BOT;
+				}else if(j.joueurCourant==2){
+					if(j.J2.type>0)
+				  		etat=BOT;
+				  		
+				//  if(courant=resau)
+				//  etat=RESEAU;
+				
 				// on attend une interraction du joueur humain
-				else{
+				}else{
 					//atente de la fin du chargement de la fenetre
 					pause();
 				}
@@ -142,6 +146,7 @@ public class Avalam{
 				//TODO calcul du coup du bot dans jeu.c
 			case BOT:
 				System.out.println("bot");
+				//calculer coup
 				etat=JOUERAUTO;
 				break;
 
@@ -155,7 +160,7 @@ public class Avalam{
 			case JOUERAUTO:
 				System.out.println("jouer auto");
 				//anim
-				etat=ACTUALISER;
+				etat=JOUER;
 				break;
 
 			case JOUERMANU:
