@@ -28,22 +28,20 @@ public class EcouteurDApparence implements ActionListener,
 			}
 			if (cmd.equals("Theme 1")) {
 				a.f.g.theme = Themes.THEME1;
-				a.f.g.repaint();
 			} else if (cmd.equals("Theme 2")) {
 				a.f.g.theme = Themes.THEME2;
-				a.f.g.repaint();
 			} else if (cmd.equals("Theme 3")) {
 				a.f.g.theme = Themes.THEME3;
-				a.f.g.repaint();
 			} else {
 				System.out.println("Commande : " + cmd );
 			}
+			a.f.g.reinitialisationBIPlateau();
+			a.f.g.repaint();
 		}
 		cmd = e.getActionCommand() ;
 		if (cmd.equals("ok")) {
 			//ap.getMoteur().sp.sauvegarder();
 			app.fermerApparence();
-			app.setVisible(false);
 			themeTmp = -1;
 		} else if (cmd.equals("annuler")) {
 			if (themeTmp != -1) {
