@@ -19,7 +19,8 @@ class TerrainGraphique extends JComponent{
 	public Point click, release;
 
 	public boolean animation;
-	private int plusX, plusY, xAnimation, yAnimation, lAnimation, cAnimation;
+	int plusX, plusY, lAnimation,xAnimation, yAnimation, cAnimation;
+	float xAnim,yAnim;
 	private int taillePolice;
 	private BufferedImage BIFondAnimation, BIJ1Small, BIJ1Big, BIJ2Small, BIJ2Big;
 	private Image BIPlateau;
@@ -172,43 +173,23 @@ class TerrainGraphique extends JComponent{
 		int yDes = xyDestination.y-plusY;
 		int xSrc = release.x;
 		int ySrc = release.y;
-		float coef = (float)(xDes-xSrc)/(yDes-ySrc);
-		System.out.println(coef);
+		float xDist = (xDes-xSrc);
+		float yDist = (yDes-ySrc);
+		float xyDist = (float) Math.sqrt(xDist*xDist+yDist*yDist);
+		int dir = xDes - xSrc;
 		animation = true;
-		float direction = (yDes - ySrc) / (xDes - xSrc);
-		while (xDes != xSrc || yDes != ySrc) {
-			direction = Math.abs(direction);
-			if (direction < 1) {
-				if (xDes > xSrc)
-					xSrc++;
-				else if (xDes < xSrc)
-					xSrc--;
-			} else if (direction > 1) {
-				if (yDes > ySrc)
-					ySrc+=coef;
-				else if (yDes < ySrc)
-					ySrc+=coef;
-			} else {
-				if (xDes > xSrc)
-					xSrc++;
-				else if (xDes < xSrc)
-					xSrc--;
-				if (yDes > ySrc)
-					ySrc++;
-				else if (yDes < ySrc)
-					ySrc--;
-			}
-			xAnimation = xSrc;
-			yAnimation = ySrc;
+		xAnim = xSrc;
+		yAnim = ySrc;
+		boolean cont=true;
+		for(float i=0;i<xyDist/3;i++){
+			xAnimation=(int)(xSrc+i*xDist/(xyDist/3));
+			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
 			repaint();
-			try {
+			try{
 				a.thFenetre.sleep(5);
-			} catch (InterruptedException e) {}
-
-			if ( xDes - xSrc == 0)
-				break;
-			else
-				direction = (yDes - ySrc) / (xDes - xSrc);
+			}catch(InterruptedException e){
+			}
+			
 		}
 		animation = false;
 	}
@@ -337,7 +318,7 @@ class TerrainGraphique extends JComponent{
 			}
 
 			// dessine le pion en déplacement
-			drawable.fillOval(xAnimation+plusX+tailleCase/6, yAnimation+plusY+tailleCase/6,
+			drawable.fillOval(xAnimation+plusX+tailleCase/6,yAnimation+plusY+tailleCase/6,
 			                  (int) (tailleCase*0.7), (int) (tailleCase* 0.7));
 			drawable.setFont(new Font("Garuda", 0, 2*tailleCase/6));
 			drawable.setPaint(Themes.getCouleurChiffre(theme));
