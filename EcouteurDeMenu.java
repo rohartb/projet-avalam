@@ -53,7 +53,8 @@ class EcouteurDeMenu implements ActionListener{
 		}else if(cmd.equals("aide")){
 
 		}else if(cmd.equals("regle")){
-
+			a.etat=a.REGLE;
+			a.unpause();
 		}else if(cmd.equals("pleinEcran")){
 			a.f.pleinEcran();
 		}else{
