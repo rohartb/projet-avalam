@@ -22,7 +22,7 @@ class TerrainGraphique extends JComponent{
 	private int plusX, plusY, xAnimation, yAnimation, lAnimation, cAnimation;
 	private int taillePolice;
 	private BufferedImage BIFondAnimation;
-	private Image BIPlateau;
+	private Image BIPlateau, BIBotJ1, BIBotJ2, BIHumainJ1, BIHumainJ2;
 
 	TerrainGraphique(Avalam a){
 		this.a=a;
@@ -227,7 +227,9 @@ class TerrainGraphique extends JComponent{
 		animation = false;
 	}
 
-	public void reinitialisationBIPlateau() {
+	public void reinitialisationDesBI() {
+
+		// reini du plateau
 		try {
 			BufferedImage resized;
 			resized = ImageIO.read(new File("images/plateau.png"));
@@ -236,6 +238,18 @@ class TerrainGraphique extends JComponent{
 			FilteredImageSource filteredSrc = new FilteredImageSource(resized.getSource(), filter);
 			BIPlateau = Toolkit.getDefaultToolkit().createImage(filteredSrc);
 		} catch (Exception e) {}
+
+		File f;
+		// reini du J1
+		if ( a.j.J1.estHumain())
+			f = new File("image/joueur.png");
+		else if ( a.j.J1.estRobot()) {
+			f = new File("image/bot.png");
+		}
+
+
+		// reini du J2
+
 	}
 
 
@@ -259,7 +273,7 @@ class TerrainGraphique extends JComponent{
 			drawable.fillRect(0,0, largeur, hauteur);
 
 		if (BIPlateau == null) {
-			reinitialisationBIPlateau();
+			reinitialisationDesBI();
 		}
 		drawable.drawImage(BIPlateau, gapH-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 			for(int i=0; i<N; i++){
