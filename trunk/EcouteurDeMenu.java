@@ -18,7 +18,7 @@ class EcouteurDeMenu implements ActionListener{
 			//a.start.setTime(a.start.getTime()+1000);
 			//a.temps.setText("  " + a.sdf.format(a.start));
 		}else if (cmd.equals("nouveau")){
-			a.etat=a.SAUVER;
+			a.etat=a.NOUVEAU;
 			a.unpause();
 		}else if (cmd.equals("pause")){
 			a.etat=a.PAUSE;

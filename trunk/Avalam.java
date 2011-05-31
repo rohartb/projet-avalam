@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.Point;
+import java.io.File;
 
 public class Avalam{
 	Fenetre f;
 	Thread thFenetre;
 	Terrain t;
 	Jeu j;
-	//Sauvegarde s;
+	Sauvegarde s;
 
 	static final int INIT=-1;
 
@@ -68,10 +69,16 @@ public class Avalam{
 				//initialisation
 			case INIT:
 				System.out.println("init");
+				
+				//creation du dossier .Avalam s'il n'existe pas
+				File dossier = new File(System.getProperty("user.home")+"/.Avalam");
+				if(!dossier.exists())
+					dossier.mkdir();
+				
 				t = new Terrain();
 				j = new Jeu(this);
 				f = new Fenetre(this);
-				//s = new Sauvegarde(this);
+				s = new Sauvegarde(this);
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();
@@ -84,6 +91,7 @@ public class Avalam{
 				j.init();
 				t.init();
 				System.out.println("nouveau");
+				//TODO popup voulez vous sauvegarder votre partie en cours?
 				etatSuivant=JEU;
 				etat = ACTUALISER;
 				break;
@@ -176,20 +184,16 @@ public class Avalam{
 				//TODO methode charger
 				// demander si sauver si j.finPartie==false
 			case CHARGER:
-				System.out.println("charger");
-				//TODO on charge le terrain + historique + temps + parametres
-				//if(!j.finPartie){
-				//
-				//}
-				// puis on joue directement
+				//System.out.println("charger");
+				s.charger();
 				etat=ACTUALISER;
 				break;
 
 
 			//TODO lors de la fermeture de la popup sauver soit
 			case SAUVER:
-				System.out.println("sauver");
-				//s.sauver();
+				//System.out.println("sauver");
+				s.sauver();
 				etat=etatSuivant;
 				break;
 
