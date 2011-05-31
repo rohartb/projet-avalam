@@ -8,7 +8,7 @@ class MenuAvalam extends JMenuBar{
 	JMenu avalam;
 	JMenuItem nouveau, pause, sauvegarder, charger, abandonner, options, quitter;
 	JMenu edition;
-	JMenuItem annuler, rejouer;
+	JMenuItem annuler, rejouer, dernierCoup;
 	JMenu affichage;
 	JMenuItem apparence, itemPleinEcran;
 	JMenu aide;
@@ -80,6 +80,12 @@ class MenuAvalam extends JMenuBar{
 		rejouer.setMnemonic(KeyEvent.VK_R);
 		rejouer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK | Event.SHIFT_MASK));
 		edition.add(rejouer);
+		dernierCoup = new JMenuItem("Voir dernier coup");
+		dernierCoup.setActionCommand("dernierCoup");
+		dernierCoup.addActionListener(em);
+		dernierCoup.setMnemonic(KeyEvent.VK_R);
+		dernierCoup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK | Event.SHIFT_MASK));
+		edition.add(dernierCoup);
 		this.add(edition);
 
 		affichage = new JMenu("Affichage");

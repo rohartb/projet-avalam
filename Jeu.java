@@ -20,6 +20,9 @@ public class Jeu{
 
 	static final int JOUEUR1=1;
 	static final int JOUEUR2=2;
+	
+	static final int NORMAL=0;
+	static final int MATCH=1;
 
 	public Jeu(Avalam a){
 		this.a = a;
