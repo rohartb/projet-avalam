@@ -65,7 +65,6 @@ public class Jeu{
 	
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
-		System.out.println(nbCoupsRestants);
 		finPartie = nbCoupsRestants == 0;
 			
 	}
