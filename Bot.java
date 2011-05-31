@@ -8,18 +8,10 @@ public class Bot {
 	int bot, adv;
 	int nbcoupsjoues;
 
-	public Bot (Avalam a, int niveau, int joueur) {
+	public Bot (Avalam a) {
 		this.a = a;
-		this.niveau = niveau;
-		bot = joueur;
-		if(joueur==1){
-			adv=2;
-		}
-		else{
-			adv=1;
-		}
-		nbcoupsjoues=0;
 	}
+	
 	
 	public Coups jouerBot(){
 	//On choisit pour chaque niveau de l'ordinateur une partie a jouer
@@ -58,8 +50,8 @@ public class Bot {
 	
 	public Coups jouerMinMax(int profondeur){
 		Simulation s = new Simulation(a.t.plateau);
-		System.out.println("toursGagnees"+s.evaluerToursGagnees(bot));
-		/*System.out.println("tour 5: "+s.tour5Possible());
+		/*System.out.println("toursGagnees"+s.evaluerToursGagnees(bot));
+		System.out.println("tour 5: "+s.tour5Possible());
 		System.out.println("tourDef3Bot: "+s.tourDefinitive3AuCentre(bot));
 		System.out.println("tourDef3Adv: "+s.tourDefinitive3AuCentre(adv));
 		System.out.println("tourDef2Bot: "+s.tourDefinitive2AuCentre(bot));

@@ -38,6 +38,15 @@ public class Jeu{
 	public void calculerCoup(){
 		c = new Coups(a.f.g.coordToIndince(a.f.g.click),a.f.g.coordToIndince(a.f.g.release));
 	}
+	
+	public void jouerBot(){
+		if(joueurCourant==1){
+			c = J1.b.jouerBot();
+		}
+		else{
+			c = J2.b.jouerBot();
+		}
+	}
 
 	void init(){
 		finPartie=false;
@@ -63,6 +72,8 @@ public class Jeu{
 				J2.nom = s.nextLine();
 			}catch(FileNotFoundException e){}			
 		}
+		J1.actualiserBot();
+		J2.actualiserBot();
 		a.f.s.initTimer();
 	}
 
