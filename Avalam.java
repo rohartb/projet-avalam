@@ -8,7 +8,7 @@ public class Avalam{
 	Terrain t;
 	Jeu j;
 	Sauvegarde s;
-	Regle r;
+	boolean quit;
 
 	static final int INIT=-1;
 
@@ -27,7 +27,6 @@ public class Avalam{
 
 	//popups
 	//pour les popup on reviens a l'etat sauvegardé dans etatSuivant
-	static final int REGLE=24;
 	static final int CHARGER=100;
 	static final int SAUVER=13;
 	static final int FIN=14;
@@ -81,6 +80,7 @@ public class Avalam{
 				j = new Jeu(this);
 				f = new Fenetre(this);
 				s = new Sauvegarde(this);
+				quit=false;
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();
@@ -90,10 +90,10 @@ public class Avalam{
 
 				//nouvelle partie
 			case NOUVEAU:
+				//TODO popup voulez vous sauvegarder votre partie en cours?
+				System.out.println("nouveau");
 				j.init();
 				t.init();
-				System.out.println("nouveau");
-				//TODO popup voulez vous sauvegarder votre partie en cours?
 				etatSuivant=JEU;
 				etat = ACTUALISER;
 				break;
@@ -101,7 +101,6 @@ public class Avalam{
 				//verifier l'etat du jeu + attente d'un coup
 			case JEU:
 				System.out.println("jeu");
-				System.out.println("joueur:"+j.joueurCourant);
 				if(j.finPartie)
 					etat=FIN;
 				/*
@@ -136,6 +135,7 @@ public class Avalam{
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
+				pause();
 				break;
 
 				//TODO calcul du coup du bot dans jeu.c
@@ -237,28 +237,34 @@ public class Avalam{
 				etat=ACTUALISER;
 				break;
 
-			case REGLE:
-				System.out.println("regle");
-				f.r.afficherRegle();
-				etat=etatSuivant;
-				break;
-
-
 			case ACTUALISER:
 				System.out.println("actualiser");
-				//calcul score
-				//calcul fin de partie
-
+				j.actualiser();
 				f.g.repaint();
-				j.nbCoupsRestants = t.nbDeplRestant();
 				f.s.actualiser();
 				etat=etatSuivant;
 				break;
 
 			case QUITTER:
-				System.out.println("quitter");
-				System.out.println("popop sauvegarder ?");
-				System.exit(0);
+				//System.out.println("quitter");
+				//System.out.println("popop sauvegarder ?");
+				f.s.timer.stop();
+				if(!j.finPartie && !quit){
+					String[] options = {"Sauvegarder" , "Quitter sans sauvegarder" , "Annuler"};
+					int choix  = JOptionPane.showOptionDialog(null, "Quitter Avalam :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0] );
+					if (choix == JOptionPane.YES_OPTION) {
+						etat=SAUVER;
+						etatSuivant=QUITTER;
+						quit=true;
+					}else if (choix == JOptionPane.NO_OPTION) {
+						System.exit(0);
+					}else{
+						f.s.timer.start();
+						etat=JEU;
+					}
+				}else{
+					System.exit(0);
+				}
 				break;
 			}
 		}
