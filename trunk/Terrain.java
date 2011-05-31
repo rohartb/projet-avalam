@@ -26,12 +26,24 @@ public class Terrain{
 
 	//methodes de tests
 	boolean estPossible(Coups c){
-		if(estAdjacent(c.pDep.x,c.pDep.y,c.pArr.x,c.pArr.y)
+		if( okCoup(c) && estAdjacent(c.pDep.x,c.pDep.y,c.pArr.x,c.pArr.y)
 			&& estInferieurASix(c.pDep.x,c.pDep.y,c.pArr.x,c.pArr.y))
 			return 	true;
 		else
 			return false;
 	}
+	
+	boolean okCoup(Coups c){
+		return (c.pDep.x>-1 &&
+		 		c.pDep.x< 9 &&
+		 		c.pDep.y>-1 &&
+		 		c.pDep.y< 9 &&
+				c.pArr.x>-1 &&
+				c.pArr.x< 9 &&
+				c.pArr.y>-1 &&
+				c.pArr.y< 9);
+	}
+	
 	//Verifie que la case de destination est adjacente à la case source
 	// (donc qu'elles sont différentes
 	// Et qu'elle n'est pas vide

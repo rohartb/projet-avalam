@@ -5,7 +5,6 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 	Avalam a;
 
 	boolean actif;
-	//TerrainGraphique tg;
 	EcouteurDeSouris(Avalam a){
 		this.a=a;
 	}
@@ -13,10 +12,10 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 	public void mousePressed(MouseEvent e){
 		int x = e.getX();
 		int y = e.getY();
-		a.f.g.click=new Point(x,y);
+		a.f.g.click = new Point(x,y);
 
 		Point xy = new Point(x,y);
-		Point lc = a.f.g.coordToIndince(xy);
+		Point lc = a.f.g.coordToIndice(xy);
 
 		if (lc != null && a.t.plateau[lc.x][lc.y].estOccupee()) {
 			a.f.g.animation = true;
@@ -31,11 +30,11 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 
 
 	public void mouseReleased(MouseEvent e){
-		a.f.g.release=new Point(e.getX(),e.getY());
+		a.f.g.release = new Point(e.getX(),e.getY());
+		System.out.println(""+a.f.g.release.x+" "+a.f.g.release.y);
 		a.f.g.animation = false;
 		a.f.g.repaint();
 		a.unpause();
-
 	}
 
 	public void mouseDragged(MouseEvent e){

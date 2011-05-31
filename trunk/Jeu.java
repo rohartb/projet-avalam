@@ -36,7 +36,7 @@ public class Jeu{
 	}
 
 	public void calculerCoup(){
-		c = new Coups(a.f.g.coordToIndince(a.f.g.click),a.f.g.coordToIndince(a.f.g.release));
+		c = new Coups(a.f.g.coordToIndice(a.f.g.click),a.f.g.coordToIndice(a.f.g.release));
 	}
 
 	public void jouerBot(){

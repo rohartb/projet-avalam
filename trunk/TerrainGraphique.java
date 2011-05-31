@@ -49,17 +49,12 @@ class TerrainGraphique extends JComponent{
 	}
 
 	//methodes de conversion coord//indices
-	Point coordToIndince(Point coor){
-		if (coor.y < gapV || coor.y > p.height-gapV ||
-		    coor.x < gapH || coor.x > p.width-gapH) {
-			return null;
-		} else {
-			Point indice;
-			int i = (coor.y-gapV)/tailleCase;
-			int	j = (coor.x-gapH)/tailleCase;
-			indice = new Point(i,j);
-			return indice;
-		}
+	Point coordToIndice(Point coor){
+		Point indice;
+		int i = (coor.y-gapV)/tailleCase;
+		int	j = (coor.x-gapH)/tailleCase;
+		indice = new Point(i,j);
+		return indice;
 	}
 
 	Point indiceToCoord(Point indice){
@@ -171,13 +166,11 @@ class TerrainGraphique extends JComponent{
 	}
 
 
-	public void animationRetourPion() {
-		Point lc = new Point(lAnimation, cAnimation);
-		Point xyDestination = indiceToCoord(lc);
-		int xDes = xyDestination.x-plusX;
-		int yDes = xyDestination.y-plusY;
-		int xSrc = release.x;
-		int ySrc = release.y;
+	public void animationPion(Point src, Point dst) {
+		int xDes = dst.x;
+		int yDes = dst.y;
+		int xSrc = src.x;
+		int ySrc = src.y;
 		float xDist = (xDes-xSrc);
 		float yDist = (yDes-ySrc);
 		float xyDist = (float) Math.sqrt(xDist*xDist+yDist*yDist);
@@ -185,7 +178,6 @@ class TerrainGraphique extends JComponent{
 		animation = true;
 		xAnim = xSrc;
 		yAnim = ySrc;
-		boolean cont=true;
 		for(float i=0;i<xyDist/3;i++){
 			xAnimation=(int)(xSrc+i*xDist/(xyDist/3));
 			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
@@ -194,10 +186,40 @@ class TerrainGraphique extends JComponent{
 				a.thFenetre.sleep(5);
 			}catch(InterruptedException e){
 			}
-
 		}
 		animation = false;
 	}
+
+	public void animationPionAuto() {
+		lAnimation=a.j.c.pDep.x;
+		cAnimation=a.j.c.pDep.y;
+		resetBIFondAnimation(a.j.c.pDep);
+		repaint();
+		Point src = indiceToCoord(a.j.c.pDep);
+		Point dst = indiceToCoord(a.j.c.pArr);
+		int xDes = dst.x+tailleCase/2;
+		int yDes = dst.y+tailleCase/2;
+		int xSrc = src.x+tailleCase/2;
+		int ySrc = src.y+tailleCase/2;
+		float xDist = (xDes-xSrc);
+		float yDist = (yDes-ySrc);
+		float xyDist = (float) Math.sqrt(xDist*xDist+yDist*yDist);
+		int dir = xDes - xSrc;
+		animation = true;
+		xAnim = xSrc;
+		yAnim = ySrc;
+		for(float i=0;i<xyDist/3;i++){
+			xAnimation=(int)(xSrc+i*xDist/(xyDist/3));
+			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
+			repaint();
+			try{
+				a.thFenetre.sleep(10);
+			}catch(InterruptedException e){
+			}
+		}
+		animation = false;
+	}
+
 
 	public static void setAntiAlias(Graphics2D drawable) {
 		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
