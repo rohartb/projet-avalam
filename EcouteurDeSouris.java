@@ -54,7 +54,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 
 	public void componentResized(ComponentEvent e) {
 		a.f.g.calculTaille();
-		a.f.g.reinitialisationBIPlateau();
+		a.f.g.reinitialisationDesBI();
 	}
 
 	public void componentHidden(ComponentEvent e) {}

@@ -35,7 +35,7 @@ public class EcouteurDApparence implements ActionListener,
 			} else {
 				System.out.println("Commande : " + cmd );
 			}
-			a.f.g.reinitialisationBIPlateau();
+			a.f.g.reinitialisationDesBI();
 			a.f.g.repaint();
 		}
 		cmd = e.getActionCommand() ;
