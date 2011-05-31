@@ -14,6 +14,7 @@ class Fenetre extends JFrame implements Runnable{
 	Options o;
 	StatusBar s;
 	TerrainGraphique g;
+	Regle r;
 
 	boolean pleinEcran;
 
@@ -100,6 +101,7 @@ class Fenetre extends JFrame implements Runnable{
 		// Creation des popups
 		o = new Options(a);
 		app = new Apparence(a);
+		r = new Regle(a);
 
 		//action fermeture fenetre
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
