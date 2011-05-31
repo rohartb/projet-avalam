@@ -23,7 +23,7 @@ public class Jeu{
 
 	static final int JOUEUR1=1;
 	static final int JOUEUR2=2;
-	
+
 	static final int NORMAL=0;
 	static final int MATCH=1;
 
@@ -38,7 +38,7 @@ public class Jeu{
 	public void calculerCoup(){
 		c = new Coups(a.f.g.coordToIndince(a.f.g.click),a.f.g.coordToIndince(a.f.g.release));
 	}
-	
+
 	public void jouerBot(){
 		if(joueurCourant==1){
 			c = J1.b.jouerBot();
@@ -70,7 +70,7 @@ public class Jeu{
 				s.nextLine();
 				J1.nom = s.nextLine();
 				J2.nom = s.nextLine();
-			}catch(FileNotFoundException e){}			
+			}catch(FileNotFoundException e){}
 		}
 		J1.actualiserBot();
 		J2.actualiserBot();
@@ -92,13 +92,13 @@ public class Jeu{
 	public boolean courantEstJ2() {
 		return (joueurCourant == 2);
 	}
-	
+
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
 		finPartie = nbCoupsRestants == 0;
-			
+
 	}
-	
+
 	public void sauverOptions(){
 		try {
 			File config = new File(System.getProperty("user.home")+"/.Avalam/Config/");
@@ -107,7 +107,7 @@ public class Jeu{
 			File f = new File(System.getProperty("user.home")+"/.Avalam/Config/options.cfg");
 			f.setWritable(true);
 			String s = "";
-		
+
 			s += J1.type +" "+ J2.type +" "+a.j.modeNormal+"\n";
 			s += J1.nom +"\n";
 			s += J2.nom +"\n";
@@ -118,6 +118,5 @@ public class Jeu{
 			f.setReadOnly();
 		} catch (FileNotFoundException ex) {}
 	}
-	
 }
 

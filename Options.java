@@ -211,15 +211,6 @@ public class Options extends JDialog{
 		PanelTextFieldNomJ2.add(TextFieldNomJ2);
 
 
-		//// Sous-panel Type du joueur2
-		// JPanel PanelTypeJ2 = new JPanel();
-		// PanelTypeJ2.setLayout(new GridLayout(1,2));
-		// PanelTypeJ2.add(humain2, BorderLayout.NORTH);
-		// PanelTypeJ2.add(BotLevelPanelJ2);
-
-
-
-
 		JPanel PanelJ2 = new JPanel();
 		PanelJ2.setBorder(BorderFactory.createTitledBorder("Joueur 2"));
 		PanelJ2.setLayout(new BoxLayout(PanelJ2, BoxLayout.Y_AXIS));
@@ -305,29 +296,33 @@ public class Options extends JDialog{
 	}
 
 	public void afficherOptions() {
-		this.setVisible(true);
-	}
+		TextFieldNomJ1.setText(a.j.J1.nom);
+		TextFieldNomJ2.setText(a.j.J2.nom);
+		nomJ1Tmp = a.j.J1.nom;
+		nomJ2Tmp = a.j.J2.nom;
+		typeJ1Tmp = a.j.J1.type;
+		typeJ2Tmp = a.j.J2.type;
+		modeTmp = a.j.modeNormal;
 
-	public void fermerOptions() {
-		if(typeJ1 == Jeu.HUMAIN) {
+		if(a.j.J1.type == Jeu.HUMAIN) {
 			humain1.setSelected(true);
 			machine1.setSelected(false);
 			n10.setEnabled(false);
 			n11.setEnabled(false);
 			n12.setEnabled(false);
-		} else if (typeJ1 == Jeu.BOTLVL1) {
+		} else if (a.j.J1.type == Jeu.BOTLVL1) {
 			n10.setSelected(true);
 			n10.setEnabled(true);
 			n11.setEnabled(true);
 			n12.setEnabled(true);
 			machine1.setSelected(true);
-		} else if (typeJ1 == Jeu.BOTLVL2) {
+		} else if (a.j.J1.type == Jeu.BOTLVL2) {
 			n11.setSelected(true);
 			n10.setEnabled(true);
 			n11.setEnabled(true);
 			n12.setEnabled(true);
 			machine1.setSelected(true);
-		} else if (typeJ1 == Jeu.BOTLVL3) {
+		} else if (a.j.J1.type == Jeu.BOTLVL3) {
 			n10.setEnabled(true);
 			n10.setEnabled(true);
 			n11.setEnabled(true);
@@ -335,31 +330,35 @@ public class Options extends JDialog{
 			machine1.setSelected(true);
 		}
 
-		if(typeJ2 == Jeu.HUMAIN) {
+		if(a.j.J2.type == Jeu.HUMAIN) {
 			humain2.setSelected(true);
 			machine2.setSelected(false);
 			n20.setEnabled(false);
 			n21.setEnabled(false);
 			n22.setEnabled(false);
-		} else if (typeJ2 == Jeu.BOTLVL1) {
+		} else if (a.j.J2.type == Jeu.BOTLVL1) {
 			machine2.setSelected(true);
 			n20.setSelected(true);
 			n20.setEnabled(true);
 			n21.setEnabled(true);
 			n22.setEnabled(true);
-		} else if (typeJ2 == Jeu.BOTLVL2){
+		} else if (a.j.J2.type == Jeu.BOTLVL2){
 			machine2.setSelected(true);
 			n21.setSelected(true);
 			n20.setEnabled(true);
 			n21.setEnabled(true);
 			n22.setEnabled(true);
-		} else if (typeJ2 == Jeu.BOTLVL3) {
+		} else if (a.j.J2.type == Jeu.BOTLVL3) {
 			machine2.setSelected(true);
 			n22.setSelected(true);
 			n20.setEnabled(true);
 			n21.setEnabled(true);
 			n22.setEnabled(true);
 		}
+		this.setVisible(true);
+	}
+
+	public void fermerOptions() {
 		this.setVisible(false);
 	}
 
@@ -369,5 +368,5 @@ public class Options extends JDialog{
 		         type == Jeu.BOTLVL3 );
 
 	}
-	
+
 }

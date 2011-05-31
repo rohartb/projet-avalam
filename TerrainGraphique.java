@@ -260,15 +260,14 @@ class TerrainGraphique extends JComponent{
 		filter = new SetColorFilter(Themes.getCouleurPionJ2(theme));
 		filteredSrc = new FilteredImageSource(loaded.getSource(), filter);
 		filteredRes = Toolkit.getDefaultToolkit().createImage(filteredSrc);
+
 		BIJ2Small = new BufferedImage(tailleCase, tailleCase,BufferedImage.TYPE_INT_ARGB);
 		drawable = BIJ2Small.createGraphics();
 		setAntiAlias(drawable);
-
 		drawable.drawImage(filteredRes, 0, 0, tailleCase, tailleCase,null);
 
 		BIJ2Big = new BufferedImage(tailleCase*2, tailleCase*2, BufferedImage.TYPE_INT_ARGB);
 		drawable = BIJ2Big.createGraphics();
-
 		setAntiAlias(drawable);
 		drawable.drawImage(filteredRes, 0, 0,tailleCase*2, tailleCase*2,null);
 		} catch (Exception e) {

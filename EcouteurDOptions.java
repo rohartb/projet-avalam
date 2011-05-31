@@ -123,7 +123,7 @@ public class EcouteurDOptions implements ActionListener,
 		//Changement des params sur le joueur actuel
 		a.j.J1.type = o.typeJ1;
 		a.j.J2.type = o.typeJ2;
-		
+
 		a.j.sauverOptions();
 		a.f.g.reinitialisationDesBI();
 		o.fermerOptions();
