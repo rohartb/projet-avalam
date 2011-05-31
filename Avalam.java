@@ -137,6 +137,7 @@ public class Avalam{
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
+				pause();
 				break;
 
 				//TODO calcul du coup du bot dans jeu.c

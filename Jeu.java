@@ -63,7 +63,7 @@ public class Jeu{
 	
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
-		finPartie = nbCoupsRestants != 0;
+		finPartie = nbCoupsRestants == 0;
 			
 	}
 }
