@@ -164,7 +164,7 @@ public class Avalam{
 				//TODO annime un coup
 			case JOUERAUTO:
 				System.out.println("jouer auto");
-				//anim
+				f.g.animationPionAuto();
 				etat=JOUER;
 				break;
 
@@ -174,11 +174,11 @@ public class Avalam{
 				//TODO annimation dans le thread fenetre
 				pause();
 				j.calculerCoup();
+				System.out.println("calculOK");
 				if(t.estPossible(j.c)){
 					etat=JOUER;
 				}else{
-					if (f.g.release.x != f.g.click.x)
-						f.g.animationRetourPion();
+					f.g.animationPion(f.g.release,f.g.click);
 					etat=JEU;
 				}
 				break;
@@ -259,6 +259,7 @@ public class Avalam{
 				j.actualiser();
 				f.g.repaint();
 				f.s.actualiser();
+				f.m.actualiser();
 				etat=etatSuivant;
 				break;
 
