@@ -29,6 +29,7 @@ public class Jeu{
 		J1 = new Joueur(a);
 		J2 = new Joueur(a);
 		joueurCourant=JOUEUR1;
+		nbCoupsRestants=292;
 	}
 
 	public void calculerCoup(){
@@ -43,13 +44,14 @@ public class Jeu{
 		J1.joueur=JOUEUR1;
 		J2.type=BOTLVL1;
 		J2.joueur=JOUEUR2;
+		a.f.s.initTimer();
 	}
 
 	void changerJoueur(){
-		if (joueurCourant == 1) {
-			joueurCourant = 2;
+		if (joueurCourant == JOUEUR1) {
+			joueurCourant = JOUEUR2;
 		} else {
-			joueurCourant = 1;
+			joueurCourant = JOUEUR1;
 		}
 	}
 
@@ -63,6 +65,7 @@ public class Jeu{
 	
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
+		System.out.println(nbCoupsRestants);
 		finPartie = nbCoupsRestants == 0;
 			
 	}

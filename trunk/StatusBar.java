@@ -7,7 +7,7 @@ public class StatusBar extends JPanel {
 	Avalam a;
 
 	public StatusBarPanel PanelTemps, PanelCoups, PanelMode;
-	public JLabel labelCoupsRestants;
+	public JLabel labelCoupsRestants,labelMode;
 	public StatusBarPanel[] panels;
 	private static final long serialVersionUID = 1L;
 
@@ -41,8 +41,8 @@ public class StatusBar extends JPanel {
 		PanelCoups.setWidthFixed(false);
 		PanelCoups.setPanelBorder();
 		PanelCoups.setLayout(new BorderLayout());
-		//m.coupsRestants.setHorizontalAlignment(JLabel.CENTER);
 		labelCoupsRestants = new JLabel("Coups Restants : " + a.j.nbCoupsRestants);
+		labelCoupsRestants.setHorizontalAlignment(JLabel.CENTER);
 		PanelCoups.add(labelCoupsRestants);
 
 		PanelMode = new StatusBarPanel() ;
@@ -50,14 +50,18 @@ public class StatusBar extends JPanel {
 		PanelMode.setWidthFixed(true);
 		PanelMode.setPanelBorder();
 		PanelMode.setLayout(new BorderLayout());
-		//m.mode.setHorizontalAlignment(JLabel.CENTER);
-		PanelMode.add(new JLabel("Blabla mode"));
+		labelMode = new JLabel("Blabla mode");
+		labelMode.setHorizontalAlignment(JLabel.CENTER);
+		PanelMode.add(labelMode);
 
 		StatusBarPanel[] BarStatut = {PanelTemps, PanelCoups,PanelMode};
 		this.panels =  BarStatut;
 		initialiser();
 	}
 
+	void initTimer(){
+		start = new Time(0);
+	}
 
 	public StatusBar(StatusBarPanel[] panels) {
 		super();
@@ -86,7 +90,6 @@ public class StatusBar extends JPanel {
 			this.add(panels[i], constraints);
 		}
 	}
-
 
 	public void actualiser() {
 		labelCoupsRestants.setText("Coups Restants : " + a.j.nbCoupsRestants);

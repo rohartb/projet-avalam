@@ -241,9 +241,9 @@ public class Avalam{
 
 			case ACTUALISER:
 				System.out.println("actualiser");
+				j.actualiser();
 				f.g.repaint();
 				f.s.actualiser();
-				j.actualiser();
 				etat=etatSuivant;
 				break;
 
