@@ -4,27 +4,27 @@ public class Themes {
 
 	static final int THEME1 = 1;
 	static private final  Color T1pionJ1  = new Color(31,18,0);
-	static private final  Color T1pionJ2  = new Color(170,110,0);
+	static private final  Color T1pionJ2  = new Color(190,150,50);
 	static private final  Color T1chiffre = new Color(255,255,255);
-	static private final  Color T1plateau = new Color(85,134,0);
+	static private final  Color T1plateau = new Color(102,51,0);
 	static private final  Color T1vide    = new Color(0,0,0);
-	static private final  Color T1fond    = new Color(85,34,0);
+	static private final  Color T1fond    = new Color(51,153,153);
 
 	static final int THEME2 = 2;
-	static private final  Color T2pionJ1  = new Color(226,245,22);
-	static private final  Color T2pionJ2  = new Color(245,141,22);
-	static private final  Color T2chiffre = new Color(255,255,255);
-	static private final  Color T2plateau = new Color(122,135,130);
+	static private final  Color T2pionJ1  = new Color(255,255,51);
+	static private final  Color T2pionJ2  = new Color(204,0,55);
+	static private final  Color T2chiffre = new Color(0,0,0);
+	static private final  Color T2plateau = new Color(55,55,55);
 	static private final  Color T2vide    = new Color(0,0,0);
-	static private final  Color T2fond    = new Color(122,35,130);
+	static private final  Color T2fond    = new Color(255,255,153);
 
 	static final int THEME3 = 3;
-	static private final  Color T3pionJ1  = new Color(204,255,102);
-	static private final  Color T3pionJ2  = new Color(239,215,245);
+	static private final  Color T3pionJ1  = new Color(17,119,170);
+	static private final  Color T3pionJ2  = new Color(255,255,255);
 	static private final  Color T3chiffre = new Color(0,0,0);
-	static private final  Color T3plateau = new Color(143,69,204);
-	static private final  Color T3vide    = new Color(0,0,0);
-	static private final  Color T3fond    = new Color(143,169,204);
+	static private final  Color T3plateau = new Color(143,169,204);
+	static private final  Color T3vide    = new Color(100,100,100);
+	static private final  Color T3fond    = new Color(17,68,119);
 
 
 	public Themes() {
