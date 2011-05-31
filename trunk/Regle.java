@@ -42,7 +42,7 @@ public class Regle extends JDialog {
 		+ "Autrement dit, une pile de pions ne peut qu'augmenter,<br>"
 		+ "jamais diminuer.<br>"
 		+ "On ne peut jamais poser de pions sur un trou inoccupé: il le reste<br>" 
-		+ "donc définitivement. Un pion (ou une tour) isolé(e) de tous les cotés<br"
+		+ "donc définitivement. Un pion (ou une tour) isolé(e) de tous les cotés<br>"
 		+ "ne pourra donc plus changer de propriétaire. <br>"
 		+ "<br>"
 		+ "<b>Fin de partie</b><br>"
