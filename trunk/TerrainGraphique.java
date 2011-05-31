@@ -20,6 +20,7 @@ class TerrainGraphique extends JComponent{
 
 	public boolean animation;
 	private int plusX, plusY, xAnimation, yAnimation, lAnimation, cAnimation;
+	private int taillePolice;
 	private BufferedImage BIFondAnimation;
 	private Image BIPlateau;
 
@@ -82,6 +83,59 @@ class TerrainGraphique extends JComponent{
 		y=coord.y;
 		drawable.setPaint(Themes.getCouleurVide(theme));
 		drawable.fillOval(x+tailleCase/4, y+tailleCase/4, tailleCase/2, tailleCase/2);
+	}
+
+
+	public void joueur1(Graphics2D drawable) {
+			taillePolice = (int) (0.45* tailleCase);
+			int hauteur = p.height;
+			int largeur = p.width;
+
+			drawable.setPaint(Themes.getCouleurPionJ1(theme));
+			drawable.setFont(new Font("Liberation Sans", 1 , taillePolice));
+			drawable.drawString(a.j.J1.nom,10,hauteur-(gapV+(1*tailleCase/3)));
+
+			if (a.j.J1.estHumain()) {
+				if (a.j.courantEstJ1()) {
+					drawable.setPaint(Color.red);
+					drawable.fillOval(40, hauteur-(gapV+tailleCase-3), 10 , 10);
+				} else {
+
+				}
+			} else if (a.j.J1.estRobot()) {
+
+			} else {
+				drawable.fillOval(15, hauteur-67 ,25, 25);
+			}
+	}
+
+
+	public void joueur2(Graphics2D drawable) {
+		int hauteur = p.height;
+		int largeur = p.width;
+		//precalcule du decalage
+		FontMetrics metrics = getFontMetrics(drawable.getFont());
+		int decalage = metrics.stringWidth(a.j.J2.nom);
+
+		taillePolice = (int) (0.45* tailleCase);
+
+		drawable.setPaint(Themes.getCouleurPionJ2(theme));
+		drawable.setFont(new Font("Liberation Sans", 1 , taillePolice));
+		drawable.drawString(a.j.J2.nom, largeur-decalage-10, gapV +
+		                    (int) (tailleCase*0.6));
+
+		if (a.j.courantEstJ2()) {
+			drawable.setPaint(Color.red);
+			drawable.fillOval(largeur-60, gapV+tailleCase*4/5+9, 10 , 10);
+		}
+
+		if (a.j.J2.estHumain()) {
+
+		} else if (a.j.J2.estRobot()) {
+
+		} else {
+			//drawable.fillOval(largeur-40, 31, 25, 25);
+		}
 	}
 
 	public void resetBIFondAnimation(Point lc) {
@@ -239,6 +293,8 @@ class TerrainGraphique extends JComponent{
 			drawable.drawString("" + t.plateau[lAnimation][cAnimation].getTaille(),
 			                    xAnimation+plusX+2*tailleCase/5, yAnimation+plusY+3*tailleCase/5);
 		}
+	joueur1(drawable);
+	joueur2(drawable);
 	}
 }
 

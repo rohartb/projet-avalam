@@ -43,7 +43,14 @@ public class Jeu{
 	}
 
 	void changerJoueur(){
-		joueurCourant = (joueurCourant+1) %2;
+		joueurCourant = ((joueurCourant+1) %3)+1;
 	}
 
+	public boolean courantEstJ1() {
+		return (joueurCourant == 1);
+	}
+
+	public boolean courantEstJ2() {
+		return (joueurCourant == 2);
+	}
 }
