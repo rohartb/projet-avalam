@@ -8,6 +8,7 @@ public class Avalam{
 	Terrain t;
 	Jeu j;
 	Sauvegarde s;
+	Regle r;
 	boolean quit;
 
 	static final int INIT=-1;
@@ -32,6 +33,7 @@ public class Avalam{
 	static final int FIN=14;
 	static final int OPTIONS=15;
 	static final int APPARENCE=17;
+	static final int REGLE = 24;
 
 	static final int QUITTER=42;
 
@@ -214,6 +216,12 @@ public class Avalam{
 			case APPARENCE:
 				System.out.println("apparence");
 				f.app.afficherApparence();
+				etat=etatSuivant;
+				break;
+			
+			case REGLE:
+				System.out.println("regle");
+				f.r.afficherRegle();
 				etat=etatSuivant;
 				break;
 
