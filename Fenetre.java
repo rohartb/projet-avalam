@@ -94,6 +94,7 @@ class Fenetre extends JFrame implements Runnable{
 		//ajout ecouteurs
 		g.addMouseMotionListener(es);
 		g.addMouseListener(es);
+		g.addComponentListener(es);
 		this.addWindowListener(ef);
 
 		// Creation des popups

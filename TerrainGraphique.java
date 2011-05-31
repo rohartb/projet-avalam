@@ -21,8 +21,8 @@ class TerrainGraphique extends JComponent{
 	public boolean animation;
 	private int plusX, plusY, xAnimation, yAnimation, lAnimation, cAnimation;
 	private int taillePolice;
-	private BufferedImage BIFondAnimation;
-	private Image BIPlateau, BIBotJ1, BIBotJ2, BIHumainJ1, BIHumainJ2;
+	private BufferedImage BIFondAnimation, BIJ1Small, BIJ1Big, BIJ2Small, BIJ2Big;
+	private Image BIPlateau;
 
 	TerrainGraphique(Avalam a){
 		this.a=a;
@@ -95,17 +95,10 @@ class TerrainGraphique extends JComponent{
 			drawable.setFont(new Font("Liberation Sans", 1 , taillePolice));
 			drawable.drawString(a.j.J1.nom,10,hauteur-(gapV+(1*tailleCase/3)));
 
-			if (a.j.J1.estHumain()) {
-				if (a.j.courantEstJ1()) {
-					drawable.setPaint(Color.red);
-					drawable.fillOval(40, hauteur-(gapV+tailleCase-3), 10 , 10);
-				} else {
-
-				}
-			} else if (a.j.J1.estRobot()) {
-
+			if (! a.j.courantEstJ1()) {
+				drawable.drawImage(BIJ1Small,8, hauteur-((int) (gapV+tailleCase*1.7)) ,null);
 			} else {
-				drawable.fillOval(15, hauteur-67 ,25, 25);
+				drawable.drawImage(BIJ1Big,8, hauteur-((int) (gapV+tailleCase*2.7)) ,null);
 			}
 	}
 
@@ -124,17 +117,10 @@ class TerrainGraphique extends JComponent{
 		drawable.drawString(a.j.J2.nom, largeur-decalage-10, gapV +
 		                    (int) (tailleCase*0.6));
 
-		if (a.j.courantEstJ2()) {
-			drawable.setPaint(Color.red);
-			drawable.fillOval(largeur-60, gapV+tailleCase*4/5+9, 10 , 10);
-		}
-
-		if (a.j.J2.estHumain()) {
-
-		} else if (a.j.J2.estRobot()) {
-
+		if (! a.j.courantEstJ2()) {
+			drawable.drawImage(BIJ2Small,largeur-tailleCase-10, gapV+2*tailleCase/3 ,null);
 		} else {
-			//drawable.fillOval(largeur-40, 31, 25, 25);
+			drawable.drawImage(BIJ2Big,largeur-tailleCase*2-10, gapV+2*tailleCase/3 ,null);
 		}
 	}
 
@@ -227,47 +213,98 @@ class TerrainGraphique extends JComponent{
 		animation = false;
 	}
 
+	public static void setAntiAlias(Graphics2D drawable) {
+		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		drawable.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+		                          RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		drawable.setRenderingHint(RenderingHints.KEY_RENDERING,
+		                          RenderingHints.VALUE_RENDER_QUALITY);
+	}
+
 	public void reinitialisationDesBI() {
-
+		File f=null;
+		BufferedImage loaded;
+		ImageFilter filter;
+		FilteredImageSource filteredSrc;
+		Image filteredRes;
+		Graphics2D drawable;
 		// reini du plateau
+		calculTaille();
 		try {
-			BufferedImage resized;
-			resized = ImageIO.read(new File("images/plateau.png"));
 
-			ImageFilter filter = new SetColorFilter(Themes.getCouleurPlateau(theme));
-			FilteredImageSource filteredSrc = new FilteredImageSource(resized.getSource(), filter);
+			loaded = ImageIO.read(new File("images/plateau.png"));
+
+			filter = new SetColorFilter(Themes.getCouleurPlateau(theme));
+			filteredSrc = new FilteredImageSource(loaded.getSource(), filter);
 			BIPlateau = Toolkit.getDefaultToolkit().createImage(filteredSrc);
 		} catch (Exception e) {}
 
-		File f;
 		// reini du J1
 		if ( a.j.J1.estHumain())
-			f = new File("image/joueur.png");
+			f = new File("images/joueur.png");
 		else if ( a.j.J1.estRobot()) {
-			f = new File("image/bot.png");
+			f = new File("images/bot.png");
+		}
+		try {
+		loaded = ImageIO.read(f);
+		filter = new SetColorFilter(Themes.getCouleurPionJ1(theme));
+		filteredSrc = new FilteredImageSource(loaded.getSource(), filter);
+		filteredRes = Toolkit.getDefaultToolkit().createImage(filteredSrc);
+		BIJ1Small = new BufferedImage(tailleCase, tailleCase,BufferedImage.TYPE_INT_ARGB);
+		drawable = BIJ1Small.createGraphics();
+		setAntiAlias(drawable);
+		drawable.drawImage(filteredRes, 0, 0, tailleCase, tailleCase,null);
+
+		BIJ1Big = new BufferedImage(tailleCase*2, tailleCase*2, BufferedImage.TYPE_INT_ARGB);
+		drawable = BIJ1Big.createGraphics();
+
+
+
+		drawable.drawImage(filteredRes, 0, 0,tailleCase*2, tailleCase*2,null);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 
-
 		// reini du J2
+		if ( a.j.J2.estHumain())
+			f = new File("images/joueur.png");
+		else if ( a.j.J2.estRobot()) {
+			f = new File("images/bot.png");
+		}
+		try {
+		loaded = ImageIO.read(f);
+		filter = new SetColorFilter(Themes.getCouleurPionJ2(theme));
+		filteredSrc = new FilteredImageSource(loaded.getSource(), filter);
+		filteredRes = Toolkit.getDefaultToolkit().createImage(filteredSrc);
+		BIJ2Small = new BufferedImage(tailleCase, tailleCase,BufferedImage.TYPE_INT_ARGB);
+		drawable = BIJ2Small.createGraphics();
+		setAntiAlias(drawable);
 
+		drawable.drawImage(filteredRes, 0, 0, tailleCase, tailleCase,null);
+
+		BIJ2Big = new BufferedImage(tailleCase*2, tailleCase*2, BufferedImage.TYPE_INT_ARGB);
+		drawable = BIJ2Big.createGraphics();
+
+
+		setAntiAlias(drawable);
+		drawable.drawImage(filteredRes, 0, 0,tailleCase*2, tailleCase*2,null);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 
 	public void paintComponent(Graphics g){
 		calculTaille();
 		Graphics2D drawable = (Graphics2D) g;
-		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		drawable.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-		                          RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		drawable.setRenderingHint(RenderingHints.KEY_RENDERING,
-		                          RenderingHints.VALUE_RENDER_QUALITY);
+
 
 		//dimensions de la partie dessin
 		Dimension p = getSize();
 		int hauteur = p.height;
 		int largeur = p.width;
 
-
+		setAntiAlias(drawable);
 		if (!animation) {
 			drawable.setPaint(Themes.getCouleurFond(theme));
 			drawable.fillRect(0,0, largeur, hauteur);
