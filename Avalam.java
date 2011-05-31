@@ -240,12 +240,9 @@ public class Avalam{
 
 			case ACTUALISER:
 				System.out.println("actualiser");
-				//calcul score
-				//calcul fin de partie
-
 				f.g.repaint();
-				j.nbCoupsRestants = t.nbDeplRestant();
 				f.s.actualiser();
+				j.actualiser();
 				etat=etatSuivant;
 				break;
 

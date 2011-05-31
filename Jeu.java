@@ -60,4 +60,11 @@ public class Jeu{
 	public boolean courantEstJ2() {
 		return (joueurCourant == 2);
 	}
+	
+	void actualiser(){
+		nbCoupsRestants = a.t.nbDeplRestant();
+		finPartie = nbCoupsRestants != 0;
+			
+	}
 }
+
