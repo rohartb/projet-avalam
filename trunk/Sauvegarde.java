@@ -11,6 +11,7 @@ class Sauvegarde{
 	File f;
     
     JList listCharger;
+    JButton fermer, charger, supprimer;
     JDialog fenetreCharger;
 
 	public Sauvegarde(Avalam a){
@@ -62,129 +63,150 @@ class Sauvegarde{
 	}
 
 	void charger(String st){
-		//Pour afficher uniquement les .save
-		/*FilenameFilter ff = new FilenameFilter() {
-			public boolean accept(File f,String name) {
-				return name.endsWith(".save");
-			}
-		};
-		System.out.println("avant");
-
-		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
-		String st = (String)JOptionPane.showInputDialog(a.f, "Choisissez votre partie à charger","Charger",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("./Images/icone_charger.png"),dossier.list(ff),null);
-		st = System.getProperty("user.home")+"/.Avalam/Sauvegardes/" + st;*/
-        System.out.println(path+st);
 		File f = new File(path+st);
-		//System.out.println(f.getPath());
+        try{
+            FileInputStream in = new FileInputStream(f);
+            Scanner s = new Scanner(in);
+            a.j.joueurCourant = s.nextInt();
+            a.j.J1.type = s.nextInt();
+            a.j.J2.type = s.nextInt();
+            long temps = s.nextLong();
+            a.j.modeNormal = s.nextBoolean();
+            s.nextLine(); //on revient a la ligne
+            a.j.J1.nom = s.nextLine();
+            a.j.J2.nom = s.nextLine();
+            for(int i=0; i<9; i++)
+                for(int j=0; j<9; j++)
+                    a.t.plateau[i][j].setContenu(s.nextLine());
 
-		//if(f.exists()){
-			try{
-				FileInputStream in = new FileInputStream(f);
-				Scanner s = new Scanner(in);
-				a.j.joueurCourant = s.nextInt();
-				a.j.J1.type = s.nextInt();
-				a.j.J2.type = s.nextInt();
-				long temps = s.nextLong();
-				a.j.modeNormal = s.nextBoolean();
-				s.nextLine(); //on revient a la ligne
-				a.j.J1.nom = s.nextLine();
-				a.j.J2.nom = s.nextLine();
-				for(int i=0; i<9; i++)
-					for(int j=0; j<9; j++)
-						a.t.plateau[i][j].setContenu(s.nextLine());
+            //historique
+            a.j.h = new Historique();
+            a.j.finPartie = s.nextBoolean();
+            s.nextLine(); //on revient a la ligne
 
-				//historique
-				a.j.h = new Historique();
-				a.j.finPartie = s.nextBoolean();
-				s.nextLine(); //on revient a la ligne
-
-				while(s.hasNext()){
-					a.j.h.ajouterAnnuler(new ElemHist(s.nextLine()));
-				}
-
-				a.f.s.start = new Time(temps);
-				a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
-
-				//grisage des options annuler et refaire et voir dernier coup
-				//annuler visible si la pile n'est pas vide ET (mode normal OU fin de partie)
-				if(!a.j.h.annulerVide() && (a.j.modeNormal || a.j.finPartie)){
-					a.f.m.annuler.setEnabled(true);
-				}else{
-					a.f.m.annuler.setEnabled(false);
-				}
-				//rejouer visible si la pile n'est pas vide ET  (mode normal OU fin de partie)
-				if(!a.j.h.rejouerVide() && (a.j.modeNormal) || a.j.finPartie){
-					a.f.m.rejouer.setEnabled(true);
-				}else{
-					a.f.m.rejouer.setEnabled(false);
-				}
-				//dernier coup visible si la pile annuler n'est pas vide
-				if(!a.j.h.annulerVide()){
-					a.f.m.dernierCoup.setEnabled(true);
-				}else{
-					a.f.m.dernierCoup.setEnabled(false);
-				}
-
-			}catch(Exception e){
+            while(s.hasNext()){
+                a.j.h.ajouterAnnuler(new ElemHist(s.nextLine()));
+            }
+            a.f.s.start = new Time(temps);
+            a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
+            
+            //grisage des options annuler et refaire et voir dernier coup
+            //annuler visible si la pile n'est pas vide ET (mode normal OU fin de partie)
+            if(!a.j.h.annulerVide() && (a.j.modeNormal || a.j.finPartie)){
+                a.f.m.annuler.setEnabled(true);
+            }else{
+                a.f.m.annuler.setEnabled(false);
+            }
+            
+            //rejouer visible si la pile n'est pas vide ET  (mode normal OU fin de partie)
+            if(!a.j.h.rejouerVide() && (a.j.modeNormal) || a.j.finPartie){
+                a.f.m.rejouer.setEnabled(true);
+            }else{
+                a.f.m.rejouer.setEnabled(false);
+            }
+            
+            //dernier coup visible si la pile annuler n'est pas vide
+            if(!a.j.h.annulerVide()){
+                a.f.m.dernierCoup.setEnabled(true);
+            } else {
+                a.f.m.dernierCoup.setEnabled(false);
+            }
+            a.etatSuivant = a.ACTUALISER;
+        }catch(Exception e){
 				System.out.println(e);
-			}
-		//}
+        }
 	}
     
     public void afficherCharger() {        
-        JPanel panelBoutons;
-        JButton fermer, charger, supprimer;
+        a.etatSuivant = a.JEU;
         
         fenetreCharger = new JDialog();
+        fenetreCharger.setTitle("Charger");
         fenetreCharger.setModal(true);
+        fenetreCharger.setResizable(false);
         fenetreCharger.setLayout(new BorderLayout(5,5));
         
-        listCharger = new JList();
-        listCharger.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listCharger.setVisibleRowCount(5);
-        miseAJourListCharger();
+        //Panel du centre, avec l'icone et la liste
+        JPanel panelCentre = new JPanel(new FlowLayout());
+            
+            //List
+            listCharger = new JList();
+            listCharger.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            
+            //Scroll List
+            JScrollPane scrollList = new JScrollPane(listCharger);
+            scrollList.setPreferredSize(new Dimension(250,100));
+            
+            //Icon
+            JLabel icone = new JLabel(new ImageIcon("images/icone_charger.png"),JLabel.CENTER);
+            
+            panelCentre.add(icone); 
+            panelCentre.add(scrollList);
         
+        fenetreCharger.add(panelCentre);
+        ////////////////////////////////////////////////
         
-        JScrollPane scrollList = new JScrollPane(listCharger);
-        scrollList.setPreferredSize(new Dimension(80,70));
+        //Panel du bas, avec les trois boutons
+        JPanel panelBas = new JPanel(new BorderLayout());
         
-        fenetreCharger.add(scrollList,"Center");
+            //Panel Boutons :
+            JPanel panelBoutons = new JPanel(new GridLayout(1,3,10,10));
         
+            fermer = new JButton("Fermer");
+            fermer.setActionCommand("fermer");
+            panelBoutons.add(fermer);
+            
+            supprimer = new JButton("Supprimer");
+            supprimer.setActionCommand("supprimer");
+            panelBoutons.add(supprimer);
+            
+            charger = new JButton("Charger");
+            charger.setActionCommand("charger");
+            panelBoutons.add(charger);
+            
+            EcouteurDeSauvegarde es = new EcouteurDeSauvegarde(this);
+            charger.addActionListener(es);
+            supprimer.addActionListener(es);
+            fermer.addActionListener(es);
+            panelBas.add(panelBoutons);
         
-        EcouteurDeSauvegarde es = new EcouteurDeSauvegarde(this);
+            //Espaces pour aerer les boutons
+            JPanel p1 = new JPanel();
+            p1.setSize(40,300);
+            JPanel p2 = new JPanel();
+            p2.setSize(40,300);
+            JPanel p3 = new JPanel();
+            p3.setSize(250,40);
+            JPanel p4 = new JPanel();
+            p4.setSize(250,40);
+            panelBas.add(p1,"North");
+            panelBas.add(p2,"South");
+            panelBas.add(p3,"East");
+            panelBas.add(p4,"West");
+
+        fenetreCharger.add(panelBas,"South");
         
-        panelBoutons = new JPanel(new GridLayout(1,3,10,10));
-        fermer = new JButton("Fermer");
-        fermer.setActionCommand("fermer");
-        fermer.addActionListener(es);
-        panelBoutons.add(fermer);
+        //Panel nord, label
+        JPanel panelNord = new JPanel(new GridLayout(2,1));
+            
+            //Panel vide pour aerer
+            panelNord.add(new JPanel());
+            
+            //Label
+            JLabel labelNord = new JLabel("Selectionner une partie :",JLabel.CENTER);
+            panelNord.add(labelNord);
+
+        fenetreCharger.add(panelNord,BorderLayout.NORTH);
         
-        supprimer = new JButton("Supprimer");
-        supprimer.setActionCommand("supprimer");
-        supprimer.addActionListener(es);
-        panelBoutons.add(supprimer);
-        
-        charger = new JButton("Charger");
-        charger.setActionCommand("charger");
-        charger.addActionListener(es);
-        panelBoutons.add(charger);
-        
-        fenetreCharger.add(panelBoutons,"South");
-        
-        JLabel icone = new JLabel(new ImageIcon("images/icone_charger.png"),JLabel.NORTH_EAST);
-        fenetreCharger.add(icone,"West");
-        
-        JLabel labelNord = new JLabel("Selectionner une partie :",JLabel.CENTER);
-        labelNord.setSize(40,300);
-        fenetreCharger.add(labelNord,BorderLayout.NORTH);
-        
-        JPanel pEst = new JPanel();
-        pEst.setSize(250,40);
+        //Panel Est pour decaler la list du bord droit
+        JLabel pEst = new JLabel("        ");
         fenetreCharger.add(pEst,"East");
         
+        //Mise a jour de la liste une fois toute l'interface "creer"
+        miseAJourListCharger();
+        
         // position initiale de la fenetre sur l'ecran
-        //fenetreCharger.pack();
-        fenetreCharger.setSize(300,200);
+        fenetreCharger.pack();
 		int resHauteur = Toolkit.getDefaultToolkit().getScreenSize().height;
 		int resLargeur = Toolkit.getDefaultToolkit().getScreenSize().width;
 		int hauteur  = (resHauteur - fenetreCharger.getSize().height)/2;
@@ -204,7 +226,14 @@ class Sauvegarde{
 		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
         Object[] listeFichiers = dossier.list(ff);
         
-        listCharger.setListData(listeFichiers);
-        listCharger.setSelectedIndex(0);
+        if(listeFichiers.length != 0) {
+            listCharger.setListData(listeFichiers);
+            listCharger.setSelectedIndex(0);
+        } else {
+            String[] tab = {"Aucune partie sauvegardee"};
+            listCharger.setListData(tab);
+            charger.setEnabled(false);
+            supprimer.setEnabled(false);
+        }
     }
 }
