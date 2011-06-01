@@ -44,6 +44,7 @@ public class EcouteurDApparence implements ActionListener,
 			app.sauver();
 			app.fermerApparence();
 			themeTmp = -1;
+			
 		} else if (cmd.equals("annuler")) {
 			if (themeTmp != -1) {
 				a.f.g.theme = themeTmp;
@@ -69,7 +70,7 @@ public class EcouteurDApparence implements ActionListener,
 	}
 
 
-	public void windowClosing      (WindowEvent e) {
+	public void windowClosing   (WindowEvent e) {
 		// Quand on clic sur la croix (revient à faire annuler)
 			if (themeTmp != -1) {
 				a.f.g.theme = themeTmp;
