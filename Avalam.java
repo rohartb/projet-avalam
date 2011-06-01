@@ -317,7 +317,9 @@ public class Avalam{
 			case REJOUER:
 				ElemHist ehr = j.h.rejouer();
 				j.h.ajouterAnnuler(ehr);
-				t.deplacer(new Coups(new Point(ehr.lSource,ehr.cSource),new Point(ehr.lDest,ehr.cDest)));
+				j.c = new Coups(new Point(ehr.lSource,ehr.cSource),new Point(ehr.lDest,ehr.cDest));
+				f.g.animationPionAuto();
+				t.deplacer(j.c);
 				j.changerJoueur();
 				etat=ACTUALISER;
 				break;
