@@ -277,14 +277,18 @@ public class Avalam{
 			
 			case REGLE:
 				System.out.println("regle");
+				f.s.timer.stop();
 				f.r.afficherRegle();
+				f.s.timer.start();
 				etat=JEU;
 				break;
 			
 			
 			case ASTUCE:
 				System.out.println("astuces");
+				f.s.timer.stop();
 				f.as.afficherAstuces();
+				f.s.timer.start();
 				etat=JEU;
 				break;
 				
