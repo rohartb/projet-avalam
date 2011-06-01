@@ -70,6 +70,7 @@ public class Jeu{
 				J1.type = s.nextInt();
 				J2.type = s.nextInt();
 				modeNormal = s.nextBoolean();
+				modeAide = s.nextBoolean();
 				s.nextLine();
 				J1.nom = s.nextLine();
 				J2.nom = s.nextLine();
@@ -145,7 +146,7 @@ public class Jeu{
 			f.setWritable(true);
 			String s = "";
 
-			s += J1.type +" "+ J2.type +" "+a.j.modeNormal+"\n";
+			s += J1.type +" "+ J2.type +" "+modeNormal+" "+modeAide+"\n";
 			s += J1.nom +"\n";
 			s += J2.nom +"\n";
 
