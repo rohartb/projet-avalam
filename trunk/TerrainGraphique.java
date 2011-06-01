@@ -26,6 +26,8 @@ class TerrainGraphique extends JComponent{
 	private Image BIPlateau;
 
 	JButton annuler, rejouer;
+	ImageIcon ampoule;
+	JLabel labelAmpoule;
 
 	TerrainGraphique(Avalam a){
 		this.a=a;
@@ -45,6 +47,11 @@ class TerrainGraphique extends JComponent{
 		rejouer.setToolTipText("Rejouer le coup annulé");
 		annuler.addActionListener(a.f.em);
 		rejouer.addActionListener(a.f.em);
+		ampoule = new ImageIcon("images/ampoule.png");
+		labelAmpoule = new JLabel(ampoule);
+		this.add(labelAmpoule);
+		labelAmpoule.addMouseListener(a.f.es);
+
 
 		if(!ap.exists()){
 			theme =1;
@@ -178,7 +185,8 @@ class TerrainGraphique extends JComponent{
 		int gap = (largeur-2*tailleCase)/4;
 		annuler.setBounds(xRect+gap, yRect+tailleCase/4, tailleCase, tailleCase/2);
 		rejouer.setBounds(xRect+largeur-gap-tailleCase, yRect+tailleCase/4, tailleCase, tailleCase/2);
-
+		labelAmpoule.setBounds(centre-ampoule.getIconWidth()/2, yRect+hauteur-ampoule.getIconHeight(), ampoule.getIconWidth(), ampoule.getIconHeight());
+		//drawable.drawImage(ampoule, centre-ampoule.getWidth()/2, yRect+hauteur-ampoule.getHeight(), null);
 	}
 
 	public void resetBIFondAnimation(Point lc) {
