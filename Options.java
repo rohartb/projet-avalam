@@ -9,6 +9,7 @@ public class Options extends JDialog{
 	int typeJ1, typeJ2;
 	String nomJ1, nomJ2;
 	boolean modeNormal;
+	boolean modeAide;
 
 	int typeJ1Tmp, typeJ2Tmp;
 	String nomJ1Tmp, nomJ2Tmp;
@@ -28,6 +29,7 @@ public class Options extends JDialog{
 	JRadioButton n10, n11, n12;
 	JRadioButton n20, n21, n22;
 	JRadioButton PartieNormale, PartieMatch;
+	JCheckBox activerAide;
 
 	JButton ok;
 	JButton annuler;
@@ -255,6 +257,18 @@ public class Options extends JDialog{
 		PanelOptionDeJeu.add(PartieNormale);
 		PanelOptionDeJeu.add(PartieMatch);
 
+
+		//Afficher déplacement d'un pion
+
+		activerAide = new JCheckBox("Activer");
+		activerAide.setActionCommand("activer");
+		activerAide.addActionListener(eo);
+		activerAide.setSelected(modeNormal);
+
+		JPanel panelOptionDAide = new JPanel();
+		panelOptionDAide.setBorder(BorderFactory.createTitledBorder("Aide"));
+		panelOptionDAide.add(activerAide);
+
 		/////// Panel Bouton Ok / Annuler
 
 		JPanel PanelOkAnnuler = new JPanel(); //Panel du boutons ok/annuler
@@ -274,9 +288,13 @@ public class Options extends JDialog{
 		PanelOkAnnuler.add(ok);
 		PanelOkAnnuler.add(appliquerRelancer);
 
+		JPanel panelModeAide = new JPanel();
+		panelModeAide.add(PanelOptionDeJeu);
+		panelModeAide.add(panelOptionDAide);
+
 		// Ajout des panels à la fenetre
 		this.add(PanelChoixJoueur, BorderLayout.NORTH);
-		this.add(PanelOptionDeJeu);
+		this.add(panelModeAide);
 		this.add(PanelOkAnnuler  , BorderLayout.SOUTH);
 
 
@@ -358,7 +376,12 @@ public class Options extends JDialog{
 		if (a.j.modeNormal)
 			PartieNormale.setSelected(true);
 		else
-			PartieMatch.setSelected(true);
+			PartieMatch.setSelected(false);
+		
+		if (a.j.modeAide)
+			activerAide.setSelected(true);
+		else
+			activerAide.setSelected(false);
 		this.setVisible(true);
 	}
 
