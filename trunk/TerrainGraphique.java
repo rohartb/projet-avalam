@@ -21,6 +21,11 @@ class TerrainGraphique extends JComponent{
 	public boolean animation;
 	int plusX, plusY, lAnimation,xAnimation, yAnimation, cAnimation;
 	float xAnim,yAnim;
+
+	public boolean adjacent;
+	public int lAdjacent, cAdjacent;
+
+
 	private int taillePolice;
 	private BufferedImage BIFondAnimation, BIJ1Small, BIJ1Big, BIJ2Small, BIJ2Big;
 	private Image BIPlateau;
@@ -29,6 +34,7 @@ class TerrainGraphique extends JComponent{
 	ImageIcon ampoule;
 	JLabel labelAmpoule;
 	EcouteurDAide ea;
+	static final Color blancTransparent = new Color(255,255,255,127);
 
 	TerrainGraphique(Avalam a){
 		this.a=a;
@@ -105,7 +111,46 @@ class TerrainGraphique extends JComponent{
 		Point coord = indiceToCoord(new Point(i,j));
 		x=coord.x;
 		y=coord.y;
-		drawable.fillOval(x+tailleCase/6, y+tailleCase/6, (int) (tailleCase*0.7), (int) (tailleCase*0.7));
+		int diametre = (int) (tailleCase*0.7);
+		int xCentre = x+tailleCase/2;
+		int yCentre = y+tailleCase/2;
+		int xCercle = xCentre-diametre/2;
+		int yCercle = yCentre-diametre/2;
+
+		if (t.plateau[i][j].estJ1())
+			drawable.setPaint(Themes.getCouleurPionJ1(theme));
+		else
+			drawable.setPaint(Themes.getCouleurPionJ2(theme));
+		drawable.fillOval(xCercle, yCercle, diametre, diametre);
+
+		//drawable.fillOval(x+tailleCase/6, y+tailleCase/6, (int) (tailleCase*0.7), (int) (tailleCase*0.7));
+		drawable.setPaint(Themes.getCouleurChiffre(theme));
+		drawable.setFont(new Font("Garuda", 0, tailleCase/3));
+		drawable.drawString("" + t.plateau[i][j].getTaille(),x+2*tailleCase/5, y+3*tailleCase/5);
+	}
+
+	public void dessineCaseAccessible(int i, int j, Graphics2D drawable) {
+		int x,y;
+		Point coord = indiceToCoord(new Point(i,j));
+		x=coord.x;
+		y=coord.y;
+		int diametre = (int) (tailleCase*0.9);
+		int xCentre = x+tailleCase/2;
+		int yCentre = y+tailleCase/2;
+		int xCercle = xCentre-diametre/2;
+		int yCercle = yCentre-diametre/2;
+		// if (t.plateau[i][j].estJ1())
+// 			drawable.setPaint(Themes.getCouleurPionJ1(theme));
+// 		else
+// 			drawable.setPaint(Themes.getCouleurPionJ2(theme));
+
+		//Shape cercle = new Ellipse2D.Float(xCercle, yCercle, diametre, diametre);
+		//drawable.setStroke(new BasicStroke(2));
+		//drawable.draw(cercle);
+		drawable.setPaint(blancTransparent);
+		//drawable.setPaint(Themes.getCouleurPlateau(theme).brighter());
+		drawable.fillOval(xCercle, yCercle, diametre, diametre);
+		//drawable.fillRect(x,y,tailleCase, tailleCase);
 		drawable.setPaint(Themes.getCouleurChiffre(theme));
 		drawable.setFont(new Font("Garuda", 0, tailleCase/3));
 		drawable.drawString("" + t.plateau[i][j].getTaille(),x+2*tailleCase/5, y+3*tailleCase/5);
@@ -166,7 +211,6 @@ class TerrainGraphique extends JComponent{
 		int centre = xRect+(largeur/2);
 
 		RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(xRect, yRect, largeur, hauteur, 10, 10);
-		Color blancTransparent = new Color(255,255,255,127);
 		drawable.setPaint(blancTransparent);
 		drawable.fill(roundedRectangle);
 
@@ -391,6 +435,21 @@ class TerrainGraphique extends JComponent{
 		}
 	}
 
+	public void dessineAdjacent(Graphics2D drawable) {
+		for (int i = lAdjacent-1; i <= lAdjacent+1; i++)
+			for (int j = cAdjacent-1; j<= cAdjacent+1; j++) {
+				if (i < 9 && i > -1 && j < 9 && j > -1
+				    && t.plateau[i][j].estOccupee()) {
+					if (i == lAdjacent && j == cAdjacent) {
+
+					} else {
+						dessineCaseAccessible(i,j, drawable);
+						dessineCase(i,j,drawable);
+					}
+				}
+			}
+	}
+
 
 	public void paintComponent(Graphics g){
 		calculTaille();
@@ -403,6 +462,8 @@ class TerrainGraphique extends JComponent{
 		int largeur = p.width;
 
 		setAntiAlias(drawable);
+
+
 		if (!animation) {
 			drawable.setPaint(Themes.getCouleurFond(theme));
 			drawable.fillRect(0,0, largeur, hauteur);
@@ -427,6 +488,9 @@ class TerrainGraphique extends JComponent{
 						dessineCaseVide(i,j,drawable);
 					}
 				}
+			}
+			if (adjacent) {
+				dessineAdjacent(drawable);
 			}
 		} else {
 			drawable.drawImage(BIFondAnimation, 0, 0, null);

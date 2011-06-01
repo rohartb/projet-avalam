@@ -90,7 +90,7 @@ public class Avalam{
 				f = new Fenetre(this);
 				s = new Sauvegarde(this);
 				quit=false;
-				serv = new Serveur();
+				serv = new Serveur(this);
 				thServeur = new Thread(serv);
 				thServeur.start();
 				thFenetre = new Thread(f);
@@ -110,24 +110,31 @@ public class Avalam{
 				break;
 				//verifier l'etat du jeu + attente d'un coup
 
-			//init reseau
+				//init reseau
 			case CONNEXION:
-				String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire");
 				try {
-				InetAddress addr = InetAddress.getByName(result);
-				int port = 8100;
-				Socket sock = new Socket(addr, port);
-				r = new Reseau(sock);
-				thReseau = new Thread(r);
-				thReseau.start();
+					String ip = "" + InetAddress.getLocalHost().getHostAddress();
+
+					if (ip.equals("127.0.0.1")) {
+						JOptionPane.showMessageDialog(null,"Vérifiez votre connexion réseau.\nPartie en réseau impossible.", "Attention connexion" ,JOptionPane.WARNING_MESSAGE);
+					} else {
+						String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip);
+						InetAddress addr = InetAddress.getByName(result);
+						int port = 8100;
+						Socket sock = new Socket(addr, port);
+						r = new Reseau(sock);
+						thReseau = new Thread(r);
+						thReseau.start();
+					}
+					// celui qui établie la connexion devient J1
+					// a.j.J1 = Jeu.HUMAIN;
+					// a.j2.J2 = Jeu.RESEAU;
+					// on active le mode match ?
+					etat = JEU;
 				} catch (Exception e) {
 					System.out.println(e);
+
 				}
-				// celui qui établie la connexion devient J1
-				// a.j.J1 = Jeu.HUMAIN;
-				// a.j2.J2 = Jeu.RESEAU;
-				// on active le mode match ?
-				etat = JEU;
 
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
@@ -232,6 +239,7 @@ public class Avalam{
 				t.deplacer(j.c);
 				etat=ACTUALISER;
 				j.changerJoueur();
+				r.outputReseau.print("coucou\n");
 				break;
 
 			//TODO popop sauvegarder avant charger
@@ -273,8 +281,8 @@ public class Avalam{
 				f.s.timer.start();
 				etat=JEU;
 				break;
-			
-			
+
+
 			case REGLE:
 				System.out.println("regle");
 				f.s.timer.stop();
@@ -282,8 +290,8 @@ public class Avalam{
 				f.s.timer.start();
 				etat=JEU;
 				break;
-			
-			
+
+
 			case ASTUCE:
 				System.out.println("astuces");
 				f.s.timer.stop();
@@ -301,7 +309,7 @@ public class Avalam{
 					t.annuler(coupOrdi);
 					j.c = new Coups(new Point(coupOrdi.lSource,coupOrdi.cSource),new Point(coupOrdi.lDest,coupOrdi.cDest));
 					f.g.animationPionAnnuler();
-					
+
 					ElemHist coupJoueur = j.h.annuler();
 					t.annuler(coupJoueur);
 					j.c = new Coups(new Point(coupJoueur.lSource,coupJoueur.cSource),new Point(coupJoueur.lDest,coupJoueur.cDest));

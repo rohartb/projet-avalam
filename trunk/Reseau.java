@@ -7,8 +7,8 @@ import java.io.PrintStream;
 
 public class Reseau implements Runnable {
 
-	InputStream inputReseau;
-	PrintStream outputReseau;
+	InputStream inputReseau; // on y lit
+	PrintStream outputReseau;// on y écrit
 
 	public Reseau(Socket sock) {
 		try {
