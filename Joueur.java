@@ -15,13 +15,6 @@ public class Joueur{
 
 	public void actualiserBot(){
 		b.niveau = type;
-		b.bot = joueur;
-		if(joueur==1){
-			b.adv=2;
-		}
-		else{
-			b.adv=1;
-		}
 	}
 
 	public boolean estHumain() {
