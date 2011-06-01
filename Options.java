@@ -358,7 +358,7 @@ public class Options extends JDialog{
 		if (a.j.modeNormal)
 			PartieNormale.setSelected(true);
 		else
-			PartieMatch.setSelected(false);
+			PartieMatch.setSelected(true);
 		this.setVisible(true);
 	}
 

@@ -90,8 +90,8 @@ class MenuAvalam extends JMenuBar{
 		dernierCoup = new JMenuItem("Voir dernier coup");
 		dernierCoup.setActionCommand("dernierCoup");
 		dernierCoup.addActionListener(em);
-		dernierCoup.setMnemonic(KeyEvent.VK_R);
-		dernierCoup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK | Event.SHIFT_MASK));
+		//dernierCoup.setMnemonic(KeyEvent.VK_R);
+		//dernierCoup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK | Event.SHIFT_MASK));
 		edition.add(dernierCoup);
 		this.add(edition);
 
@@ -129,8 +129,17 @@ class MenuAvalam extends JMenuBar{
 	}
 
 	void actualiser(){
-		annuler.setEnabled(!a.j.h.annulerVide());
-		rejouer.setEnabled(!a.j.h.rejouerVide());
+		
+		annuler.setEnabled(!a.j.h.annulerVide() && (a.j.finPartie || a.j.modeNormal));
+		System.out.println(a.j.modeNormal);
+		//si la taille de la pile est de 1 (un seul coup joue, coup d'un robot) et que c'est au joueur de jouer, on ne peut pas annuler!
+		if(a.j.h.tailleAnnuler()==1 && (a.j.J1.estRobot() || a.j.J2.estRobot()) && a.j.courantEstHumain()){
+			annuler.setEnabled(false);
+		}
+		
+		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.finPartie || a.j.modeNormal));
+			
+			
 		if(a.j.pause){
 			pause.setText("Reprendre");
 			pause.setActionCommand("reprendre");

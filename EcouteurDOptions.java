@@ -124,6 +124,8 @@ public class EcouteurDOptions implements ActionListener,
 		a.j.J1.type = o.typeJ1;
 		a.j.J2.type = o.typeJ2;
 
+		a.j.modeNormal=o.modeNormal;
+
 		a.j.sauverOptions();
 		//a.f.g.reinitialisationDesBI();
 		o.fermerOptions();

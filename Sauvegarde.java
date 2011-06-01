@@ -108,21 +108,25 @@ class Sauvegarde{
 				a.f.s.start = new Time(temps);
 				a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
 
-				//grisage des options annuler et refaire
-				if((!a.j.h.annulerVide() && a.j.modeNormal) || a.j.finPartie){
+				//grisage des options annuler et refaire et voir dernier coup
+				//annuler visible si la pile n'est pas vide ET (mode normal OU fin de partie)
+				if(!a.j.h.annulerVide() && (a.j.modeNormal || a.j.finPartie)){
 					a.f.m.annuler.setEnabled(true);
-				}
-				else{
+				}else{
 					a.f.m.annuler.setEnabled(false);
 				}
-				if(!a.j.h.rejouerVide() && a.j.finPartie){
-					a.f.m.rejouer.setEnabled(false);
-				}else{
+				//rejouer visible si la pile n'est pas vide ET  (mode normal OU fin de partie)
+				if(!a.j.h.rejouerVide() && (a.j.modeNormal) || a.j.finPartie){
 					a.f.m.rejouer.setEnabled(true);
+				}else{
+					a.f.m.rejouer.setEnabled(false);
 				}
-
-				a.f.m.dernierCoup.setEnabled(false);
-
+				//dernier coup visible si la pile annuler n'est pas vide
+				if(!a.j.h.annulerVide()){
+					a.f.m.dernierCoup.setEnabled(true);
+				}else{
+					a.f.m.dernierCoup.setEnabled(false);
+				}
 
 			}catch(Exception e){
 				System.out.println(e);
