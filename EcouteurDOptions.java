@@ -82,7 +82,6 @@ public class EcouteurDOptions implements ActionListener,
 	//// Ecouteur du texte tapé pr les noms
 	public void keyReleased(KeyEvent e) {
 		JTextField tf = (JTextField) e.getSource();
-
 		if (tf == o.TextFieldNomJ1) {
 			o.nomJ1Tmp = tf.getText();
 		} else if (tf == o.TextFieldNomJ2) {
@@ -153,6 +152,7 @@ public class EcouteurDOptions implements ActionListener,
 
 	public void windowClosing(WindowEvent e) {
 		o.fermerOptions();
+		a.etatSuivant=a.JEU;
 	}
 
 

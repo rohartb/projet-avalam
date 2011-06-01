@@ -152,14 +152,14 @@ class Fenetre extends JFrame implements Runnable{
 		}
 		String[] options = {"Rejouer" , "Revoir la partie" , "Quitter"};
 		int choix  = JOptionPane.showOptionDialog(null, message, titre, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );		
+		a.etatSuivant=a.JEU;
+		a.j.finPartie=false;
 		if (choix == JOptionPane.YES_OPTION) {
-
-		}else if (choix == JOptionPane.NO_OPTION) {
-			System.exit(0);
-		}else{
-
-			a.etat=a.JEU;
+			a.etatSuivant=a.NOUVEAU;
 		}
-
+		if (choix == JOptionPane.CANCEL_OPTION) {
+			System.exit(0);
+		}
+		
 	}
 }
