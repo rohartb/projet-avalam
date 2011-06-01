@@ -239,7 +239,7 @@ public class Avalam{
 			case CHARGER:
 				System.out.println("charger");
 				f.s.timer.stop();
-				s.charger();
+				s.afficherCharger();
 				f.s.timer.start();
 				etat=etatSuivant;
 				break;
