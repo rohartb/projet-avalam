@@ -277,7 +277,7 @@ public class Avalam{
 			case REGLE:
 				System.out.println("regle");
 				f.r.afficherRegle();
-				etat=etatSuivant;
+				etat=JEU;
 				break;
 
 			case ASTUCE:
