@@ -17,6 +17,7 @@ public class Apparence extends JDialog {
 		ea = new EcouteurDApparence(a,this);
 
 		this.setTitle("Apparence");
+		this.setModal(true);
 		// class de gestion de l'apparence du jeu
 		String[] themeStrings = {"Theme 1", "Theme 2", "Theme 3"};
 
