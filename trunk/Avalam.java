@@ -174,45 +174,7 @@ public class Avalam{
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
-				// Calcul du score
-				int nbJ2 = 0;
-				int nbJ1 = 0;
-				for (int i = 0; i < t.TAB_SIZE ; i++) {
-					for (int j = 0; j < t.TAB_SIZE ; j++) {
-						if (t.plateau[i][j].estOccupee()) {
-							if (t.plateau[i][j].estJ1())
-								nbJ1++;
-							if (t.plateau[i][j].estJ2())
-								nbJ2++;
-						}
-					}
-				}
-				String vainqueur;
-
-				// Affichage du la popup
-				if (nbJ1 == nbJ2) {
-					JOptionPane.showMessageDialog(null,"Personne ne gagne !","Egalité",JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					if((j.J1.estRobot() && j.J2.estHumain()) ||
-					   (j.J1.estRobot() && j.J1.estHumain())) {
-						if ((nbJ2 > nbJ1 && j.J2.estRobot()) ||
-						    (nbJ2 < nbJ1 && j.J2.estRobot())){
-							JOptionPane.showMessageDialog(null,"Vous avez perdu! \n Score :  "+nbJ1+" - "+nbJ2, "Défaite" ,JOptionPane.INFORMATION_MESSAGE);
-						}
-						else{
-							JOptionPane.showMessageDialog(null,"Vous avez gagné! \n Score : "+nbJ1+" - "+nbJ2, "Victoire" ,JOptionPane.INFORMATION_MESSAGE);
-						}
-					}else{
-						if (nbJ2 > nbJ1)
-							vainqueur = j.J2.nom;
-						else // nbJ1 > nbJ2
-							vainqueur = j.J1.nom;
-
-						JOptionPane.showMessageDialog(null,vainqueur +
-						                              " remporte la partie ! \n Score :  "+nbJ1+" - "+nbJ2, "Victoire" ,JOptionPane.INFORMATION_MESSAGE);
-					}
-				}
-				System.out.println("Score :  "+nbJ1+" - "+nbJ2);
+				f.popupFinDePartie();
 				pause();
 				break;
 
