@@ -13,6 +13,7 @@ class MenuAvalam extends JMenuBar{
 	JMenuItem apparence, itemPleinEcran;
 	JMenu aide;
 	JMenuItem regle;
+	JMenuItem astuces;
 
 	MenuAvalam(Avalam a){
 		this.a=a;
@@ -119,6 +120,11 @@ class MenuAvalam extends JMenuBar{
 		regle.addActionListener(em);
 		regle.setMnemonic(KeyEvent.VK_R);
 		aide.add(regle);
+		astuces= new JMenuItem("Astuces");
+		astuces.setActionCommand("astuces");
+		astuces.addActionListener(em);
+		astuces.setMnemonic(KeyEvent.VK_A);
+		aide.add(astuces);
 		this.add(aide);
 	}
 

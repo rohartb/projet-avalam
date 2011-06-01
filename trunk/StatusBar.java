@@ -41,7 +41,7 @@ public class StatusBar extends JPanel {
 		PanelCoups.setWidthFixed(false);
 		PanelCoups.setPanelBorder();
 		PanelCoups.setLayout(new BorderLayout());
-		labelCoupsRestants = new JLabel("Coups Restants : " + a.j.nbCoupsRestants);
+		labelCoupsRestants = new JLabel("Déplacement possible : " + a.j.nbCoupsRestants);
 		labelCoupsRestants.setHorizontalAlignment(JLabel.CENTER);
 		PanelCoups.add(labelCoupsRestants);
 
@@ -92,7 +92,7 @@ public class StatusBar extends JPanel {
 	}
 
 	public void actualiser() {
-		labelCoupsRestants.setText("Coups Restants : " + a.j.nbCoupsRestants);
+		labelCoupsRestants.setText("Déplacement possible : " + a.j.nbCoupsRestants);
 	}
 }
 
