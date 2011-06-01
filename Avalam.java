@@ -173,7 +173,8 @@ public class Avalam{
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
-				f.popupFinDePartie();
+				if(j.nbCoupsRestants==0)
+					f.popupFinDePartie();
 				pause();
 				break;
 
