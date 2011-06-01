@@ -28,6 +28,7 @@ class TerrainGraphique extends JComponent{
 	JButton annuler, rejouer;
 	ImageIcon ampoule;
 	JLabel labelAmpoule;
+	EcouteurDAide ea;
 
 	TerrainGraphique(Avalam a){
 		this.a=a;
@@ -50,7 +51,8 @@ class TerrainGraphique extends JComponent{
 		ampoule = new ImageIcon("images/ampoule.png");
 		labelAmpoule = new JLabel(ampoule);
 		this.add(labelAmpoule);
-		labelAmpoule.addMouseListener(a.f.es);
+		ea = new EcouteurDAide(a, this);
+		labelAmpoule.addMouseListener(ea);
 
 
 		if(!ap.exists()){
