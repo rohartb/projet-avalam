@@ -6,12 +6,13 @@ public class Joueur{
 	String nom;
 	int type;
 	int joueur; // 1 ou 2
+	int Score;
 
 	public Joueur(Avalam a){
 		this.a=a;
 		b = new Bot(a);
 	}
-	
+
 	public void actualiserBot(){
 		b.niveau = type;
 		b.bot = joueur;

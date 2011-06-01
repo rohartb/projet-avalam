@@ -93,10 +93,36 @@ public class Jeu{
 		return (joueurCourant == 2);
 	}
 
+	public boolean courantEstRobot() {
+		if (courantEstJ1())
+			return J1.estRobot();
+		else
+			return J2.estRobot();
+	}
+
+	public boolean courantEstHumain() {
+		if (courantEstJ1())
+			return J1.estHumain();
+		else
+			return J2.estHumain();
+	}
+
+
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
 		finPartie = nbCoupsRestants == 0;
+	}
 
+
+	public void calculerScore() {
+		int scoreJ1 = 0;
+		int scoreJ2 = 0;
+		for (int i = 0; i < a.t.TAB_SIZE; i++) {
+			for (int j = 0; j < a.t.TAB_SIZE; j++)
+				if (a.t.plateau[i][j].estOccupee()) {
+
+				}
+		}
 	}
 
 	public void sauverOptions(){
