@@ -168,17 +168,17 @@ public class Simulation{
 		return res;
 	}
 	
-	public int deuxToursIsolees(){
+	public boolean deuxToursIsolees(){
 		for(int i=0; i<9; i++){
 			for(int j=0; j<9; j++){
 				if(etatJeu[i][j].estOccupee() && etatJeu[i][j].getTaille()<5 && etatJeu[i][j].estJ2()){
 					if(estConfigIsolee(i,j)){
-						return 1;
+						return true;
 					}
 				}
 			}
 		}
-		return 0;
+		return false;
 	}
 	
 	public boolean estConfigIsolee(int i, int j){
@@ -284,7 +284,7 @@ public class Simulation{
 	}
 	
 	
-	int tour5Possible(){
+	public boolean tour5Possible(){
 		LinkedList<Point> listPoint;
 		int i,j,k;
 		for (i=0; i < 9; i++) {
@@ -299,7 +299,7 @@ public class Simulation{
 								pArr = listPoint.get(k);
 								if(etatJeu[pArr.x][pArr.y].estJ2()){
 									if(etatJeu[i][j].getTaille() + etatJeu[pArr.x][pArr.y].getTaille() == 5){
-										return 1;
+										return true;
 									}
 								}
 							}
@@ -308,7 +308,7 @@ public class Simulation{
 				}
 			}
 		}
-		return 0;
+		return false;
 	}
 	
 }

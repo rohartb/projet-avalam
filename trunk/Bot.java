@@ -5,11 +5,11 @@ import java.util.*;
 public class Bot {
 	Avalam a;
 	int niveau;
-	int bot, adv;
-	int nbcoupsjoues;
+	Random r;
 
 	public Bot (Avalam a) {
 		this.a = a;
+		r = new Random();
 	}
 	
 	
@@ -37,28 +37,18 @@ public class Bot {
 	}
 	
 	public Coups partieDifficile(){
-		System.out.println("partieDiff");
-		if(nbcoupsjoues<40){
-			nbcoupsjoues++;
-			return jouerMinMax(1);
+		if(a.j.nbCoupsRestants>100){
+			return jouerMinMax(0);
 		}
 		else{
-			return jouerMinMax(3);
+			return jouerMinMax(2);
 		}
 	}
 	
 	
 	public Coups jouerMinMax(int profondeur){
-		Random r = new Random();
+		System.out.println("MinMax "+profondeur);
 		Simulation s = new Simulation(a.t.plateau);
-		/*System.out.println("toursGagnees"+s.evaluerToursGagnees(bot));
-		System.out.println("tour 5: "+s.tour5Possible());
-		System.out.println("tourDef3Bot: "+s.tourDefinitive3AuCentre(bot));
-		System.out.println("tourDef3Adv: "+s.tourDefinitive3AuCentre(adv));
-		System.out.println("tourDef2Bot: "+s.tourDefinitive2AuCentre(bot));
-		System.out.println("tourDef2Adv: "+s.tourDefinitive2AuCentre(adv));
-		System.out.println("toursIsolees: "+s.deuxToursIsolees());*/
-		int max = -4242;
 		LinkedList<Point> l;
 		Point pSrc, pDst;
 		Coups c,meilleurCoup;
@@ -66,40 +56,78 @@ public class Bot {
 		int tailleCoup;
 		int val=0;
 
-		for(int i=0; i<9; i++){
-			for(int j=0; j<9; j++){
-				pSrc = new Point(i,j);
-				tailleCoup = s.etatJeu[i][j].getTaille();
-				l = s.casesAdjacentes(i,j);
-				while(!l.isEmpty()){
-					pDst = l.removeFirst();
-					c = new Coups(pSrc, pDst);
-					s.simulerCoup(c);
-					val = min(s,profondeur);
-					if(val>max){
-						max = val;
-						meilleurCoup = c;
-					}
-					if(val==max){
-						int e = r.nextInt(2);
-						if(e==0){
+		if(a.j.joueurCourant==1){
+			int max = -4242;
+			for(int i=0; i<9; i++){
+				for(int j=0; j<9; j++){
+					pSrc = new Point(i,j);
+					tailleCoup = s.etatJeu[i][j].getTaille();
+					l = s.casesAdjacentes(i,j);
+					while(!l.isEmpty()){
+						pDst = l.removeFirst();
+						c = new Coups(pSrc, pDst);
+						s.simulerCoup(c);
+						val = min(s,profondeur,2);
+						if(val>max){
 							max = val;
 							meilleurCoup = c;
 						}
+						if(val==max){
+							int e = r.nextInt(2);
+							if(e==0){
+								max = val;
+								meilleurCoup = c;
+							}
+						}
+						s.annulerCoup(c,tailleCoup);
 					}
-					s.annulerCoup(c,tailleCoup);
+				}
+			}
+		}
+		else{
+			int min = 4242;
+			for(int i=0; i<9; i++){
+				for(int j=0; j<9; j++){
+					pSrc = new Point(i,j);
+					tailleCoup = s.etatJeu[i][j].getTaille();
+					l = s.casesAdjacentes(i,j);
+					while(!l.isEmpty()){
+						pDst = l.removeFirst();
+						c = new Coups(pSrc, pDst);
+						s.simulerCoup(c);
+						val = max(s,profondeur,1);
+						if(val<min){
+							min = val;
+							meilleurCoup = c;
+						}
+						if(val==min){
+							int e = r.nextInt(2);
+							if(e==0){
+								min = val;
+								meilleurCoup = c;
+							}
+						}
+						s.annulerCoup(c,tailleCoup);
+					}
 				}
 			}
 		}
 		return meilleurCoup;
 	}
+	
 
-	public int min(Simulation s, int prof){
-		Random r = new Random();
+
+	public int min(Simulation s, int prof, int tour){
 		if(prof==0 || s.partieFinie()){
-			return evalMin(s);
+			return eval(s,tour);
 		}
 		else{
+			if(tour==1){
+				tour=2;
+			}
+			else{
+				tour=1;
+			}
 			int min = 4242;
 			int val,tailleCoup;
 			Point pSrc, pDst;
@@ -114,7 +142,7 @@ public class Bot {
 						pDst = l.removeFirst();
 						c = new Coups(pSrc, pDst);
 						s.simulerCoup(c);
-						val = max(s,prof-1);
+						val = max(s,prof-1,tour);
 						if(val<min){
 							min = val;
 						}
@@ -128,18 +156,22 @@ public class Bot {
 					}
 				}
 			}
-			//System.out.println(min);
 			return min;
 		}
 	}
 
 
-	public int max(Simulation s, int prof){
-		Random r = new Random();
+	public int max(Simulation s, int prof, int tour){
 		if(prof==0 || s.partieFinie()){
-			return evalMax(s);			
+			return eval(s,tour);			
 		}
 		else{
+			if(tour==1){
+				tour=2;
+			}
+			else{
+				tour=1;
+			}
 			int max = -42;
 			int val,tailleCoup;
 			Point pSrc, pDst;
@@ -154,7 +186,7 @@ public class Bot {
 						pDst = l.removeFirst();
 						c = new Coups(pSrc, pDst);
 						s.simulerCoup(c);
-						val = min(s,prof-1);;
+						val = min(s,prof-1,tour);;
 						if(val>max){
 							max = val;
 						}
@@ -172,41 +204,36 @@ public class Bot {
 		}
 	}
 	
-	public int evalMax(Simulation s){
-		//System.out.println("evalMax");
+	public int eval(Simulation s, int tour){
 		int score=0;
 		if(s.partieFinie()){
-			score = s.evaluerScoreFinal(bot);
+			score = s.evaluerScoreFinal(1);
 		}
 		else{
-			score = s.evaluerToursGagnees(bot);
-			score = score + s.tour5Possible();
-			score = score + s.tourDefinitive3AuCentre(bot);	
-			score = score - s.tourDefinitive3AuCentre(adv);
-			score = score + s.tourDefinitive2AuCentre(bot);
-			score = score - s.tourDefinitive2AuCentre(adv);
-			score = score + s.deuxToursIsolees();
-			//...
+			score = s.evaluerToursGagnees(1);
+			if(s.tour5Possible()){
+				if(tour==1){
+					score = score + 3;
+				}
+				else{
+					score = score-2;
+				}
+			}
+			else{
+				if(s.deuxToursIsolees()){
+					if(tour==1){
+						score = score + 2;
+					}
+					else{
+						score = score-2;
+					}
+				}
+			}
 			
+			/*score = score + s.tourDefinitive3AuCentre(1);	
+			score = score + s.tourDefinitive2AuCentre(1);*/			
 		}
 		return score;
 	}
 	
-	public int evalMin(Simulation s){
-		int score=0;
-		if(s.partieFinie()){
-			score = s.evaluerScoreFinal(bot);
-		}
-		else{
-			score = s.evaluerToursGagnees(bot);
-			score = score - s.tour5Possible();
-			score = score + s.tourDefinitive3AuCentre(bot);	
-			score = score - s.tourDefinitive3AuCentre(adv);
-			score = score + s.tourDefinitive2AuCentre(bot);
-			score = score - s.tourDefinitive2AuCentre(adv);			
-			score = score - s.deuxToursIsolees();
-			//...
-		}
-		return score;
-	}
 }
