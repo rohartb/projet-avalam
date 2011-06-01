@@ -97,6 +97,7 @@ public class EcouteurDOptions implements ActionListener,
 
 	//////////////////////////
 	public void traiterOk() {
+        a.etatSuivant = a.ACTUALISER;
 
 		//Validation des params temporaires
 		o.nomJ1  = o.nomJ1Tmp;
@@ -129,8 +130,7 @@ public class EcouteurDOptions implements ActionListener,
 		o.fermerOptions();
 		a.f.g.reinitialisationDesBI();
 		a.f.g.repaint();
-		a.etatSuivant = a.ACTUALISER;
-	}
+    }
 
 	public void traiterAppliquerRelancer() {
 		traiterOk();
