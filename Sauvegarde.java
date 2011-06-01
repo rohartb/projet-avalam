@@ -1,6 +1,6 @@
 import java.io.*;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 import java.sql.Time;
 
@@ -9,6 +9,9 @@ class Sauvegarde{
 
 	String path, nom, s;
 	File f;
+    
+    JList listCharger;
+    JDialog fenetreCharger;
 
 	public Sauvegarde(Avalam a){
 		this.a = a;
@@ -58,9 +61,9 @@ class Sauvegarde{
 		}
 	}
 
-	void charger(){
+	void charger(String st){
 		//Pour afficher uniquement les .save
-		FilenameFilter ff = new FilenameFilter() {
+		/*FilenameFilter ff = new FilenameFilter() {
 			public boolean accept(File f,String name) {
 				return name.endsWith(".save");
 			}
@@ -69,11 +72,12 @@ class Sauvegarde{
 
 		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
 		String st = (String)JOptionPane.showInputDialog(a.f, "Choisissez votre partie à charger","Charger",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("./Images/icone_charger.png"),dossier.list(ff),null);
-		st = System.getProperty("user.home")+"/.Avalam/Sauvegardes/" + st;
-		File f = new File(st);
-		System.out.println(f.getPath());
+		st = System.getProperty("user.home")+"/.Avalam/Sauvegardes/" + st;*/
+        System.out.println(path+st);
+		File f = new File(path+st);
+		//System.out.println(f.getPath());
 
-		if(f.exists()){
+		//if(f.exists()){
 			try{
 				FileInputStream in = new FileInputStream(f);
 				Scanner s = new Scanner(in);
@@ -124,6 +128,83 @@ class Sauvegarde{
 			}catch(Exception e){
 				System.out.println(e);
 			}
-		}
+		//}
 	}
+    
+    public void afficherCharger() {        
+        JPanel panelBoutons;
+        JButton fermer, charger, supprimer;
+        
+        fenetreCharger = new JDialog();
+        fenetreCharger.setModal(true);
+        fenetreCharger.setLayout(new BorderLayout(5,5));
+        
+        listCharger = new JList();
+        listCharger.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listCharger.setVisibleRowCount(5);
+        miseAJourListCharger();
+        
+        
+        JScrollPane scrollList = new JScrollPane(listCharger);
+        scrollList.setPreferredSize(new Dimension(80,70));
+        
+        fenetreCharger.add(scrollList,"Center");
+        
+        
+        EcouteurDeSauvegarde es = new EcouteurDeSauvegarde(this);
+        
+        panelBoutons = new JPanel(new GridLayout(1,3,10,10));
+        fermer = new JButton("Fermer");
+        fermer.setActionCommand("fermer");
+        fermer.addActionListener(es);
+        panelBoutons.add(fermer);
+        
+        supprimer = new JButton("Supprimer");
+        supprimer.setActionCommand("supprimer");
+        supprimer.addActionListener(es);
+        panelBoutons.add(supprimer);
+        
+        charger = new JButton("Charger");
+        charger.setActionCommand("charger");
+        charger.addActionListener(es);
+        panelBoutons.add(charger);
+        
+        fenetreCharger.add(panelBoutons,"South");
+        
+        JLabel icone = new JLabel(new ImageIcon("images/icone_charger.png"),JLabel.NORTH_EAST);
+        fenetreCharger.add(icone,"West");
+        
+        JLabel labelNord = new JLabel("Selectionner une partie :",JLabel.CENTER);
+        labelNord.setSize(40,300);
+        fenetreCharger.add(labelNord,BorderLayout.NORTH);
+        
+        JPanel pEst = new JPanel();
+        pEst.setSize(250,40);
+        fenetreCharger.add(pEst,"East");
+        
+        // position initiale de la fenetre sur l'ecran
+        //fenetreCharger.pack();
+        fenetreCharger.setSize(300,200);
+		int resHauteur = Toolkit.getDefaultToolkit().getScreenSize().height;
+		int resLargeur = Toolkit.getDefaultToolkit().getScreenSize().width;
+		int hauteur  = (resHauteur - fenetreCharger.getSize().height)/2;
+		int largeur  = (resLargeur - fenetreCharger.getSize().width)/2;
+		fenetreCharger.setLocation(largeur, hauteur);
+        
+        fenetreCharger.setVisible(true);
+    }
+    
+    public void miseAJourListCharger() {
+        FilenameFilter ff = new FilenameFilter() {
+			public boolean accept(File f,String name) {
+				return name.endsWith(".save");
+			}
+		};
+        
+		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
+        Object[] listeFichiers = dossier.list(ff);
+        
+        listCharger.setListData(listeFichiers);
+        listCharger.setSelectedIndex(0);
+    }
 }
