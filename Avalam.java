@@ -40,6 +40,7 @@ public class Avalam{
 	static final int CONNEXION=16;
 	static final int APPARENCE=17;
 	static final int REGLE = 24;
+	static final int ASTUCE = 25;
 
 	static final int QUITTER=42;
 
@@ -299,6 +300,11 @@ public class Avalam{
 				etat=etatSuivant;
 				break;
 
+			case ASTUCE:
+				System.out.println("astuces");
+				f.as.afficherAstuces();
+				etat=etatSuivant;
+				break;
 				//annule 1 coup
 				//TODO si 1 joueur ordi, annuler son coup aussi
 			case ANNULER:

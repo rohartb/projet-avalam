@@ -15,6 +15,7 @@ class Fenetre extends JFrame implements Runnable{
 	StatusBar s;
 	TerrainGraphique g;
 	Regle r;
+	Astuces as;
 
 	boolean pleinEcran;
 
@@ -107,6 +108,7 @@ class Fenetre extends JFrame implements Runnable{
 		o = new Options(a);
 		app = new Apparence(a);
 		r = new Regle(a);
+		as = new Astuces(a);
 
 		//action fermeture fenetre
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
