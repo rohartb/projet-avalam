@@ -3,10 +3,12 @@ import java.awt.*;
 
 class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentListener {
 	Avalam a;
+	private Point prec;
 
 	boolean actif;
 	EcouteurDeSouris(Avalam a){
 		this.a=a;
+
 	}
 
 	public void mousePressed(MouseEvent e){
@@ -46,7 +48,25 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 	}
 
 
- 	public void mouseMoved(MouseEvent e){}
+ 	public void mouseMoved(MouseEvent e){
+		a.f.g.adjacent = false;
+		if (true) {// si l'option est activée
+			Point ij  = a.f.g.coordToIndice(e.getPoint());
+			if (ij.x > -1 && ij.y > -1 &&
+			    ij.x < 9  && ij.y < 9  &&
+			    a.t.plateau[ij.x][ij.y].estOccupee()){
+				a.f.g.adjacent = true;
+				if (prec == null || prec.x != ij.x || prec.y != ij.y) {
+					a.f.g.lAdjacent = ij.x;
+					a.f.g.cAdjacent = ij.y;
+					a.f.g.repaint();
+					prec = ij;
+				}
+			}
+		}
+	}
+
+
  	public void mouseClicked(MouseEvent e){}
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
