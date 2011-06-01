@@ -22,7 +22,10 @@ public class Case{
 	}
 
 	public char getSommet(){
-		return contenu.charAt(0);
+		if (contenu != "")
+			return contenu.charAt(0);
+		else
+			return 'X';
 	}
 
 
