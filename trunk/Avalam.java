@@ -217,8 +217,9 @@ public class Avalam{
 				if(t.estPossible(j.c)){
 					etat=JOUER;
 				}else{
-					f.g.animationPion(f.g.release,f.g.click);
-					System.out.println("anim prio");
+					if(t.okAnim(f.g.coordToIndice(f.g.click))){
+						f.g.animationPion(f.g.release,f.g.click);
+					}
 					etat=JEU;
 				}
 				break;
@@ -336,7 +337,8 @@ public class Avalam{
 				f.s.timer.stop();
 				if(!j.finPartie && !quit){
 					String[] options = {"Sauvegarder" , "Quitter sans sauvegarder" , "Annuler"};
-					int choix  = JOptionPane.showOptionDialog(null, "Quitter Avalam :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
+					int choix  = JOptionPane.showOptionDialog(null, "Quitter Avalam :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
+					 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
 					if (choix == JOptionPane.YES_OPTION) {
 						etat=SAUVER;
 						etatSuivant=QUITTER;

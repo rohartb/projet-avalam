@@ -43,6 +43,10 @@ public class Terrain{
 				c.pArr.y>-1 &&
 				c.pArr.y< 9);
 	}
+	//true si le clik en Point correspond a une case possiblep our un deplacement
+	boolean okAnim(Point p){
+		return (p.x>-1 && p.x< 9 && p.y>-1 && p.y< 9) && plateau[p.x][p.y].estOccupee();
+	}
 	
 	//Verifie que la case de destination est adjacente à la case source
 	// (donc qu'elles sont différentes

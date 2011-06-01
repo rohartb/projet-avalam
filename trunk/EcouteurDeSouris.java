@@ -25,8 +25,8 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 			a.f.g.setPlusXY(xy,lc);
 			a.f.g.setXYAnimation(x,y);
 			a.f.g.repaint();
-			a.unpause();
 		}
+		a.unpause();
 	}
 
 
