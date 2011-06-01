@@ -183,7 +183,7 @@ class TerrainGraphique extends JComponent{
 			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
 			repaint();
 			try{
-				a.thFenetre.sleep(5);
+				Thread.sleep(5);
 			}catch(InterruptedException e){
 			}
 		}
@@ -212,10 +212,9 @@ class TerrainGraphique extends JComponent{
 			xAnimation=(int)(xSrc+i*xDist/(xyDist/3));
 			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
 			repaint();
-			try{
-				a.thFenetre.sleep(10);
-			}catch(InterruptedException e){
-			}
+			try {
+				Thread.sleep(20);
+			}catch(InterruptedException e){}
 		}
 		animation = false;
 	}
