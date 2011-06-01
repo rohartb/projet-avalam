@@ -184,9 +184,8 @@ public class Avalam{
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
-				if(j.nbCoupsRestants==0)
-					f.popupFinDePartie();
-				pause();
+				f.popupFinDePartie();
+				etat=etatSuivant;
 				break;
 
 			//calcul un coup a partir du bot
@@ -272,7 +271,7 @@ public class Avalam{
 				f.s.timer.stop();
 				f.app.afficherApparence();
 				f.s.timer.start();
-				etat=etatSuivant;
+				etat=JEU;
 				break;
 
 			case REGLE:
