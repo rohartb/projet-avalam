@@ -160,8 +160,6 @@ public class Avalam{
 					etat=JOUERMANU;
 				break;
 				// on attend une interraction du joueur humain
-
-
 				//atente de la fin du chargement de la fenetre
 
 				//etat changé par les ecouteurs puis unpause()
@@ -307,6 +305,8 @@ public class Avalam{
 					ElemHist coup = j.h.annuler();
 					j.h.ajouterRejouer(coup);
 					t.annuler(coup);
+					j.c = new Coups(new Point(coup.lSource,coup.cSource),new Point(coup.lDest,coup.cDest));
+					f.g.animationPionAnnuler();
 					j.changerJoueur();
 				}
 				etat=ACTUALISER;

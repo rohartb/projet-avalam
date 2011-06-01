@@ -284,6 +284,35 @@ class TerrainGraphique extends JComponent{
 		}
 		animation = false;
 	}
+	
+	public void animationPionAnnuler() {
+		lAnimation=a.j.c.pDep.x;
+		cAnimation=a.j.c.pDep.y;
+		resetBIFondAnimation(a.j.c.pDep);
+		repaint();
+		Point dst = indiceToCoord(a.j.c.pDep);
+		Point src = indiceToCoord(a.j.c.pArr);
+		int xDes = dst.x+tailleCase/2;
+		int yDes = dst.y+tailleCase/2;
+		int xSrc = src.x+tailleCase/2;
+		int ySrc = src.y+tailleCase/2;
+		float xDist = (xDes-xSrc);
+		float yDist = (yDes-ySrc);
+		float xyDist = (float) Math.sqrt(xDist*xDist+yDist*yDist);
+		int dir = xDes - xSrc;
+		animation = true;
+		xAnim = xSrc;
+		yAnim = ySrc;
+		for(float i=0;i<xyDist/3;i++){
+			xAnimation=(int)(xSrc+i*xDist/(xyDist/3));
+			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
+			repaint();
+			try {
+				Thread.sleep(20);
+			}catch(InterruptedException e){}
+		}
+		animation = false;
+	}
 
 
 	public static void setAntiAlias(Graphics2D drawable) {
