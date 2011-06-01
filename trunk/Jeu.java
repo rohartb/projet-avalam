@@ -14,6 +14,7 @@ public class Jeu{
 	int joueurCourant;
 	int nbCoupsRestants;
 	boolean modeNormal;
+	boolean modeAide;
 
 	static final int HUMAIN =0;
 	static final int BOTLVL1=1;
@@ -59,7 +60,9 @@ public class Jeu{
 			J1.nom="Joueur 1";
 			J2.type=BOTLVL1;
 			J2.joueur=JOUEUR2;
-			J2.nom="Jôzay";
+			J2.nom="José";
+			modeNormal = true;
+			modeAide = true;
 		}else{
 			try{
 				FileInputStream in = new FileInputStream(option);
