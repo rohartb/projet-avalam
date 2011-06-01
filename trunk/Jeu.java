@@ -112,12 +112,20 @@ public class Jeu{
 			return J2.estHumain();
 	}
 
+	public String getModeString() {
+		if (modeNormal)
+			return "Normal";
+		else
+			return "Match";
+	}
+
 
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
 		if(!finPartie)
 			finPartie = nbCoupsRestants == 0;
 		calculerScore();
+
 	}
 
 

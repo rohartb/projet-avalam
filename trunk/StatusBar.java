@@ -50,7 +50,7 @@ public class StatusBar extends JPanel {
 		PanelMode.setWidthFixed(true);
 		PanelMode.setPanelBorder();
 		PanelMode.setLayout(new BorderLayout());
-		labelMode = new JLabel("Blabla mode");
+		labelMode = new JLabel("Mode : " + a.j.getModeString());
 		labelMode.setHorizontalAlignment(JLabel.CENTER);
 		PanelMode.add(labelMode);
 
@@ -93,6 +93,7 @@ public class StatusBar extends JPanel {
 
 	public void actualiser() {
 		labelCoupsRestants.setText("Déplacement possible : " + a.j.nbCoupsRestants);
+		labelMode.setText("Mode : " + a.j.getModeString());
 	}
 }
 
