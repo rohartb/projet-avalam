@@ -19,7 +19,7 @@ class MenuAvalam extends JMenuBar{
 		this.a=a;
 		EcouteurDeMenu em = a.f.em;
 
-		avalam = new JMenu("Avalam");
+		avalam = new JMenu("Jeu");
 		avalam.setMnemonic(KeyEvent.VK_A);
 		nouveau = new JMenuItem("Nouveau");
 		nouveau.setMnemonic(KeyEvent.VK_N);
