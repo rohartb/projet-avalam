@@ -27,6 +27,7 @@ public class Options extends JDialog{
 	//// niveau des bots
 	JRadioButton n10, n11, n12;
 	JRadioButton n20, n21, n22;
+	JRadioButton PartieNormale, PartieMatch;
 
 	JButton ok;
 	JButton annuler;
@@ -233,13 +234,12 @@ public class Options extends JDialog{
 
 
 		//////// Panel Option de partie
-		JRadioButton PartieNormale = new JRadioButton("Normale");
+		PartieNormale = new JRadioButton("Normale");
 		PartieNormale.setActionCommand("normal");
 		PartieNormale.addActionListener(eo);
 		PartieNormale.setSelected(modeNormal);
 
-
-		JRadioButton PartieMatch = new JRadioButton("Match");
+		PartieMatch = new JRadioButton("Match");
 		PartieMatch.setActionCommand("match");
 		PartieMatch.addActionListener(eo);
 		PartieMatch.setSelected(!modeNormal);
@@ -355,6 +355,10 @@ public class Options extends JDialog{
 			n21.setEnabled(true);
 			n22.setEnabled(true);
 		}
+		if (a.j.modeNormal)
+			PartieNormale.setSelected(true);
+		else
+			PartieMatch.setSelected(false);
 		this.setVisible(true);
 	}
 

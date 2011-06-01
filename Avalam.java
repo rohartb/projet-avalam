@@ -95,6 +95,7 @@ public class Avalam{
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();
+				//f.o.afficherOptions();
 				//charger preferences
 				etat = NOUVEAU;
 				break;
