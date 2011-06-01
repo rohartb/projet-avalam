@@ -297,10 +297,15 @@ public class Avalam{
 				//si 1 joueur ordi ET !finPartie, annuler 2 coups
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.finPartie){
 					ElemHist coupOrdi = j.h.annuler();
-					ElemHist coupJoueur = j.h.annuler();
-					j.h.ajouterRejouer(coupJoueur);
+					j.h.ajouterRejouer(coupOrdi);
 					t.annuler(coupOrdi);
+					j.c = new Coups(new Point(coupOrdi.lSource,coupOrdi.cSource),new Point(coupOrdi.lDest,coupOrdi.cDest));
+					f.g.animationPionAnnuler();
+					
+					ElemHist coupJoueur = j.h.annuler();
 					t.annuler(coupJoueur);
+					j.c = new Coups(new Point(coupJoueur.lSource,coupJoueur.cSource),new Point(coupJoueur.lDest,coupJoueur.cDest));
+					f.g.animationPionAnnuler();
 				}else{
 					ElemHist coup = j.h.annuler();
 					j.h.ajouterRejouer(coup);
