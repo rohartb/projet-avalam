@@ -95,8 +95,6 @@ public class Avalam{
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();
-				//f.o.afficherOptions();
-				//charger preferences
 				etat = NOUVEAU;
 				break;
 
@@ -269,22 +267,31 @@ public class Avalam{
 				etat=etatSuivant;
 				break;
 				//annule 1 coup
-				//TODO si 1 joueur ordi, annuler son coup aussi
+				
 			case ANNULER:
-				System.out.println("annuler");
-				ElemHist eha = j.h.annuler();
-				j.h.ajouterRejouer(eha);
-				t.annuler(eha);
+				//si 1 joueur ordi ET !finPartie, annuler 2 coups
+				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.finPartie){
+					ElemHist coupOrdi = j.h.annuler();
+					ElemHist coupJoueur = j.h.annuler();
+					j.h.ajouterRejouer(coupJoueur);
+					t.annuler(coupOrdi);
+					t.annuler(coupJoueur);
+				}else{
+					ElemHist coup = j.h.annuler();
+					j.h.ajouterRejouer(coup);
+					t.annuler(coup);
+					j.changerJoueur();
+				}
 				etat=ACTUALISER;
 				break;
 
 				//rejoue 1 coup
 				//TODO si 1 joueur ordi
 			case REJOUER:
-				System.out.println("rejouer");
 				ElemHist ehr = j.h.rejouer();
 				j.h.ajouterAnnuler(ehr);
 				t.deplacer(new Coups(new Point(ehr.lSource,ehr.cSource),new Point(ehr.lDest,ehr.cDest)));
+				j.changerJoueur();
 				etat=ACTUALISER;
 				break;
 

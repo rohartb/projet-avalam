@@ -31,7 +31,16 @@ class TerrainGraphique extends JComponent{
 		N=a.t.TAB_SIZE;
 		click=null;
 		release=null;
-		theme =1;
+		File ap = new File(System.getProperty("user.home")+"/.Avalam/Config/apparence.cfg");
+		if(!ap.exists()){
+			theme =1;
+		}else{
+			try{
+				FileInputStream in = new FileInputStream(ap);
+				Scanner s = new Scanner(in);
+				theme = s.nextInt();
+			}catch(FileNotFoundException e){}
+		}
 	}
 
 	//methode qui calcule le "coté" du plateau
