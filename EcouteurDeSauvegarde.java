@@ -25,7 +25,6 @@ public class EcouteurDeSauvegarde implements ActionListener {
                 sauvegarde.miseAJourListCharger();
             }
         } else if (e.getActionCommand().equals("charger")) {
-            System.out.println((String)sauvegarde.listCharger.getSelectedValue());
             sauvegarde.charger((String)sauvegarde.listCharger.getSelectedValue());
             sauvegarde.fenetreCharger.dispose();
         } else if (e.getActionCommand().equals("fermer")) {

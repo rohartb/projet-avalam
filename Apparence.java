@@ -90,7 +90,8 @@ public class Apparence extends JDialog {
 		this.addWindowListener(ea);
 		this.add(ApparencePanel);
 		this.validate();
-		this.pack();
+		this.setSize(250,200);
+        this.setResizable(false);
 
 		// Position au centre de la fenetre principale
 		Point     locAvalam    = a.f.getLocation();
