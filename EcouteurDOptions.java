@@ -107,7 +107,6 @@ public class EcouteurDOptions implements ActionListener,
 		o.modeNormal = o.modeTmp;
 
 
-		// si le bot n'existe pas on le cree
 		// si il existe, on remplace son niveau
 		if(o.estRobot(o.typeJ1)) {
 			a.j.J1.b.niveau = o.typeJ1;
@@ -131,7 +130,7 @@ public class EcouteurDOptions implements ActionListener,
 		o.fermerOptions();
 		a.f.g.reinitialisationDesBI();
 		a.f.g.repaint();
-		//a.etat = a.ACTUALISER;
+		a.etatSuivant = a.ACTUALISER;
 	}
 
 	public void traiterAppliquerRelancer() {
@@ -147,6 +146,7 @@ public class EcouteurDOptions implements ActionListener,
 
 		a.unpause();
 		o.fermerOptions();
+		a.etatSuivant=a.JEU;
 	}
 
 	public void windowClosed(WindowEvent e) {}

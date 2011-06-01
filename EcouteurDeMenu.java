@@ -12,48 +12,48 @@ class EcouteurDeMenu implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
-		a.etatSuivant=a.etat;
+		a.interupt=true;
 		String cmd = e.getActionCommand();
 		if (cmd.equals("nouveau")){
-			a.etat=a.NOUVEAU;
+			a.etatSuivant=a.NOUVEAU;
 			a.unpause();
 		}else if (cmd.equals("reseau")){
-			a.etat=a.CONNEXION;
+			a.etatSuivant=a.CONNEXION;
 			a.unpause();
 		}else if (cmd.equals("pause")){
-			a.etat=a.PAUSE;
+			a.etatSuivant=a.PAUSE;
 			a.unpause();
 		}else if (cmd.equals("reprendre")){
-			a.etat=a.ACTUALISER;
+			a.etatSuivant=a.ACTUALISER;
 			a.unpause();
 		}else if(cmd.equals("charger")){
-			a.etat=a.CHARGER;
+			a.etatSuivant=a.CHARGER;
 			a.unpause();
  		}else if(cmd.equals("sauvegarder")){
-			a.etat=a.SAUVER;
+			a.etatSuivant=a.SAUVER;
 			a.unpause();
 		}else if(cmd.equals("abandonner")){
-			a.etat=a.ABANDONNER;
+			a.etatSuivant=a.ABANDONNER;
 			a.unpause();
 		}else if(cmd.equals("options")){
-			a.etat=a.OPTIONS;
+			a.etatSuivant=a.OPTIONS;
 			a.unpause();
 		}else if(cmd.equals("quitter")){
-			a.etat=a.QUITTER;
+			a.etatSuivant=a.QUITTER;
 			a.unpause();
 		}else if(cmd.equals("annuler")){
-			a.etat=a.ANNULER;
+			a.etatSuivant=a.ANNULER;
 			a.unpause();
 		}else if(cmd.equals("rejouer")){
-			a.etat=a.REJOUER;
+			a.etatSuivant=a.REJOUER;
 			a.unpause();
 		}else if(cmd.equals("apparence")){
-			a.etat=a.APPARENCE;
+			a.etatSuivant=a.APPARENCE;
 			a.unpause();
 		}else if(cmd.equals("aide")){
 
 		}else if(cmd.equals("regle")){
-			a.etat=a.REGLE;
+			a.etatSuivant=a.REGLE;
 			a.unpause();
 		}else if(cmd.equals("astuces")){
 			a.etat=a.ASTUCE;

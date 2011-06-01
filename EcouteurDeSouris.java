@@ -23,7 +23,6 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 			a.f.g.setPlusXY(xy,lc);
 			a.f.g.setXYAnimation(x,y);
 			a.f.g.repaint();
-			a.etat=a.JOUERMANU;
 			a.unpause();
 		}
 	}
@@ -31,7 +30,6 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 
 	public void mouseReleased(MouseEvent e){
 		a.f.g.release = new Point(e.getX(),e.getY());
-		System.out.println(""+a.f.g.release.x+" "+a.f.g.release.y);
 		a.f.g.animation = false;
 		a.f.g.repaint();
 		a.unpause();

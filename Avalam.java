@@ -46,6 +46,7 @@ public class Avalam{
 
 
 	int etat,etatSuivant,etatPause;
+	boolean interupt;
 
 	public static void main(String[] args) {
 		new Avalam();
@@ -71,15 +72,15 @@ public class Avalam{
 
 	public Avalam(){
 		etat=Avalam.INIT;
+		interupt=false;
 
 		//automate d'etats
 		while(true){
 			switch(etat){
 
-				//initialisation
+			//initialisation
 			case INIT:
 				System.out.println("init");
-
 				//creation du dossier .Avalam s'il n'existe pas
 				File dossier = new File(System.getProperty("user.home")+"/.Avalam");
 				if(!dossier.exists())
@@ -98,7 +99,7 @@ public class Avalam{
 				etat = NOUVEAU;
 				break;
 
-				//nouvelle partie
+			//nouvelle partie
 			case NOUVEAU:
 				//TODO popup voulez vous sauvegarder votre partie en cours?
 				System.out.println("nouveau");
@@ -107,9 +108,9 @@ public class Avalam{
 				etatSuivant=JEU;
 				etat = ACTUALISER;
 				break;
-
 				//verifier l'etat du jeu + attente d'un coup
-
+			
+			//init reseau
 			case CONNEXION:
 				String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire");
 				try {
@@ -126,10 +127,16 @@ public class Avalam{
 				// a.j.J1 = Jeu.HUMAIN;
 				// a.j2.J2 = Jeu.RESEAU;
 				// on active le mode match ?
-
 				etat = JEU;
+				
+			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
+				if(interupt){
+					etat=etatSuivant;
+					interupt=false;
+					break;
+				}
 				if(j.finPartie){
 					etat=FIN;
 					break;
@@ -146,19 +153,23 @@ public class Avalam{
 				  		break;
 				  	}
 				}
-				//  if(courant=resau)
-				//  etat=RESEAU;
-
-				// on attend une interraction du joueur humain
-					//atente de la fin du chargement de la fenetre
 				pause();
+				if(interupt)
+					etat=JEU;
+				else
+					etat=JOUERMANU;
+				break;
+				// on attend une interraction du joueur humain
+					
+					
+				//atente de la fin du chargement de la fenetre
+				
 				//etat changé par les ecouteurs puis unpause()
 				// SAUVEGARDER, CHARGER, PREFERENCES, OPTIONS, ANNLER,REFAIRE....
-				break;
 
-				//met le jeu en pause
-				//TODO bloquer les clik souris sur le graphique
+			//met le jeu en pause
 			case PAUSE:
+				//TODO bloquer les clik souris sur le graphique
 				System.out.println("pause");
 				j.pause=true;
 				etatPause=etatSuivant;
@@ -169,7 +180,7 @@ public class Avalam{
 				etat=ACTUALISER;
 				break;
 
-				//fin de partie
+			//fin de partie
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
@@ -178,31 +189,32 @@ public class Avalam{
 				pause();
 				break;
 
-				//TODO calcul du coup du bot dans jeu.c
+			//calcul un coup a partir du bot
 			case BOT:
 				System.out.println("bot");
 				j.jouerBot();
 				etat=JOUERAUTO;
 				break;
 
-				//TODO calcul un coup reseau dans jeu.c
+			//calcul un coup reseau dans jeu.c
 			case RESEAU:
+				//TODO
 				System.out.println("reseau");
 				etat=JOUERAUTO;
 				break;
 
+			//animation du coup du bot ou reseau
 			case JOUERAUTO:
 				System.out.println("jouer auto");
 				f.g.animationPionAuto();
 				etat=JOUER;
 				break;
 
+			//animation du coup manuel
 			case JOUERMANU:
 				System.out.println("jouer manu");
-				System.out.println("attente release");
 				pause();
 				j.calculerCoup();
-				System.out.println("calculOK");
 				if(t.estPossible(j.c)){
 					etat=JOUER;
 				}else{
@@ -211,9 +223,10 @@ public class Avalam{
 				}
 				break;
 
-				//equivalent du jouercoup
-				//joue le coup+ajoute a l'historique+ change le joueur courrant
+
+			//joue le coup+ajoute a l'historique+ change le joueur courrant
 			case JOUER:
+				System.out.println("jouer");
 				ElemHist e = new ElemHist(j.c,t);
 				j.h.ajouterAnnuler(e);
 				j.h.viderRejouer();
@@ -222,22 +235,25 @@ public class Avalam{
 				j.changerJoueur();
 				break;
 
-				//TODO methode charger
-				// demander si sauver si j.finPartie==false
+			//TODO popop sauvegarder avant charger
 			case CHARGER:
-				//System.out.println("charger");
+				System.out.println("charger");
+				f.s.timer.stop();
 				s.charger();
-				etat=ACTUALISER;
-				break;
-
-
-			//TODO lors de la fermeture de la popup sauver soit
-			case SAUVER:
-				//System.out.println("sauver");
-				s.sauver();
+				f.s.timer.start();
 				etat=etatSuivant;
 				break;
 
+			//popop de sauvearde
+			case SAUVER:
+				System.out.println("sauver");
+				f.s.timer.stop();
+				s.sauver();
+				f.s.timer.start();
+				etat=JEU;
+				break;
+			
+			//TODO
 			case ABANDONNER:
 				System.out.println("abandonner");
 				etat=FIN;
@@ -245,14 +261,17 @@ public class Avalam{
 
 			case OPTIONS:
 				System.out.println("options");
+				f.s.timer.stop();
 				f.o.afficherOptions();
-				//pause();
-				etat=ACTUALISER;
+				f.s.timer.start();
+				etat=etatSuivant;
 				break;
 
 			case APPARENCE:
 				System.out.println("apparence");
+				f.s.timer.stop();
 				f.app.afficherApparence();
+				f.s.timer.start();
 				etat=etatSuivant;
 				break;
 
@@ -302,12 +321,12 @@ public class Avalam{
 				f.g.repaint();
 				f.s.actualiser();
 				f.m.actualiser();
-				etat=etatSuivant;
+				etat=JEU;
 				break;
 
 			case QUITTER:
-				//System.out.println("quitter");
-				//System.out.println("popop sauvegarder ?");
+				System.out.println("quitter");
+				System.out.println("popop sauvegarder ?");
 				f.s.timer.stop();
 				if(!j.finPartie && !quit){
 					String[] options = {"Sauvegarder" , "Quitter sans sauvegarder" , "Annuler"};
