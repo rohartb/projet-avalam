@@ -109,7 +109,7 @@ public class Avalam{
 				etat = ACTUALISER;
 				break;
 				//verifier l'etat du jeu + attente d'un coup
-			
+
 			//init reseau
 			case CONNEXION:
 				String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire");
@@ -128,7 +128,7 @@ public class Avalam{
 				// a.j2.J2 = Jeu.RESEAU;
 				// on active le mode match ?
 				etat = JEU;
-				
+
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
@@ -160,10 +160,10 @@ public class Avalam{
 					etat=JOUERMANU;
 				break;
 				// on attend une interraction du joueur humain
-					
-					
+
+
 				//atente de la fin du chargement de la fenetre
-				
+
 				//etat changé par les ecouteurs puis unpause()
 				// SAUVEGARDER, CHARGER, PREFERENCES, OPTIONS, ANNLER,REFAIRE....
 
@@ -218,6 +218,7 @@ public class Avalam{
 					etat=JOUER;
 				}else{
 					f.g.animationPion(f.g.release,f.g.click);
+					System.out.println("anim prio");
 					etat=JEU;
 				}
 				break;
@@ -251,7 +252,7 @@ public class Avalam{
 				f.s.timer.start();
 				etat=JEU;
 				break;
-			
+
 			//TODO
 			case ABANDONNER:
 				System.out.println("abandonner");
@@ -291,7 +292,7 @@ public class Avalam{
 				f.s.timer.start();
 				etat=JEU;
 				break;
-				
+
 			//annule 1 coup
 			case ANNULER:
 				//si 1 joueur ordi ET !finPartie, annuler 2 coups

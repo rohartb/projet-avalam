@@ -17,7 +17,9 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 		Point xy = new Point(x,y);
 		Point lc = a.f.g.coordToIndice(xy);
 
-		if (lc != null && a.t.plateau[lc.x][lc.y].estOccupee()) {
+		if (lc.x > -1 &&  lc.y > -1  && lc.x < 9 && lc.y < 9 &&
+		    a.t.plateau[lc.x][lc.y].estOccupee()) {
+			System.out.println("coucou");
 			a.f.g.animation = true;
 			a.f.g.resetBIFondAnimation(lc);
 			a.f.g.setPlusXY(xy,lc);

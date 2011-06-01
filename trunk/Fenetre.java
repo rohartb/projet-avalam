@@ -13,6 +13,7 @@ class Fenetre extends JFrame implements Runnable{
 	EcouteurDeFenetre ef;
 	Options o;
 	StatusBar s;
+	BarreLaterale b;
 	TerrainGraphique g;
 	Regle r;
 	Astuces as;
@@ -89,6 +90,9 @@ class Fenetre extends JFrame implements Runnable{
 		//ajout menu
 		m = new MenuAvalam(a);
 		this.setJMenuBar(m);
+
+		//b = new BarreLaterale(a);
+		//this.add(b, BorderLayout.WEST);
 
 		//ajout plateau
 		g = new TerrainGraphique(a);
