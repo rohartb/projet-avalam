@@ -273,20 +273,22 @@ public class Avalam{
 				f.s.timer.start();
 				etat=JEU;
 				break;
-
+			
+			
 			case REGLE:
 				System.out.println("regle");
 				f.r.afficherRegle();
 				etat=JEU;
 				break;
-
+			
+			
 			case ASTUCE:
 				System.out.println("astuces");
 				f.as.afficherAstuces();
 				etat=JEU;
 				break;
-				//annule 1 coup
 				
+			//annule 1 coup
 			case ANNULER:
 				//si 1 joueur ordi ET !finPartie, annuler 2 coups
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.finPartie){
