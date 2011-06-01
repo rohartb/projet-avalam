@@ -131,9 +131,8 @@ class MenuAvalam extends JMenuBar{
 	void actualiser(){
 		
 		annuler.setEnabled(!a.j.h.annulerVide() && (a.j.finPartie || a.j.modeNormal));
-		System.out.println(a.j.modeNormal);
-		//si la taille de la pile est de 1 (un seul coup joue, coup d'un robot) et que c'est au joueur de jouer, on ne peut pas annuler!
-		if(a.j.h.tailleAnnuler()==1 && (a.j.J1.estRobot() || a.j.J2.estRobot()) && a.j.courantEstHumain()){
+		//si la taille de la pile est de 1 (un seul coup joue, coup d'un robot) et que c'est au joueur de jouer, on ne peut pas annuler! (sauf si on est en fin de partie)
+		if(a.j.h.tailleAnnuler()==1 && (a.j.J1.estRobot() || a.j.J2.estRobot()) && a.j.courantEstHumain() && !a.j.finPartie){
 			annuler.setEnabled(false);
 		}
 		
