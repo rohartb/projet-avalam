@@ -72,6 +72,7 @@ public class Jeu{
 				J2.nom = s.nextLine();
 			}catch(FileNotFoundException e){}
 		}
+		joueurCourant=1;
 		J1.actualiserBot();
 		J2.actualiserBot();
 		a.f.s.initTimer();

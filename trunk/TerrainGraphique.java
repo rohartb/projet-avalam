@@ -206,10 +206,10 @@ class TerrainGraphique extends JComponent{
 		repaint();
 		Point src = indiceToCoord(a.j.c.pDep);
 		Point dst = indiceToCoord(a.j.c.pArr);
-		int xDes = dst.x;//+tailleCase/2;
-		int yDes = dst.y;//+tailleCase/2;
-		int xSrc = src.x;//+tailleCase/2;
-		int ySrc = src.y;//+tailleCase/2;
+		int xDes = dst.x+tailleCase/2;
+		int yDes = dst.y+tailleCase/2;
+		int xSrc = src.x+tailleCase/2;
+		int ySrc = src.y+tailleCase/2;
 		float xDist = (xDes-xSrc);
 		float yDist = (yDes-ySrc);
 		float xyDist = (float) Math.sqrt(xDist*xDist+yDist*yDist);

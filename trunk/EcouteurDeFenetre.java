@@ -7,7 +7,8 @@ public class EcouteurDeFenetre implements WindowListener{
 	}
 	
 	public void windowClosing(WindowEvent e) {
-		a.etat=a.QUITTER;
+		a.interupt=true;
+		a.etatSuivant=a.QUITTER;
 		a.unpause();
 	}
 	

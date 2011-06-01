@@ -22,9 +22,7 @@ class Sauvegarde{
 	}
 
 	void sauver(){
-
 		a.f.s.timer.stop();
-
 		nom = (String)JOptionPane.showInputDialog(a.f,"Entrez votre nom de sauvegarde","Sauvegarder",JOptionPane.INFORMATION_MESSAGE, new ImageIcon("Images/icone_sauvegarder.png"), null,a.j.J1.nom);
 		f = new File(path+nom+".save");
 		while(nom!=null && (f.exists() || nom.equals(""))){
@@ -56,23 +54,18 @@ class Sauvegarde{
 			}catch(Exception e){}
 		}
 		else{
-			a.etatSuivant = a.JEU;
 			a.quit=false;
 		}
-
-		a.f.s.timer.start();
 	}
 
 	void charger(){
-		a.f.s.timer.stop();
-
 		//Pour afficher uniquement les .save
 		FilenameFilter ff = new FilenameFilter() {
 			public boolean accept(File f,String name) {
 				return name.endsWith(".save");
 			}
 		};
-		System.out.println("avaant");
+		System.out.println("avant");
 
 		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
 		String st = (String)JOptionPane.showInputDialog(a.f, "Choisissez votre partie à charger","Charger",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("./Images/icone_charger.png"),dossier.list(ff),null);
@@ -132,6 +125,5 @@ class Sauvegarde{
 				System.out.println(e);
 			}
 		}
-		a.f.s.timer.start();
 	}
 }
