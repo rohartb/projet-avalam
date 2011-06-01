@@ -283,7 +283,7 @@ public class Avalam{
 			case ASTUCE:
 				System.out.println("astuces");
 				f.as.afficherAstuces();
-				etat=etatSuivant;
+				etat=JEU;
 				break;
 				//annule 1 coup
 				

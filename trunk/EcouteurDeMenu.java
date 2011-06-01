@@ -56,7 +56,7 @@ class EcouteurDeMenu implements ActionListener{
 			a.etatSuivant=a.REGLE;
 			a.unpause();
 		}else if(cmd.equals("astuces")){
-			a.etat=a.ASTUCE;
+			a.etatSuivant=a.ASTUCE;
 			a.unpause();
 		}else if(cmd.equals("pleinEcran")){
 			a.f.pleinEcran();
