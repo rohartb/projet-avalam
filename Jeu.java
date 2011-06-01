@@ -111,6 +111,7 @@ public class Jeu{
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
 		finPartie = nbCoupsRestants == 0;
+		calculerScore();
 	}
 
 
@@ -119,10 +120,15 @@ public class Jeu{
 		int scoreJ2 = 0;
 		for (int i = 0; i < a.t.TAB_SIZE; i++) {
 			for (int j = 0; j < a.t.TAB_SIZE; j++)
-				if (a.t.plateau[i][j].estOccupee()) {
-
+				if (a.t.plateau[i][j].estOccupee() && a.t.adjacents(i,j).isEmpty()) {
+					if ( a.t.plateau[i][j].estJ1())
+						scoreJ1++;
+					else if (a.t.plateau[i][j].estJ2())
+						scoreJ2++;
 				}
 		}
+		J1.score = scoreJ1;
+		J2.score = scoreJ2;
 	}
 
 	public void sauverOptions(){

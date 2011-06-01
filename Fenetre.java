@@ -118,4 +118,37 @@ class Fenetre extends JFrame implements Runnable{
 
 		a.unpause();
 	}
+
+	public void popupFinDePartie() {
+		// Calcul du score
+
+		String vainqueur;
+		int nbJ1 = a.j.J1.score;
+		int nbJ2 = a.j.J2.score;
+		// Affichage du la popup
+		if (nbJ1 == nbJ2) {
+			JOptionPane.showMessageDialog(null,"Personne ne gagne ! \n Score : "+nbJ1+" - "+nbJ2,"Egalité",JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			if((a.j.J1.estRobot() && a.j.J2.estHumain()) ||
+			   (a.j.J1.estRobot() && a.j.J1.estHumain())) {
+				if ((nbJ2 > nbJ1 && a.j.J2.estRobot()) ||
+				    (nbJ2 < nbJ1 && a.j.J2.estRobot())){
+					JOptionPane.showMessageDialog(null,"Vous avez perdu! \n Score :  "+nbJ1+" - "+nbJ2, "Défaite" ,JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"Vous avez gagné! \n Score : "+nbJ1+" - "+nbJ2, "Victoire" ,JOptionPane.INFORMATION_MESSAGE);
+				}
+			}else{
+				if (nbJ2 > nbJ1)
+					vainqueur = a.j.J2.nom;
+				else // nbJ1 > nbJ2
+					vainqueur = a.j.J1.nom;
+
+				JOptionPane.showMessageDialog(null,vainqueur +
+				                              " remporte la partie ! \n Score :  "+nbJ1+" - "+nbJ2, "Victoire" ,JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		System.out.println("Score :  "+nbJ1+" - "+nbJ2);
+
+	}
 }
