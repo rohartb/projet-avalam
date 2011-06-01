@@ -4,7 +4,7 @@ import java.awt.image.*;;
 import java.util.*;
 import javax.imageio.*;
 import java.io.*;
-
+import java.awt.geom.*;
 
 class TerrainGraphique extends JComponent{
 	Avalam a;
@@ -13,7 +13,7 @@ class TerrainGraphique extends JComponent{
 	public int N;
 	public int theme;
 
-	public int tailleCase,gapV,gapH;
+	public int tailleCase,gapV,gapG, gapD;
 	public Dimension p;
 
 	public Point click, release;
@@ -25,6 +25,8 @@ class TerrainGraphique extends JComponent{
 	private BufferedImage BIFondAnimation, BIJ1Small, BIJ1Big, BIJ2Small, BIJ2Big;
 	private Image BIPlateau;
 
+	JButton annuler, rejouer;
+
 	TerrainGraphique(Avalam a){
 		this.a=a;
 		t = a.t;
@@ -32,6 +34,18 @@ class TerrainGraphique extends JComponent{
 		click=null;
 		release=null;
 		File ap = new File(System.getProperty("user.home")+"/.Avalam/Config/apparence.cfg");
+
+		annuler = new JButton("↩");
+		rejouer = new JButton("↪");
+		this.add(annuler);
+		this.add(rejouer);
+		annuler.setActionCommand("annuler");
+		rejouer.setActionCommand("rejouer");
+		annuler.setToolTipText("Annuler le dernier coup joué");
+		rejouer.setToolTipText("Rejouer le coup annulé");
+		annuler.addActionListener(a.f.em);
+		rejouer.addActionListener(a.f.em);
+
 		if(!ap.exists()){
 			theme =1;
 		}else{
@@ -46,14 +60,16 @@ class TerrainGraphique extends JComponent{
 	//methode qui calcule le "coté" du plateau
 	void calculTaille(){
 		p = a.f.g.getSize();
-		if ( p.height >= p.width) {
-			tailleCase = p.width/N;
-			gapV = (p.height-p.width)/2;
-			gapH = 0;
+		if (p.height >= 7*p.width/10) {
+			tailleCase = (7*p.width/10)/N;
+			gapV = (p.height-7*p.width/10)/2;
+			gapG = 3*p.width/10;
+			gapD = 0;
 		} else {
 			tailleCase = p.height/N;
 			gapV = 0;
-			gapH = (p.width-p.height)/2;
+			gapD = (p.width-p.height)/2;
+			gapG = 3*p.width/10;
 		}
 	}
 
@@ -61,14 +77,14 @@ class TerrainGraphique extends JComponent{
 	Point coordToIndice(Point coor){
 		Point indice;
 		int i = (coor.y-gapV)/tailleCase;
-		int	j = (coor.x-gapH)/tailleCase;
+		int	j = (coor.x-gapG)/tailleCase;
 		indice = new Point(i,j);
 		return indice;
 	}
 
 	Point indiceToCoord(Point indice){
 		Point coord;
-		int x = indice.y*tailleCase+gapH;
+		int x = indice.y*tailleCase+gapG;
 		int y = indice.x*tailleCase+gapV;
 		coord = new Point(x,y);
 		return coord;
@@ -103,12 +119,12 @@ class TerrainGraphique extends JComponent{
 
 			drawable.setPaint(Themes.getCouleurPionJ1(theme));
 			drawable.setFont(new Font("Liberation Sans", 1 , taillePolice));
-			drawable.drawString(a.j.J1.nom,10,hauteur-(gapV+(1*tailleCase/3)));
+			drawable.drawString(a.j.J1.nom,tailleCase/4,hauteur-(gapV+(1*tailleCase/3)));
 
 			if (! a.j.courantEstJ1()) {
-				drawable.drawImage(BIJ1Small,8, hauteur-((int) (gapV+tailleCase*1.7)) ,null);
+				drawable.drawImage(BIJ1Small, tailleCase/4, hauteur-((int) (gapV+tailleCase*1.8)) ,null);
 			} else {
-				drawable.drawImage(BIJ1Big,8, hauteur-((int) (gapV+tailleCase*2.7)) ,null);
+				drawable.drawImage(BIJ1Small,tailleCase/4, hauteur-((int) (gapV+tailleCase*1.8)) ,null);
 			}
 	}
 
@@ -124,14 +140,45 @@ class TerrainGraphique extends JComponent{
 
 		drawable.setPaint(Themes.getCouleurPionJ2(theme));
 		drawable.setFont(new Font("Liberation Sans", 1 , taillePolice));
-		drawable.drawString(a.j.J2.nom, largeur-decalage-10, gapV +
-		                    (int) (tailleCase*0.6));
+		drawable.drawString(a.j.J2.nom, tailleCase/4, gapV + 3*tailleCase/2);
 
 		if (! a.j.courantEstJ2()) {
-			drawable.drawImage(BIJ2Small,largeur-tailleCase-10, gapV+2*tailleCase/3 ,null);
+			drawable.drawImage(BIJ2Small,tailleCase/4, gapV  ,null);
 		} else {
-			drawable.drawImage(BIJ2Big,largeur-tailleCase*2-10, gapV+2*tailleCase/3 ,null);
+			drawable.drawImage(BIJ2Small,tailleCase/4, gapV ,null);
 		}
+	}
+
+	public void panneau(Graphics2D drawable) {
+		int xRect = tailleCase/4;
+		int yRect = p.height/2-2*tailleCase;
+		int hauteur = 4*tailleCase;
+		int largeur = 2*p.width/10;
+		int centre = xRect+(largeur/2);
+
+		RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(xRect, yRect, largeur, hauteur, 10, 10);
+		Color blancTransparent = new Color(255,255,255,127);
+		drawable.setPaint(blancTransparent);
+		drawable.fill(roundedRectangle);
+
+		Font f = new Font("Liberation Sans", 1 , (int) (0.30*tailleCase));
+		FontMetrics metrics = getFontMetrics(f);
+		int decalage = metrics.stringWidth("Joueur 1");
+
+		drawable.setFont(f);
+		drawable.setPaint(Color.black);
+		int hauteurTexte = yRect+4*tailleCase/3;
+		if (a.j.courantEstJ1())
+			drawable.drawString("Joueur 1", centre-decalage/2, hauteurTexte);
+		else
+			drawable.drawString("Joueur 2", centre-decalage/2, hauteurTexte);
+		decalage = metrics.stringWidth("c'est à toi");
+		drawable.drawString("c'est à toi", centre-decalage/2, hauteurTexte+metrics.getHeight());
+
+		int gap = (largeur-2*tailleCase)/4;
+		annuler.setBounds(xRect+gap, yRect+tailleCase/4, tailleCase, tailleCase/2);
+		rejouer.setBounds(xRect+largeur-gap-tailleCase, yRect+tailleCase/4, tailleCase, tailleCase/2);
+
 	}
 
 	public void resetBIFondAnimation(Point lc) {
@@ -140,7 +187,7 @@ class TerrainGraphique extends JComponent{
 		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		drawable.setPaint(Themes.getCouleurFond(theme));
 		drawable.fillRect(0,0, getSize().width, getSize().height);
-		drawable.drawImage(BIPlateau, gapH-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
+		drawable.drawImage(BIPlateau, gapG-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 		//drawable.setPaint(Color.black);
 
 		for (int i=0; i<N; i++) {
@@ -320,11 +367,13 @@ class TerrainGraphique extends JComponent{
 		if (!animation) {
 			drawable.setPaint(Themes.getCouleurFond(theme));
 			drawable.fillRect(0,0, largeur, hauteur);
-
-		if (BIPlateau == null) {
-			reinitialisationDesBI();
-		}
-		drawable.drawImage(BIPlateau, gapH-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
+			if (BIPlateau == null) {
+				reinitialisationDesBI();
+			}
+			joueur1(drawable);
+			joueur2(drawable);
+			panneau(drawable);
+			drawable.drawImage(BIPlateau, gapG-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 			for(int i=0; i<N; i++){
 				for(int j=0; j<N; j++){
 					if(!t.plateau[i][j].estVide()){
@@ -342,12 +391,14 @@ class TerrainGraphique extends JComponent{
 			}
 		} else {
 			drawable.drawImage(BIFondAnimation, 0, 0, null);
+			joueur1(drawable);
+			joueur2(drawable);
+			panneau(drawable);
 			if (t.plateau[lAnimation][cAnimation].estJ1()) {
 				drawable.setPaint(Themes.getCouleurPionJ1(theme));
 			} else if (t.plateau[lAnimation][cAnimation].estJ2()) {
 				drawable.setPaint(Themes.getCouleurPionJ2(theme));
 			}
-
 			// dessine le pion en déplacement
 			drawable.fillOval(xAnimation+plusX+tailleCase/6,yAnimation+plusY+tailleCase/6,
 			                  (int) (tailleCase*0.7), (int) (tailleCase* 0.7));
@@ -356,8 +407,6 @@ class TerrainGraphique extends JComponent{
 			drawable.drawString("" + t.plateau[lAnimation][cAnimation].getTaille(),
 			                    xAnimation+plusX+2*tailleCase/5, yAnimation+plusY+3*tailleCase/5);
 		}
-	joueur1(drawable);
-	joueur2(drawable);
 	}
 }
 

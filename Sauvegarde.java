@@ -9,7 +9,7 @@ class Sauvegarde{
 
 	String path, nom, s;
 	File f;
-    
+
     JList listCharger;
     JButton fermer, charger, supprimer;
     JDialog fenetreCharger;
@@ -89,22 +89,26 @@ class Sauvegarde{
             }
             a.f.s.start = new Time(temps);
             a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
-            
+
             //grisage des options annuler et refaire et voir dernier coup
             //annuler visible si la pile n'est pas vide ET (mode normal OU fin de partie)
             if(!a.j.h.annulerVide() && (a.j.modeNormal || a.j.finPartie)){
                 a.f.m.annuler.setEnabled(true);
+                a.f.g.annuler.setEnabled(true);
             }else{
                 a.f.m.annuler.setEnabled(false);
+                a.f.g.annuler.setEnabled(false);
             }
-            
+
             //rejouer visible si la pile n'est pas vide ET  (mode normal OU fin de partie)
             if(!a.j.h.rejouerVide() && (a.j.modeNormal) || a.j.finPartie){
                 a.f.m.rejouer.setEnabled(true);
+                a.f.g.rejouer.setEnabled(true);
             }else{
                 a.f.m.rejouer.setEnabled(false);
+                a.f.g.rejouer.setEnabled(false);
             }
-            
+
             //dernier coup visible si la pile annuler n'est pas vide
             if(!a.j.h.annulerVide()){
                 a.f.m.dernierCoup.setEnabled(true);
@@ -116,60 +120,60 @@ class Sauvegarde{
 				System.out.println(e);
         }
 	}
-    
-    public void afficherCharger() {        
+
+    public void afficherCharger() {
         a.etatSuivant = a.JEU;
-        
+
         fenetreCharger = new JDialog();
         fenetreCharger.setTitle("Charger");
         fenetreCharger.setModal(true);
         fenetreCharger.setResizable(false);
         fenetreCharger.setLayout(new BorderLayout(5,5));
-        
+
         //Panel du centre, avec l'icone et la liste
         JPanel panelCentre = new JPanel(new FlowLayout());
-            
+
             //List
             listCharger = new JList();
             listCharger.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            
+
             //Scroll List
             JScrollPane scrollList = new JScrollPane(listCharger);
             scrollList.setPreferredSize(new Dimension(250,100));
-            
+
             //Icon
             JLabel icone = new JLabel(new ImageIcon("images/icone_charger.png"),JLabel.CENTER);
-            
-            panelCentre.add(icone); 
+
+            panelCentre.add(icone);
             panelCentre.add(scrollList);
-        
+
         fenetreCharger.add(panelCentre);
         ////////////////////////////////////////////////
-        
+
         //Panel du bas, avec les trois boutons
         JPanel panelBas = new JPanel(new BorderLayout());
-        
+
             //Panel Boutons :
             JPanel panelBoutons = new JPanel(new GridLayout(1,3,10,10));
-        
+
             fermer = new JButton("Fermer");
             fermer.setActionCommand("fermer");
             panelBoutons.add(fermer);
-            
+
             supprimer = new JButton("Supprimer");
             supprimer.setActionCommand("supprimer");
             panelBoutons.add(supprimer);
-            
+
             charger = new JButton("Charger");
             charger.setActionCommand("charger");
             panelBoutons.add(charger);
-            
+
             EcouteurDeSauvegarde es = new EcouteurDeSauvegarde(this);
             charger.addActionListener(es);
             supprimer.addActionListener(es);
             fermer.addActionListener(es);
             panelBas.add(panelBoutons);
-        
+
             //Espaces pour aerer les boutons
             JPanel p1 = new JPanel();
             p1.setSize(40,300);
@@ -185,26 +189,26 @@ class Sauvegarde{
             panelBas.add(p4,"West");
 
         fenetreCharger.add(panelBas,"South");
-        
+
         //Panel nord, label
         JPanel panelNord = new JPanel(new GridLayout(2,1));
-            
+
             //Panel vide pour aerer
             panelNord.add(new JPanel());
-            
+
             //Label
             JLabel labelNord = new JLabel("Selectionner une partie :",JLabel.CENTER);
             panelNord.add(labelNord);
 
         fenetreCharger.add(panelNord,BorderLayout.NORTH);
-        
+
         //Panel Est pour decaler la list du bord droit
         JLabel pEst = new JLabel("        ");
         fenetreCharger.add(pEst,"East");
-        
+
         //Mise a jour de la liste une fois toute l'interface "creer"
         miseAJourListCharger();
-        
+
         // position initiale de la fenetre sur l'ecran
         fenetreCharger.pack();
 		int resHauteur = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -212,20 +216,20 @@ class Sauvegarde{
 		int hauteur  = (resHauteur - fenetreCharger.getSize().height)/2;
 		int largeur  = (resLargeur - fenetreCharger.getSize().width)/2;
 		fenetreCharger.setLocation(largeur, hauteur);
-        
+
         fenetreCharger.setVisible(true);
     }
-    
+
     public void miseAJourListCharger() {
         FilenameFilter ff = new FilenameFilter() {
 			public boolean accept(File f,String name) {
 				return name.endsWith(".save");
 			}
 		};
-        
+
 		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
         Object[] listeFichiers = dossier.list(ff);
-        
+
         if(listeFichiers.length != 0) {
             listCharger.setListData(listeFichiers);
             listCharger.setSelectedIndex(0);
