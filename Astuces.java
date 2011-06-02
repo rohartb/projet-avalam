@@ -11,8 +11,17 @@ public class Astuces extends JDialog {
 	JButton precedent;
 	JButton suivant;
 	JLabel lesAstuces;
+	ImageIcon i[] = new ImageIcon[7];
 
 	public Astuces(Avalam a){
+		i[0] = new ImageIcon("images/aide1.png");
+		i[1] = new ImageIcon("images/aide2.png");
+		i[2] = new ImageIcon("images/aide3.png");
+		i[3] = new ImageIcon("images/aide4.png");
+		i[4] = new ImageIcon("images/aide5.png");
+		i[5] = new ImageIcon("images/aide6.png");
+		i[6] = new ImageIcon("images/aide7.png");
+
 		this.a = a;
 		this.nbAstuce = 1;
 		this.eas = new EcouteurDAstuces(a,this,this.nbAstuce);
@@ -23,10 +32,8 @@ public class Astuces extends JDialog {
 		this.setResizable(false);
 		this.addWindowListener(eas);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		JPanel panelAst = new JPanel();
 		lesAstuces = new JLabel();
 
-		panelAst.add(lesAstuces);
 
 		// Quitter / Suivant / Précédent
 
@@ -49,7 +56,7 @@ public class Astuces extends JDialog {
 
 		this.precedent.setEnabled(false);
 
-		this.add(panelAst);
+		this.add(lesAstuces, BorderLayout.NORTH);
 		this.add(panelBouton,BorderLayout.SOUTH);
 		this.setSize(500,400);
 
@@ -68,7 +75,7 @@ public class Astuces extends JDialog {
 
 	public void afficherAstuces(){
 		nbAstuce = 1;
-		this.lesAstuces.setText("");
+		this.lesAstuces.setIcon(i[0]) ;
 		this.precedent.setEnabled(false);
 		this.suivant.setEnabled(true);
 		this.setVisible(true);

@@ -44,7 +44,7 @@ class TerrainGraphique extends JComponent{
 		click=null;
 		release=null;
 		File ap = new File(System.getProperty("user.home")+"/.Avalam/Config/apparence.cfg");
-		
+
 		annuler = new JButton("↩");
 		rejouer = new JButton("↪");
 		this.add(annuler);
@@ -207,8 +207,8 @@ class TerrainGraphique extends JComponent{
 
 	public void panneau(Graphics2D drawable) {
 		int xRect = tailleCase/4;
-		int yRect = gapV;
-		int hauteur = 9*tailleCase;
+		int yRect = gapV+tailleCase/2;
+		int hauteur = 8*tailleCase;
 		int largeur = 2*p.width/10;
 		int xCentre = xRect+(largeur/2);
 		int yCentre = yRect+(hauteur/2);
