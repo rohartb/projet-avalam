@@ -6,6 +6,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 	private Point prec;
 
 	boolean actif;
+	boolean click;
 	EcouteurDeSouris(Avalam a){
 		this.a=a;
 
@@ -13,6 +14,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 
 	public void mousePressed(MouseEvent e){
 		if (actif) {
+			click = true;
 			int x = e.getX();
 			int y = e.getY();
 			a.f.g.click = new Point(x,y);
@@ -41,13 +43,14 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 
 
 	public void mouseReleased(MouseEvent e){
-		if (actif) {
+		if (actif && click) {
 			a.f.g.release = new Point(e.getX(),e.getY());
 			a.f.g.animation = false;
 			a.f.g.adjacent = false;
 			a.f.g.repaint();
 			a.unpause();
 		}
+			click = false;
 	}
 
 	public void mouseDragged(MouseEvent e){
