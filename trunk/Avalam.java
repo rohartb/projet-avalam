@@ -63,7 +63,14 @@ public class Avalam{
 			System.out.println(e);
 		}
 	}
-
+	synchronized void pause(int n){
+		try{
+			//System.out.println("pause");
+			this.wait(n);
+		}catch(InterruptedException e){
+			System.out.println(e);
+		}
+	}
 	synchronized void unpause(){
 		try{
 			//System.out.println("unpause");
@@ -210,9 +217,6 @@ public class Avalam{
 			//calcul un coup a partir du bot
 			case BOT:
 				f.activerAnnulerRefaire(false);
-				try {
-				Thread.sleep(1500);
-				} catch (Exception e) {}
 				System.out.println("bot");
 				j.jouerBot();
 				etat=JOUERAUTO;
@@ -438,7 +442,8 @@ public class Avalam{
 				j.c = new Coups(new Point(dernierCoup.lSource,dernierCoup.cSource),new Point(dernierCoup.lDest,dernierCoup.cDest));
 				f.g.animationPionAuto();
 				t.deplacer(j.c);
-				etat=ACTUALISER;
+				etat=ACTUALISER;				
+
 			}
 		}
 	}

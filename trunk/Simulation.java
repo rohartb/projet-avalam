@@ -93,7 +93,9 @@ public class Simulation{
 	
 	
 	//strategies
-	public int evaluerScoreFinal(){
+	
+	//differences de nombre de pions
+	public int evaluerNbPions(){
 		int score=0;
 		for (int i=0; i<9; i++){
 			for (int j=0; j<9; j++){
@@ -108,8 +110,8 @@ public class Simulation{
 		return score;
 	}
 	
-
-	public int evaluerToursGagnees(){
+	//difference des tours definitives
+	public int evaluerScoreCourant(){
 		int score=0;
 		for (int i=0; i<9; i++){
 			for (int j=0; j<9; j++){
@@ -136,7 +138,7 @@ public class Simulation{
 		}
 		LinkedList<Point> l = new LinkedList<Point>();
 		l = casesAdjacentes(i,j);
-		if(l==null){
+		if(l.isEmpty()){
 			return true;
 		}
 		return false;

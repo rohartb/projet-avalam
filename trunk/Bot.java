@@ -2,53 +2,50 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class Bot {
+public class Bot implements Runnable{
 	Avalam a;
 	Random r;
 	int niveau;
+	Coups coupTemp;
+	int n,nMax;
+	boolean finEval;
+	
 	public Bot (Avalam a) {
 		this.a = a;
 		r = new Random();
+		finEval=false;
+		coupTemp=null;
+		n=0;
 	}
 	
+	synchronized void pause(int n){
+		try{
+			//System.out.println("pause");
+			this.wait(n);
+		}catch(InterruptedException e){
+			System.out.println(e);
+		}
+	}
 	
-	public Coups jouer(){
-	//On choisit pour chaque niveau de l'ordinateur une partie a jouer
+	public void run() {
 		if(a.j.joueurCourant==1)
 			niveau=a.j.J1.type;
 		else
 			niveau=a.j.J2.type;
-			
-		switch(niveau){
-			case 1 : //bot lvl1
-				return partieFacile();			
-			case 2 : // botlvl2
-				return partieMoyen();		
-			case 3 : 
-				return partieDifficile();
-			default :
-				return null;
-		}
-		
-	}
-	
-	public Coups partieFacile(){
-		return jouerMinMax(0);
-	}
-	
-	public Coups partieMoyen(){
-		return jouerMinMax(0);
-	}
-	
-	public Coups partieDifficile(){
-		if(a.j.nbCoupsRestants>100){
-			return jouerMinMax(1);
-		}
-		else{
-			return jouerMinMax(2);
+		finEval=false;
+		if(niveau==1)
+			nMax=0;
+		if(niveau==2)
+			nMax=2;
+		if(niveau==3)
+			nMax=1000;//on limite pas le jouer difficile
+		n=0;
+		while(!finEval && n<=nMax){
+			coupTemp=jouerMinMax(n);
+			n++;
+			a.j.c = new Coups(coupTemp.pDep,coupTemp.pArr);
 		}
 	}
-	
 	
 	public Coups jouerMinMax(int profondeur){
 		System.out.println("MinMax "+profondeur);
@@ -83,7 +80,9 @@ public class Bot {
 					}
 				}
 			}
+			System.out.println("max:"+max);
 		}
+		
 		else{
 			int min = 999999999;
 			for(int i=0; i<9; i++){
@@ -108,6 +107,7 @@ public class Bot {
 					}
 				}
 			}
+			System.out.println("min:"+min);
 		}
 		if(randomcoup.size()==1)
 			return randomcoup.get(0);
@@ -119,6 +119,8 @@ public class Bot {
 
 	public int min(Simulation s, int prof, int tour){
 		if(prof==0 || s.partieFinie()){
+			if(s.partieFinie())
+				finEval=true;
 			return eval(s,tour);
 		}
 		else{
@@ -157,6 +159,8 @@ public class Bot {
 
 	public int max(Simulation s, int prof, int tour){
 		if(prof==0 || s.partieFinie()){
+			if(s.partieFinie())
+				finEval=true;
 			return eval(s,tour);			
 		}
 		else{
@@ -194,14 +198,16 @@ public class Bot {
 	
 	static int TOURFIN=1000;
 	static int TOURDEF=100;
+	static int PIONS=1;
 	
 	public int eval(Simulation s, int tour){
 		int score=0;
 		if(s.partieFinie()){
-			score = s.evaluerScoreFinal()*TOURFIN;
+			score = s.evaluerNbPions()*TOURFIN;
 		}else{
-			score = s.evaluerToursGagnees()*TOURDEF;
-			
+			score += s.evaluerScoreCourant()*TOURDEF;
+			if(niveau>1)
+				score += s.evaluerNbPions()*PIONS;
 			
 		/*	if(s.tour5Possible()){
 				if(tour==1){
