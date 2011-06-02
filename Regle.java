@@ -6,11 +6,12 @@ import javax.swing.JComponent;
 public class Regle extends JDialog {
 	Avalam a;
 	EcouteurDeRegle er;
+	private static final long serialVersionUID = 1L;
 
 	public Regle(Avalam a){
 		this.a = a;
-		this.er = new EcouteurDeRegle(a,this); 
-		
+		this.er = new EcouteurDeRegle(a,this);
+
 		this.setTitle("Règles");
 		this.setModal(true);
 
@@ -41,7 +42,7 @@ public class Regle extends JDialog {
 		+ "(ou pile de pions), quelle qu'en soit la couleur.<br>"
 		+ "Autrement dit, une pile de pions ne peut qu'augmenter,<br>"
 		+ "jamais diminuer.<br>"
-		+ "On ne peut jamais poser de pions sur un trou inoccupé: il le reste<br>" 
+		+ "On ne peut jamais poser de pions sur un trou inoccupé: il le reste<br>"
 		+ "donc définitivement. Un pion (ou une tour) isolé(e) de tous les cotés<br>"
 		+ "ne pourra donc plus changer de propriétaire. <br>"
 		+ "<br>"
@@ -58,11 +59,11 @@ public class Regle extends JDialog {
 		+ "<br>"
 		+ "</P>"
 		+ "</html>");
-		
+
 		JScrollPane sc = new JScrollPane (lesRegles);
 		this.add(sc);
 		this.setSize(600,350);
-	  
+
 		// Position au centre de la fenetre principale
 		Point locAvalam  = a.f.getLocation();
 		Dimension tailleAvalam = a.f.getSize();
@@ -74,7 +75,7 @@ public class Regle extends JDialog {
 
 		this.setLocation(x,y);
 	}
-	  
+
 	public void afficherRegle(){
 		this.setVisible(true);
 	}

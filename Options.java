@@ -5,6 +5,7 @@ import java.io.*;
 
 public class Options extends JDialog{
 	Avalam a;
+	private static final long serialVersionUID = 1L;
 
 	int typeJ1, typeJ2;
 	String nomJ1, nomJ2;

@@ -8,7 +8,7 @@ import java.awt.geom.*;
 
 class TerrainGraphique extends JComponent{
 	Avalam a;
-
+	private static final long serialVersionUID = 1L;
 	public Terrain t;
 	public int N;
 	public int theme;

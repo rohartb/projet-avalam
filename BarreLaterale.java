@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class BarreLaterale extends JComponent {
 	Avalam a;
+	private static final long serialVersionUID = 1L;
 
 	public BarreLaterale(Avalam a) {
 		this.a = a;

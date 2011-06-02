@@ -5,6 +5,7 @@ import javax.swing.JComponent;
 
 public class Astuces extends JDialog {
 	Avalam a;
+	private static final long serialVersionUID = 1L;
 	EcouteurDAstuces eas;
 	int nbAstuce;
 	JButton precedent;
@@ -14,7 +15,7 @@ public class Astuces extends JDialog {
 	public Astuces(Avalam a){
 		this.a = a;
 		this.nbAstuce = 1;
-		this.eas = new EcouteurDAstuces(a,this,this.nbAstuce); 
+		this.eas = new EcouteurDAstuces(a,this,this.nbAstuce);
 
 		this.setTitle("Astuces");
 		this.setModal(true);
@@ -24,7 +25,7 @@ public class Astuces extends JDialog {
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		JPanel panelAst = new JPanel();
 		lesAstuces = new JLabel();
-		
+
 		panelAst.add(lesAstuces);
 
 		// Quitter / Suivant / Précédent
@@ -45,14 +46,14 @@ public class Astuces extends JDialog {
 		panelBouton.add(quitter);
 		panelBouton.add(precedent);
 		panelBouton.add(suivant);
-  
+
 		this.precedent.setEnabled(false);
 
 		this.add(panelAst);
 		this.add(panelBouton,BorderLayout.SOUTH);
 		this.setSize(500,400);
 
-	  
+
 		// Position au centre de la fenetre principale
 		Point locAvalam  = a.f.getLocation();
 		Dimension tailleAvalam = a.f.getSize();
@@ -64,13 +65,13 @@ public class Astuces extends JDialog {
 
 		this.setLocation(x,y);
 	}
-	  
+
 	public void afficherAstuces(){
 		nbAstuce = 1;
 		this.lesAstuces.setText("");
 		this.precedent.setEnabled(false);
 		this.suivant.setEnabled(true);
 		this.setVisible(true);
-		
+
 	}
 }

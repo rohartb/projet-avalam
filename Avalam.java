@@ -57,7 +57,6 @@ public class Avalam{
 
 	synchronized void pause(){
 		try{
-			//System.out.println("pause");
 			this.wait();
 		}catch(InterruptedException e){
 			System.out.println(e);
@@ -65,7 +64,6 @@ public class Avalam{
 	}
 	synchronized void pause(int n){
 		try{
-			//System.out.println("pause");
 			this.wait(n);
 		}catch(InterruptedException e){
 			System.out.println(e);
@@ -73,7 +71,6 @@ public class Avalam{
 	}
 	synchronized void unpause(){
 		try{
-			//System.out.println("unpause");
 			this.notify();
 		}catch(IllegalMonitorStateException e){
 			System.out.println(e);
@@ -126,10 +123,10 @@ public class Avalam{
 				try {
 					Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 					if (interfaces.hasMoreElements()) {
-						NetworkInterface ni = (NetworkInterface) interfaces.nextElement();
+						NetworkInterface ni = interfaces.nextElement();
 						Enumeration<InetAddress> addresses = ni.getInetAddresses();
 						while (addresses.hasMoreElements()) {
-							InetAddress address = (InetAddress) addresses.nextElement();
+							InetAddress address =  addresses.nextElement();
 
 							ip = "" + address.getHostAddress();
 							if (ip.matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*"))
@@ -157,8 +154,8 @@ public class Avalam{
 					etat = JEU;
 				} catch (Exception e) {
 					System.out.println(e);
-
 				}
+				break;
 
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
@@ -294,9 +291,10 @@ public class Avalam{
 				System.out.println("options");
 				f.s.timer.stop();
 				f.o.afficherOptions();
-				//pause();
+				pause();
 				if(!j.revoirH)
 					f.s.timer.start();
+				System.out.println("" + etatSuivant);
 				etat=etatSuivant;
 				break;
 
@@ -442,7 +440,7 @@ public class Avalam{
 				j.c = new Coups(new Point(dernierCoup.lSource,dernierCoup.cSource),new Point(dernierCoup.lDest,dernierCoup.cDest));
 				f.g.animationPionAuto();
 				t.deplacer(j.c);
-				etat=ACTUALISER;				
+				etat=ACTUALISER;
 
 			}
 		}

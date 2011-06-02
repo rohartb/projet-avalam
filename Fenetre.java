@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 class Fenetre extends JFrame implements Runnable{
 	Avalam a;
-
+	private static final long serialVersionUID = 1L;
 	MenuAvalam m;
 
 	Apparence app;

@@ -53,8 +53,8 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 	public void mouseDragged(MouseEvent e){
 		if (actif) {
 			if (a.f.g.animation) {
-				int x =(int) e.getX();
-				int y =(int) e.getY();
+				int x = e.getX();
+				int y = e.getY();
 				a.f.g.setXYAnimation(x,y);
 				a.f.g.repaint();
 			}
