@@ -44,7 +44,7 @@ class TerrainGraphique extends JComponent{
 		click=null;
 		release=null;
 		File ap = new File(System.getProperty("user.home")+"/.Avalam/Config/apparence.cfg");
-
+		
 		annuler = new JButton("↩");
 		rejouer = new JButton("↪");
 		this.add(annuler);
@@ -341,6 +341,8 @@ class TerrainGraphique extends JComponent{
 		animation = true;
 		xAnim = xSrc;
 		yAnim = ySrc;
+		plusX=-tailleCase/2;
+		plusY=-tailleCase/2;
 		for(float i=0;i<xyDist/3;i++){
 			xAnimation=(int)(xSrc+i*xDist/(xyDist/3));
 			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
@@ -352,7 +354,7 @@ class TerrainGraphique extends JComponent{
 		animation = false;
 	}
 
-	public void animationPionAnnuler() {
+	public void animationPionAnnuler(){
 		lAnimation=a.j.c.pDep.x;
 		cAnimation=a.j.c.pDep.y;
 		resetBIFondAnimation(a.j.c.pDep);
@@ -370,6 +372,8 @@ class TerrainGraphique extends JComponent{
 		animation = true;
 		xAnim = xSrc;
 		yAnim = ySrc;
+		plusX=-tailleCase/2;
+		plusY=-tailleCase/2;
 		for(float i=0;i<xyDist/3;i++){
 			xAnimation=(int)(xSrc+i*xDist/(xyDist/3));
 			yAnimation=(int)(ySrc+i*yDist/(xyDist/3));
