@@ -25,6 +25,15 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 			a.f.g.resetBIFondAnimation(lc);
 			a.f.g.setPlusXY(xy,lc);
 			a.f.g.setXYAnimation(x,y);
+			a.j.modeAide=true;
+			a.f.g.adjacent = true;
+			if(a.j.modeAide){
+				Point indice = a.f.g.coordToIndice(a.f.g.click);
+				System.out.println("okanim");
+				//a.f.g.adjacent = true;
+				a.f.g.lAdjacent = indice.x;
+				a.f.g.cAdjacent = indice.y;
+			}
 			a.f.g.repaint();
 		}
 		a.unpause();
@@ -34,6 +43,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 	public void mouseReleased(MouseEvent e){
 		a.f.g.release = new Point(e.getX(),e.getY());
 		a.f.g.animation = false;
+		a.f.g.adjacent = false;
 		a.f.g.repaint();
 		a.unpause();
 	}
@@ -48,25 +58,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 	}
 
 
- 	public void mouseMoved(MouseEvent e){
-		a.f.g.adjacent = false;
-		if (true) {// si l'option est activée
-			Point ij  = a.f.g.coordToIndice(e.getPoint());
-			if (ij.x > -1 && ij.y > -1 &&
-			    ij.x < 9  && ij.y < 9  &&
-			    a.t.plateau[ij.x][ij.y].estOccupee()){
-				a.f.g.adjacent = true;
-				if (prec == null || prec.x != ij.x || prec.y != ij.y) {
-					a.f.g.lAdjacent = ij.x;
-					a.f.g.cAdjacent = ij.y;
-					a.f.g.repaint();
-					prec = ij;
-				}
-			}
-		}
-	}
-
-
+ 	public void mouseMoved(MouseEvent e){}
  	public void mouseClicked(MouseEvent e){}
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
