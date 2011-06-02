@@ -3,9 +3,11 @@ import java.io.*;
 
 public class Jeu{
 	Avalam a;
+	
+	Thread thBot;
+	Bot b;
 
 	Joueur J1,J2;
-	Bot b;
 	Coups c;
 	Historique h;
 	Options o;
@@ -35,6 +37,7 @@ public class Jeu{
 		J1 = new Joueur(a);
 		J2 = new Joueur(a);
 		b = new Bot(a);
+		thBot=new Thread(b);
 		joueurCourant=JOUEUR1;
 		nbCoupsRestants=292;
 	}
@@ -44,7 +47,10 @@ public class Jeu{
 	}
 
 	public void jouerBot(){
-		c = b.jouer();
+		thBot=new Thread(b);
+		thBot.start();
+		a.pause(2000);
+		thBot.stop();
 	}
 
 	void init(){
