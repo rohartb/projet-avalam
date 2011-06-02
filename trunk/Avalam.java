@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.Point;
 import java.io.File;
 import java.net.*;
+import java.util.*;
 
 public class Avalam{
 	Fenetre f;
@@ -112,9 +113,17 @@ public class Avalam{
 
 				//init reseau
 			case CONNEXION:
+				String ip=null;
 				try {
-					String ip = "" + InetAddress.getLocalHost().getHostAddress();
-
+					Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+					if (interfaces.hasMoreElements()) {
+						NetworkInterface ni = (NetworkInterface) interfaces.nextElement();
+						Enumeration<InetAddress> addresses = ni.getInetAddresses();
+						while (addresses.hasMoreElements()) {
+							InetAddress address = (InetAddress) addresses.nextElement();
+							ip = "" + address.getHostAddress();
+						}
+					}
 					if (ip.equals("127.0.0.1")) {
 						JOptionPane.showMessageDialog(null,"Vérifiez votre connexion réseau.\nPartie en réseau impossible.", "Attention connexion" ,JOptionPane.WARNING_MESSAGE);
 					} else {

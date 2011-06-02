@@ -242,7 +242,6 @@ class TerrainGraphique extends JComponent{
 		drawable.setPaint(Themes.getCouleurFond(theme));
 		drawable.fillRect(0,0, getSize().width, getSize().height);
 		drawable.drawImage(BIPlateau, gapG-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
-		//drawable.setPaint(Color.black);
 
 		for (int i=0; i<N; i++) {
 			for (int j=0; j<N; j++) {
@@ -328,7 +327,7 @@ class TerrainGraphique extends JComponent{
 		}
 		animation = false;
 	}
-	
+
 	public void animationPionAnnuler() {
 		lAnimation=a.j.c.pDep.x;
 		cAnimation=a.j.c.pDep.y;
@@ -357,7 +356,7 @@ class TerrainGraphique extends JComponent{
 		}
 		animation = false;
 	}
-	
+
 
 	public static void setAntiAlias(Graphics2D drawable) {
 		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -442,7 +441,7 @@ class TerrainGraphique extends JComponent{
 				    && t.plateau[i][j].estOccupee()) {
 					if (i == lAdjacent && j == cAdjacent) {
 
-					} else {
+					} else if (a.t.estInferieurASix(i,j,lAdjacent, cAdjacent)) {
 						dessineCaseAccessible(i,j, drawable);
 						dessineCase(i,j,drawable);
 					}
@@ -510,7 +509,7 @@ class TerrainGraphique extends JComponent{
 			drawable.setFont(new Font("Garuda", 0, 2*tailleCase/6));
 			drawable.setPaint(Themes.getCouleurChiffre(theme));
 			drawable.drawString("" + t.plateau[lAnimation][cAnimation].getTaille(), xAnimation+plusX+2*tailleCase/5, yAnimation+plusY+3*tailleCase/5);
-			
+
 		}
 	}
 }
