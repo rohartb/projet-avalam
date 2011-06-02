@@ -77,6 +77,7 @@ public class EcouteurDOptions implements ActionListener,
 		} else {
 			System.out.println("Commande '" + cmd + "' n'est pas implémentée");
 		}
+		System.out.println(a.etatSuivant);
 	}
 
 	//// Ecouteur du texte tapé pr les noms
@@ -126,15 +127,16 @@ public class EcouteurDOptions implements ActionListener,
 		a.j.modeNormal=o.modeNormal;
 
 		a.j.sauverOptions();
-		//a.f.g.reinitialisationDesBI();
 		o.fermerOptions();
 		a.f.g.reinitialisationDesBI();
 		a.f.g.repaint();
+		a.unpause();
     }
 
 	public void traiterAppliquerRelancer() {
 		traiterOk();
 		a.etatSuivant = a.NOUVEAU;
+		a.unpause();
 	}
 
 	public void traiterAnnuler() {

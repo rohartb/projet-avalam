@@ -42,7 +42,7 @@ public class Bot {
 	
 	public Coups partieDifficile(){
 		if(a.j.nbCoupsRestants>100){
-			return jouerMinMax(0);
+			return jouerMinMax(1);
 		}
 		else{
 			return jouerMinMax(2);
@@ -55,13 +55,12 @@ public class Bot {
 		Simulation s = new Simulation(a.t.plateau);
 		LinkedList<Point> l;
 		Point pSrc, pDst;
-		Coups c,meilleurCoup;
-		meilleurCoup = null;
+		Coups c;
 		int tailleCoup;
 		int val=0;
-
+		LinkedList<Coups> randomcoup = new LinkedList<Coups>();
 		if(a.j.joueurCourant==1){
-			int max = -4242;
+			int max = -999999999;
 			for(int i=0; i<9; i++){
 				for(int j=0; j<9; j++){
 					pSrc = new Point(i,j);
@@ -73,15 +72,12 @@ public class Bot {
 						s.simulerCoup(c);
 						val = min(s,profondeur,2);
 						if(val>max){
+							randomcoup = new LinkedList<Coups>();
+							randomcoup.add(c);
 							max = val;
-							meilleurCoup = c;
 						}
 						if(val==max){
-							int e = r.nextInt(2);
-							if(e==0){
-								max = val;
-								meilleurCoup = c;
-							}
+							randomcoup.add(c);
 						}
 						s.annulerCoup(c,tailleCoup);
 					}
@@ -89,7 +85,7 @@ public class Bot {
 			}
 		}
 		else{
-			int min = 4242;
+			int min = 999999999;
 			for(int i=0; i<9; i++){
 				for(int j=0; j<9; j++){
 					pSrc = new Point(i,j);
@@ -101,22 +97,22 @@ public class Bot {
 						s.simulerCoup(c);
 						val = max(s,profondeur,1);
 						if(val<min){
+							randomcoup = new LinkedList<Coups>();
+							randomcoup.add(c);
 							min = val;
-							meilleurCoup = c;
 						}
 						if(val==min){
-							int e = r.nextInt(2);
-							if(e==0){
-								min = val;
-								meilleurCoup = c;
-							}
+							randomcoup.add(c);
 						}
 						s.annulerCoup(c,tailleCoup);
 					}
 				}
 			}
 		}
-		return meilleurCoup;
+		if(randomcoup.size()==1)
+			return randomcoup.get(0);
+		else
+			return randomcoup.get(r.nextInt(randomcoup.size()));
 	}
 	
 
@@ -132,7 +128,7 @@ public class Bot {
 			else{
 				tour=1;
 			}
-			int min = 4242;
+			int min = 999999999;
 			int val,tailleCoup;
 			Point pSrc, pDst;
 			LinkedList<Point> l;
@@ -149,12 +145,6 @@ public class Bot {
 						val = max(s,prof-1,tour);
 						if(val<min){
 							min = val;
-						}
-						if(val==min){
-							int e = r.nextInt(2);
-							if(e==0){
-								min = val;
-							}
 						}
 						s.annulerCoup(c,tailleCoup);
 					}
@@ -176,7 +166,7 @@ public class Bot {
 			else{
 				tour=1;
 			}
-			int max = -42;
+			int max = -999999999;
 			int val,tailleCoup;
 			Point pSrc, pDst;
 			LinkedList<Point> l;
@@ -194,12 +184,6 @@ public class Bot {
 						if(val>max){
 							max = val;
 						}
-						if(val==max){
-							int e = r.nextInt(2);
-							if(e==0){
-								max = val;
-							}
-						}
 						s.annulerCoup(c,tailleCoup);
 					}
 				}
@@ -208,14 +192,18 @@ public class Bot {
 		}
 	}
 	
+	static int TOURFIN=1000;
+	static int TOURDEF=100;
+	
 	public int eval(Simulation s, int tour){
 		int score=0;
 		if(s.partieFinie()){
-			score = s.evaluerScoreFinal(1);
-		}
-		else{
-			score = s.evaluerToursGagnees(1);
-			if(s.tour5Possible()){
+			score = s.evaluerScoreFinal()*TOURFIN;
+		}else{
+			score = s.evaluerToursGagnees()*TOURDEF;
+			
+			
+		/*	if(s.tour5Possible()){
 				if(tour==1){
 					score = score + 3;
 				}

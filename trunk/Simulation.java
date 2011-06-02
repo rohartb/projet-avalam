@@ -59,11 +59,9 @@ public class Simulation{
 				for (int l = j-1; l <= j+1 ; l++) {
 					if (k >= 0 && k < 9 &&
 					    l >= 0 && l < 9 && etatJeu[k][l].estOccupee()) {
-					    if(!(i==k && j==l)){
-							if (estAdjacent(i,j,k,l) &&  estInferieurASix(i,j,k,l)) {
-								p = new Point(k,l);
-								list.add(p);
-							}
+						if (estAdjacent(i,j,k,l) &&  estInferieurASix(i,j,k,l)) {
+							p = new Point(k,l);
+							list.add(p);
 						}
 					}
 				}
@@ -92,18 +90,18 @@ public class Simulation{
 		return true;
 	}
 	
-	public int evaluerScoreFinal(int joueur){
+	
+	
+	//strategies
+	public int evaluerScoreFinal(){
 		int score=0;
 		for (int i=0; i<9; i++){
 			for (int j=0; j<9; j++){
 				if(etatJeu[i][j].estOccupee()){
-					if( (joueur==1 && etatJeu[i][j].estJ1())
-					  ||(joueur==2 && etatJeu[i][j].estJ2()) ){
+					if(etatJeu[i][j].estJ1())
 						score++;
-					}
-					else{
+					else
 						score--;
-					}
 				}
 			}
 		}
@@ -111,13 +109,12 @@ public class Simulation{
 	}
 	
 
-	public int evaluerToursGagnees(int joueur){
+	public int evaluerToursGagnees(){
 		int score=0;
 		for (int i=0; i<9; i++){
 			for (int j=0; j<9; j++){
-				if(etatJeu[i][j].estOccupee()){
-					if( (joueur==1 && etatJeu[i][j].estJ1())
-					  ||(joueur==2 && etatJeu[i][j].estJ2()) ){
+ 				if(etatJeu[i][j].estOccupee()){
+					if(etatJeu[i][j].estJ1()){
 						if(estGagnee(i,j)){
 							score++;
 						}
@@ -142,14 +139,7 @@ public class Simulation{
 		if(l==null){
 			return true;
 		}
-		else{
-			for(int k=0; k<l.size(); k++){
-				if((etatJeu[l.get(k).x][l.get(k).y].estJ1() && etatJeu[i][j].estJ2()) || (etatJeu[l.get(k).x][l.get(k).y].estJ2() && etatJeu[i][j].estJ1())){
-					return false;
-				}
-			}
-			return true;
-		}
+		return false;
 	}
 	
 	public int tourDefinitive3AuCentre(int joueur){
