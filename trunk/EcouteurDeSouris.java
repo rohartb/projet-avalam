@@ -26,6 +26,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 			a.f.g.setPlusXY(xy,lc);
 			a.f.g.setXYAnimation(x,y);
 			if(a.j.modeAide){
+				System.out.println("tutututu");
 				a.f.g.adjacent = true;
 				Point indice = a.f.g.coordToIndice(a.f.g.click);
 				System.out.println("okanim");

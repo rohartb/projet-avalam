@@ -511,14 +511,14 @@ class TerrainGraphique extends JComponent{
 					}
 				}
 			}
-			if (adjacent) {
-				dessineAdjacent(drawable);
-			}
 		} else {
 			drawable.drawImage(BIFondAnimation, 0, 0, null);
 			//joueur1(drawable);
 			//joueur2(drawable);
 			panneau(drawable);
+			if (adjacent) {
+				dessineAdjacent(drawable);
+			}
 			if (t.plateau[lAnimation][cAnimation].estJ1()) {
 				drawable.setPaint(Themes.getCouleurPionJ1(theme));
 			} else if (t.plateau[lAnimation][cAnimation].estJ2()) {
@@ -529,7 +529,6 @@ class TerrainGraphique extends JComponent{
 			drawable.setFont(new Font("Garuda", 0, 2*tailleCase/6));
 			drawable.setPaint(Themes.getCouleurChiffre(theme));
 			drawable.drawString("" + t.plateau[lAnimation][cAnimation].getTaille(), xAnimation+plusX+2*tailleCase/5, yAnimation+plusY+3*tailleCase/5);
-
 		}
 	}
 }

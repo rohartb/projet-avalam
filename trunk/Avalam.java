@@ -200,6 +200,7 @@ public class Avalam{
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
+				f.s.timer.stop();
 				f.popupFinDePartie();
 				etat=etatSuivant;
 				break;
