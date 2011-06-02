@@ -315,6 +315,7 @@ public class Options extends JDialog{
 		typeJ1Tmp = a.j.J1.type;
 		typeJ2Tmp = a.j.J2.type;
 		modeTmp = a.j.modeNormal;
+		aideTmp = a.j.modeAide;
 
 		if(a.j.J1.type == Jeu.HUMAIN) {
 			humain1.setSelected(true);
