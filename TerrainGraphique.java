@@ -33,6 +33,7 @@ class TerrainGraphique extends JComponent{
 	JButton annuler, rejouer;
 	ImageIcon ampoule;
 	JLabel labelAmpoule;
+	String etatJeul1, etatJeul2;
 	EcouteurDAide ea;
 	static final Color blancTransparent = new Color(255,255,255,127);
 
@@ -54,6 +55,7 @@ class TerrainGraphique extends JComponent{
 		rejouer.setToolTipText("Rejouer le coup annulé");
 		annuler.addActionListener(a.f.em);
 		rejouer.addActionListener(a.f.em);
+
 		ampoule = new ImageIcon("images/ampoule.png");
 		labelAmpoule = new JLabel(ampoule);
 		this.add(labelAmpoule);
@@ -205,34 +207,55 @@ class TerrainGraphique extends JComponent{
 
 	public void panneau(Graphics2D drawable) {
 		int xRect = tailleCase/4;
-		int yRect = p.height/2-2*tailleCase;
-		int hauteur = 4*tailleCase;
+		int yRect = gapV;
+		int hauteur = 9*tailleCase;
 		int largeur = 2*p.width/10;
-		int centre = xRect+(largeur/2);
+		int xCentre = xRect+(largeur/2);
+		int yCentre = yRect+(hauteur/2);
 
-		RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(xRect, yRect, largeur, hauteur, 10, 10);
+		RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(xRect, yRect, largeur, hauteur, 20, 20);
 		drawable.setPaint(blancTransparent);
 		drawable.fill(roundedRectangle);
 
-		Font f = new Font("Liberation Sans", 1 , (int) (0.30*tailleCase));
+		Font f = new Font("Liberation Sans", 1 , (int) (0.35*tailleCase));
 		FontMetrics metrics = getFontMetrics(f);
-		int decalage = metrics.stringWidth("Joueur 1");
+		int decalage;
+		int yTextHaut = yRect+tailleCase/2;
+		int yTextBas  = yRect+hauteur-tailleCase/3;
 
 		drawable.setFont(f);
 		drawable.setPaint(Color.black);
-		int hauteurTexte = yRect+4*tailleCase/3;
-		if (a.j.courantEstJ1())
-			drawable.drawString("Joueur 1", centre-decalage/2, hauteurTexte);
-		else
-			drawable.drawString("Joueur 2", centre-decalage/2, hauteurTexte);
-		decalage = metrics.stringWidth("c'est à toi");
-		drawable.drawString("c'est à toi", centre-decalage/2, hauteurTexte+metrics.getHeight());
-
+		drawable.setPaint(Themes.getCouleurPionJ2(theme));
 		int gap = (largeur-2*tailleCase)/4;
-		annuler.setBounds(xRect+gap, yRect+tailleCase/4, tailleCase, tailleCase/2);
-		rejouer.setBounds(xRect+largeur-gap-tailleCase, yRect+tailleCase/4, tailleCase, tailleCase/2);
-		labelAmpoule.setBounds(centre-ampoule.getIconWidth()/2, yRect+hauteur-ampoule.getIconHeight(), ampoule.getIconWidth(), ampoule.getIconHeight());
-		//drawable.drawImage(ampoule, centre-ampoule.getWidth()/2, yRect+hauteur-ampoule.getHeight(), null);
+		decalage = metrics.stringWidth(a.j.J2.nom);
+		drawable.drawString(a.j.J2.nom, xCentre-decalage/2, yTextHaut);
+		decalage = metrics.stringWidth("Score : " + a.j.J2.score);
+		drawable.drawString("Score : " + a.j.J2.score, xCentre-decalage/2,yTextHaut+metrics.getHeight());
+
+		int yBiduleCentre = yRect+(tailleCase+ metrics.getHeight()*2 + ampoule.getIconHeight());
+		annuler.setBounds(xRect+gap, yBiduleCentre,tailleCase, tailleCase/2);
+		rejouer.setBounds(xRect+largeur-gap-tailleCase, yBiduleCentre, tailleCase, tailleCase/2);
+
+		if (a.j.courantEstJ1())
+			drawable.setPaint(Themes.getCouleurPionJ1(theme));
+		else
+			drawable.setPaint(Themes.getCouleurPionJ2(theme));
+
+		decalage = metrics.stringWidth(etatJeul1);
+		drawable.drawString(etatJeul1, xCentre-decalage/2,yBiduleCentre+tailleCase);
+		decalage = metrics.stringWidth(etatJeul2);
+		drawable.drawString(etatJeul2, xCentre-decalage/2,yBiduleCentre+tailleCase+metrics.getHeight());
+		labelAmpoule.setBounds(xCentre-ampoule.getIconWidth()/2, yBiduleCentre+tailleCase+metrics.getHeight()*2, ampoule.getIconWidth(), ampoule.getIconHeight());
+
+		drawable.setPaint(Themes.getCouleurPionJ1(theme));
+		decalage = metrics.stringWidth("Score : " + a.j.J1.score);
+		drawable.drawString("Score : " + a.j.J1.score, xCentre-decalage/2, yTextBas-metrics.getHeight());
+		decalage =  metrics.stringWidth(a.j.J1.nom);
+		drawable.drawString(a.j.J1.nom, xCentre-decalage/2, yTextBas);
+		drawable.setPaint(Color.black);
+
+
+		// drawable.drawImage(ampoule, xCentre-ampoule.getWidth()/2, yRect+hauteur-ampoule.getHeight(), null);
 	}
 
 	public void resetBIFondAnimation(Point lc) {
@@ -469,8 +492,8 @@ class TerrainGraphique extends JComponent{
 			if (BIPlateau == null) {
 				reinitialisationDesBI();
 			}
-			joueur1(drawable);
-			joueur2(drawable);
+			//joueur1(drawable);
+			//joueur2(drawable);
 			panneau(drawable);
 			drawable.drawImage(BIPlateau, gapG-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 			for(int i=0; i<N; i++){
@@ -493,8 +516,8 @@ class TerrainGraphique extends JComponent{
 			}
 		} else {
 			drawable.drawImage(BIFondAnimation, 0, 0, null);
-			joueur1(drawable);
-			joueur2(drawable);
+			//joueur1(drawable);
+			//joueur2(drawable);
 			panneau(drawable);
 			if (adjacent) {
 				dessineAdjacent(drawable);

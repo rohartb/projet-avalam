@@ -86,7 +86,7 @@ public class Jeu{
 			joueurCourant = JOUEUR1;
 		}
 	}
-	
+
 	public boolean courantEstJ1() {
 		return (joueurCourant == 1);
 	}
@@ -122,6 +122,24 @@ public class Jeu{
 		if(!finPartie && !revoirH)
 			finPartie = nbCoupsRestants == 0;
 		calculerScore();
+		actualiserlabelTexte();
+	}
+
+
+	public void actualiserlabelTexte() {
+		if (courantEstHumain()) {
+			if (courantEstJ1())
+				a.f.g.etatJeul1 = J1.nom;
+			else
+				a.f.g.etatJeul1 = J2.nom;
+			a.f.g.etatJeul2 = "c'est à toi !";
+		} else if (courantEstRobot()) {
+			if (courantEstJ1())
+				a.f.g.etatJeul1 = J1.nom;
+			else
+				a.f.g.etatJeul1 =  J2.nom;
+			a.f.g.etatJeul2 = "réfléchit ...";
+		}
 	}
 
 

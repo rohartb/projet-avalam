@@ -206,8 +206,11 @@ public class Avalam{
 
 			//calcul un coup a partir du bot
 			case BOT:
-				//grisage des fonctions et boutons annuler, rejouer et 
+				//grisage des fonctions et boutons annuler, rejouer et
 				//dernierCoup pendant le calcul et deplacement du robot
+				try {
+				Thread.sleep(1500);
+				} catch (Exception e) {}
 				System.out.println("bot");
 				f.m.rejouer.setEnabled(false);
 				f.g.rejouer.setEnabled(false);
@@ -226,7 +229,7 @@ public class Avalam{
 				break;
 
 			//animation du coup du bot ou reseau
-			case JOUERAUTO:				
+			case JOUERAUTO:
 				System.out.println("jouer auto");
 				f.g.animationPionAuto();
 				etat=JOUER;
@@ -327,7 +330,7 @@ public class Avalam{
 				f.m.annuler.setEnabled(false);
 				f.g.annuler.setEnabled(false);
 				f.m.dernierCoup.setEnabled(false);
-				
+
 				//si 1 joueur ordi ET !finPartie, annuler 2 coups
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
 					ElemHist coupOrdi = j.h.annuler();
@@ -355,21 +358,21 @@ public class Avalam{
 				//rejoue 1 coup
 				//TODO si 1 joueur ordi
 			case REJOUER:
-			
+
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
 				f.m.rejouer.setEnabled(false);
 				f.g.rejouer.setEnabled(false);
 				f.m.annuler.setEnabled(false);
 				f.g.annuler.setEnabled(false);
 				f.m.dernierCoup.setEnabled(false);
-				
+
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
 					ElemHist coupJoueur = j.h.rejouer();
 					j.h.ajouterAnnuler(coupJoueur);
 					j.c = new Coups(new Point(coupJoueur.lSource,coupJoueur.cSource),new Point(coupJoueur.lDest,coupJoueur.cDest));
 					f.g.animationPionAuto();
 					t.deplacer(j.c);
-					
+
 					ElemHist coupOrdi = j.h.rejouer();
 					j.h.ajouterAnnuler(coupOrdi);
 					j.c = new Coups(new Point(coupOrdi.lSource,coupOrdi.cSource),new Point(coupOrdi.lDest,coupOrdi.cDest));
@@ -425,25 +428,25 @@ public class Avalam{
 					System.exit(0);
 				}
 				break;
-				
+
 			case HISTORIQUE:
 				System.out.println("historique");
 				pause();
-				etat=etatSuivant; 
+				etat=etatSuivant;
 				break;
-				
+
 			case DERNIERCOUP:
 				System.out.println("dernierCoup");
 				ElemHist dernierCoup = j.h.annuler();
 				j.h.ajouterRejouer(dernierCoup);
 				t.annuler(dernierCoup);
-				
+
 				dernierCoup = j.h.rejouer();
 				j.h.ajouterAnnuler(dernierCoup);
 				j.c = new Coups(new Point(dernierCoup.lSource,dernierCoup.cSource),new Point(dernierCoup.lDest,dernierCoup.cDest));
 				f.g.animationPionAuto();
 				t.deplacer(j.c);
-				etat=ACTUALISER;				
+				etat=ACTUALISER;
 			}
 		}
 	}
