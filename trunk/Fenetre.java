@@ -160,9 +160,11 @@ class Fenetre extends JFrame implements Runnable{
 		a.j.finPartie=false;
 		if (choix == JOptionPane.YES_OPTION) {
 			a.etatSuivant=a.NOUVEAU;
-		}
-		if (choix == JOptionPane.CANCEL_OPTION) {
+		}else if (choix == JOptionPane.CANCEL_OPTION) {
 			System.exit(0);
+		}else{
+			a.j.revoirH=true;
+			a.etatSuivant=a.HISTORIQUE;
 		}
 		
 	}

@@ -60,6 +60,9 @@ class EcouteurDeMenu implements ActionListener{
 			a.unpause();
 		}else if(cmd.equals("pleinEcran")){
 			a.f.pleinEcran();
+		}else if(cmd.equals("dernierCoup")){
+			a.etatSuivant=a.DERNIERCOUP;
+			a.unpause();
 		}else{
 			System.out.println("La commande '" + e.getActionCommand() + "' est non implémenté");
 		}
