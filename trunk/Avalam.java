@@ -148,17 +148,9 @@ public class Avalam{
 					etat=FIN;
 					break;
 				}
-				if(j.joueurCourant==1){
-					if(j.J1.type>0){
-				  		etat=BOT;
-				  		break;
-				  	}
-				}
-				if(j.joueurCourant==2){
-					if(j.J2.type>0){
-				  		etat=BOT;
-				  		break;
-				  	}
+				if(j.courantEstRobot()){
+				  	etat=BOT;
+				  	break;
 				}
 				pause();
 				if(interupt)

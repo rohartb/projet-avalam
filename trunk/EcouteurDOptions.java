@@ -109,11 +109,11 @@ public class EcouteurDOptions implements ActionListener,
 
 		// si il existe, on remplace son niveau
 		if(o.estRobot(o.typeJ1)) {
-			a.j.J1.b.niveau = o.typeJ1;
+			a.j.J1.type = o.typeJ1;
 		}
 
 		if(o.estRobot(o.typeJ2)) {
-			a.j.J1.b.niveau = o.typeJ2;
+			a.j.J1.type = o.typeJ2;
 		}
 
 		a.j.J1.nom = o.nomJ1;

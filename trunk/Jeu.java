@@ -5,6 +5,7 @@ public class Jeu{
 	Avalam a;
 
 	Joueur J1,J2;
+	Bot b;
 	Coups c;
 	Historique h;
 	Options o;
@@ -32,6 +33,7 @@ public class Jeu{
 		this.a = a;
 		J1 = new Joueur(a);
 		J2 = new Joueur(a);
+		b = new Bot(a);
 		joueurCourant=JOUEUR1;
 		nbCoupsRestants=292;
 	}
@@ -41,12 +43,7 @@ public class Jeu{
 	}
 
 	public void jouerBot(){
-		if(joueurCourant==1){
-			c = J1.b.jouerBot();
-		}
-		else{
-			c = J2.b.jouerBot();
-		}
+		c = b.jouer();
 	}
 
 	void init(){
@@ -76,9 +73,7 @@ public class Jeu{
 				J2.nom = s.nextLine();
 			}catch(FileNotFoundException e){}
 		}
-		joueurCourant=1;
-		J1.actualiserBot();
-		J2.actualiserBot();
+		joueurCourant=JOUEUR1;
 		a.f.s.initTimer();
 	}
 
@@ -89,7 +84,7 @@ public class Jeu{
 			joueurCourant = JOUEUR1;
 		}
 	}
-
+	
 	public boolean courantEstJ1() {
 		return (joueurCourant == 1);
 	}

@@ -4,17 +4,21 @@ import java.util.*;
 
 public class Bot {
 	Avalam a;
-	int niveau;
 	Random r;
-
+	int niveau;
 	public Bot (Avalam a) {
 		this.a = a;
 		r = new Random();
 	}
 	
 	
-	public Coups jouerBot(){
+	public Coups jouer(){
 	//On choisit pour chaque niveau de l'ordinateur une partie a jouer
+		if(a.j.joueurCourant==1)
+			niveau=a.j.J1.type;
+		else
+			niveau=a.j.J2.type;
+			
 		switch(niveau){
 			case 1 : //bot lvl1
 				return partieFacile();			
