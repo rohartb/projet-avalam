@@ -127,18 +127,23 @@ public class Jeu{
 
 
 	public void actualiserlabelTexte() {
-		if (courantEstHumain()) {
-			if (courantEstJ1())
-				a.f.g.etatJeul1 = J1.nom;
-			else
-				a.f.g.etatJeul1 = J2.nom;
-			a.f.g.etatJeul2 = "c'est à toi !";
-		} else if (courantEstRobot()) {
-			if (courantEstJ1())
-				a.f.g.etatJeul1 = J1.nom;
-			else
-				a.f.g.etatJeul1 =  J2.nom;
-			a.f.g.etatJeul2 = "réfléchit ...";
+		if(!revoirH){
+			if (courantEstHumain()) {
+				if (courantEstJ1())
+					a.f.g.etatJeul1 = J1.nom;
+				else
+					a.f.g.etatJeul1 = J2.nom;
+				a.f.g.etatJeul2 = "c'est à toi !";
+			} else if (courantEstRobot()) {
+				if (courantEstJ1())
+					a.f.g.etatJeul1 = J1.nom;
+				else
+					a.f.g.etatJeul1 =  J2.nom;
+				a.f.g.etatJeul2 = "réfléchit ...";
+			}
+		}else{
+			a.f.g.etatJeul1 =  "Lecture";
+			a.f.g.etatJeul2 = "d'historique";
 		}
 	}
 
