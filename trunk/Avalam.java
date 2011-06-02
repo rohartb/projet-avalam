@@ -159,8 +159,6 @@ public class Avalam{
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
-				System.out.println("courantEstReseau : " + j.courantEstReseau() + " " + j.courantEstJ1() + " " +
-				                   j.courantEstJ2());
 				f.es.actif = true;
 				if(interupt){
 					etat=etatSuivant;
@@ -176,7 +174,6 @@ public class Avalam{
 				  	etat=BOT;
 				  	break;
 				} else if (j.courantEstReseau()){
-					System.out.println("coucou");
 					f.es.actif = false;
 					etat=RESEAU;
 					break;
@@ -405,8 +402,6 @@ public class Avalam{
 				}else{
 					etat=HISTORIQUE;
 				}
-				System.out.println("J1 : " + j.courantEstJ1() + " " + j.J1.type +
-				                   "    J2 : " + j.courantEstJ2() + " " + j.J2.type);
 				break;
 
 			case QUITTER:
