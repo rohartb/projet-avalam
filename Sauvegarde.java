@@ -46,7 +46,7 @@ class Sauvegarde{
 			for(int i=0; i<9; i++)
 				for(int j=0; j<9; j++)
 					s += a.t.plateau[i][j].getContenu()+"\n";
-			s += a.j.finPartie+"\n";
+			s += a.j.revoirH+"\n";
 			s += a.j.h.toString();
 
 			try{
@@ -81,7 +81,7 @@ class Sauvegarde{
 
             //historique
             a.j.h = new Historique();
-            a.j.finPartie = s.nextBoolean();
+            a.j.revoirH = s.nextBoolean();
             s.nextLine(); //on revient a la ligne
 
             while(s.hasNext()){
@@ -92,7 +92,7 @@ class Sauvegarde{
 
             //grisage des options annuler et refaire et voir dernier coup
             //annuler visible si la pile n'est pas vide ET (mode normal OU fin de partie)
-            if(!a.j.h.annulerVide() && (a.j.modeNormal || a.j.finPartie)){
+            if(!a.j.h.annulerVide() && (a.j.modeNormal || a.j.revoirH)){
                 a.f.m.annuler.setEnabled(true);
                 a.f.g.annuler.setEnabled(true);
             }else{
@@ -101,7 +101,7 @@ class Sauvegarde{
             }
 
             //rejouer visible si la pile n'est pas vide ET  (mode normal OU fin de partie)
-            if(!a.j.h.rejouerVide() && (a.j.modeNormal) || a.j.finPartie){
+            if(!a.j.h.rejouerVide() && (a.j.modeNormal) || a.j.revoirH){
                 a.f.m.rejouer.setEnabled(true);
                 a.f.g.rejouer.setEnabled(true);
             }else{
@@ -115,6 +115,7 @@ class Sauvegarde{
             } else {
                 a.f.m.dernierCoup.setEnabled(false);
             }
+            a.j.finPartie=false;
             a.etatSuivant = a.ACTUALISER;
         }catch(Exception e){
 				System.out.println(e);

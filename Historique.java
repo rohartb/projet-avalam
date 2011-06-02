@@ -30,6 +30,10 @@ class Historique{
 		return annuler.size();
 	}
 	
+	int tailleRejouer(){
+		return rejouer.size();
+	}
+	
 	ElemHist annuler(){
 		return annuler.pop();
 	}

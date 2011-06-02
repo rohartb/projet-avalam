@@ -16,6 +16,7 @@ public class Jeu{
 	int nbCoupsRestants;
 	boolean modeNormal;
 	boolean modeAide;
+	boolean revoirH;
 
 	static final int HUMAIN =0;
 	static final int BOTLVL1=1;
@@ -48,6 +49,7 @@ public class Jeu{
 
 	void init(){
 		finPartie=false;
+		revoirH =false;
 		pause=false;
 		h = new Historique();
 		File option = new File(System.getProperty("user.home")+"/.Avalam/Config/options.cfg");

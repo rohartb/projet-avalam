@@ -30,6 +30,8 @@ public class Avalam{
 	static final int REJOUER=10;
 	static final int ABANDONNER=11;
 	static final int ACTUALISER=12;
+	static final int HISTORIQUE=18;
+	static final int DERNIERCOUP=19;
 
 
 	//popups
@@ -216,6 +218,14 @@ public class Avalam{
 
 			//animation du coup du bot ou reseau
 			case JOUERAUTO:
+			
+				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
+				f.m.rejouer.setEnabled(false);
+				f.g.rejouer.setEnabled(false);
+				f.m.annuler.setEnabled(false);
+				f.g.annuler.setEnabled(false);
+				f.m.dernierCoup.setEnabled(false);
+				
 				System.out.println("jouer auto");
 				f.g.animationPionAuto();
 				etat=JOUER;
@@ -309,8 +319,15 @@ public class Avalam{
 
 			//annule 1 coup
 			case ANNULER:
+				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
+				f.m.rejouer.setEnabled(false);
+				f.g.rejouer.setEnabled(false);
+				f.m.annuler.setEnabled(false);
+				f.g.annuler.setEnabled(false);
+				f.m.dernierCoup.setEnabled(false);
+				
 				//si 1 joueur ordi ET !finPartie, annuler 2 coups
-				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.finPartie){
+				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
 					ElemHist coupOrdi = j.h.annuler();
 					j.h.ajouterRejouer(coupOrdi);
 					t.annuler(coupOrdi);
@@ -318,6 +335,7 @@ public class Avalam{
 					f.g.animationPionAnnuler();
 
 					ElemHist coupJoueur = j.h.annuler();
+					j.h.ajouterRejouer(coupJoueur);
 					t.annuler(coupJoueur);
 					j.c = new Coups(new Point(coupJoueur.lSource,coupJoueur.cSource),new Point(coupJoueur.lDest,coupJoueur.cDest));
 					f.g.animationPionAnnuler();
@@ -335,12 +353,34 @@ public class Avalam{
 				//rejoue 1 coup
 				//TODO si 1 joueur ordi
 			case REJOUER:
-				ElemHist ehr = j.h.rejouer();
-				j.h.ajouterAnnuler(ehr);
-				j.c = new Coups(new Point(ehr.lSource,ehr.cSource),new Point(ehr.lDest,ehr.cDest));
-				f.g.animationPionAuto();
-				t.deplacer(j.c);
-				j.changerJoueur();
+			
+				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
+				f.m.rejouer.setEnabled(false);
+				f.g.rejouer.setEnabled(false);
+				f.m.annuler.setEnabled(false);
+				f.g.annuler.setEnabled(false);
+				f.m.dernierCoup.setEnabled(false);
+				
+				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
+					ElemHist coupJoueur = j.h.rejouer();
+					j.h.ajouterAnnuler(coupJoueur);
+					j.c = new Coups(new Point(coupJoueur.lSource,coupJoueur.cSource),new Point(coupJoueur.lDest,coupJoueur.cDest));
+					f.g.animationPionAuto();
+					t.deplacer(j.c);
+					
+					ElemHist coupOrdi = j.h.rejouer();
+					j.h.ajouterAnnuler(coupOrdi);
+					j.c = new Coups(new Point(coupOrdi.lSource,coupOrdi.cSource),new Point(coupOrdi.lDest,coupOrdi.cDest));
+					f.g.animationPionAuto();
+					t.deplacer(j.c);
+				}else{
+					ElemHist coup = j.h.rejouer();
+					j.h.ajouterAnnuler(coup);
+					j.c = new Coups(new Point(coup.lSource,coup.cSource),new Point(coup.lDest,coup.cDest));
+					f.g.animationPionAuto();
+					t.deplacer(j.c);
+					j.changerJoueur();
+				}
 				etat=ACTUALISER;
 				break;
 
@@ -350,7 +390,11 @@ public class Avalam{
 				f.g.repaint();
 				f.s.actualiser();
 				f.m.actualiser();
-				etat=JEU;
+				if(!j.revoirH){
+					etat=JEU;
+				}else{
+					etat=HISTORIQUE;
+				}
 				break;
 
 			case QUITTER:
@@ -375,6 +419,27 @@ public class Avalam{
 					System.exit(0);
 				}
 				break;
+				
+			case HISTORIQUE:
+				System.out.println("historique");
+				pause();
+				etat=etatSuivant; 
+				break;
+				
+			case DERNIERCOUP:
+				System.out.println("dernierCoup");
+				ElemHist dernierCoup = j.h.annuler();
+				j.h.ajouterRejouer(dernierCoup);
+				t.annuler(dernierCoup);
+				
+				dernierCoup = j.h.rejouer();
+				j.h.ajouterAnnuler(dernierCoup);
+				j.c = new Coups(new Point(dernierCoup.lSource,dernierCoup.cSource),new Point(dernierCoup.lDest,dernierCoup.cDest));
+				f.g.animationPionAuto();
+				t.deplacer(j.c);
+				
+				pause();
+				etat=JEU;				
 			}
 		}
 	}

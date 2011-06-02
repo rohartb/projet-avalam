@@ -129,17 +129,20 @@ class MenuAvalam extends JMenuBar{
 	}
 
 	void actualiser(){
-		annuler.setEnabled(!a.j.h.annulerVide() && (a.j.finPartie || a.j.modeNormal));
-		a.f.g.annuler.setEnabled(!a.j.h.annulerVide() && (a.j.finPartie || a.j.modeNormal)); // bouton du terrain
-
-
-		//si la taille de la pile est de 1 (un seul coup joue, coup d'un robot) et que c'est au joueur de jouer, on ne peut pas annuler! (sauf si on est en fin de partie)
-		if(a.j.h.tailleAnnuler()==1 && (a.j.J1.estRobot() || a.j.J2.estRobot()) && a.j.courantEstHumain() && !a.j.finPartie){
+	
+		//si la taille de la pile est de 1 (un seul coup joue, coup d'un robot) et que c'est au joueur de jouer, on ne peut pas annuler! (sauf si on est en revoirHistorique)
+		if(a.j.h.tailleAnnuler()==1 && (a.j.J1.estRobot() || a.j.J2.estRobot()) && a.j.courantEstHumain() && !a.j.revoirH){
 			annuler.setEnabled(false);
+			a.f.g.annuler.setEnabled(false);
+		}else{
+			annuler.setEnabled(!a.j.h.annulerVide() && (a.j.revoirH || a.j.modeNormal));
+			a.f.g.annuler.setEnabled(!a.j.h.annulerVide() && (a.j.revoirH || a.j.modeNormal)); // bouton du terrain
 		}
 
-		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.finPartie || a.j.modeNormal));
-		a.f.g.rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.finPartie || a.j.modeNormal));
+		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
+		a.f.g.rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
+		
+		dernierCoup.setEnabled(!a.j.h.annulerVide());
 
 
 		if(a.j.pause){
