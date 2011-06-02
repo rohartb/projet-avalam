@@ -142,7 +142,6 @@ public class Jeu{
 		}
 	}
 
-
 	public void calculerScore() {
 		int scoreJ1 = 0;
 		int scoreJ2 = 0;

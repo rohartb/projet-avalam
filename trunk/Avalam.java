@@ -209,17 +209,11 @@ public class Avalam{
 
 			//calcul un coup a partir du bot
 			case BOT:
-				//grisage des fonctions et boutons annuler, rejouer et
-				//dernierCoup pendant le calcul et deplacement du robot
+				f.activerAnnulerRefaire(false);
 				try {
 				Thread.sleep(1500);
 				} catch (Exception e) {}
 				System.out.println("bot");
-				f.m.rejouer.setEnabled(false);
-				f.g.rejouer.setEnabled(false);
-				f.m.annuler.setEnabled(false);
-				f.g.annuler.setEnabled(false);
-				f.m.dernierCoup.setEnabled(false);
 				j.jouerBot();
 				etat=JOUERAUTO;
 				break;
@@ -262,7 +256,6 @@ public class Avalam{
 				j.h.viderRejouer();
 				t.deplacer(j.c);
 				etat=ACTUALISER;
-				f.es.actif = false;
 				j.changerJoueur();
 				//r.outputReseau.print("coucou");
 				break;
@@ -333,11 +326,7 @@ public class Avalam{
 			//annule 1 coup
 			case ANNULER:
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
-				f.m.rejouer.setEnabled(false);
-				f.g.rejouer.setEnabled(false);
-				f.m.annuler.setEnabled(false);
-				f.g.annuler.setEnabled(false);
-				f.m.dernierCoup.setEnabled(false);
+				f.activerAnnulerRefaire(false);
 
 				//si 1 joueur ordi ET !finPartie, annuler 2 coups
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
@@ -368,12 +357,7 @@ public class Avalam{
 			case REJOUER:
 
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
-				f.m.rejouer.setEnabled(false);
-				f.g.rejouer.setEnabled(false);
-				f.m.annuler.setEnabled(false);
-				f.g.annuler.setEnabled(false);
-				f.m.dernierCoup.setEnabled(false);
-
+				f.activerAnnulerRefaire(false);
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
 					ElemHist coupJoueur = j.h.rejouer();
 					j.h.ajouterAnnuler(coupJoueur);

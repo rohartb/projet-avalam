@@ -167,4 +167,15 @@ class Fenetre extends JFrame implements Runnable{
 			a.etatSuivant=a.HISTORIQUE;
 		}
 	}
+
+	public void activerAnnulerRefaire(boolean b) {
+				//grisage des fonctions et boutons annuler, rejouer et
+				//dernierCoup pendant le calcul et deplacement du robot
+				m.rejouer.setEnabled(b);
+				g.rejouer.setEnabled(b);
+				m.annuler.setEnabled(b);
+				g.annuler.setEnabled(b);
+				m.dernierCoup.setEnabled(b);
+	}
+
 }
