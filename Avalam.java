@@ -156,6 +156,7 @@ public class Avalam{
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
+				f.es.actif = true;
 				if(interupt){
 					etat=etatSuivant;
 					interupt=false;
@@ -166,6 +167,7 @@ public class Avalam{
 					break;
 				}
 				if(j.courantEstRobot()){
+					f.es.actif = false;
 				  	etat=BOT;
 				  	break;
 				}
@@ -260,6 +262,7 @@ public class Avalam{
 				j.h.viderRejouer();
 				t.deplacer(j.c);
 				etat=ACTUALISER;
+				f.es.actif = false;
 				j.changerJoueur();
 				//r.outputReseau.print("coucou");
 				break;
