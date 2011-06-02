@@ -119,7 +119,7 @@ public class Jeu{
 
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
-		if(!finPartie)
+		if(!finPartie && !revoirH)
 			finPartie = nbCoupsRestants == 0;
 		calculerScore();
 	}
