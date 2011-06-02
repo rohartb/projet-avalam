@@ -129,7 +129,7 @@ class MenuAvalam extends JMenuBar{
 	}
 
 	void actualiser(){
-	
+
 		//si la taille de la pile est de 1 (un seul coup joue, coup d'un robot) et que c'est au joueur de jouer, on ne peut pas annuler! (sauf si on est en revoirHistorique)
 		if(a.j.h.tailleAnnuler()==1 && (a.j.J1.estRobot() || a.j.J2.estRobot()) && a.j.courantEstHumain() && !a.j.revoirH){
 			annuler.setEnabled(false);
@@ -141,13 +141,12 @@ class MenuAvalam extends JMenuBar{
 
 		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
 		a.f.g.rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
-		
+
 		if(!a.j.revoirH){
 			dernierCoup.setEnabled(!a.j.h.annulerVide());
 		}else{
 			dernierCoup.setEnabled(false);
 		}
-			
 
 
 		if(a.j.pause){

@@ -80,7 +80,7 @@ class Fenetre extends JFrame implements Runnable{
 		int hauteur  = (resHauteur - this.getSize().height)/2;
 		int largeur  = (resLargeur - this.getSize().width)/2;
 		this.setLocation(largeur, hauteur);
-		this.setMinimumSize(new Dimension(400, 400));
+		this.setMinimumSize(new Dimension(600, 500));
 
 		//creation d'ecouteurs
 		em = new EcouteurDeMenu(a);
@@ -136,8 +136,8 @@ class Fenetre extends JFrame implements Runnable{
 			message=new String("Personne ne gagne ! \n Score : "+nbJ1+" - "+nbJ2);
 			titre=new String("Egalité");
 		} else {
-			if((a.j.J1.estRobot() && a.j.J2.estHumain()) || (a.j.J1.estRobot() && a.j.J1.estHumain())) {
-				if ((nbJ2 > nbJ1 && a.j.J2.estRobot()) || (nbJ2 < nbJ1 && a.j.J2.estRobot())){
+			if((a.j.J1.estRobot() && a.j.J2.estHumain()) || (a.j.J2.estRobot() && a.j.J1.estHumain())) {
+				if ((nbJ2 > nbJ1 && a.j.J2.estRobot()) || (nbJ2 < nbJ1 && a.j.J1.estRobot())){
 					message=new String("Vous avez perdu! \n Score :  "+nbJ1+" - "+nbJ2);
 					titre=new String("Défaite");
 				}

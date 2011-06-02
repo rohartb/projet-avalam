@@ -74,6 +74,11 @@ public class EcouteurDOptions implements ActionListener,
 			o.modeTmp=true;
 		} else if (cmd.equals("match")) {
 			o.modeTmp=false;
+		} else if (cmd.equals("activeraide")) {
+			if (o.activerAide.isSelected())
+				o.aideTmp = true;
+			else
+				o.aideTmp = false;
 		} else {
 			System.out.println("Commande '" + cmd + "' n'est pas implémentée");
 		}
@@ -106,7 +111,7 @@ public class EcouteurDOptions implements ActionListener,
 		o.typeJ1 = o.typeJ1Tmp;
 		o.typeJ2 = o.typeJ2Tmp;
 		o.modeNormal = o.modeTmp;
-
+		o.aide = o.aideTmp;
 
 		// si il existe, on remplace son niveau
 		if(o.estRobot(o.typeJ1)) {
@@ -125,6 +130,8 @@ public class EcouteurDOptions implements ActionListener,
 		a.j.J2.type = o.typeJ2;
 
 		a.j.modeNormal=o.modeNormal;
+
+		a.j.modeAide = o.aide;
 
 		a.j.sauverOptions();
 		o.fermerOptions();

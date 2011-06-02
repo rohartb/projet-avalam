@@ -519,9 +519,6 @@ class TerrainGraphique extends JComponent{
 			//joueur1(drawable);
 			//joueur2(drawable);
 			panneau(drawable);
-			if (adjacent) {
-				dessineAdjacent(drawable);
-			}
 			if (t.plateau[lAnimation][cAnimation].estJ1()) {
 				drawable.setPaint(Themes.getCouleurPionJ1(theme));
 			} else if (t.plateau[lAnimation][cAnimation].estJ2()) {
