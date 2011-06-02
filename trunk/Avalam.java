@@ -121,20 +121,25 @@ public class Avalam{
 						Enumeration<InetAddress> addresses = ni.getInetAddresses();
 						while (addresses.hasMoreElements()) {
 							InetAddress address = (InetAddress) addresses.nextElement();
+
 							ip = "" + address.getHostAddress();
-							System.out.println(ip + "");
+							if (ip.matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*"))
+								break;
 						}
 					}
 					if (ip.equals("127.0.0.1")) {
 						JOptionPane.showMessageDialog(null,"Vérifiez votre connexion réseau.\nPartie en réseau impossible.", "Attention connexion" ,JOptionPane.WARNING_MESSAGE);
 					} else {
 						String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip);
-						InetAddress addr = InetAddress.getByName(result);
-						int port = 8100;
-						Socket sock = new Socket(addr, port);
-						r = new Reseau(sock);
-						thReseau = new Thread(r);
-						thReseau.start();
+						if (result != null) {
+							System.out.println("tutu");
+							InetAddress addr = InetAddress.getByName(result);
+							int port = 8100;
+							Socket sock = new Socket(addr, port);
+							r = new Reseau(sock);
+							thReseau = new Thread(r);
+							thReseau.start();
+						}
 					}
 					// celui qui établie la connexion devient J1
 					// a.j.J1 = Jeu.HUMAIN;
