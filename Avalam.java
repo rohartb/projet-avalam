@@ -138,18 +138,17 @@ public class Avalam{
 					} else {
 						String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip);
 						if (result != null) {
-							System.out.println("tutu");
 							InetAddress addr = InetAddress.getByName(result);
 							int port = 8100;
 							Socket sock = new Socket(addr, port);
-							r = new Reseau(sock);
+							r = new Reseau(this, sock);
 							thReseau = new Thread(r);
 							thReseau.start();
 						}
 					}
 					// celui qui établie la connexion devient J1
-					// a.j.J1 = Jeu.HUMAIN;
-					// a.j2.J2 = Jeu.RESEAU;
+					j.J1.type = Jeu.HUMAIN;
+					j.J2.type = Jeu.RESEAU;
 					// on active le mode match ?
 					etat = JEU;
 				} catch (Exception e) {
@@ -160,6 +159,8 @@ public class Avalam{
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
+				System.out.println("courantEstReseau : " + j.courantEstReseau() + " " + j.courantEstJ1() + " " +
+				                   j.courantEstJ2());
 				f.es.actif = true;
 				if(interupt){
 					etat=etatSuivant;
@@ -174,6 +175,11 @@ public class Avalam{
 					f.es.actif = false;
 				  	etat=BOT;
 				  	break;
+				} else if (j.courantEstReseau()){
+					System.out.println("coucou");
+					f.es.actif = false;
+					etat=RESEAU;
+					break;
 				}
 				pause();
 				if(interupt){
@@ -187,7 +193,7 @@ public class Avalam{
 				//atente de la fin du chargement de la fenetre
 
 				//etat changé par les ecouteurs puis unpause()
-				// SAUVEGARDER, CHARGER, PREFERENCES, OPTIONS, ANNLER,REFAIRE....
+				//SAUVEGARDER, CHARGER, PREFERENCES, OPTIONS, ANNLER,REFAIRE....
 
 			//met le jeu en pause
 			case PAUSE:
@@ -223,6 +229,8 @@ public class Avalam{
 			case RESEAU:
 				//TODO
 				System.out.println("reseau");
+				pause();
+
 				etat=JOUERAUTO;
 				break;
 
@@ -257,8 +265,11 @@ public class Avalam{
 				j.h.viderRejouer();
 				t.deplacer(j.c);
 				etat=ACTUALISER;
+				if (j.partieEnReseau && j.courantEstHumain()) { // on envoi que si le coup est joué par le joueur
+					System.out.println("j'envoie mon coup sur le réseau");
+					r.outputReseau.print(j.c.toString());
+				}
 				j.changerJoueur();
-				//r.outputReseau.print("coucou");
 				break;
 
 			//TODO popop sauvegarder avant charger
@@ -386,14 +397,16 @@ public class Avalam{
 			case ACTUALISER:
 				System.out.println("actualiser");
 				j.actualiser();
-				f.g.repaint();
 				f.s.actualiser();
 				f.m.actualiser();
+				f.g.repaint();
 				if(!j.revoirH){
 					etat=JEU;
 				}else{
 					etat=HISTORIQUE;
 				}
+				System.out.println("J1 : " + j.courantEstJ1() + " " + j.J1.type +
+				                   "    J2 : " + j.courantEstJ2() + " " + j.J2.type);
 				break;
 
 			case QUITTER:

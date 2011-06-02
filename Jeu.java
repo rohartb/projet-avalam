@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Jeu{
 	Avalam a;
-	
+
 	Thread thBot;
 	Bot b;
 
@@ -12,6 +12,7 @@ public class Jeu{
 	Historique h;
 	Options o;
 
+	boolean partieEnReseau;
 	boolean finPartie;
 	boolean pause;
 	int joueurCourant;
@@ -115,6 +116,13 @@ public class Jeu{
 			return J2.estHumain();
 	}
 
+	public boolean courantEstReseau() {
+		if (courantEstJ1())
+			return J1.estReseau();
+		else
+			return J2.estReseau();
+	}
+
 	public String getModeString() {
 		if (modeNormal)
 			return "Normal";
@@ -146,6 +154,9 @@ public class Jeu{
 				else
 					a.f.g.etatJeul1 =  J2.nom;
 				a.f.g.etatJeul2 = "réfléchit ...";
+			} else if (courantEstReseau()) {
+				a.f.g.etatJeul1 = "attente du ";
+				a.f.g.etatJeul2 = "coups réseau";
 			}
 		}else{
 			a.f.g.etatJeul1 =  "Lecture";
