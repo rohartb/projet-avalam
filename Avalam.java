@@ -411,8 +411,12 @@ public class Avalam{
 					}else if (choix == JOptionPane.NO_OPTION) {
 						System.exit(0);
 					}else{
-						f.s.timer.start();
-						etat=JEU;
+						if(!j.revoirH){
+							f.s.timer.start();
+							etat=JEU;
+						}else{
+							etat=HISTORIQUE;
+						}
 					}
 				}else{
 					System.exit(0);
