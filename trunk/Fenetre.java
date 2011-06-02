@@ -119,7 +119,7 @@ class Fenetre extends JFrame implements Runnable{
 
 		this.validate();
 		this.setVisible(true);
-		
+
 		a.unpause();
 	}
 
@@ -155,7 +155,7 @@ class Fenetre extends JFrame implements Runnable{
 			}
 		}
 		String[] options = {"Rejouer" , "Revoir la partie" , "Quitter"};
-		int choix  = JOptionPane.showOptionDialog(null, message, titre, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );		
+		int choix  = JOptionPane.showOptionDialog(null, message, titre, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
 		a.etatSuivant=a.JEU;
 		a.j.finPartie=false;
 		if (choix == JOptionPane.YES_OPTION) {
@@ -166,6 +166,5 @@ class Fenetre extends JFrame implements Runnable{
 			a.j.revoirH=true;
 			a.etatSuivant=a.HISTORIQUE;
 		}
-		
 	}
 }
