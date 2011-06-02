@@ -505,7 +505,7 @@ class TerrainGraphique extends JComponent{
 			} else if (t.plateau[lAnimation][cAnimation].estJ2()) {
 				drawable.setPaint(Themes.getCouleurPionJ2(theme));
 			}
-						// dessine le pion en déplacement
+			// dessine le pion en déplacement
 			drawable.fillOval(xAnimation+plusX+tailleCase/6,yAnimation+plusY+tailleCase/6, (int) (tailleCase*0.7), (int) (tailleCase* 0.7));
 			drawable.setFont(new Font("Garuda", 0, 2*tailleCase/6));
 			drawable.setPaint(Themes.getCouleurChiffre(theme));

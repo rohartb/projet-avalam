@@ -1,20 +1,14 @@
 public class Joueur{
 	Avalam a;
 
-	Bot b;
-
 	String nom;
-	int type;
+	int type; //0,1,2,3,4 
 	int joueur; // 1 ou 2
 	int score;
+	
 
 	public Joueur(Avalam a){
 		this.a=a;
-		b = new Bot(a);
-	}
-
-	public void actualiserBot(){
-		b.niveau = type;
 	}
 
 	public boolean estHumain() {
