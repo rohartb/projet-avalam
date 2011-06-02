@@ -122,6 +122,7 @@ public class Avalam{
 						while (addresses.hasMoreElements()) {
 							InetAddress address = (InetAddress) addresses.nextElement();
 							ip = "" + address.getHostAddress();
+							System.out.println(ip + "");
 						}
 					}
 					if (ip.equals("127.0.0.1")) {
@@ -240,6 +241,7 @@ public class Avalam{
 				t.deplacer(j.c);
 				etat=ACTUALISER;
 				j.changerJoueur();
+				//r.outputReseau.print("coucou");
 				break;
 
 			//TODO popop sauvegarder avant charger
