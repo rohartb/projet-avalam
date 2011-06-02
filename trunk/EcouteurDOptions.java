@@ -16,7 +16,7 @@ public class EcouteurDOptions implements ActionListener,
 		String cmd = e.getActionCommand();
 		System.out.println("Commande " + cmd);
 		if (cmd.equals("ok")) {
-			traiterOk();
+			traiterOk(false);
 		} else if (cmd.equals("annuler" )) {
 			traiterAnnuler();
 		} else if (cmd.equals("appliquerrelancer")) {
@@ -102,7 +102,7 @@ public class EcouteurDOptions implements ActionListener,
 
 
 	//////////////////////////
-	public void traiterOk() {
+	public void traiterOk(boolean nouvellepartie) {
         a.etatSuivant = a.ACTUALISER;
 
 		//Validation des params temporaires
@@ -137,11 +137,12 @@ public class EcouteurDOptions implements ActionListener,
 		o.fermerOptions();
 		a.f.g.reinitialisationDesBI();
 		a.f.g.repaint();
-		a.unpause();
+		if (!nouvellepartie)
+			a.unpause();
     }
 
 	public void traiterAppliquerRelancer() {
-		traiterOk();
+		traiterOk(true);
 		a.etatSuivant = a.NOUVEAU;
 		a.unpause();
 	}

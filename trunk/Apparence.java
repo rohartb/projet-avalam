@@ -5,6 +5,7 @@ import java.io.*;
 
 public class Apparence extends JDialog {
 	Avalam a;
+	private static final long serialVersionUID = 1L;
 	EcouteurDApparence ea;
 	int dimension;
 	JComboBox ComboTheme;
@@ -114,7 +115,7 @@ public class Apparence extends JDialog {
 		this.setVisible(false);
 		ComboTheme.setSelectedIndex(a.f.g.theme-1);
 	}
-	
+
 	public void sauver(){
 		try {
 			File config = new File(System.getProperty("user.home")+"/.Avalam/Config/");
@@ -122,7 +123,7 @@ public class Apparence extends JDialog {
 				config.mkdir();
 			File f = new File(System.getProperty("user.home")+"/.Avalam/Config/apparence.cfg");
 			f.setWritable(true);
-			
+
 			String s = "";
 
 			s += a.f.g.theme;

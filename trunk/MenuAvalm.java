@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 class MenuAvalam extends JMenuBar{
 	Avalam a;
+	private static final long serialVersionUID = 1L;
 
 	JMenu avalam;
 	JMenuItem nouveau, reseau, pause, sauvegarder, charger, abandonner, options, quitter;
