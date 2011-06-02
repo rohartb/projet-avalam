@@ -38,7 +38,7 @@ public class Apparence extends JDialog {
 		LabelTheme.setHorizontalAlignment(JLabel.RIGHT);
 
 		// 2D ou 3D
-		JRadioButton Plateau2D = new JRadioButton("Plateau2D");
+		/*JRadioButton Plateau2D = new JRadioButton("Plateau2D");
 		Plateau2D.addActionListener(ea);
 		Plateau2D.setActionCommand("plateau2D");
 
@@ -52,7 +52,7 @@ public class Apparence extends JDialog {
 
 		Plateau3D.setSelected(dimension == 3);
 		Plateau2D.setSelected(dimension == 2);
-
+		*/
 		JPanel PanelChoixTheme =  new JPanel();
 		PanelChoixTheme.setBorder(BorderFactory.createTitledBorder("Choix du style"));
 		PanelChoixTheme.setLayout(new GridLayout(1,2, 10, 10));
@@ -61,16 +61,16 @@ public class Apparence extends JDialog {
 
 		ComboTheme.setPreferredSize(new Dimension(100, 30));
 
-		JPanel PanelChoixDimension = new JPanel();
+		/*JPanel PanelChoixDimension = new JPanel();
 		PanelChoixDimension.setBorder(BorderFactory.createTitledBorder("Affichage"));
 		PanelChoixDimension.add(Plateau2D);
 		PanelChoixDimension.add(Plateau3D);
-
+		*/
 
 		JPanel ApparencePanel = new JPanel();
 		ApparencePanel.setLayout(new BoxLayout(ApparencePanel, BoxLayout.PAGE_AXIS));
 		ApparencePanel.add(PanelChoixTheme);
-		ApparencePanel.add(PanelChoixDimension);
+		//ApparencePanel.add(PanelChoixDimension);
 
 
 		JButton Ok = new JButton("Appliquer");
@@ -90,7 +90,7 @@ public class Apparence extends JDialog {
 		this.addWindowListener(ea);
 		this.add(ApparencePanel);
 		this.validate();
-		this.setSize(250,200);
+		this.pack();
         this.setResizable(false);
 
 		// Position au centre de la fenetre principale

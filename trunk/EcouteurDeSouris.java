@@ -30,6 +30,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 				a.f.g.adjacent = true;
 				Point indice = a.f.g.coordToIndice(a.f.g.click);
 				System.out.println("okanim");
+				//a.f.g.adjacent = true;
 				a.f.g.lAdjacent = indice.x;
 				a.f.g.cAdjacent = indice.y;
 			}
