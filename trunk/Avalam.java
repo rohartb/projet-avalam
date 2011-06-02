@@ -398,7 +398,6 @@ public class Avalam{
 
 			case QUITTER:
 				System.out.println("quitter");
-				System.out.println("popop sauvegarder ?");
 				f.s.timer.stop();
 				if(!j.finPartie && !quit){
 					String[] options = {"Sauvegarder" , "Quitter sans sauvegarder" , "Annuler"};
