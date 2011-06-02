@@ -23,7 +23,7 @@ public class Astuces extends JDialog {
 		this.addWindowListener(eas);
 		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		JPanel panelAst = new JPanel();
-		lesAstuces = new JLabel("Bienvenue lala");
+		lesAstuces = new JLabel();
 		
 		panelAst.add(lesAstuces);
 
@@ -67,9 +67,10 @@ public class Astuces extends JDialog {
 	  
 	public void afficherAstuces(){
 		nbAstuce = 1;
-		this.lesAstuces.setText("Bienvenue blabla");
+		this.lesAstuces.setText("");
 		this.precedent.setEnabled(false);
 		this.suivant.setEnabled(true);
 		this.setVisible(true);
+		
 	}
 }
