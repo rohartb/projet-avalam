@@ -142,7 +142,12 @@ class MenuAvalam extends JMenuBar{
 		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
 		a.f.g.rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
 		
-		dernierCoup.setEnabled(!a.j.h.annulerVide());
+		if(!a.j.revoirH){
+			dernierCoup.setEnabled(!a.j.h.annulerVide());
+		}else{
+			dernierCoup.setEnabled(false);
+		}
+			
 
 
 		if(a.j.pause){
