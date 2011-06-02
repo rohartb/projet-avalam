@@ -99,8 +99,7 @@ public class Terrain{
 				for (int l = j-1; l <= j+1 ; l++) {
 					if (k >= 0 && k < 9 &&
 					    l >= 0 && l < 9 && plateau[k][l].estOccupee()) {
-						if (estAdjacent(i,j,k,l) &&
-						    estInferieurASix(i,j,k,l)) {
+						if (estAdjacent(i,j,k,l) && estInferieurASix(i,j,k,l)) {
 							p = new Point(k,l);
 							list.add(p);
 						}
