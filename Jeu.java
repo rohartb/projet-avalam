@@ -49,7 +49,7 @@ public class Jeu{
 	public void jouerBot(){
 		thBot=new Thread(b);
 		thBot.start();
-		a.pause(2000);
+		a.pause(1500);
 		thBot.stop();
 	}
 

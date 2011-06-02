@@ -41,6 +41,13 @@ class MenuAvalam extends JMenuBar{
 		pause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, Event.CTRL_MASK));
 		avalam.add(pause);
 		avalam.add(new JSeparator());
+		options = new JMenuItem("Options");
+		options.setActionCommand("options");
+		options.addActionListener(em);
+		options.setMnemonic(KeyEvent.VK_O);
+		options.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
+		avalam.add(options);
+		avalam.add(new JSeparator());
 		sauvegarder = new JMenuItem("Sauvegarder");
 		sauvegarder.setActionCommand("sauvegarder");
 		sauvegarder.addActionListener(em);
@@ -60,12 +67,6 @@ class MenuAvalam extends JMenuBar{
 		abandonner.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,Event.CTRL_MASK));
 		avalam.add(abandonner);
 		avalam.add(new JSeparator());
-		options = new JMenuItem("Options");
-		options.setActionCommand("options");
-		options.addActionListener(em);
-		options.setMnemonic(KeyEvent.VK_O);
-		options.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
-		avalam.add(options);
 		quitter = new JMenuItem("Quitter");
 		quitter.setActionCommand("quitter");
 		quitter.addActionListener(em);
