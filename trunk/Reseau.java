@@ -6,30 +6,49 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class Reseau implements Runnable {
+	Avalam a;
 	Socket sock;
 	InputStream inputReseau; // on y lit
 	PrintStream outputReseau;// on y écrit
 
-	public Reseau(Socket sock) {
+	public Reseau(Avalam a, Socket sock) {
 		try {
+			this.a = a;
 			this.sock = sock;
+			//sock.setSoTimeout(3000);
+			a.j.partieEnReseau = true;
 			inputReseau = sock.getInputStream();
 			outputReseau = new PrintStream(sock.getOutputStream());
 		} catch (Exception e) { System.out.println(e);  }
 	}
 
 	public void run() {
-		System.out.println("Un nouveau client est connecté, son ip: " + sock.getInetAddress().toString());
-		while (true) {
+		while (!sock.isClosed()) {
 			byte [] buffer = new byte [1024];
 			int number;
 			try {
 				while ((number = inputReseau.read(buffer)) != -1) {
-					System.out.write(buffer, 0, number);
+					String s = new String(buffer);
+					String[] tokens = s.split("[ ]+");
+					int lSrc, cSrc, lDest, cDest;
+					lSrc = Integer.valueOf(tokens[0]);
+					cSrc  = Integer.valueOf(tokens[1]);
+					lDest  = Integer.valueOf(tokens[2]);
+					cDest  = Integer.valueOf(tokens[3]);
+					Coups c = new Coups(lSrc, cSrc, lDest, cDest);
+					a.j.c = c;
+					System.out.println("Coup " + c + " reçu");
+					a.unpause();
 				}
+			} catch (java.net.SocketTimeoutException t) {
+				System.out.println(t);
+				try {
+				sock.close();
+				} catch (Exception e) {}
 			} catch (Exception e) {
-				System.out.println(e);
+
 			}
 		}
+		System.out.println("Connection interropue");
 	}
 }

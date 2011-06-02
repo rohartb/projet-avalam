@@ -2,10 +2,10 @@ public class Joueur{
 	Avalam a;
 
 	String nom;
-	int type; //0,1,2,3,4 
+	int type; //0,1,2,3,4
 	int joueur; // 1 ou 2
 	int score;
-	
+
 
 	public Joueur(Avalam a){
 		this.a=a;
