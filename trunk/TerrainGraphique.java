@@ -357,7 +357,7 @@ class TerrainGraphique extends JComponent{
 		}
 		animation = false;
 	}
-
+	
 
 	public static void setAntiAlias(Graphics2D drawable) {
 		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -497,18 +497,20 @@ class TerrainGraphique extends JComponent{
 			joueur1(drawable);
 			joueur2(drawable);
 			panneau(drawable);
+			if (adjacent) {
+				dessineAdjacent(drawable);
+			}
 			if (t.plateau[lAnimation][cAnimation].estJ1()) {
 				drawable.setPaint(Themes.getCouleurPionJ1(theme));
 			} else if (t.plateau[lAnimation][cAnimation].estJ2()) {
 				drawable.setPaint(Themes.getCouleurPionJ2(theme));
 			}
-			// dessine le pion en déplacement
-			drawable.fillOval(xAnimation+plusX+tailleCase/6,yAnimation+plusY+tailleCase/6,
-			                  (int) (tailleCase*0.7), (int) (tailleCase* 0.7));
+						// dessine le pion en déplacement
+			drawable.fillOval(xAnimation+plusX+tailleCase/6,yAnimation+plusY+tailleCase/6, (int) (tailleCase*0.7), (int) (tailleCase* 0.7));
 			drawable.setFont(new Font("Garuda", 0, 2*tailleCase/6));
 			drawable.setPaint(Themes.getCouleurChiffre(theme));
-			drawable.drawString("" + t.plateau[lAnimation][cAnimation].getTaille(),
-			                    xAnimation+plusX+2*tailleCase/5, yAnimation+plusY+3*tailleCase/5);
+			drawable.drawString("" + t.plateau[lAnimation][cAnimation].getTaille(), xAnimation+plusX+2*tailleCase/5, yAnimation+plusY+3*tailleCase/5);
+			
 		}
 	}
 }

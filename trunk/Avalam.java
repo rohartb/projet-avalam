@@ -239,7 +239,6 @@ public class Avalam{
 				t.deplacer(j.c);
 				etat=ACTUALISER;
 				j.changerJoueur();
-				r.outputReseau.print("coucou\n");
 				break;
 
 			//TODO popop sauvegarder avant charger
