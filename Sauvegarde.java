@@ -40,7 +40,7 @@ class Sauvegarde{
 			s += a.j.J1.type+" ";
 			s += a.j.J2.type+" ";
 			s += a.f.s.start.getTime()+" ";
-			s += a.j.modeNormal+"\n";
+			s += a.j.modeNormal+" "+a.j.modeAide+"\n";
 			s += a.j.J1.nom+"\n";
 			s += a.j.J2.nom+"\n";
 			for(int i=0; i<9; i++)
@@ -72,6 +72,7 @@ class Sauvegarde{
             a.j.J2.type = s.nextInt();
             long temps = s.nextLong();
             a.j.modeNormal = s.nextBoolean();
+            a.j.modeAide = s.nextBoolean();
             s.nextLine(); //on revient a la ligne
             a.j.J1.nom = s.nextLine();
             a.j.J2.nom = s.nextLine();

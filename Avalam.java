@@ -272,7 +272,8 @@ public class Avalam{
 				System.out.println("charger");
 				f.s.timer.stop();
 				s.afficherCharger();
-				f.s.timer.start();
+				if(!j.revoirH)
+					f.s.timer.start();
 				etat=etatSuivant;
 				break;
 
@@ -281,7 +282,8 @@ public class Avalam{
 				System.out.println("sauver");
 				f.s.timer.stop();
 				s.sauver();
-				f.s.timer.start();
+				if(!j.revoirH)
+					f.s.timer.start();
 				etat=JEU;
 				break;
 
@@ -296,7 +298,8 @@ public class Avalam{
 				f.s.timer.stop();
 				f.o.afficherOptions();
 				//pause();
-				f.s.timer.start();
+				if(!j.revoirH)
+					f.s.timer.start();
 				etat=etatSuivant;
 				break;
 
@@ -313,7 +316,8 @@ public class Avalam{
 				System.out.println("regle");
 				f.s.timer.stop();
 				f.r.afficherRegle();
-				f.s.timer.start();
+				if(!j.revoirH)
+					f.s.timer.start();
 				etat=JEU;
 				break;
 
