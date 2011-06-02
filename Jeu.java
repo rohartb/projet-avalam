@@ -120,7 +120,6 @@ public class Jeu{
 		if(!finPartie)
 			finPartie = nbCoupsRestants == 0;
 		calculerScore();
-
 	}
 
 

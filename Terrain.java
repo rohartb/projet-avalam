@@ -32,7 +32,7 @@ public class Terrain{
 		else
 			return false;
 	}
-	
+
 	boolean okCoup(Coups c){
 		return (c.pDep.x>-1 &&
 		 		c.pDep.x< 9 &&
@@ -47,7 +47,7 @@ public class Terrain{
 	boolean okAnim(Point p){
 		return (p.x>-1 && p.x< 9 && p.y>-1 && p.y< 9) && plateau[p.x][p.y].estOccupee();
 	}
-	
+
 	//Verifie que la case de destination est adjacente à la case source
 	// (donc qu'elles sont différentes
 	// Et qu'elle n'est pas vide
