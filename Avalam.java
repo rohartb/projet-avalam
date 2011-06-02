@@ -204,6 +204,13 @@ public class Avalam{
 
 			//calcul un coup a partir du bot
 			case BOT:
+				//grisage des fonctions et boutons annuler, rejouer et 
+				//dernierCoup pendant le calcul et deplacement du robot
+				f.m.rejouer.setEnabled(false);
+				f.g.rejouer.setEnabled(false);
+				f.m.annuler.setEnabled(false);
+				f.g.annuler.setEnabled(false);
+				f.m.dernierCoup.setEnabled(false);
 				System.out.println("bot");
 				j.jouerBot();
 				etat=JOUERAUTO;
@@ -217,15 +224,7 @@ public class Avalam{
 				break;
 
 			//animation du coup du bot ou reseau
-			case JOUERAUTO:
-			
-				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
-				f.m.rejouer.setEnabled(false);
-				f.g.rejouer.setEnabled(false);
-				f.m.annuler.setEnabled(false);
-				f.g.annuler.setEnabled(false);
-				f.m.dernierCoup.setEnabled(false);
-				
+			case JOUERAUTO:				
 				System.out.println("jouer auto");
 				f.g.animationPionAuto();
 				etat=JOUER;
