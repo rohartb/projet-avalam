@@ -443,9 +443,7 @@ public class Avalam{
 				j.c = new Coups(new Point(dernierCoup.lSource,dernierCoup.cSource),new Point(dernierCoup.lDest,dernierCoup.cDest));
 				f.g.animationPionAuto();
 				t.deplacer(j.c);
-				
-				pause();
-				etat=JEU;				
+				etat=ACTUALISER;				
 			}
 		}
 	}
