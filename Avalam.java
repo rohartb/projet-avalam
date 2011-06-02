@@ -291,7 +291,7 @@ public class Avalam{
 				System.out.println("options");
 				f.s.timer.stop();
 				f.o.afficherOptions();
-				pause();
+				//pause();
 				f.s.timer.start();
 				etat=etatSuivant;
 				break;

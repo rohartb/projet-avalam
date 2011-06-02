@@ -9,11 +9,12 @@ public class Options extends JDialog{
 	int typeJ1, typeJ2;
 	String nomJ1, nomJ2;
 	boolean modeNormal;
-	boolean modeAide;
+	boolean aide;
 
 	int typeJ1Tmp, typeJ2Tmp;
 	String nomJ1Tmp, nomJ2Tmp;
 	boolean modeTmp;
+	boolean aideTmp;
 
 	///////////////////////////////////////
 	// Objets pr les ecouteurs
@@ -43,11 +44,13 @@ public class Options extends JDialog{
 		nomJ1 = a.j.J1.nom;
 		nomJ2 = a.j.J2.nom;
 		modeNormal= a.j.modeNormal;
+		aide = a.j.modeAide;
 
 		nomJ1Tmp = nomJ1;
 		nomJ2Tmp = nomJ2;
 		typeJ1Tmp = typeJ1;
 		typeJ2Tmp = typeJ2;
+		aideTmp = aide;
 
 		eo = new EcouteurDOptions(a, this);
 
@@ -196,12 +199,6 @@ public class Options extends JDialog{
 
 		//////////// Panel de niveau du bot
 		JPanel BotLevelPanelJ2 = new JPanel();
-		//BotLevelPanelJ2.setLayout(new GridLayout(4,1));
-		//BotLevelPanelJ2.add(machine2);
-		//BotLevelPanelJ2.add(n20);
-		//BotLevelPanelJ2.add(n21);
-		//BotLevelPanelJ2.add(n22);
-
 
 		//// Sous-panel Textfield Nom J2
 		TextFieldNomJ2 = new JTextField(6);
@@ -226,14 +223,11 @@ public class Options extends JDialog{
 		PanelJ2.add(n21,  BorderLayout.WEST);
 		PanelJ2.add(n22,  BorderLayout.WEST);
 
-		//PanelJ2.add(PanelTypeJ2);
-
 
 		JPanel PanelChoixJoueur = new JPanel();
 		PanelChoixJoueur.setLayout(new GridLayout(1,2));
 		PanelChoixJoueur.add(PanelJ1);
 		PanelChoixJoueur.add(PanelJ2);
-
 
 		//////// Panel Option de partie
 		PartieNormale = new JRadioButton("Normale");
@@ -261,9 +255,9 @@ public class Options extends JDialog{
 		//Afficher déplacement d'un pion
 
 		activerAide = new JCheckBox("Activer");
-		activerAide.setActionCommand("activer");
+		activerAide.setActionCommand("activeraide");
 		activerAide.addActionListener(eo);
-		activerAide.setSelected(modeNormal);
+		activerAide.setSelected(aide);
 
 		JPanel panelOptionDAide = new JPanel();
 		panelOptionDAide.setBorder(BorderFactory.createTitledBorder("Aide"));
@@ -377,11 +371,12 @@ public class Options extends JDialog{
 			PartieNormale.setSelected(true);
 		else
 			PartieMatch.setSelected(false);
-		
+
 		if (a.j.modeAide)
 			activerAide.setSelected(true);
 		else
 			activerAide.setSelected(false);
+
 		this.setVisible(true);
 	}
 
