@@ -170,10 +170,12 @@ public class Avalam{
 				  	break;
 				}
 				pause();
-				if(interupt)
-					etat=JEU;
-				else
+				if(interupt){
+					etat=etatSuivant;
+					interupt=false;
+				}else{
 					etat=JOUERMANU;
+				}
 				break;
 				// on attend une interraction du joueur humain
 				//atente de la fin du chargement de la fenetre
@@ -206,12 +208,12 @@ public class Avalam{
 			case BOT:
 				//grisage des fonctions et boutons annuler, rejouer et 
 				//dernierCoup pendant le calcul et deplacement du robot
+				System.out.println("bot");
 				f.m.rejouer.setEnabled(false);
 				f.g.rejouer.setEnabled(false);
 				f.m.annuler.setEnabled(false);
 				f.g.annuler.setEnabled(false);
 				f.m.dernierCoup.setEnabled(false);
-				System.out.println("bot");
 				j.jouerBot();
 				etat=JOUERAUTO;
 				break;
