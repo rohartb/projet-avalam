@@ -34,7 +34,8 @@ public class Avalam{
 	static final int ACTUALISER=12;
 	static final int HISTORIQUE=18;
 	static final int DERNIERCOUP=19;
-    static final int NOUVEAUMATCH=74;
+    static final int MATCH=74;
+    static final int NOUVEAUMATCH=76;
 
 	//popups
 	//pour les popup on reviens a l'etat sauvegardé dans etatSuivant
@@ -123,7 +124,7 @@ public class Avalam{
 
 
                     
-            case NOUVEAUMATCH:
+            case MATCH:
                     if(!j.finPartie && !match){
                         String[] options = {"Sauvegarder" , "Nouvelle partie" , "Annuler"};
                         int choix  = JOptionPane.showOptionDialog(null, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
@@ -133,7 +134,7 @@ public class Avalam{
                             etatSuivant=NOUVEAUMATCH;
                             match=true;
                         }else if (choix == JOptionPane.NO_OPTION) {
-                            etatSuivant=NOUVEAUMATCH;
+                            etat=NOUVEAUMATCH;
                             match=true;
                         }else{
                             if(!j.revoirH){
@@ -143,14 +144,20 @@ public class Avalam{
                                 etat=HISTORIQUE;
                             }
                         }
-                        System.out.println("nouveaumatch");
                         match=false;
                     }
                     break;
-                    //verifier l'etat du jeu + attente d'un coup
                     
-                    //init reseau
+            case NOUVEAUMATCH:
+                    //TODO popup de match
+                    System.out.println("nouveaumatch");
+                    j.init();
+                    t.init();
+                    etatSuivant=JEU;
+                    etat = ACTUALISER;
+                    break;
 
+                    
 			case CONNEXION:
 				String ip=null;
 				try {
