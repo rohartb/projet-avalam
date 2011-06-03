@@ -35,18 +35,18 @@ public class Reseau implements Runnable {
 		try {
 		if(type == CLIENT) {
 			//si on est le client on attend d'abord la valid
-			System.out.println("caca");
+			//System.out.println("caca");
 			number = inputReseau.read(buffer);
 			s = new String(buffer);
 			String[] tokens = s.split("[ ]+");
 			int t = Integer.valueOf(tokens[0]);
-			System.out.println("'" + t + "'");
+			//System.out.println("'" + t + "'");
 			if (t == 1234) {
 				System.out.println("je reçois connexionAcceptee");
 				connexionAcceptee = true;
 				outputReseau.print(a.j.J1.nom);
-				inputReseau.read(buffer);
-				s = new String(buffer);
+				number inputReseau.read(buffer);
+				s = new String(buffer,0,number);
 				a.j.J2.nom = s;
 				System.out.println("Je change les noms");
 			}
