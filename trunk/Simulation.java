@@ -158,7 +158,7 @@ public class Simulation{
  				}
  			}
  		}
-		return score; 			
+		return score/3; 			
 	}
 	
 	public boolean estConfigMickeyJ1(int i, int j){
@@ -167,7 +167,8 @@ public class Simulation{
 			return false;
 		}
 		else{
-			int nbJ1=0;
+			int nbJ1 = 0;
+			int taille = etatJeu[i][j].getTaille();;
 			if(etatJeu[i][j].estJ1())
 				nbJ1++;
 			LinkedList<Point> adjK;
@@ -175,10 +176,12 @@ public class Simulation{
 				adjK = casesAdjacentes(adj.get(k).x, adj.get(k).y);	
 				if(adjK.size()!=2)
 					return false;
-				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ1())
+				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ1()){
 					nbJ1++;
+				}
+				taille = taille + etatJeu[adj.get(k).x][adj.get(k).y].getTaille();
 			}
-			if(nbJ1==2)
+			if(nbJ1==2 && taille<=5)
 				return true;
 			else
 				return false;
@@ -191,7 +194,8 @@ public class Simulation{
 			return false;
 		}
 		else{
-			int nbJ2=0;
+			int nbJ2 = 0;
+			int taille = etatJeu[i][j].getTaille();;
 			if(etatJeu[i][j].estJ2())
 				nbJ2++;
 			LinkedList<Point> adjK;
@@ -199,10 +203,12 @@ public class Simulation{
 				adjK = casesAdjacentes(adj.get(k).x, adj.get(k).y);	
 				if(adjK.size()!=2)
 					return false;
-				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ1())
+				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ2()){
 					nbJ2++;
+				}
+				taille = taille + etatJeu[adj.get(k).x][adj.get(k).y].getTaille();
 			}
-			if(nbJ2==2)
+			if(nbJ2==2 && taille<=5)
 				return true;
 			else
 				return false;
