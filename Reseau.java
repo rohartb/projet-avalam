@@ -45,7 +45,7 @@ public class Reseau implements Runnable {
 				System.out.println("je reçois connexionAcceptee");
 				connexionAcceptee = true;
 				outputReseau.print(a.j.J1.nom);
-				number inputReseau.read(buffer);
+				number = inputReseau.read(buffer);
 				s = new String(buffer,0,number);
 				a.j.J2.nom = s;
 				System.out.println("Je change les noms");
