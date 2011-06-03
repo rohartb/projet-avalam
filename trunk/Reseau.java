@@ -24,7 +24,7 @@ public class Reseau implements Runnable {
 			a.j.partieEnReseau = true;
 			inputReseau = sock.getInputStream();
 			outputReseau = new PrintStream(sock.getOutputStream());
-		} catch (Exception e) { System.out.println(e);  }
+		} catch (Exception e) { e.printStackTrace();  }
 	}
 
 	public void run() {
@@ -57,7 +57,7 @@ public class Reseau implements Runnable {
 				a.j.J1.nom = s;
 				System.out.println("Je change les noms");
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) { e.printStackTrace();}
 		a.f.g.repaint();
 		while (!sock.isClosed()) {
 			try {
@@ -79,9 +79,9 @@ public class Reseau implements Runnable {
 				System.out.println(t);
 				try {
 				sock.close();
-				} catch (Exception e) {}
+				} catch (Exception e) {e.printStackTrace();}
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 			System.out.println("tic tac");
 		}

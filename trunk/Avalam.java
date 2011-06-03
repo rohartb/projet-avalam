@@ -47,7 +47,7 @@ public class Avalam{
 	static final int APPARENCE=17;
 	static final int REGLE = 24;
 	static final int ASTUCE = 25;
-    
+
 	static final int QUITTER=42;
 
 
@@ -123,7 +123,7 @@ public class Avalam{
 				//verifier l'etat du jeu + attente d'un coup
 
 
-                    
+
             case MATCH:
                     if(!j.finPartie && !match){
                         String[] options = {"Sauvegarder" , "Nouvelle partie" , "Annuler"};
@@ -147,7 +147,7 @@ public class Avalam{
                         match=false;
                     }
                     break;
-                    
+
             case NOUVEAUMATCH:
                     //TODO popup de match
                     System.out.println("nouveaumatch");
@@ -211,7 +211,7 @@ public class Avalam{
 					// on active le mode match ?
 					etat = JEU;
 				} catch (Exception e) {
-					System.out.println(e);
+					e.printStackTrace();
 				}
 				break;
 
