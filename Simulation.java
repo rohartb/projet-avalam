@@ -144,6 +144,71 @@ public class Simulation{
 		return false;
 	}
 	
+	public int configMickey(){
+		int score=0;
+		for (int i=0; i<9; i++){
+			for (int j=0; j<9; j++){
+ 				if(etatJeu[i][j].estOccupee()){
+ 					if(estConfigMickeyJ1(i,j)){
+ 						score++;
+ 					}
+ 					if(estConfigMickeyJ2(i,j)){
+ 						score--;
+ 					}
+ 				}
+ 			}
+ 		}
+		return score; 			
+	}
+	
+	public boolean estConfigMickeyJ1(int i, int j){
+		LinkedList<Point> adj = casesAdjacentes(i,j);
+		if(adj.size()!=2){
+			return false;
+		}
+		else{
+			int nbJ1=0;
+			if(etatJeu[i][j].estJ1())
+				nbJ1++;
+			LinkedList<Point> adjK;
+			for(int k=0; k<2; k++){
+				adjK = casesAdjacentes(adj.get(k).x, adj.get(k).y);	
+				if(adjK.size()!=2)
+					return false;
+				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ1())
+					nbJ1++;
+			}
+			if(nbJ1==2)
+				return true;
+			else
+				return false;
+		}
+	}
+	
+	public boolean estConfigMickeyJ2(int i, int j){
+		LinkedList<Point> adj = casesAdjacentes(i,j);
+		if(adj.size()!=2){
+			return false;
+		}
+		else{
+			int nbJ2=0;
+			if(etatJeu[i][j].estJ2())
+				nbJ2++;
+			LinkedList<Point> adjK;
+			for(int k=0; k<2; k++){
+				adjK = casesAdjacentes(adj.get(k).x, adj.get(k).y);	
+				if(adjK.size()!=2)
+					return false;
+				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ1())
+					nbJ2++;
+			}
+			if(nbJ2==2)
+				return true;
+			else
+				return false;
+		}
+	}
+	
 	public int tourDefinitive3AuCentre(int joueur){
 		int res = 0;
 		for(int i=0; i<9; i++){
