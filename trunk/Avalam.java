@@ -121,7 +121,7 @@ public class Avalam{
 				break;
 				//verifier l'etat du jeu + attente d'un coup
 
-				//init reseau
+
                     
             case NOUVEAUMATCH:
                     if(!j.finPartie && !match){
