@@ -18,6 +18,7 @@ public class Avalam{
 	boolean quit;
 	boolean save;
     boolean match;
+	boolean partieEnCours;
 
 	static final int INIT=-1;
 
@@ -105,6 +106,7 @@ public class Avalam{
                 j.modeNormal = true;
 				quit=false;
                 match=false;
+                partieEnCours = false;
 				serv = new Serveur(this);
 				thServeur = new Thread(serv);
 				thServeur.start();
@@ -112,11 +114,15 @@ public class Avalam{
 				thFenetre.start();
 				pause();
 				f.o.afficherOptions();
-				etat = NOUVEAU;
+				if (j.modeNormal)
+					etat = NOUVEAU;
+				else
+					etat = MATCH;
 				break;
 
 			//nouvelle partie
 			case NOUVEAU:
+				System.out.println("nouveau");
 				if(!j.finPartie && !save && j.nbCoupsRestants!=292){
 					String[] options = {"Sauvegarder" , "Nouveau jeu sans sauvegarder" , "Annuler"};
 					int choix  = JOptionPane.showOptionDialog(null, "Nouveau jeu :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
@@ -134,7 +140,7 @@ public class Avalam{
 						etatSuivant=JEU;
 						etat = ACTUALISER;
 					}else{
-						
+
 						//annuler
 						System.out.println("annuler");
 						etat=JEU;
@@ -152,34 +158,41 @@ public class Avalam{
 
 
             case MATCH:
-                    if(!j.finPartie && !match){
-                        String[] options = {"Sauvegarder" , "Nouvelle partie" , "Annuler"};
-                        int choix  = JOptionPane.showOptionDialog(null, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
-                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
-                        if (choix == JOptionPane.YES_OPTION) {
-                            etat=SAUVER;
-                            etatSuivant=NOUVEAUMATCH;
-                            match=true;
-                        }else if (choix == JOptionPane.NO_OPTION) {
-                            etat=NOUVEAUMATCH;
-                            match=true;
-                        }else{
-                            if(!j.revoirH){
-                                f.s.timer.start();
-                                etat=JEU;
-                            }else{
-                                etat=HISTORIQUE;
-                            }
-                        }
-                        match=false;
-                    }
-                    break;
+	            System.out.println("match");
+	            if(partieEnCours && !j.finPartie && !match){
+		            String[] options = {"Sauvegarder" , "Nouvelle partie" , "Annuler"};
+		            int choix  = JOptionPane.showOptionDialog(null, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
+		                                                      JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
+		            if (choix == JOptionPane.YES_OPTION) {
+			            etat=SAUVER;
+			            etatSuivant=NOUVEAUMATCH;
+			            match=true;
+		            }else if (choix == JOptionPane.NO_OPTION) {
+			            etat=NOUVEAUMATCH;
+			            match=true;
+		            }else{
+			            if(!j.revoirH){
+				            f.s.timer.start();
+				            etat=JEU;
+			            }else{
+				            etat=HISTORIQUE;
+			            }
+		            }
+		            match=false;
+	            } else {
+		            etat = NOUVEAUMATCH;
+	            }
+	            break;
 
             case NOUVEAUMATCH:
-                    ma = new Match(this);
                     //TODO popup de match
                     System.out.println("nouveaumatch");
+                    ma = new Match(this);
                     ma.debutMatch();
+					j.init();
+					t.init();
+					save=false;
+					etatSuivant=JEU;
                     break;
 
 
@@ -298,6 +311,7 @@ public class Avalam{
 			case FIN:
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
+				partieEnCours = false; // la partie est finie
 				f.s.timer.stop();
                 if(j.modeNormal){
                     f.popupFinDePartie();
@@ -361,6 +375,7 @@ public class Avalam{
 			//joue le coup+ajoute a l'historique+ change le joueur courrant
 			case JOUER:
 				System.out.println("jouer");
+				partieEnCours = true;
 				ElemHist e = new ElemHist(j.c,t);
 				j.h.ajouterAnnuler(e);
 				j.h.viderRejouer();
@@ -440,7 +455,7 @@ public class Avalam{
 
 			//annule 1 coup
 			case ANNULER:
-			
+
 				System.out.println("annuler");
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
 				f.activerAnnulerRefaire(false);
