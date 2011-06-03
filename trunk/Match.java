@@ -31,6 +31,8 @@ class Match{
                 a.etat=a.JEU;
                 a.j.modeNormal = true;
                 estPasBon = false;
+                a.etat = a.ACTUALISER;
+        		a.etatSuivant = a.JEU;
                 return;
             } else {
                 try {
@@ -41,8 +43,6 @@ class Match{
                 }
             }
         }
-        a.etat = a.ACTUALISER;
-        a.etatSuivant = a.JEU;
         init();
         deroulementMatch();
     }
