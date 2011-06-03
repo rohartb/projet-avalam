@@ -157,7 +157,7 @@ public class Avalam{
                     etat = ACTUALISER;
                     break;
 
-                    
+
 			case CONNEXION:
 				String ip=null;
 				try {
@@ -211,6 +211,7 @@ public class Avalam{
 					// on active le mode match ?
 					etat = JEU;
 				} catch (Exception e) {
+					System.out.print("\t Avalam : ");
 					e.printStackTrace();
 				}
 				break;
