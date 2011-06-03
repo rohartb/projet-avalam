@@ -84,13 +84,13 @@ public class Reseau implements Runnable {
 				}
 			} catch (java.net.SocketTimeoutException t) {
 				System.out.println("pouet : " + t);
+				finDePartieReseau();
 				try {
 				sock.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} catch (Exception e) {
-				finDePartieReseau();
 				e.printStackTrace();
 			}
 		}
