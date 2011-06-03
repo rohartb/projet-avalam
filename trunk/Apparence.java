@@ -36,7 +36,7 @@ public class Apparence extends JDialog {
 		//ComboFond.addItemListener(ea);
 
 		JLabel LabelTheme = new JLabel("Theme");
-		LabelTheme.setHorizontalAlignment(JLabel.RIGHT);
+		//LabelTheme.setHorizontalAlignment(JLabel.RIGHT);
 
 		// 2D ou 3D
 		/*JRadioButton Plateau2D = new JRadioButton("Plateau2D");
@@ -56,7 +56,7 @@ public class Apparence extends JDialog {
 		*/
 		JPanel PanelChoixTheme =  new JPanel();
 		PanelChoixTheme.setBorder(BorderFactory.createTitledBorder("Choix du style"));
-		PanelChoixTheme.setLayout(new GridLayout(1,2, 10, 10));
+		PanelChoixTheme.setLayout(new FlowLayout());
 		PanelChoixTheme.add(LabelTheme);
 		PanelChoixTheme.add(ComboTheme);
 
