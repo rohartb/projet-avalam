@@ -51,6 +51,7 @@ public class Reseau implements Runnable {
 					System.out.println("Je change les noms");
 				}
 			} else if (type == SERVEUR) {
+				outputReseau.print(a.j.J2.nom);
 				number = inputReseau.read(buffer);
 				s = new String(buffer, 0, number);
 				a.j.J1.nom = s;
