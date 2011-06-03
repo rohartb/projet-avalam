@@ -198,19 +198,24 @@ public class Bot implements Runnable{
 		}
 	}
 	
-	static int TOURFIN=1000;
-	static int TOURDEF=100;
-	static int PIONS=1;
+	static int TOURFIN=10000000;
+	static int TOURDEF=100000;
+	static int MICKEY=1000;
+	static int PIONS=10;
 	
 	public int eval(Simulation s, int tour){
 		int score=0;
 		if(s.partieFinie()){
 			score = s.evaluerNbPions()*TOURFIN;
 		}else{
+			//score += s.configMickey()*MICKEY;
 			score += s.evaluerScoreCourant()*TOURDEF;
 			if(niveau>1)
 				score += s.evaluerNbPions()*PIONS;
-			
+			//if(niveau>2)
+				//score += s.configMickey()*MICKEY;
+		
+		
 		/*	if(s.tour5Possible()){
 				if(tour==1){
 					score = score + 3;
