@@ -25,7 +25,7 @@ public class Serveur implements Runnable {
             while (true) {
 	            if (pasDeConnexion) {
 		            Socket client = listener.accept();
-		            int choix = JOptionPane.showOptionDialog(a.f,client.getInetAddress().toString() + " souhaite jouer en réseau avec vous", "Requète de partie en réseau",
+		            int choix = JOptionPane.showOptionDialog(null,client.getInetAddress().toString() + " souhaite jouer en réseau avec vous", "Requète de partie en réseau",
 		                                                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), null, null);
 		            if (choix == JOptionPane.YES_OPTION) {
 			            pasDeConnexion = false;
