@@ -16,11 +16,19 @@ public class EcouteurDOptions implements ActionListener,
 		String cmd = e.getActionCommand();
 		System.out.println("Commande " + cmd);
 		if (cmd.equals("ok")) {
-			traiterOk(false);
+            if(o.modeTmp) {
+                traiterOk(false);
+            } else {
+                traiterAppliquerModeMatch();
+            }
 		} else if (cmd.equals("annuler" )) {
 			traiterAnnuler();
 		} else if (cmd.equals("appliquerrelancer")) {
-			traiterAppliquerRelancer();
+            if(o.modeTmp) {
+                traiterAppliquerRelancer();
+            } else {
+                traiterAppliquerModeMatch();
+            }
 		} else if (cmd.equals("machine1")) {
 			o.n10.setSelected(true);
 			o.n10.setEnabled(true);
@@ -146,6 +154,12 @@ public class EcouteurDOptions implements ActionListener,
 		a.etatSuivant = a.NOUVEAU;
 		a.unpause();
 	}
+                                             
+    public void traiterAppliquerModeMatch() {
+        traiterOk(true);
+        a.etatSuivant = a.NOUVEAUMATCH;
+		a.unpause();
+    }
 
 	public void traiterAnnuler() {
 		o.nomJ1Tmp  = o.nomJ1;

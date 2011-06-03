@@ -15,6 +15,7 @@ public class Avalam{
 	Sauvegarde s;
 	Serveur serv;
 	boolean quit;
+    boolean match;
 
 	static final int INIT=-1;
 
@@ -33,7 +34,7 @@ public class Avalam{
 	static final int ACTUALISER=12;
 	static final int HISTORIQUE=18;
 	static final int DERNIERCOUP=19;
-
+    static final int NOUVEAUMATCH=74;
 
 	//popups
 	//pour les popup on reviens a l'etat sauvegardé dans etatSuivant
@@ -45,7 +46,7 @@ public class Avalam{
 	static final int APPARENCE=17;
 	static final int REGLE = 24;
 	static final int ASTUCE = 25;
-
+    
 	static final int QUITTER=42;
 
 
@@ -99,6 +100,7 @@ public class Avalam{
 				f = new Fenetre(this);
 				s = new Sauvegarde(this);
 				quit=false;
+                match=false;
 				serv = new Serveur(this);
 				thServeur = new Thread(serv);
 				thServeur.start();
@@ -120,6 +122,35 @@ public class Avalam{
 				//verifier l'etat du jeu + attente d'un coup
 
 				//init reseau
+                    
+            case NOUVEAUMATCH:
+                    if(!j.finPartie && !match){
+                        String[] options = {"Sauvegarder" , "Nouvelle partie" , "Annuler"};
+                        int choix  = JOptionPane.showOptionDialog(null, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
+                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
+                        if (choix == JOptionPane.YES_OPTION) {
+                            etat=SAUVER;
+                            etatSuivant=NOUVEAUMATCH;
+                            match=true;
+                        }else if (choix == JOptionPane.NO_OPTION) {
+                            etatSuivant=NOUVEAUMATCH;
+                            match=true;
+                        }else{
+                            if(!j.revoirH){
+                                f.s.timer.start();
+                                etat=JEU;
+                            }else{
+                                etat=HISTORIQUE;
+                            }
+                        }
+                        System.out.println("nouveaumatch");
+                        match=false;
+                    }
+                    break;
+                    //verifier l'etat du jeu + attente d'un coup
+                    
+                    //init reseau
+
 			case CONNEXION:
 				String ip=null;
 				try {
