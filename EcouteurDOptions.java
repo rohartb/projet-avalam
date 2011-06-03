@@ -145,8 +145,10 @@ public class EcouteurDOptions implements ActionListener,
 		o.fermerOptions();
 		a.f.g.reinitialisationDesBI();
 		a.f.g.repaint();
-		if (!nouvellepartie)
+		if (!nouvellepartie && o.modeNormal){
 			a.unpause();
+			System.out.println("pouet");
+		}
     }
 
 	public void traiterAppliquerRelancer() {
@@ -154,8 +156,9 @@ public class EcouteurDOptions implements ActionListener,
 		a.etatSuivant = a.NOUVEAU;
 		a.unpause();
 	}
-                                             
+
     public void traiterAppliquerModeMatch() {
+	    System.out.println("appliq mode match");
         traiterOk(true);
         a.etatSuivant = a.MATCH;
 		a.unpause();
