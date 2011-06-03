@@ -35,30 +35,15 @@ public class Reseau implements Runnable {
 		try {
 		if(type == CLIENT) {
 			//si on est le client on attend d'abord la valid
-			//System.out.println("caca");
 			number = inputReseau.read(buffer);
 			s = new String(buffer);
-			String[] tokens = s.split("[ ]+");
-			int t = Integer.valueOf(tokens[0]);
-			//System.out.println("'" + t + "'");
-			if (t == 1234) {
-				System.out.println("je reçois connexionAcceptee");
-				connexionAcceptee = true;
-				outputReseau.print(a.j.J1.nom);
-				number = inputReseau.read(buffer);
-				s = new String(buffer,0,number);
-				a.j.J2.nom = s;
-				System.out.println("Je change les noms");
-			}
-		} else if (type == SERVEUR) {
-			outputReseau.println(a.j.J2.nom);
 			number = inputReseau.read(buffer);
 			s = new String(buffer, 0, number);
 			a.j.J1.nom = s;
 			System.out.println("Je change les noms");
 		}
 		} catch (Exception e) {}
-
+		a.f.g.repaint();
 		while (!sock.isClosed()) {
 			try {
 				while ((number = inputReseau.read(buffer)) != -1) {
@@ -82,6 +67,7 @@ public class Reseau implements Runnable {
 			} catch (Exception e) {
 
 			}
+			System.out.println("tic tac");
 		}
 		System.out.println("Connection interropue");
 	}
