@@ -408,6 +408,8 @@ public class Avalam{
 
 			//annule 1 coup
 			case ANNULER:
+			
+				System.out.println("annuler");
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
 				f.activerAnnulerRefaire(false);
 
@@ -438,7 +440,7 @@ public class Avalam{
 				//rejoue 1 coup
 				//TODO si 1 joueur ordi
 			case REJOUER:
-
+				System.out.println("rejouer");
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
 				f.activerAnnulerRefaire(false);
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
@@ -505,8 +507,14 @@ public class Avalam{
 
 			case HISTORIQUE:
 				System.out.println("historique");
+				f.es.actif=false;
 				pause();
-				etat=etatSuivant;
+				if(etatSuivant==ACTUALISER){
+					j.revoirH=false;
+					etat=JEU;
+				}else{
+					etat=etatSuivant;
+				}
 				break;
 
 			case DERNIERCOUP:

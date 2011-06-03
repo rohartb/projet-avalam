@@ -151,7 +151,7 @@ class MenuAvalam extends JMenuBar{
 		}
 
 
-		if(a.j.pause){
+		if(a.j.pause || a.j.revoirH){
 			pause.setText("Reprendre");
 			pause.setActionCommand("reprendre");
 			a.f.s.timer.stop();
