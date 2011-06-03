@@ -35,6 +35,7 @@ public class Reseau implements Runnable {
 		try {
 		if(type == CLIENT) {
 			//si on est le client on attend d'abord la valid
+			System.out.println("caca");
 			number = inputReseau.read(buffer);
 			s = new String(buffer);
 			String[] tokens = s.split("[ ]+");
