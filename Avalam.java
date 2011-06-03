@@ -136,7 +136,14 @@ public class Avalam{
 					if (ip.equals("127.0.0.1")) {
 						JOptionPane.showMessageDialog(null,"Vérifiez votre connexion réseau.\nPartie en réseau impossible.", "Attention connexion" ,JOptionPane.WARNING_MESSAGE);
 					} else {
-						String result = JOptionPane.showInputDialog(null, "Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip);
+						String result = (String) JOptionPane.showInputDialog(null, 
+							"Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip,
+							"lala",
+							JOptionPane.INFORMATION_MESSAGE,
+							new ImageIcon("./images/reseau.png"),
+							null,
+							null
+							);
 						if (result != null) {
 							InetAddress addr = InetAddress.getByName(result);
 							int port = 8100;
