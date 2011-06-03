@@ -9,6 +9,7 @@ public class Joueur{
 
 	public Joueur(Avalam a){
 		this.a=a;
+		nom = "";
 	}
 
 	public boolean estHumain() {

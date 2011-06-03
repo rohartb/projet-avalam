@@ -38,6 +38,8 @@ class TerrainGraphique extends JComponent{
 	static final Color blancTransparent = new Color(255,255,255,127);
 
 	TerrainGraphique(Avalam a){
+	etatJeul1 = "";
+	etatJeul2 = "";
 		this.a=a;
 		t = a.t;
 		N=a.t.TAB_SIZE;
