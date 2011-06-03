@@ -14,20 +14,25 @@ public class EcouteurDOptions implements ActionListener,
 
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		System.out.println("Commande " + cmd);
+		//System.out.println("Commande " + cmd);
 		if (cmd.equals("ok")) {
             if(o.modeTmp) {
                 traiterOk(false);
+				o.fermerOptions();
             } else {
                 traiterAppliquerModeMatch();
+				o.fermerOptions();
             }
 		} else if (cmd.equals("annuler" )) {
 			traiterAnnuler();
+			o.fermerOptions();
 		} else if (cmd.equals("appliquerrelancer")) {
             if(o.modeTmp) {
                 traiterAppliquerRelancer();
+				o.fermerOptions();
             } else {
                 traiterAppliquerModeMatch();
+				o.fermerOptions();
             }
 		} else if (cmd.equals("machine1")) {
 			o.n10.setSelected(true);
@@ -69,7 +74,6 @@ public class EcouteurDOptions implements ActionListener,
 			o.typeJ1Tmp = Jeu.BOTLVL3;
 		} else if (cmd.equals("facile2")) {
 			o.typeJ2Tmp = Jeu.BOTLVL1;
-			//System.out.println("lvl1 : " + p.typeJ2Tmp);
 		} else if (cmd.equals("moyen2")) {
 			o.typeJ2Tmp = Jeu.BOTLVL2;
 		} else if (cmd.equals("difficile2")) {
@@ -90,7 +94,6 @@ public class EcouteurDOptions implements ActionListener,
 		} else {
 			System.out.println("Commande '" + cmd + "' n'est pas implémentée");
 		}
-		System.out.println(a.etatSuivant);
 	}
 
 	//// Ecouteur du texte tapé pr les noms
@@ -142,19 +145,13 @@ public class EcouteurDOptions implements ActionListener,
 		a.j.modeAide = o.aide;
 
 		a.j.sauverOptions();
-		o.fermerOptions();
 		a.f.g.reinitialisationDesBI();
 		a.f.g.repaint();
-		if (!nouvellepartie && o.modeNormal){
-			a.unpause();
-			System.out.println("pouet");
-		}
     }
 
 	public void traiterAppliquerRelancer() {
 		traiterOk(true);
 		a.etatSuivant = a.NOUVEAU;
-		a.unpause();
 	}
 
     public void traiterAppliquerModeMatch() {
@@ -163,8 +160,6 @@ public class EcouteurDOptions implements ActionListener,
         System.out.println("etat appliquer mode match :"+a.etat+" etat suivant "+a.etatSuivant);
         a.etat = a.MATCH;
         a.etatSuivant = a.MATCH;
-        System.out.println("etat appliquer mode match :"+a.etat+" etat suivant "+a.etatSuivant);
-		a.unpause();
     }
 
 	public void traiterAnnuler() {
@@ -172,17 +167,14 @@ public class EcouteurDOptions implements ActionListener,
 		o.nomJ2Tmp  = o.nomJ2;
 		o.typeJ1Tmp = o.typeJ1;
 		o.typeJ2Tmp = o.typeJ2;
-
-		a.unpause();
-		o.fermerOptions();
 		a.etatSuivant=a.JEU;
 	}
 
 	public void windowClosed(WindowEvent e) {}
 
 	public void windowClosing(WindowEvent e) {
+		traiterAnnuler();
 		o.fermerOptions();
-		a.etatSuivant=a.JEU;
 	}
 
 

@@ -112,7 +112,7 @@ public class Avalam{
 				thServeur.start();
 				thFenetre = new Thread(f);
 				thFenetre.start();
-				pause();
+				pause();//atente du unpause lorsque la fenetre a fini de charger
 				f.o.afficherOptions();
 				if (j.modeNormal)
 					etat = NOUVEAU;
@@ -426,7 +426,6 @@ public class Avalam{
 				System.out.println("options");
 				f.s.timer.stop();
 				f.o.afficherOptions();
-				pause();
 				if(!j.revoirH)
 					f.s.timer.start();
 				System.out.println("" + etatSuivant);
