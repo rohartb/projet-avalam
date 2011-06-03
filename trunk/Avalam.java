@@ -12,6 +12,7 @@ public class Avalam{
 	Terrain t;
 	Jeu j;
 	Reseau r;
+    Match ma;
 	Sauvegarde s;
 	Serveur serv;
 	boolean quit;
@@ -100,6 +101,7 @@ public class Avalam{
 				j = new Jeu(this);
 				f = new Fenetre(this);
 				s = new Sauvegarde(this);
+                j.modeNormal = true;
 				quit=false;
                 match=false;
 				serv = new Serveur(this);
@@ -150,12 +152,10 @@ public class Avalam{
                     break;
 
             case NOUVEAUMATCH:
+                    ma = new Match(this);
                     //TODO popup de match
                     System.out.println("nouveaumatch");
-                    j.init();
-                    t.init();
-                    etatSuivant=JEU;
-                    etat = ACTUALISER;
+                    ma.debutMatch();
                     break;
 
 
@@ -274,8 +274,10 @@ public class Avalam{
 				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
 				f.s.timer.stop();
-				f.popupFinDePartie();
-				etat=etatSuivant;
+                if(j.modeNormal){
+                    f.popupFinDePartie();
+                    etat=etatSuivant;
+                }
 				break;
 
 			//calcul un coup a partir du bot
@@ -483,27 +485,41 @@ public class Avalam{
 			case QUITTER:
 				System.out.println("quitter");
 				f.s.timer.stop();
-				if(!j.finPartie && !quit){
-					String[] options = {"Sauvegarder" , "Quitter sans sauvegarder" , "Annuler"};
-					int choix  = JOptionPane.showOptionDialog(null, "Quitter Avalam :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
+                if(j.modeNormal){
+                    if(!j.finPartie && !quit){
+                        String[] options = {"Sauvegarder" , "Quitter sans sauvegarder" , "Annuler"};
+                        int choix  = JOptionPane.showOptionDialog(f, "Quitter Avalam :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
 					 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
-					if (choix == JOptionPane.YES_OPTION) {
-						etat=SAUVER;
-						etatSuivant=QUITTER;
-						quit=true;
-					}else if (choix == JOptionPane.NO_OPTION) {
-						System.exit(0);
-					}else{
-						if(!j.revoirH){
-							f.s.timer.start();
-							etat=JEU;
-						}else{
-							etat=HISTORIQUE;
-						}
-					}
-				}else{
-					System.exit(0);
-				}
+                        if (choix == JOptionPane.YES_OPTION) {
+                            etat=SAUVER;
+                            etatSuivant=QUITTER;
+                            quit=true;
+                        }else if (choix == JOptionPane.NO_OPTION) {
+                            System.exit(0);
+                        }else{
+                            if(!j.revoirH){
+                                f.s.timer.start();
+                                etat=JEU;
+                            }else{
+                                etat=HISTORIQUE;
+                            }
+                        }
+                    }else{
+                        System.exit(0);
+                    }
+                } else {
+                    int choix  = JOptionPane.showOptionDialog(f, "Quitter Avalam :\n Etes-vous sur de vouloir quitter le match ?", "Quitter",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"),null,null);
+                    if (choix == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    } else {
+                        if(!j.revoirH){
+                            f.s.timer.start();
+                            etat=JEU;
+                        }else{
+                            etat=HISTORIQUE;
+                        }
+                    }
+                }
 				break;
 
 			case HISTORIQUE:
