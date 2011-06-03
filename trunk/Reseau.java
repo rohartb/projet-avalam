@@ -38,6 +38,7 @@ public class Reseau implements Runnable {
 			number = inputReseau.read(buffer);
 			s = new String(buffer);
 			int t = Integer.valueOf(s);
+			System.out.println("'" + t + "'");
 			if (t == 1234) {
 				System.out.println("je reçois connexionAcceptee");
 				connexionAcceptee = true;
