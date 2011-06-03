@@ -28,31 +28,34 @@ public class Reseau implements Runnable {
 	}
 
 	public void run() {
-		while (!sock.isClosed()) {
-			byte [] buffer = new byte [1024];
-			int number;
-			String s;
-			try {
-				if(type == CLIENT) {
-					//si on est le client on attend d'abord la valid
-					number = inputReseau.read(buffer);
-					s = new String(buffer);
-					//System.out.println(s);
-					if (s.equals("connexionAcceptee")) {
-						connexionAcceptee = true;
-						outputReseau.print(a.j.J1.nom);
-						inputReseau.read(buffer);
-						s = new String(buffer);
-						a.j.J2.nom = s;
-						System.out.println("Je change les noms");
-					}
-				} else if (type == SERVEUR) {
-					inputReseau.read(buffer);
-					s = new String(buffer);
-					a.j.J2.nom = s;
-					System.out.println("Je change les noms");
-				}
+		byte [] buffer = new byte [1024];
+		int number;
+		String s;
 
+		try {
+		if(type == CLIENT) {
+			//si on est le client on attend d'abord la valid
+			number = inputReseau.read(buffer);
+			s = new String(buffer);
+			//System.out.println(s);
+			if (s.equals("connexionAcceptee")) {
+				connexionAcceptee = true;
+				outputReseau.print(a.j.J1.nom);
+				inputReseau.read(buffer);
+				s = new String(buffer);
+				a.j.J2.nom = s;
+				System.out.println("Je change les noms");
+			}
+		} else if (type == SERVEUR) {
+			inputReseau.read(buffer);
+			s = new String(buffer);
+			a.j.J1.nom = s;
+			System.out.println("Je change les noms");
+		}
+		} catch (Exception e) {}
+
+		while (!sock.isClosed()) {
+			try {
 				while ((number = inputReseau.read(buffer)) != -1) {
 					s = new String(buffer);
 					String[] tokens = s.split("[ ]+");
