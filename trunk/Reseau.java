@@ -39,8 +39,9 @@ public class Reseau implements Runnable {
 			s = new String(buffer);
 			System.out.println(s);
 			System.out.println("connexionAcceptee");
+			System.out.println(s.equals("connexionAcceptee"));
 			if (s.equals("connexionAcceptee")) {
-				System.out.println("je reçoit connexionAcceptee");
+				System.out.println("je reçois connexionAcceptee");
 				connexionAcceptee = true;
 				outputReseau.print(a.j.J1.nom);
 				inputReseau.read(buffer);
