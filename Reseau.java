@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import javax.swing.*;
+import java.sql.*;
 
 public class Reseau implements Runnable {
 	Avalam a;
@@ -58,6 +59,7 @@ public class Reseau implements Runnable {
 				a.j.J1.nom = s;
 				System.out.println("Je change les noms");
 			}
+			a.f.s.start = new Time(0);
 		} catch (Exception e) {
 			System.out.print(" Reseau : " );
 			e.printStackTrace();

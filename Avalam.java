@@ -199,9 +199,7 @@ public class Avalam{
 
 							//attente de la réponse
 							sock.setSoTimeout(10000);
-							while(! r.connexionAcceptee) {
-								Thread.sleep(1000);
-							}
+							while(! r.connexionAcceptee) {};
 							System.out.println("La demande de connexion a été accpetée");
 							sock.setSoTimeout(0); // desactive le timeout
 
@@ -211,12 +209,15 @@ public class Avalam{
 					}
 					// on active le mode match ?
 					etat = JEU;
+				} catch (NoRouteToHostException nt) {
+					JOptionPane.showMessageDialog(f, "Hôte inconnu, connexion impossible", "Connexion impossible", JOptionPane.ERROR_MESSAGE);
+					etat = JEU;
 				} catch (Exception e) {
 					System.out.print("\t Avalam : ");
 					e.printStackTrace();
+				} finally {
+					break;
 				}
-				break;
-
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
@@ -298,10 +299,14 @@ public class Avalam{
 
 			case AIDE:
 				System.out.println("aide");
+				f.g.labelAmpoule.setEnabled(false);
+				f.es.actif = false;
 				j.jouerBot();
 				f.g.animationPionAuto();
 				f.g.animationPionAnnuler();
 				f.g.repaint();
+				f.g.labelAmpoule.setEnabled(true);
+				f.es.actif = true;
 				etat=JEU;
 				break;
 

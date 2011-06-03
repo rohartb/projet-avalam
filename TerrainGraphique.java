@@ -60,7 +60,9 @@ class TerrainGraphique extends JComponent{
 
 		ampoule = new ImageIcon("images/ampoule.png");
 		labelAmpoule = new JLabel(ampoule);
+		labelAmpoule.setDisabledIcon(new ImageIcon("images/checked.png"));
 		this.add(labelAmpoule);
+
 		ea = new EcouteurDAide(a, this);
 		labelAmpoule.addMouseListener(ea);
 
