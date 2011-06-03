@@ -36,7 +36,7 @@ public class Serveur implements Runnable {
 			            a.j.J2.type = a.j.HUMAIN; // c'est nous
 
 			            //on envoi au client la validation de la connexion
-			            a.r.outputReseau.print("connexionAcceptee");
+			            a.r.outputReseau.print("1234");
 
 			            a.interupt = true;
 			            a.etatSuivant = a.RESEAU;
