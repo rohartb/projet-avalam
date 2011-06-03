@@ -7,11 +7,13 @@ import java.io.PrintStream;
 
 public class Reseau implements Runnable {
 	Avalam a;
+	boolean connexionAcceptee;
 	Socket sock;
 	InputStream inputReseau; // on y lit
 	PrintStream outputReseau;// on y écrit
 
 	public Reseau(Avalam a, Socket sock) {
+		connexionAcceptee =false;
 		try {
 			this.a = a;
 			this.sock = sock;
@@ -26,9 +28,16 @@ public class Reseau implements Runnable {
 		while (!sock.isClosed()) {
 			byte [] buffer = new byte [1024];
 			int number;
+			String s;
 			try {
+				number = inputReseau.read(buffer);
+				s = new String(buffer);
+				System.out.println(s);
+				if (s.equals("connexionAcceptee"))
+					     connexionAcceptee = true;
+
 				while ((number = inputReseau.read(buffer)) != -1) {
-					String s = new String(buffer);
+					s = new String(buffer);
 					String[] tokens = s.split("[ ]+");
 					int lSrc, cSrc, lDest, cDest;
 					lSrc = Integer.valueOf(tokens[0]);

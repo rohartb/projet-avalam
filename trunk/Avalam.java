@@ -133,10 +133,10 @@ public class Avalam{
 								break;
 						}
 					}
-					if (ip.equals("127.0.0.1")) {
+					if (ip != null && ip.equals("127.0.0.1")) {
 						JOptionPane.showMessageDialog(null,"Vérifiez votre connexion réseau.\nPartie en réseau impossible.", "Attention connexion" ,JOptionPane.WARNING_MESSAGE);
 					} else {
-						String result = (String) JOptionPane.showInputDialog(null, 
+						ip = (String) JOptionPane.showInputDialog(null,
 							"Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip,
 							"lala",
 							JOptionPane.INFORMATION_MESSAGE,
@@ -144,18 +144,29 @@ public class Avalam{
 							null,
 							null
 							);
-						if (result != null) {
-							InetAddress addr = InetAddress.getByName(result);
+						if (ip != null && ip.matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*")) {
+							System.out.println("Connexion réseau !");
+							InetAddress addr = InetAddress.getByName(ip);
 							int port = 8100;
 							Socket sock = new Socket(addr, port);
 							r = new Reseau(this, sock);
 							thReseau = new Thread(r);
 							thReseau.start();
+							// celui qui établie la connexion devient J1
+							j.J1.type = Jeu.HUMAIN;
+							j.J2.type = Jeu.RESEAU;
+
+							//attente de la réponse
+							sock.setSoTimeout(10000);
+							while(! r.connexionAcceptee) {
+								Thread.sleep(1000);
+							}
+							sock.setSoTimeout(0); // desactive le timeout
+
+						} else {
+							System.out.println("Pas de connexion");
 						}
 					}
-					// celui qui établie la connexion devient J1
-					j.J1.type = Jeu.HUMAIN;
-					j.J2.type = Jeu.RESEAU;
 					// on active le mode match ?
 					etat = JEU;
 				} catch (Exception e) {
