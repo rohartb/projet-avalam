@@ -145,18 +145,8 @@ class TerrainGraphique extends JComponent{
 		int yCentre = y+tailleCase/2;
 		int xCercle = xCentre-diametre/2;
 		int yCercle = yCentre-diametre/2;
-		// if (t.plateau[i][j].estJ1())
-// 			drawable.setPaint(Themes.getCouleurPionJ1(theme));
-// 		else
-// 			drawable.setPaint(Themes.getCouleurPionJ2(theme));
-
-		//Shape cercle = new Ellipse2D.Float(xCercle, yCercle, diametre, diametre);
-		//drawable.setStroke(new BasicStroke(2));
-		//drawable.draw(cercle);
 		drawable.setPaint(blancTransparent);
-		//drawable.setPaint(Themes.getCouleurPlateau(theme).brighter());
 		drawable.fillOval(xCercle, yCercle, diametre, diametre);
-		//drawable.fillRect(x,y,tailleCase, tailleCase);
 		drawable.setPaint(Themes.getCouleurChiffre(theme));
 		drawable.setFont(new Font("Garuda", 0, tailleCase/3));
 		drawable.drawString("" + t.plateau[i][j].getTaille(),x+2*tailleCase/5, y+3*tailleCase/5);
@@ -236,8 +226,10 @@ class TerrainGraphique extends JComponent{
 		decalage = metrics.stringWidth("Score : " + a.j.J2.score);
 		drawable.drawString("Score : " + a.j.J2.score, xCentre-decalage/2,yTextHaut+metrics.getHeight());
 
-		int yBiduleCentre = yRect+(tailleCase+ metrics.getHeight()*2 + ampoule.getIconHeight());
+		int yBiduleCentre = (yRect+hauteur/2)-(tailleCase/2+ metrics.getHeight()*2 + ampoule.getIconHeight())/2;
+		annuler.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
 		annuler.setBounds(xRect+gap, yBiduleCentre,tailleCase, tailleCase/2);
+		rejouer.setFont(rejouer.getFont().deriveFont((float) (0.30*tailleCase)));
 		rejouer.setBounds(xRect+largeur-gap-tailleCase, yBiduleCentre, tailleCase, tailleCase/2);
 
 		if (a.j.courantEstJ1())
