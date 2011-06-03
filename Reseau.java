@@ -80,7 +80,6 @@ public class Reseau implements Runnable {
 					a.j.c = c;
 					System.out.println("Coup " + c + " reçu");
 					a.unpause();
-					System.out.println("caca");
 				}
 			} catch (java.net.SocketTimeoutException t) {
 				System.out.println("pouet : " + t);
@@ -89,9 +88,11 @@ public class Reseau implements Runnable {
 				sock.close();
 				} catch (Exception e) {
 					e.printStackTrace();
+					finDePartieReseau();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				finDePartieReseau();
 			}
 		}
 		System.out.println("Connection interropue");
