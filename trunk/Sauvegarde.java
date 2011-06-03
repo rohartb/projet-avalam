@@ -54,7 +54,7 @@ class Sauvegarde{
 				PrintStream ps = new PrintStream(f);
 				ps.print(s);
 				f.setReadOnly();
-				JOptionPane.showMessageDialog(a.f,"Partie sauvegardée","Avalam",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(a.f,"Partie sauvegardée","Avalam",JOptionPane.INFORMATION_MESSAGE,new ImageIcon("./images/checked.png"));
 			}catch(Exception e){}
 		}
 		else{

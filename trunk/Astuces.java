@@ -58,7 +58,7 @@ public class Astuces extends JDialog {
 
 		this.add(lesAstuces, BorderLayout.NORTH);
 		this.add(panelBouton,BorderLayout.SOUTH);
-		this.setSize(500,400);
+		this.setSize(500,410);
 
 
 		// Position au centre de la fenetre principale
