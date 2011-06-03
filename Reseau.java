@@ -57,7 +57,10 @@ public class Reseau implements Runnable {
 				a.j.J1.nom = s;
 				System.out.println("Je change les noms");
 			}
-		} catch (Exception e) { e.printStackTrace();}
+		} catch (Exception e) {
+			System.out.print(" Reseau : " );
+			e.printStackTrace();
+		}
 		a.f.g.repaint();
 		while (!sock.isClosed()) {
 			try {
@@ -76,10 +79,12 @@ public class Reseau implements Runnable {
 					System.out.println("caca");
 				}
 			} catch (java.net.SocketTimeoutException t) {
-				System.out.println(t);
+				System.out.println("pouet : " + t);
 				try {
 				sock.close();
-				} catch (Exception e) {e.printStackTrace();}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
