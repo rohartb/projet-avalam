@@ -65,7 +65,9 @@ public class Reseau implements Runnable {
 		a.f.g.repaint();
 		try {
 			sock.setSoTimeout(10000);
-		} catch (Exception e) {};
+		} catch (Exception e) {
+			e.printStackTrace();
+		};
 		while (!sock.isClosed()) {
 			try {
 				while ((number = inputReseau.read(buffer)) != -1) {
