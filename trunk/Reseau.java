@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import javax.swing.*;
 
 public class Reseau implements Runnable {
 	Avalam a;
@@ -63,7 +64,7 @@ public class Reseau implements Runnable {
 		}
 		a.f.g.repaint();
 		try {
-			sock.setSoTimeout(0);
+			sock.setSoTimeout(10000);
 		} catch (Exception e) {};
 		while (!sock.isClosed()) {
 			try {
@@ -95,4 +96,35 @@ public class Reseau implements Runnable {
 		}
 		System.out.println("Connection interropue");
 	}
+
+	public void finDePartieReseau() {
+		try {
+		sock.close();
+		} catch (Exception e) {e.printStackTrace();}
+
+		String nom;
+		if (type == SERVEUR)
+			nom = a.j.J1.nom;
+		else //if (type == CLIENT)
+			nom = a.j.J2.nom;
+
+		String[] options = {"Quitter le jeu", "relancer une partie", "Relancer une partie en réseau"};
+		int rep = JOptionPane.showOptionDialog(null,
+		                              "La connexion avec " + nom + "a été interrompue",
+		                              "Fin de partie en réseau",
+		                              JOptionPane.YES_NO_CANCEL_OPTION,
+		                              JOptionPane.ERROR_MESSAGE,
+		                              null,
+		                              options,
+		                              options[0]);
+		if (rep == JOptionPane.YES_OPTION) {
+			System.out.println("quitter le jeu");
+		} else if (rep == JOptionPane.NO_OPTION) {
+			System.out.println("nouvelle partie");
+		} else if (rep == JOptionPane.CANCEL_OPTION) {
+			System.out.println("relancer la connexion");
+		}
+	}
 }
+
+
