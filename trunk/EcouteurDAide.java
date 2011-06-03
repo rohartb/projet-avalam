@@ -11,7 +11,8 @@ public class EcouteurDAide implements MouseListener  {
 	}
 
 	public void mousePressed(MouseEvent e){
-		System.out.println("Je veux de l'aide !!!!! ");
+		a.aide=true;
+		a.unpause();
 	}
 
 

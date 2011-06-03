@@ -333,7 +333,6 @@ class TerrainGraphique extends JComponent{
 		int yDes = dst.y+tailleCase/2;
 		int xSrc = src.x+tailleCase/2;
 		int ySrc = src.y+tailleCase/2;
-		System.out.println(tailleCase);
 		float xDist = (xDes-xSrc);
 		float yDist = (yDes-ySrc);
 		float xyDist = (float) Math.sqrt(xDist*xDist+yDist*yDist);

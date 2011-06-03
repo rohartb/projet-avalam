@@ -14,7 +14,6 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 
 	public void mousePressed(MouseEvent e){
 		if (actif) {
-			click = true;
 			int x = e.getX();
 			int y = e.getY();
 			a.f.g.click = new Point(x,y);
@@ -24,6 +23,7 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 
 			if (lc.x > -1 &&  lc.y > -1  && lc.x < 9 && lc.y < 9 &&
 			    a.t.plateau[lc.x][lc.y].estOccupee()) {
+				click = true;
 				a.f.g.animation = true;
 				a.f.g.resetBIFondAnimation(lc);
 				a.f.g.setPlusXY(xy,lc);
@@ -31,13 +31,13 @@ class EcouteurDeSouris implements MouseListener, MouseMotionListener, ComponentL
 				if(a.j.modeAide){
 					a.f.g.adjacent = true;
 					Point indice = a.f.g.coordToIndice(a.f.g.click);
-					System.out.println("okanim");
 					a.f.g.lAdjacent = indice.x;
 					a.f.g.cAdjacent = indice.y;
 				}
 				a.f.g.repaint();
+				a.unpause();
 			}
-			a.unpause();
+			
 		}
 	}
 
