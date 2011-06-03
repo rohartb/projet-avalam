@@ -149,70 +149,51 @@ public class Simulation{
 		for (int i=0; i<9; i++){
 			for (int j=0; j<9; j++){
  				if(etatJeu[i][j].estOccupee()){
- 					if(estConfigMickeyJ1(i,j)){
- 						score++;
- 					}
- 					if(estConfigMickeyJ2(i,j)){
- 						score--;
- 					}
+					score += estConfigMickey(i,j);
  				}
  			}
  		}
 		return score/3; 			
 	}
 	
-	public boolean estConfigMickeyJ1(int i, int j){
+	public int estConfigMickey(int i, int j){
 		LinkedList<Point> adj = casesAdjacentes(i,j);
-		if(adj.size()!=2){
-			return false;
-		}
-		else{
-			int nbJ1 = 0;
-			int taille = etatJeu[i][j].getTaille();;
-			if(etatJeu[i][j].estJ1())
-				nbJ1++;
-			LinkedList<Point> adjK;
-			for(int k=0; k<2; k++){
-				adjK = casesAdjacentes(adj.get(k).x, adj.get(k).y);	
-				if(adjK.size()!=2)
-					return false;
-				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ1()){
-					nbJ1++;
-				}
-				taille = taille + etatJeu[adj.get(k).x][adj.get(k).y].getTaille();
-			}
-			if(nbJ1==2 && taille<=5)
-				return true;
-			else
-				return false;
-		}
-	}
-	
-	public boolean estConfigMickeyJ2(int i, int j){
-		LinkedList<Point> adj = casesAdjacentes(i,j);
-		if(adj.size()!=2){
-			return false;
-		}
-		else{
-			int nbJ2 = 0;
-			int taille = etatJeu[i][j].getTaille();;
-			if(etatJeu[i][j].estJ2())
-				nbJ2++;
-			LinkedList<Point> adjK;
-			for(int k=0; k<2; k++){
-				adjK = casesAdjacentes(adj.get(k).x, adj.get(k).y);	
-				if(adjK.size()!=2)
-					return false;
-				if(etatJeu[adj.get(k).x][adj.get(k).y].estJ2()){
-					nbJ2++;
-				}
-				taille = taille + etatJeu[adj.get(k).x][adj.get(k).y].getTaille();
-			}
-			if(nbJ2==2 && taille<=5)
-				return true;
-			else
-				return false;
-		}
+		Point p1,p2,p3;
+		if(adj.size()!=2)
+			return 0;
+		p1=new Point(i,j);
+		p2=adj.get(0);
+		p3=adj.get(1);
+		int nb = 0;
+		int taille = etatJeu[i][j].getTaille()+etatJeu[p2.x][p2.y].getTaille()+etatJeu[p3.x][p3.y].getTaille();
+		if(taille > 5)
+			return 0;
+		if(etatJeu[p1.x][p1.y].estJ1())
+			nb++;
+		else
+			nb--;
+		if(etatJeu[p2.x][p2.y].estJ1())
+			nb++;
+		else
+			nb--;
+		if(etatJeu[p3.x][p3.y].estJ1())
+			nb++;
+		else
+			nb--;
+		if(Math.abs(nb) != 1)
+			return 0;
+			
+		adj = casesAdjacentes(p2.x,p2.y);
+		if(adj.size()!=2)
+			return 0;
+		if(!((adj.get(0).equals(p1)||adj.get(0).equals(p3))&&(adj.get(1).equals(p1)||adj.get(1).equals(p3))))
+			return 0;
+		adj = casesAdjacentes(p3.x,p3.y);
+		if(adj.size()!=2)
+			return 0;
+		if(!((adj.get(0).equals(p1)||adj.get(0).equals(p2))&&(adj.get(1).equals(p1)||adj.get(1).equals(p2))))
+			return 0;
+		return nb;
 	}
 	
 	public int tourDefinitive3AuCentre(int joueur){
