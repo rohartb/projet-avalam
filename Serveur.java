@@ -34,6 +34,9 @@ public class Serveur implements Runnable {
 			            a.thReseau.start();
 			            a.j.J1.type = a.j.RESEAU; // c'est le client
 			            a.j.J2.type = a.j.HUMAIN; // c'est nous
+
+			            a.r.outputReseau.print("connexionAcceptee");
+
 			            a.interupt = true;
 			            a.etatSuivant = a.RESEAU;
 			            a.j.actualiser();
