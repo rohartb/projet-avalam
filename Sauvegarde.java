@@ -46,7 +46,7 @@ class Sauvegarde{
 			for(int i=0; i<9; i++)
 				for(int j=0; j<9; j++)
 					s += a.t.plateau[i][j].getContenu()+"\n";
-			s += a.j.revoirH+"\n";
+			s += a.j.revoirH+" "+a.j.finPartie+"\n";
 			s += a.j.h.toString();
 
 			try{
@@ -83,6 +83,7 @@ class Sauvegarde{
             //historique
             a.j.h = new Historique();
             a.j.revoirH = s.nextBoolean();
+            a.j.finPartie = s.nextBoolean();
             s.nextLine(); //on revient a la ligne
 
             while(s.hasNext()){
@@ -116,7 +117,6 @@ class Sauvegarde{
             } else {
                 a.f.m.dernierCoup.setEnabled(false);
             }
-            a.j.finPartie=false;
             a.etatSuivant = a.ACTUALISER;
         }catch(Exception e){
 				System.out.println(e);
