@@ -73,6 +73,7 @@ public class Reseau implements Runnable {
 					a.j.c = c;
 					System.out.println("Coup " + c + " reçu");
 					a.unpause();
+					System.out.println("caca");
 				}
 			} catch (java.net.SocketTimeoutException t) {
 				System.out.println(t);
