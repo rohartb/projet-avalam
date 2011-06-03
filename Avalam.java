@@ -151,7 +151,7 @@ public class Avalam{
 							InetAddress addr = InetAddress.getByName(ip);
 							int port = 8100;
 							Socket sock = new Socket(addr, port);
-							r = new Reseau(this, sock);
+							r = new Reseau(this, sock, Reseau.CLIENT);
 							thReseau = new Thread(r);
 							thReseau.start();
 							// celui qui établie la connexion devient J1

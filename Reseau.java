@@ -8,16 +8,19 @@ import java.io.PrintStream;
 public class Reseau implements Runnable {
 	Avalam a;
 	boolean connexionAcceptee;
+	static final int SERVEUR= 0;
+	static final int CLIENT = 1;
+	int type;
 	Socket sock;
 	InputStream inputReseau; // on y lit
 	PrintStream outputReseau;// on y écrit
 
-	public Reseau(Avalam a, Socket sock) {
+	public Reseau(Avalam a, Socket sock, int type) {
 		connexionAcceptee =false;
 		try {
 			this.a = a;
 			this.sock = sock;
-			//sock.setSoTimeout(3000);
+			this.type = type;
 			a.j.partieEnReseau = true;
 			inputReseau = sock.getInputStream();
 			outputReseau = new PrintStream(sock.getOutputStream());
@@ -30,11 +33,23 @@ public class Reseau implements Runnable {
 			int number;
 			String s;
 			try {
-				number = inputReseau.read(buffer);
-				s = new String(buffer);
-				System.out.println(s);
-				if (s.equals("connexionAcceptee"))
-					     connexionAcceptee = true;
+				if(type == CLIENT) {
+					//si on est le client on attend d'abord la valid
+					number = inputReseau.read(buffer);
+					s = new String(buffer);
+					System.out.println(s);
+					if (s.equals("connexionAcceptee")) {
+						connexionAcceptee = true;
+						outputReseau.print(a.j.J1.nom);
+						inputReseau.read(buffer);
+						s = new String(buffer);
+						a.j.J2.nom = s;
+					}
+				} else if (type == SERVEUR) {
+					inputReseau.read(buffer);
+					s = new String(buffer);
+					a.j.J2.nom = s;
+				}
 
 				while ((number = inputReseau.read(buffer)) != -1) {
 					s = new String(buffer);

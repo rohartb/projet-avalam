@@ -29,12 +29,13 @@ public class Serveur implements Runnable {
 		                                                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), null, null);
 		            if (choix == JOptionPane.YES_OPTION) {
 			            pasDeConnexion = false;
-			            a.r = new Reseau(a, client);
+			            a.r = new Reseau(a, client, Reseau.SERVEUR);
 			            a.thReseau = new Thread(a.r);
 			            a.thReseau.start();
 			            a.j.J1.type = a.j.RESEAU; // c'est le client
 			            a.j.J2.type = a.j.HUMAIN; // c'est nous
 
+			            //on envoi au client la validation de la connexion
 			            a.r.outputReseau.print("connexionAcceptee");
 
 			            a.interupt = true;
