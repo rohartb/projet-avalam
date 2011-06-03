@@ -37,7 +37,7 @@ public class Reseau implements Runnable {
 			//si on est le client on attend d'abord la valid
 			number = inputReseau.read(buffer);
 			s = new String(buffer);
-			System.out.println(s);
+			System.out.println("'" + s + "'" );
 			System.out.println("connexionAcceptee");
 			System.out.println(s.equals("connexionAcceptee"));
 			if (s.equals("connexionAcceptee")) {
