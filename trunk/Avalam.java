@@ -16,6 +16,7 @@ public class Avalam{
 	Sauvegarde s;
 	Serveur serv;
 	boolean quit;
+	boolean save;
     boolean match;
 
 	static final int INIT=-1;
@@ -116,12 +117,35 @@ public class Avalam{
 
 			//nouvelle partie
 			case NOUVEAU:
-				//TODO popup voulez vous sauvegarder votre partie en cours?
-				System.out.println("nouveau");
-				j.init();
-				t.init();
-				etatSuivant=JEU;
-				etat = ACTUALISER;
+				if(!j.finPartie && !save && j.nbCoupsRestants!=292){
+					String[] options = {"Sauvegarder" , "Nouveau jeu sans sauvegarder" , "Annuler"};
+					int choix  = JOptionPane.showOptionDialog(null, "Nouveau jeu :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
+					 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
+					if (choix == JOptionPane.YES_OPTION) {
+						System.out.println("save");
+						etat=SAUVER;
+						etatSuivant=NOUVEAU;
+						save=true;
+					}else if (choix == JOptionPane.NO_OPTION) {
+						System.out.println("new without save");
+						j.init();
+						t.init();
+						save=false;
+						etatSuivant=JEU;
+						etat = ACTUALISER;
+					}else{
+						
+						//annuler
+						System.out.println("annuler");
+						etat=JEU;
+					}
+				}else{
+					j.init();
+					t.init();
+					save=false;
+					etatSuivant=JEU;
+					etat = ACTUALISER;
+				}
 				break;
 				//verifier l'etat du jeu + attente d'un coup
 
@@ -366,7 +390,7 @@ public class Avalam{
 				s.sauver();
 				if(!j.revoirH)
 					f.s.timer.start();
-				etat=JEU;
+				etat=etatSuivant;
 				break;
 
 			//TODO
