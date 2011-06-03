@@ -23,6 +23,7 @@ public class Avalam{
 	static final int PAUSE=3;
 	static final int BOT=4;
 	static final int RESEAU=5;
+	static final int AIDE=30;
 	static final int JOUERAUTO=6;
 	static final int JOUERMANU=7;
 	static final int JOUER=8;
@@ -49,7 +50,7 @@ public class Avalam{
 
 
 	int etat,etatSuivant,etatPause;
-	boolean interupt;
+	boolean interupt,aide;
 
 	public static void main(String[] args) {
 		new Avalam();
@@ -80,6 +81,7 @@ public class Avalam{
 	public Avalam(){
 		etat=Avalam.INIT;
 		interupt=false;
+		aide=false;
 
 		//automate d'etats
 		while(true){
@@ -200,6 +202,9 @@ public class Avalam{
 				if(interupt){
 					etat=etatSuivant;
 					interupt=false;
+				}else if(aide){
+					aide=false;
+					etat=AIDE;
 				}else{
 					etat=JOUERMANU;
 				}
@@ -245,8 +250,16 @@ public class Avalam{
 				//TODO
 				System.out.println("reseau");
 				pause();
-
 				etat=JOUERAUTO;
+				break;
+			
+			case AIDE:
+				System.out.println("aide");
+				j.jouerBot();
+				f.g.animationPionAuto();
+				f.g.animationPionAnnuler();
+				f.g.repaint();
+				etat=JEU;
 				break;
 
 			//animation du coup du bot ou reseau
@@ -266,6 +279,7 @@ public class Avalam{
 				}else{
 					if(t.okAnim(f.g.coordToIndice(f.g.click))){
 						f.g.animationPion(f.g.release,f.g.click);
+						f.g.repaint();
 					}
 					etat=JEU;
 				}
@@ -328,7 +342,8 @@ public class Avalam{
 				System.out.println("apparence");
 				f.s.timer.stop();
 				f.app.afficherApparence();
-				f.s.timer.start();
+				if(!j.revoirH)
+					f.s.timer.start();
 				etat=JEU;
 				break;
 
@@ -463,6 +478,7 @@ public class Avalam{
 				dernierCoup = j.h.rejouer();
 				j.h.ajouterAnnuler(dernierCoup);
 				j.c = new Coups(new Point(dernierCoup.lSource,dernierCoup.cSource),new Point(dernierCoup.lDest,dernierCoup.cDest));
+				f.g.animationPionAnnuler();
 				f.g.animationPionAuto();
 				t.deplacer(j.c);
 				etat=ACTUALISER;

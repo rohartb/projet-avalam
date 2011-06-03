@@ -32,6 +32,8 @@ public class Bot implements Runnable{
 			niveau=a.j.J1.type;
 		else
 			niveau=a.j.J2.type;
+		if(niveau==0)//humain demande aide
+			niveau=3;
 		finEval=false;
 		if(niveau==1)
 			nMax=0;
