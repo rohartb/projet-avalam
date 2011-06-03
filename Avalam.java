@@ -405,7 +405,15 @@ public class Avalam{
 				s.sauver();
 				if(!j.revoirH)
 					f.s.timer.start();
-				etat=etatSuivant;
+				if(save){
+					etat=NOUVEAU;
+				}else if(j.revoirH){
+					etat=HISTORIQUE;
+				}else if(quit){
+					etat=QUITTER;
+				}else{
+					etat=JEU;
+				}
 				break;
 
 			//TODO
