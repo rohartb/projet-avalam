@@ -157,7 +157,7 @@ public class EcouteurDOptions implements ActionListener,
                                              
     public void traiterAppliquerModeMatch() {
         traiterOk(true);
-        a.etatSuivant = a.NOUVEAUMATCH;
+        a.etatSuivant = a.MATCH;
 		a.unpause();
     }
 
