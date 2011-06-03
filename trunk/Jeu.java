@@ -83,6 +83,7 @@ public class Jeu{
 		}
 		joueurCourant=JOUEUR1;
 		a.f.s.initTimer();
+		actualiser();
 	}
 
 	void changerJoueur(){

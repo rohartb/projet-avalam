@@ -39,6 +39,29 @@ public class Options extends JDialog{
 
 	public Options (Avalam a) {
 		this.a = a;
+		
+		File option = new File(System.getProperty("user.home")+"/.Avalam/Config/options.cfg");
+		if(!option.exists()){
+			a.j.J1.type=Jeu.HUMAIN;
+			a.j.J1.joueur=Jeu.JOUEUR1;
+			a.j.J1.nom="Joueur 1";
+			a.j.J2.type=Jeu.BOTLVL1;
+			a.j.J2.joueur=Jeu.JOUEUR2;
+			a.j.J2.nom="José";
+			a.j.modeNormal = true;
+			a.j.modeAide = true;
+		}else{
+			try{
+				FileInputStream in = new FileInputStream(option);
+				Scanner s = new Scanner(in);
+				a.j.J1.type = s.nextInt();
+				a.j.J2.type = s.nextInt();
+				a.j.modeAide = s.nextBoolean();
+				s.nextLine();
+				a.j.J1.nom = s.nextLine();
+				a.j.J2.nom = s.nextLine();
+			}catch(FileNotFoundException e){}
+		}
 
 		typeJ1 = a.j.J1.type;
 		typeJ2 = a.j.J2.type;
