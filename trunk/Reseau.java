@@ -90,9 +90,9 @@ public class Reseau implements Runnable {
 					e.printStackTrace();
 				}
 			} catch (Exception e) {
+				finDePartieReseau();
 				e.printStackTrace();
 			}
-			System.out.println("tic tac");
 		}
 		System.out.println("Connection interropue");
 	}
