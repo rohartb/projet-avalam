@@ -163,6 +163,7 @@ public class Avalam{
 							while(! r.connexionAcceptee) {
 								Thread.sleep(1000);
 							}
+							System.out.println("La demande de connexion a été accpetée");
 							sock.setSoTimeout(0); // desactive le timeout
 
 						} else {
@@ -252,7 +253,7 @@ public class Avalam{
 				pause();
 				etat=JOUERAUTO;
 				break;
-			
+
 			case AIDE:
 				System.out.println("aide");
 				j.jouerBot();
