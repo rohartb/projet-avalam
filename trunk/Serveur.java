@@ -28,6 +28,12 @@ public class Serveur implements Runnable {
 		            int choix = JOptionPane.showOptionDialog(null,client.getInetAddress().toString() + " souhaite jouer en réseau avec vous", "Requète de partie en réseau",
 		                                                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), null, null);
 		            if (choix == JOptionPane.YES_OPTION) {
+			            if (a.f.o.isVisible()){
+				            a.f.o.fermerOptions();
+			            }
+			            if (a.f.app.isVisible()) {
+				            a.f.app.fermerApparence();
+			            }
 			            pasDeConnexion = false;
 			            a.r = new Reseau(a, client, Reseau.SERVEUR);
 			            a.thReseau = new Thread(a.r);
@@ -48,7 +54,6 @@ public class Serveur implements Runnable {
 		            } else if (choix == JOptionPane.NO_OPTION) {
 			            System.out.println("Je ferme la connexion");
 			            client.close();
-			            System.out.println("etat de la connexion : " + client.isClosed());
 		            }
 	            }
             }
