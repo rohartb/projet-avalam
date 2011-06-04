@@ -173,21 +173,23 @@ public class Avalam{
             case MATCH:
 	            System.out.println("match");
 	            if(partieEnCours && !j.finPartie && !match){
-		            String[] options = {"Annuler", "Continuer sans sauvegarder", "Sauvegarder"};
+		            String[] options = {"Sauvegarder", "Continuer sans sauvegarder", "Annuler"};
 		            int choix  = JOptionPane.showOptionDialog(f, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
 		                                                      0, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
 		            if (choix == JOptionPane.YES_OPTION) {
+			            etat=SAUVER;
+			            etat = NOUVEAUMATCH;
+		            } else if (choix == JOptionPane.NO_OPTION) {
+			            // continuer sans sauvegarder
+			            etat=NOUVEAUMATCH;
+		            } else {//annuler
+			            j.modeNormal = true;
 			            if(!j.revoirH){
 				            f.s.timer.start();
 				            etat=JEU;
 			            }else{
 				            etat=HISTORIQUE;
 			            }
-		            } else if (choix == JOptionPane.NO_OPTION) {
-			            etatSuivant=NOUVEAUMATCH;
-		            } else {
-			            etat=SAUVER;
-			            etat = NOUVEAUMATCH;
 		            }
 	            } else {
 		            etat = NOUVEAUMATCH;
