@@ -292,6 +292,7 @@ public class Avalam{
 					etat=RESEAU;
 					break;
 				}
+				f.g.labelAmpoule.setEnabled(true);
 				pause();
 				if(interupt){
 					etat=etatSuivant;
@@ -348,6 +349,7 @@ public class Avalam{
 			case BOT:
 				f.activerAnnulerRefaire(false);
 				System.out.println("bot");
+				//f.g.labelAmpoule.setEnabled(false);
 				j.jouerBot();
 				etat=JOUERAUTO;
 				break;
@@ -384,6 +386,7 @@ public class Avalam{
 			case JOUERMANU:
 				System.out.println("jouer manu");
 				pause();
+				f.g.labelAmpoule.setEnabled(false);
 				j.calculerCoup();
 				if(t.estPossible(j.c)){
 					etat=JOUER;
