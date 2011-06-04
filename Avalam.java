@@ -114,7 +114,13 @@ public class Avalam{
 				thFenetre.start();
 				pause();//atente du unpause lorsque la fenetre a fini de charger
 				f.o.afficherOptions();
-				if (j.modeNormal)
+				if (etat == RESEAU) {
+					// Si il y une demande de connexion
+					etat = JEU;
+					j.init();
+					t.init();
+					j.J1.type = Jeu.HUMAIN;
+				} else if (j.modeNormal)
 					etat = NOUVEAU;
 				else
 					etat = MATCH;
@@ -167,7 +173,6 @@ public class Avalam{
 				}
 				break;
 				//verifier l'etat du jeu + attente d'un coup
-
 
 
             case MATCH:
