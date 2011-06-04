@@ -148,7 +148,7 @@ public class Avalam{
 				} else if (!j.modeNormal) { // on fait nouveau en mode match
  int choix  = JOptionPane.showOptionDialog(f, "Quitter Avalam :\n Etes-vous sur de vouloir quitter le match ?", "Quitter",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"),null,null);
                     if (choix == JOptionPane.YES_OPTION) {
-	                    ma.finMatch();
+	                    ma.finDeMatch();
 	                    etat = NOUVEAU;
                     } else {
                         if(!j.revoirH){
@@ -173,25 +173,22 @@ public class Avalam{
             case MATCH:
 	            System.out.println("match");
 	            if(partieEnCours && !j.finPartie && !match){
-		            String[] options = {"Sauvegarder" , "Nouvelle partie" , "Annuler"};
-		            int choix  = JOptionPane.showOptionDialog(null, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
-		                                                      JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
+		            String[] options = {"Annuler", "Continuer sans sauvegarder", "Sauvegarder"};
+		            int choix  = JOptionPane.showOptionDialog(f, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
+		                                                      0, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
 		            if (choix == JOptionPane.YES_OPTION) {
-			            etat=SAUVER;
-			            etatSuivant=NOUVEAUMATCH;
-			            match=true;
-		            }else if (choix == JOptionPane.NO_OPTION) {
-			            etat=NOUVEAUMATCH;
-			            match=true;
-		            }else{
 			            if(!j.revoirH){
 				            f.s.timer.start();
 				            etat=JEU;
 			            }else{
 				            etat=HISTORIQUE;
 			            }
+		            } else if (choix == JOptionPane.NO_OPTION) {
+			            etatSuivant=NOUVEAUMATCH;
+		            } else {
+			            etat=SAUVER;
+			            etat = NOUVEAUMATCH;
 		            }
-		            match=false;
 	            } else {
 		            etat = NOUVEAUMATCH;
 	            }
@@ -200,12 +197,15 @@ public class Avalam{
             case NOUVEAUMATCH:
                     //TODO popup de match
                     System.out.println("nouveaumatch");
+                    match=true;
                     ma = new Match(this);
                     ma.debutMatch();
+                    f.activerAnnulerRefaire(false);
 					j.init();
 					t.init();
+					f.s.actualiser();
 					save=false;
-					etatSuivant=JEU;
+					etat=JEU;
                     break;
 
 
@@ -329,6 +329,16 @@ public class Avalam{
                 if(j.modeNormal){
                     f.popupFinDePartie();
                     etat=etatSuivant;
+                } else {
+	                ma.nbPartiesJouees++;
+	                if(ma.nbPartiesJouees != ma.nbPartiesTotales) {
+		                ma.popupFinDePartie();
+	                } else {
+		                ma.popupFinDeMatch();
+		                ma.finDeMatch();
+		                ma.finMatch = true;
+
+	                }
                 }
 				break;
 

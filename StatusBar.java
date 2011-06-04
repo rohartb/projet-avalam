@@ -93,7 +93,10 @@ public class StatusBar extends JPanel {
 
 	public void actualiser() {
 		labelCoupsRestants.setText("Déplacement possible : " + a.j.nbCoupsRestants);
-		labelMode.setText("Mode : " + a.j.getModeString());
+		if (a.j.modeNormal)
+			labelMode.setText("Mode Normal");
+		else
+			labelMode.setText("Mode Match - partie " + (a.ma.nbPartiesJouees+1) + "/" + a.ma.nbPartiesTotales );
 	}
 }
 

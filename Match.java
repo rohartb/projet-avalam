@@ -8,7 +8,8 @@ class Match{
 	Avalam a;
 
 	String nombrePartie;
-	int nbP;       // nb Parties
+	int nbPartiesTotales;       // nb Parties
+	int nbPartiesJouees;
 	int scoreMJ1;  // match gagné par J1
 	int scoreMJ2;  // match gagné par J2
 	int nbToursJ1; // nb tour totale de J1
@@ -36,7 +37,7 @@ class Match{
                 return;
             } else {
                 try {
-                    nbP = Integer.valueOf(nombrePartie);
+                    nbPartiesTotales = Integer.valueOf(nombrePartie);
                     estPasBon = false;
                 } catch (Exception e){
                     estPasBon = true;
@@ -63,7 +64,91 @@ class Match{
 
     }
 
-    public void finMatch(){
+	public void popupFinDePartie() {
+		String vainqueur;
+		int nbJ1 = a.j.J1.score;
+		int nbJ2 = a.j.J2.score;
+		// Affichage du la popup
+		String message= new String ("match " + (nbPartiesJouees+1) + "/" + nbPartiesTotales+ "\n");
+		String titre;
+		if(nbJ1 == nbJ2){
+			message+=("Personne ne gagne ! \n Score : "+nbJ1+" - "+nbJ2);
+			titre=new String("Egalité");
+		} else {
+			if((a.j.J1.estRobot() && a.j.J2.estHumain()) || (a.j.J2.estRobot() && a.j.J1.estHumain())) {
+				if ((nbJ2 > nbJ1 && a.j.J2.estRobot()) || (nbJ2 < nbJ1 && a.j.J1.estRobot())){
+					message += ("Vous avez perdu! \n Score :  "+nbJ1+" - "+nbJ2);
+					titre=new String("Défaite");
+				}
+				else{
+					message += ("Vous avez gagné! \n Score : "+nbJ1+" - "+nbJ2);
+					titre=new String("Victoire");
+				}
+			}else{
+				if (nbJ2 > nbJ1) {
+					vainqueur = a.j.J2.nom;
+					scoreMJ2++;
+				}else { // nbJ1 > nbJ2
+					vainqueur = a.j.J1.nom;
+					scoreMJ1++;
+				}
+				message += (vainqueur+" remporte la partie ! \n Score :  "+nbJ1+" - "+nbJ2);
+				titre = new String("Victoire");
+			}
+		}
+		nbToursJ1 += nbJ1;
+		nbToursJ2 += nbJ2;
+		String[] options = {"Continuer le match"};
+		JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		// nouvelle partie
+		a.j.init();
+		a.t.init();
+		a.j.finPartie = false;
+		a.etat = a.JEU;
+	}
+
+	public void popupFinDeMatch() {
+		String vainqueur;
+		int nbJ1 = a.j.J1.score;
+		int nbJ2 = a.j.J2.score;
+		// Affichage du la popup
+		nbToursJ1 += nbJ1;
+		nbToursJ2 += nbJ2;
+		String message= new String ("Résultat du match : ");
+		String titre;
+		if(scoreMJ1 == scoreMJ2){
+			message+=("Personne ne gagne ! \n Score : "+scoreMJ1+" - "+scoreMJ2);
+			titre=new String("Egalité");
+		} else {
+			if((a.j.J1.estRobot() && a.j.J2.estHumain()) || (a.j.J2.estRobot() && a.j.J1.estHumain())) {
+				if ((nbJ2 > nbJ1 && a.j.J2.estRobot()) || (nbJ2 < nbJ1 && a.j.J1.estRobot())){
+					message += ("Vous avez perdu! \n Score : " + scoreMJ1 + " - " + scoreMJ2);
+					titre=new String("Défaite");
+				}
+				else{
+					message += ("Vous avez gagné! \n Score : " + scoreMJ1 + " - " + scoreMJ2);
+					titre=new String("Victoire");
+				}
+			}else{
+				if (nbJ2 > nbJ1) {
+					vainqueur = a.j.J2.nom;
+					scoreMJ2++;
+				}else { // nbJ1 > nbJ2
+					vainqueur = a.j.J1.nom;
+					scoreMJ1++;
+				}
+				message += (vainqueur+" remporte la partie ! \n Score :  "+scoreMJ1+" - "+scoreMJ2);
+				titre = new String("Victoire");
+			}
+		}
+		message += ("\nStatistiques : \n " +
+		            " nombre de tours de " + a.j.J1.nom + " : " + nbToursJ1 + "\n" +
+		            " nombre de tours de " + a.j.J2.nom + " : " + nbToursJ2 + "\n");
+		String[] options = {"Continuer le match"};
+		JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+	}
+
+    public void finDeMatch(){
         //TODO popup de fin avec resultat et tout
         a.f.m.options.setEnabled(true);
         a.f.m.sauvegarder.setEnabled(true);

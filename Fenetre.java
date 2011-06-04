@@ -168,6 +168,9 @@ class Fenetre extends JFrame implements Runnable{
 		}
 	}
 
+
+
+
 	public void activerAnnulerRefaire(boolean b) {
 				//grisage des fonctions et boutons annuler, rejouer et
 				//dernierCoup pendant le calcul et deplacement du robot

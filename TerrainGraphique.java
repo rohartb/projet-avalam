@@ -60,12 +60,11 @@ class TerrainGraphique extends JComponent{
 
 		ampoule = new ImageIcon("images/ampoule.png");
 		labelAmpoule = new JLabel(ampoule);
-		labelAmpoule.setDisabledIcon(new ImageIcon("images/checked.png"));
+		labelAmpoule.setDisabledIcon(new ImageIcon("images/ampouleoff.png"));
 		this.add(labelAmpoule);
 
 		ea = new EcouteurDAide(a, this);
 		labelAmpoule.addMouseListener(ea);
-
 
 		if(!ap.exists()){
 			theme =1;
