@@ -27,8 +27,8 @@ class TerrainGraphique extends JComponent{
 
 
 	private int taillePolice;
-	private BufferedImage BIFondAnimation, BIJ1Small, BIJ1Big, BIJ2Small, BIJ2Big;
-	private Image BIPlateau;
+	private BufferedImage BIFondAnimation;
+	public Image BIPlateau, imageJ1, imageJ2;
 
 	JButton annuler, rejouer;
 	ImageIcon ampoule;
@@ -129,7 +129,6 @@ class TerrainGraphique extends JComponent{
 			drawable.setPaint(Themes.getCouleurPionJ2(theme));
 		drawable.fillOval(xCercle, yCercle, diametre, diametre);
 
-		//drawable.fillOval(x+tailleCase/6, y+tailleCase/6, (int) (tailleCase*0.7), (int) (tailleCase*0.7));
 		drawable.setPaint(Themes.getCouleurChiffre(theme));
 		drawable.setFont(new Font("Garuda", 0, tailleCase/3));
 		drawable.drawString("" + t.plateau[i][j].getTaille(),x+2*tailleCase/5, y+3*tailleCase/5);
@@ -162,42 +161,6 @@ class TerrainGraphique extends JComponent{
 	}
 
 
-	public void joueur1(Graphics2D drawable) {
-			taillePolice = (int) (0.45* tailleCase);
-			int hauteur = p.height;
-			int largeur = p.width;
-
-			drawable.setPaint(Themes.getCouleurPionJ1(theme));
-			drawable.setFont(new Font("Liberation Sans", 1 , taillePolice));
-			drawable.drawString(a.j.J1.nom,tailleCase/4,hauteur-(gapV+(1*tailleCase/3)));
-
-			if (! a.j.courantEstJ1()) {
-				drawable.drawImage(BIJ1Small, tailleCase/4, hauteur-((int) (gapV+tailleCase*1.8)) ,null);
-			} else {
-				drawable.drawImage(BIJ1Small,tailleCase/4, hauteur-((int) (gapV+tailleCase*1.8)) ,null);
-			}
-	}
-
-
-	public void joueur2(Graphics2D drawable) {
-		int hauteur = p.height;
-		int largeur = p.width;
-		//precalcule du decalage
-		FontMetrics metrics = getFontMetrics(drawable.getFont());
-		int decalage = metrics.stringWidth(a.j.J2.nom);
-
-		taillePolice = (int) (0.45* tailleCase);
-
-		drawable.setPaint(Themes.getCouleurPionJ2(theme));
-		drawable.setFont(new Font("Liberation Sans", 1 , taillePolice));
-		drawable.drawString(a.j.J2.nom, tailleCase/4, gapV + 3*tailleCase/2);
-
-		if (! a.j.courantEstJ2()) {
-			drawable.drawImage(BIJ2Small,tailleCase/4, gapV  ,null);
-		} else {
-			drawable.drawImage(BIJ2Small,tailleCase/4, gapV ,null);
-		}
-	}
 
 	public void panneau(Graphics2D drawable) {
 		int xRect = tailleCase/4;
@@ -226,6 +189,11 @@ class TerrainGraphique extends JComponent{
 		decalage = metrics.stringWidth("Score : " + a.j.J2.score);
 		drawable.drawString("Score : " + a.j.J2.score, xCentre-decalage/2,yTextHaut+metrics.getHeight());
 
+		drawable.drawImage(imageJ2,xCentre-tailleCase/2,
+		                   yTextHaut+3*metrics.getHeight()/2,
+		                   tailleCase, tailleCase,
+		                   null);
+
 		int yBiduleCentre = (yRect+hauteur/2)-(tailleCase/2+ metrics.getHeight()*2 + ampoule.getIconHeight())/2;
 		annuler.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
 		annuler.setBounds(xRect+gap, yBiduleCentre,tailleCase, tailleCase/2);
@@ -241,7 +209,13 @@ class TerrainGraphique extends JComponent{
 		drawable.drawString(etatJeul1, xCentre-decalage/2,yBiduleCentre+tailleCase);
 		decalage = metrics.stringWidth(etatJeul2);
 		drawable.drawString(etatJeul2, xCentre-decalage/2,yBiduleCentre+tailleCase+metrics.getHeight());
-		labelAmpoule.setBounds(xCentre-ampoule.getIconWidth()/2, yBiduleCentre+tailleCase+metrics.getHeight()*2, ampoule.getIconWidth(), ampoule.getIconHeight());
+		labelAmpoule.setBounds(xCentre-ampoule.getIconWidth()/2, yBiduleCentre+2*tailleCase/3+metrics.getHeight()*2, ampoule.getIconWidth(), ampoule.getIconHeight());
+
+
+		drawable.drawImage(imageJ1, xCentre-tailleCase/2,
+		                   yTextBas-metrics.getHeight()*2-tailleCase,
+		                   tailleCase, tailleCase, null);
+
 
 		drawable.setPaint(Themes.getCouleurPionJ1(theme));
 		decalage = metrics.stringWidth("Score : " + a.j.J1.score);
@@ -408,50 +382,30 @@ class TerrainGraphique extends JComponent{
 		} catch (Exception e) {}
 
 		// reini du J1
-		if ( a.j.J1.estHumain())
-			f = new File("images/joueur.png");
-		else if ( a.j.J1.estRobot()) {
-			f = new File("images/bot.png");
-		}
 		try {
-		loaded = ImageIO.read(f);
-		filter = new SetColorFilter(Themes.getCouleurPionJ1(theme));
-		filteredSrc = new FilteredImageSource(loaded.getSource(), filter);
-		filteredRes = Toolkit.getDefaultToolkit().createImage(filteredSrc);
-		BIJ1Small = new BufferedImage(tailleCase, tailleCase,BufferedImage.TYPE_INT_ARGB);
-		drawable = BIJ1Small.createGraphics();
-		setAntiAlias(drawable);
-		drawable.drawImage(filteredRes, 0, 0, tailleCase, tailleCase,null);
+			if (a.j.J1.estHumain()) {
+				imageJ1 = ImageIO.read(new File(Themes.getImageJ1(theme)));
+			} else if (a.j.J1.type == Jeu.BOTLVL1) {
+				imageJ1 = ImageIO.read(new File(Themes.getImageO10(theme)));
+			} else if (a.j.J1.type == Jeu.BOTLVL2) {
+				imageJ1 = ImageIO.read(new File(Themes.getImageO11(theme)));
+			} else if (a.j.J1.type == Jeu.BOTLVL3) {
+				imageJ1 = ImageIO.read(new File(Themes.getImageO12(theme)));
+			} else { // reseau
+				imageJ1 = ImageIO.read(new File(Themes.getImageR1(theme)));
+			}
+			if (a.j.J2.estHumain()) {
+				imageJ2 = ImageIO.read(new File(Themes.getImageJ2(theme)));
+			} else if (a.j.J1.type == Jeu.BOTLVL1) {
+				imageJ2 = ImageIO.read(new File(Themes.getImageO20(theme)));
+			} else if (a.j.J1.type == Jeu.BOTLVL2) {
+				imageJ2 = ImageIO.read(new File(Themes.getImageO21(theme)));
+			} else if (a.j.J1.type == Jeu.BOTLVL3) {
+				imageJ2 = ImageIO.read(new File(Themes.getImageO22(theme)));
+			} else { // reseau
+				imageJ2 = ImageIO.read(new File(Themes.getImageR2(theme)));
+			}
 
-		BIJ1Big = new BufferedImage(tailleCase*2, tailleCase*2, BufferedImage.TYPE_INT_ARGB);
-		drawable = BIJ1Big.createGraphics();
-		setAntiAlias(drawable);
-		drawable.drawImage(filteredRes, 0, 0,tailleCase*2, tailleCase*2,null);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-		// reini du J2
-		if ( a.j.J2.estHumain())
-			f = new File("images/joueur.png");
-		else if ( a.j.J2.estRobot()) {
-			f = new File("images/bot.png");
-		}
-		try {
-		loaded = ImageIO.read(f);
-		filter = new SetColorFilter(Themes.getCouleurPionJ2(theme));
-		filteredSrc = new FilteredImageSource(loaded.getSource(), filter);
-		filteredRes = Toolkit.getDefaultToolkit().createImage(filteredSrc);
-
-		BIJ2Small = new BufferedImage(tailleCase, tailleCase,BufferedImage.TYPE_INT_ARGB);
-		drawable = BIJ2Small.createGraphics();
-		setAntiAlias(drawable);
-		drawable.drawImage(filteredRes, 0, 0, tailleCase, tailleCase,null);
-
-		BIJ2Big = new BufferedImage(tailleCase*2, tailleCase*2, BufferedImage.TYPE_INT_ARGB);
-		drawable = BIJ2Big.createGraphics();
-		setAntiAlias(drawable);
-		drawable.drawImage(filteredRes, 0, 0,tailleCase*2, tailleCase*2,null);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -492,8 +446,7 @@ class TerrainGraphique extends JComponent{
 			if (BIPlateau == null) {
 				reinitialisationDesBI();
 			}
-			//joueur1(drawable);
-			//joueur2(drawable);
+
 			panneau(drawable);
 			drawable.drawImage(BIPlateau, gapG-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 			for(int i=0; i<N; i++){
@@ -513,8 +466,7 @@ class TerrainGraphique extends JComponent{
 			}
 		} else {
 			drawable.drawImage(BIFondAnimation, 0, 0, null);
-			//joueur1(drawable);
-			//joueur2(drawable);
+
 			panneau(drawable);
 			if (adjacent) {
 				dessineAdjacent(drawable);
