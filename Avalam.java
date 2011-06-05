@@ -116,13 +116,7 @@ public class Avalam{
 				f.o.ok.setEnabled(false);
 				f.o.annuler.setEnabled(false);
 				f.o.afficherOptions();
-				if (etat == RESEAU) {
-					// Si il y une demande de connexion
-					etat = JEU;
-					j.init();
-					t.init();
-					j.J1.type = Jeu.HUMAIN;
-				} else if (j.modeNormal)
+				if (j.modeNormal)
 					etat = NOUVEAU;
 				else
 					etat = MATCH;

@@ -405,6 +405,13 @@ public class Options extends JDialog{
 	}
 
 	public void fermerOptions() {
+		if (a.etat == a.RESEAU) {
+			// Si il y une demande de connexion
+			a.etat = a.JEU;
+			a.t.init();
+			a.j.init();
+			a.j.J2.type = Jeu.HUMAIN;
+		}
 		annuler.setEnabled(true);
 		ok.setEnabled(true);
 		this.setVisible(false);
