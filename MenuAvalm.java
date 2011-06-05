@@ -151,13 +151,15 @@ class MenuAvalam extends JMenuBar{
 		}
 		if(a.j.revoirH){
 			pause.setText("Reprendre");
-			a.f.g.pause.setText("Play");
+			a.f.g.pause.setText("➤");
 			pause.setActionCommand("reprendre");
 			a.f.g.pause.setActionCommand("reprendre");
 			//a.f.s.timer.stop();
 		}else{
 			pause.setText("Pause");
+			a.f.g.pause.setText("❙❙");
 			pause.setActionCommand("pause");
+			a.f.g.pause.setActionCommand("pause");
 			//if(!a.j.revoirH)
 			//	a.f.s.timer.start();
 	 	}

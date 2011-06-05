@@ -393,10 +393,12 @@ public class Avalam{
 				f.g.labelAmpoule.setEnabled(false);
 				f.es.actif = false;
 				f.g.ea.actif = false;
+				//changer texte
 				j.jouerBot();
 				f.g.animationPionAuto();
 				f.g.animationPionAnnuler();
 				f.g.repaint();
+				//remetre texte
 				f.g.labelAmpoule.setEnabled(true);
 				f.es.actif = true;
 				f.g.ea.actif = true;
@@ -646,12 +648,13 @@ public class Avalam{
 				pause();
 				if(etatSuivant==ACTUALISER){
 					j.revoirH=false;
+					f.m.actualiser();
 					etat=JEU;
 				}else{
 					etat=etatSuivant;
 				}
 				break;
-
+				
 			case DERNIERCOUP:
 				System.out.println("dernierCoup");
 				ElemHist dernierCoup = j.h.annuler();

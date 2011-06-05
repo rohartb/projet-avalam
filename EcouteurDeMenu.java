@@ -23,6 +23,9 @@ class EcouteurDeMenu implements ActionListener{
 		}else if (cmd.equals("pause")){
 			a.etatSuivant=a.PAUSE;
 			a.unpause();
+		}else if (cmd.equals("reprendre")){ // on reprends la partie a artir du mode lecture d'historique
+			a.etatSuivant=a.ACTUALISER;
+			a.unpause();
 		}else if(cmd.equals("charger")){
 			a.etatSuivant=a.CHARGER;
 			a.unpause();
