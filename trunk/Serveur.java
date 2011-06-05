@@ -26,7 +26,7 @@ public class Serveur implements Runnable {
 	            if (pasDeConnexion) {
 		            Socket client = listener.accept();
 
-		            a.interupt = true;
+		            a.interupt = true; // mise en pause du jeu (arrete les bots s'ils jouent)
 		            a.etatSuivant = a.PAUSE;
 
 		            int choix = JOptionPane.showOptionDialog(null,client.getInetAddress().toString() + " souhaite jouer en réseau avec vous", "Requète de partie en réseau",
@@ -54,9 +54,11 @@ public class Serveur implements Runnable {
 			            a.f.s.actualiser();
 			            a.f.m.actualiser();
 			            a.f.g.repaint();
+			            a.unpause();
 		            } else if (choix == JOptionPane.NO_OPTION) {
 			            System.out.println("Je ferme la connexion");
 			            client.close();
+			            a.unpause();
 		            }
 	            }
             }
