@@ -25,7 +25,6 @@ public class StatusBar extends JPanel {
 		timer = new Timer(1000, et);
 		timer.setActionCommand("ticseconde");
 		labelTemps = new JLabel("  " + sdf.format(start));
-		//timer.start();
 
 		this.a = a;
 		PanelTemps = new StatusBarPanel() ;
