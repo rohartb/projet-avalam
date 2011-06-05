@@ -424,9 +424,12 @@ public class Avalam{
 						f.g.ea.actif = false;
 						f.g.animationPion(f.g.release,f.g.click);
 						f.g.repaint();
+						f.es.actif = true;
+						f.g.ea.actif = true;
 					}
 					etat=JEU;
 				}
+				f.g.labelAmpoule.setEnabled(true);
 				break;
 
 
@@ -638,6 +641,7 @@ public class Avalam{
 
 			case HISTORIQUE:
 				System.out.println("historique");
+				f.m.actualiser();
 				f.es.actif=false;
 				pause();
 				if(etatSuivant==ACTUALISER){
