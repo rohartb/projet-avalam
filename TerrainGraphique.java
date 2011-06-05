@@ -171,7 +171,7 @@ class TerrainGraphique extends JComponent{
 		int xRect = tailleCase/4;
 		int yRect = gapV+tailleCase/2;
 		int hauteur = 8*tailleCase;
-		int largeur = 2*p.width/10;
+		int largeur = 3*tailleCase;
 		int xCentre = xRect+(largeur/2);
 		int yCentre = yRect+(hauteur/2);
 
@@ -199,13 +199,18 @@ class TerrainGraphique extends JComponent{
 		                   tailleCase, tailleCase,
 		                   null);
 
+
 		int yBiduleCentre = (yRect+hauteur/2)-(tailleCase/2+ metrics.getHeight()*2 + ampoule.getIconHeight())/2;
+		int decalalge = (largeur-2*tailleCase)/4;
 		annuler.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
-		annuler.setBounds(xRect+gap/3, yBiduleCentre,tailleCase, tailleCase/2);
+		annuler.setBounds(xRect+decalalge, yBiduleCentre,2*tailleCase/3, tailleCase/2);
+
 		pause.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
-		pause.setBounds(xRect+(largeur-tailleCase)/2, yBiduleCentre,tailleCase, tailleCase/2);
+		pause.setBounds(xRect+2*decalalge+2*tailleCase/3, yBiduleCentre,2*tailleCase/3, tailleCase/2);
+
 		rejouer.setFont(rejouer.getFont().deriveFont((float) (0.30*tailleCase)));
-		rejouer.setBounds(xRect+largeur-gap/3-tailleCase, yBiduleCentre, tailleCase, tailleCase/2);
+		rejouer.setBounds(xRect+3*decalalge+4*tailleCase/3, yBiduleCentre, 2*tailleCase/3, tailleCase/2);
+
 
 		if (a.j.courantEstJ1())
 			drawable.setPaint(Themes.getCouleurPionJ1(theme));
