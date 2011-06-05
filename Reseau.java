@@ -37,7 +37,6 @@ public class Reseau implements Runnable {
 		try {
 			if(type == CLIENT) {
 				//si on est le client on attend d'abord la valid
-				//System.out.println("caca");
 				number = inputReseau.read(buffer);
 				if (number > 0) {
 				s = new String(buffer, 0, number);
@@ -45,35 +44,43 @@ public class Reseau implements Runnable {
 
 					String[] tokens = s.split("[ ]+");
 					int t = Integer.valueOf(tokens[0]);
-					//System.out.println("'" + t + "'");
 					if (t == 1234) {
-						System.out.println("je reçois connexionAcceptee");
+						System.out.println("Connexion acceptee par le serveur");
 						a.t.init();
 						connexionAcceptee = true;
 						outputReseau.print(a.j.J1.nom);
+						System.out.println("J'envoie mon nom");
 						number = inputReseau.read(buffer);
 						s = new String(buffer,0,number);
 						a.j.J2.nom = s;
-						System.out.println("Je change les noms");
+						System.out.println("Je reçois le nom");
 					}
 				} else {
+					//connexion refusée par le serveur
 					JOptionPane.showMessageDialog(a.f,"Connexion refusée par l'hôte", "Connexion refusée", JOptionPane.ERROR_MESSAGE);
 				}
 			} else if (type == SERVEUR) {
-				a.t.init();
-				outputReseau.print(a.j.J2.nom);
-				number = inputReseau.read(buffer);
+				a.t.init(); //raz du terrain
 
+				System.out.println("J'envoie mon nom");
+				outputReseau.print(a.j.J2.nom);
+
+				number = inputReseau.read(buffer);
 				s = new String(buffer, 0, number);
 				a.j.J1.nom = s;
-				System.out.println("Je change les noms");
+				System.out.println("Je reçois le nom");
 			}
 			a.f.s.start = new Time(0);
+			a.unpause();
 		} catch (Exception e) {
 			System.out.print(" Reseau : " );
 			e.printStackTrace();
 		}
 		a.f.g.repaint();
+
+
+
+
 		try {
 			sock.setSoTimeout(30000);
 		} catch (Exception e) {

@@ -133,10 +133,8 @@ public class Jeu{
 
 	void actualiser(){
 		nbCoupsRestants = a.t.nbDeplRestant();
-		System.out.println("tutu : " + nbCoupsRestants);
 		if(!finPartie && !revoirH) {
 			finPartie = (nbCoupsRestants == 0);
-			System.out.println("tutut : " + finPartie);
 		}
 		calculerScore();
 		actualiserlabelTexte();
