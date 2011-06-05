@@ -180,5 +180,9 @@ class Fenetre extends JFrame implements Runnable{
 				g.annuler.setEnabled(b);
 				m.dernierCoup.setEnabled(b);
 	}
+	public void activerPause(boolean b) {
+				m.pause.setEnabled(b);
+				g.pause.setEnabled(b);
+	}
 
 }
