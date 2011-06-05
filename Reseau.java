@@ -46,7 +46,6 @@ public class Reseau implements Runnable {
 					int t = Integer.valueOf(tokens[0]);
 					if (t == 1234) {
 						System.out.println("Connexion acceptee par le serveur");
-						//a.t.init();
 						connexionAcceptee = true;
 						outputReseau.print(a.j.J1.nom);
 						System.out.println("J'envoie mon nom");
@@ -63,8 +62,6 @@ public class Reseau implements Runnable {
 					JOptionPane.showMessageDialog(a.f,"Connexion refusée par l'hôte", "Connexion refusée", JOptionPane.ERROR_MESSAGE);
 				}
 			} else if (type == SERVEUR) {
-				//a.t.init(); //raz du terrain
-
 				System.out.println("J'envoie mon nom");
 				outputReseau.print(a.j.J2.nom);
 
@@ -77,6 +74,7 @@ public class Reseau implements Runnable {
 				a.j.J2.type=Jeu.HUMAIN ;
 			}
 			a.t.init(); // raz du terrain
+			a.f.g.reinitialisationDesBI();
 			a.f.g.repaint();
 			a.f.s.start = new Time(0); // raz du timer
 
