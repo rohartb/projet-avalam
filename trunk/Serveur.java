@@ -27,6 +27,7 @@ public class Serveur implements Runnable {
 		            Socket client = listener.accept();
 		            int choix = JOptionPane.showOptionDialog(null,client.getInetAddress().toString() + " souhaite jouer en réseau avec vous", "Requète de partie en réseau",
 		                                                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), null, null);
+		            a.pause();
 		            if (choix == JOptionPane.YES_OPTION) {
 			            if (a.f.o.isVisible()){
 				            a.f.o.fermerOptions();
@@ -54,6 +55,7 @@ public class Serveur implements Runnable {
 		            } else if (choix == JOptionPane.NO_OPTION) {
 			            System.out.println("Je ferme la connexion");
 			            client.close();
+			            a.unpause();
 		            }
 	            }
             }
