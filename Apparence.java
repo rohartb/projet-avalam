@@ -20,7 +20,8 @@ public class Apparence extends JDialog {
 		this.setTitle("Apparence");
 		this.setModal(true);
 		// class de gestion de l'apparence du jeu
-		String[] themeStrings = {"Theme 1", "Theme 2", "Theme 3"};
+		String[] themeStrings = {"Thème eco", "Theme 2", "Thème marin"};
+
 
 		ComboTheme = new JComboBox(themeStrings);
 		if ( a.f.g.theme == Themes.THEME1 )
@@ -35,44 +36,17 @@ public class Apparence extends JDialog {
 		ComboTheme.addActionListener(ea);
 		//ComboFond.addItemListener(ea);
 
-		JLabel LabelTheme = new JLabel("Theme");
+		JLabel LabelTheme = new JLabel("Thème");
 		//LabelTheme.setHorizontalAlignment(JLabel.RIGHT);
-
-		// 2D ou 3D
-		/*JRadioButton Plateau2D = new JRadioButton("Plateau2D");
-		Plateau2D.addActionListener(ea);
-		Plateau2D.setActionCommand("plateau2D");
-
-		JRadioButton Plateau3D = new JRadioButton("Plateau3D");
-		Plateau3D.addActionListener(ea);
-		Plateau3D.setActionCommand("plateau3D");
-
-		ButtonGroup DimensionGroup = new ButtonGroup();
-		DimensionGroup.add(Plateau2D);
-		DimensionGroup.add(Plateau3D);
-
-		Plateau3D.setSelected(dimension == 3);
-		Plateau2D.setSelected(dimension == 2);
-		*/
 		JPanel PanelChoixTheme =  new JPanel();
 		PanelChoixTheme.setBorder(BorderFactory.createTitledBorder("Choix du style"));
-		PanelChoixTheme.setLayout(new FlowLayout());
+		PanelChoixTheme.setLayout(new BoxLayout(PanelChoixTheme, BoxLayout.X_AXIS));
 		PanelChoixTheme.add(LabelTheme);
 		PanelChoixTheme.add(ComboTheme);
-
-		ComboTheme.setPreferredSize(new Dimension(100, 30));
-
-		/*JPanel PanelChoixDimension = new JPanel();
-		PanelChoixDimension.setBorder(BorderFactory.createTitledBorder("Affichage"));
-		PanelChoixDimension.add(Plateau2D);
-		PanelChoixDimension.add(Plateau3D);
-		*/
 
 		JPanel ApparencePanel = new JPanel();
 		ApparencePanel.setLayout(new BoxLayout(ApparencePanel, BoxLayout.PAGE_AXIS));
 		ApparencePanel.add(PanelChoixTheme);
-		//ApparencePanel.add(PanelChoixDimension);
-
 
 		JButton Ok = new JButton("Appliquer");
 		Ok.setActionCommand("ok");
@@ -91,7 +65,7 @@ public class Apparence extends JDialog {
 		this.addWindowListener(ea);
 		this.add(ApparencePanel);
 		this.validate();
-		this.pack();
+		this.setSize(220, 120);
         this.setResizable(false);
 
 		// Position au centre de la fenetre principale

@@ -45,7 +45,6 @@ class Match{
             }
         }
         init();
-        deroulementMatch();
     }
 
     public void init(){
@@ -58,10 +57,6 @@ class Match{
         a.f.m.sauvegarder.setEnabled(false);
         a.f.m.charger.setEnabled(false);
         a.f.g.labelAmpoule.setEnabled(false);
-    }
-
-    public void deroulementMatch(){
-
     }
 
 	public void popupFinDePartie() {
@@ -88,7 +83,7 @@ class Match{
 				if (nbJ2 > nbJ1) {
 					vainqueur = a.j.J2.nom;
 					scoreMJ2++;
-				}else { // nbJ1 > nbJ2
+				} else { // nbJ1 > nbJ2
 					vainqueur = a.j.J1.nom;
 					scoreMJ1++;
 				}
@@ -146,9 +141,9 @@ class Match{
 				titre = new String("Victoire");
 			}
 		}
-		message += ("\nStatistiques : \n " +
-		            " nombre de tours de " + a.j.J1.nom + " : " + nbToursJ1 + "\n" +
-		            " nombre de tours de " + a.j.J2.nom + " : " + nbToursJ2 + "\n");
+		message += ("\nStatistiques : \n" +
+		            "   nombre de tours de " + a.j.J1.nom + " : " + nbToursJ1 + "\n" +
+		            "   nombre de tours de " + a.j.J2.nom + " : " + nbToursJ2 + "\n");
 		String[] options = {"Lancer un nouveau match", "Quitter le monde match"};
 		int rep = JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 		if (rep == JOptionPane.YES_OPTION) {
