@@ -169,7 +169,6 @@ public class Avalam{
 				}else{
 					t.init();
 					j.init();
-					System.out.println("tutu2 : " + t.nbDeplRestant());
 					save=false;
 					etatSuivant=JEU;
 					etat = ACTUALISER;
