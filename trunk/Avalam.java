@@ -272,6 +272,8 @@ public class Avalam{
 				} catch (NoRouteToHostException nt) {
 					JOptionPane.showMessageDialog(f, "Hôte inconnu, connexion impossible", "Connexion impossible", JOptionPane.ERROR_MESSAGE);
 					etat = JEU;
+				} catch (ConnectException ce) {
+					JOptionPane.showMessageDialog(f, "Connexion refusée", "Connexion impossible. Aucun Joueur d'Avalam n'est pas résent à cette adresse", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e) {
 					System.out.print("\t Avalam : ");
 					e.printStackTrace();
