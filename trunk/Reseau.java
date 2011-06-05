@@ -145,6 +145,32 @@ public class Reseau implements Runnable {
 			System.out.println("relancer la connexion");
 		}
 	}
+
+	public void finDePartieReseau() {
+		String nom;
+		if (type == SERVEUR)
+			nom = a.j.J1.nom;
+		else //if (type == CLIENT)
+			nom = a.j.J2.nom;
+
+		String[] options = {"Quitter le jeu", "relancer une partie", "Relancer une partie en réseau"};
+		int rep = JOptionPane.showOptionDialog(null,
+		                              "La connexion avec " + nom + "a été interrompue",
+		                              "Fin de partie en réseau",
+		                              JOptionPane.YES_NO_CANCEL_OPTION,
+		                              JOptionPane.ERROR_MESSAGE,
+		                              null,
+		                              options,
+		                              options[0]);
+		if (rep == JOptionPane.YES_OPTION) {
+			System.out.println("quitter le jeu");
+		} else if (rep == JOptionPane.NO_OPTION) {
+			System.out.println("nouvelle partie");
+		} else if (rep == JOptionPane.CANCEL_OPTION) {
+			System.out.println("relancer la connexion");
+		}
+
+	}
 }
 
 
