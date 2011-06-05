@@ -354,7 +354,9 @@ public class Avalam{
 			case BOT:
 				f.activerAnnulerRefaire(false);
 				System.out.println("bot");
-				//f.g.labelAmpoule.setEnabled(false);
+				f.g.labelAmpoule.setEnabled(false);
+				f.es.actif = false;
+				f.g.ea.actif = false;
 				j.jouerBot();
 				etat=JOUERAUTO;
 				break;
@@ -371,12 +373,14 @@ public class Avalam{
 				System.out.println("aide");
 				f.g.labelAmpoule.setEnabled(false);
 				f.es.actif = false;
+				f.g.ea.actif = false;
 				j.jouerBot();
 				f.g.animationPionAuto();
 				f.g.animationPionAnnuler();
 				f.g.repaint();
 				f.g.labelAmpoule.setEnabled(true);
 				f.es.actif = true;
+				f.g.ea.actif = true;
 				etat=JEU;
 				break;
 
@@ -419,6 +423,11 @@ public class Avalam{
 					r.outputReseau.print(j.c.toString());
 				}
 				j.changerJoueur();
+				if(j.courantEstHumain()){
+					f.g.labelAmpoule.setEnabled(true);
+					f.es.actif = true;
+					f.g.ea.actif = true;
+				}
 				break;
 
 			//TODO popop sauvegarder avant charger
