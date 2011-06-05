@@ -54,6 +54,9 @@ public class Reseau implements Runnable {
 						s = new String(buffer,0,number);
 						a.j.J2.nom = s;
 						System.out.println("Je reçois le nom");
+
+						a.j.J1.type=Jeu.HUMAIN;
+						a.j.J2.type=Jeu.RESEAU;
 					}
 				} else {
 					//connexion refusée par le serveur
@@ -69,6 +72,9 @@ public class Reseau implements Runnable {
 				s = new String(buffer, 0, number);
 				a.j.J1.nom = s;
 				System.out.println("Je reçois le nom");
+
+				a.j.J1.type=Jeu.RESEAU ;
+				a.j.J2.type=Jeu.HUMAIN ;
 			}
 			a.t.init(); // raz du terrain
 			a.f.g.repaint();

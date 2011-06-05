@@ -246,10 +246,6 @@ public class Avalam{
 							r = new Reseau(this, sock, Reseau.CLIENT);
 							thReseau = new Thread(r);
 							thReseau.start();
-							// celui qui établie la connexion devient J1
-							j.J1.type = Jeu.HUMAIN;
-							j.J2.type = Jeu.RESEAU;
-
 							//attente de la réponse
 							sock.setSoTimeout(10000);
 							while(! r.connexionAcceptee) {
