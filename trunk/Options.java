@@ -35,11 +35,11 @@ public class Options extends JDialog{
 
 	JButton ok;
 	JButton annuler;
-
+	JButton appliquerRelancer;
 
 	public Options (Avalam a) {
 		this.a = a;
-		
+
 		File option = new File(System.getProperty("user.home")+"/.Avalam/Config/options.cfg");
 		if(!option.exists()){
 			a.j.J1.type=Jeu.HUMAIN;
@@ -289,15 +289,15 @@ public class Options extends JDialog{
 		/////// Panel Bouton Ok / Annuler
 
 		JPanel PanelOkAnnuler = new JPanel(); //Panel du boutons ok/annuler
-		JButton appliquerRelancer = new JButton("Appliquer et relancer");
+		appliquerRelancer = new JButton("Appliquer et relancer");
 		appliquerRelancer.setActionCommand("appliquerrelancer");
 		appliquerRelancer.addActionListener(eo);
 
-		JButton ok = new JButton("Appliquer");
+		ok = new JButton("Appliquer");
 		ok.setActionCommand("ok");
 		ok.addActionListener(eo);
 
-		JButton annuler = new JButton("Annuler");
+		annuler = new JButton("Annuler");
 		annuler.setActionCommand("annuler");
 		annuler.addActionListener(eo);
 
@@ -405,6 +405,8 @@ public class Options extends JDialog{
 	}
 
 	public void fermerOptions() {
+		annuler.setEnabled(true);
+		ok.setEnabled(true);
 		this.setVisible(false);
 	}
 

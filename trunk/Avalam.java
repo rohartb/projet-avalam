@@ -113,6 +113,8 @@ public class Avalam{
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();//atente du unpause lorsque la fenetre a fini de charger
+				f.o.ok.setEnabled(false);
+				f.o.annuler.setEnabled(false);
 				f.o.afficherOptions();
 				if (etat == RESEAU) {
 					// Si il y une demande de connexion
@@ -165,8 +167,9 @@ public class Avalam{
                         }
                     }
 				}else{
-					j.init();
 					t.init();
+					j.init();
+					System.out.println("tutu2 : " + t.nbDeplRestant());
 					save=false;
 					etatSuivant=JEU;
 					etat = ACTUALISER;
@@ -297,7 +300,8 @@ public class Avalam{
 					etat=RESEAU;
 					break;
 				}
-				f.g.labelAmpoule.setEnabled(true);
+				if (j.modeNormal)
+					f.g.labelAmpoule.setEnabled(true);
 				pause();
 				if(interupt){
 					etat=etatSuivant;
@@ -330,7 +334,6 @@ public class Avalam{
 
 			//fin de partie
 			case FIN:
-				//popop (revoir,quitter,nouveau)
 				System.out.println("fin");
 				partieEnCours = false; // la partie est finie
 				f.s.timer.stop();
@@ -345,7 +348,6 @@ public class Avalam{
 		                ma.popupFinDeMatch();
 		                ma.finDeMatch();
 		                ma.finMatch = true;
-
 	                }
                 }
 				break;
@@ -423,7 +425,7 @@ public class Avalam{
 					r.outputReseau.print(j.c.toString());
 				}
 				j.changerJoueur();
-				if(j.courantEstHumain()){
+				if(j.courantEstHumain() && j.modeNormal){
 					f.g.labelAmpoule.setEnabled(true);
 					f.es.actif = true;
 					f.g.ea.actif = true;

@@ -396,11 +396,11 @@ class TerrainGraphique extends JComponent{
 			}
 			if (a.j.J2.estHumain()) {
 				imageJ2 = ImageIO.read(new File(Themes.getImageJ2(theme)));
-			} else if (a.j.J1.type == Jeu.BOTLVL1) {
+			} else if (a.j.J2.type == Jeu.BOTLVL1) {
 				imageJ2 = ImageIO.read(new File(Themes.getImageO20(theme)));
-			} else if (a.j.J1.type == Jeu.BOTLVL2) {
+			} else if (a.j.J2.type == Jeu.BOTLVL2) {
 				imageJ2 = ImageIO.read(new File(Themes.getImageO21(theme)));
-			} else if (a.j.J1.type == Jeu.BOTLVL3) {
+			} else if (a.j.J2.type == Jeu.BOTLVL3) {
 				imageJ2 = ImageIO.read(new File(Themes.getImageO22(theme)));
 			} else { // reseau
 				imageJ2 = ImageIO.read(new File(Themes.getImageR2(theme)));
