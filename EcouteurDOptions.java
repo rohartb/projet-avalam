@@ -101,8 +101,16 @@ public class EcouteurDOptions implements ActionListener,
 		JTextField tf = (JTextField) e.getSource();
 		if (tf == o.TextFieldNomJ1) {
 			o.nomJ1Tmp = tf.getText();
+			if (o.nomJ1Tmp.length() > 8) {
+				tf.setText(o.nomJ1Tmp.substring(0,8));
+				o.nomJ1Tmp = tf.getText();
+			}
 		} else if (tf == o.TextFieldNomJ2) {
 			o.nomJ2Tmp = tf.getText();
+			if (o.nomJ2Tmp.length() > 8) {
+				tf.setText(o.nomJ2Tmp.substring(0,8));
+				o.nomJ2Tmp = tf.getText();
+			}
 		} else {
 			System.err.println("TextField inconnu : " + tf);
 		}

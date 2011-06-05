@@ -351,7 +351,9 @@ public class Avalam{
 				System.out.println("fin");
 				partieEnCours = false; // la partie est finie
 				f.s.timer.stop();
-                if(j.modeNormal){
+				if (partieReseauEnCours) {
+					r.finDePartieReseau();
+				} else if(j.modeNormal){
                     f.popupFinDePartie();
                     etat=etatSuivant;
                 } else {
