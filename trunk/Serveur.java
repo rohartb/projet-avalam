@@ -39,6 +39,7 @@ public class Serveur implements Runnable {
 				            a.f.app.fermerApparence();
 			            }
 			            pasDeConnexion = false;
+			            a.unpause();
 			            a.r = new Reseau(a, client, Reseau.SERVEUR);
 			            a.thReseau = new Thread(a.r);
 			            a.thReseau.start();
@@ -55,7 +56,7 @@ public class Serveur implements Runnable {
 			            a.f.m.actualiser();
 			            a.f.g.repaint();
 			            a.unpause();
-		            } else if (choix == JOptionPane.NO_OPTION) {
+		            } else if (choix == JOptionPane.NO_OPTION || choix == -1) {
 			            System.out.println("Je ferme la connexion");
 			            client.close();
 			            a.unpause();
