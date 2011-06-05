@@ -56,6 +56,7 @@ public class Reseau implements Runnable {
 
 						a.j.J1.type=Jeu.HUMAIN;
 						a.j.J2.type=Jeu.RESEAU;
+						a.f.es.actif = true;
 					}
 				} else {
 					//connexion refusée par le serveur
@@ -77,7 +78,7 @@ public class Reseau implements Runnable {
 			a.f.g.reinitialisationDesBI();
 			a.f.g.repaint();
 			a.f.s.start = new Time(0); // raz du timer
-
+			a.j.actualiser();
 		} catch (Exception e) {
 			System.out.print(" Reseau : " );
 			e.printStackTrace();
