@@ -83,11 +83,6 @@ public class Reseau implements Runnable {
 			System.out.print(" Reseau : " );
 			e.printStackTrace();
 		}
-		a.f.g.repaint();
-
-
-
-
 		try {
 			sock.setSoTimeout(30000);
 		} catch (Exception e) {
