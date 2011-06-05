@@ -33,7 +33,7 @@ class TerrainGraphique extends JComponent{
 	JButton annuler,pause, rejouer;
 	ImageIcon ampoule;
 	JLabel labelAmpoule;
-	String etatJeul1, etatJeul2;
+	String etatJeul1, etatJeul2,ejl1,ejl2;
 	EcouteurDAide ea;
 	static final Color blancTransparent = new Color(255,255,255,127);
 
