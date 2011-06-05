@@ -129,26 +129,27 @@ public class Avalam{
 			//nouvelle partie
 			case NOUVEAU:
 				System.out.println("nouveau");
+				
 				if(!j.finPartie && !save && j.nbCoupsRestants!=292 && j.modeNormal && partieEnCours){
+					f.s.timer.stop();
 					String[] options = {"Sauvegarder" , "Nouveau jeu sans sauvegarder" , "Annuler"};
 					int choix  = JOptionPane.showOptionDialog(null, "Nouveau jeu :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
 					 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
 					if (choix == JOptionPane.YES_OPTION) {
-						System.out.println("save");
+						//nouveau+sauvegarder
 						etat=SAUVER;
 						etatSuivant=NOUVEAU;
 						save=true;
 					}else if (choix == JOptionPane.NO_OPTION) {
-						System.out.println("new without save");
+						//nouveau sans sauvegarder
 						j.init();
 						t.init();
 						save=false;
 						etatSuivant=JEU;
 						etat = ACTUALISER;
 					}else{
-
 						//annuler
-						System.out.println("annuler");
+						f.s.timer.start();
 						etat=JEU;
 					}
 				} else if (!j.modeNormal) { // on fait nouveau en mode match
