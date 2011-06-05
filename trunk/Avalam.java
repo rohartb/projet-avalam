@@ -278,6 +278,7 @@ public class Avalam{
 
 
 			case PARTIERESEAU:
+				System.out.println("parti réseau");
 				pause();
 				t.init(); // raz du terrain
 				f.g.reinitialisationDesBI();
