@@ -393,12 +393,17 @@ public class Avalam{
 				f.g.labelAmpoule.setEnabled(false);
 				f.es.actif = false;
 				f.g.ea.actif = false;
-				//changer texte
+				f.g.ejl1=f.g.etatJeul1;
+				f.g.ejl2=f.g.etatJeul2;
+				f.g.etatJeul1=new String("Calcul d'aide");
+				f.g.etatJeul2=new String("en cours...");
+				f.g.repaint();
 				j.jouerBot();
 				f.g.animationPionAuto();
 				f.g.animationPionAnnuler();
 				f.g.repaint();
-				//remetre texte
+				f.g.etatJeul1=f.g.ejl1;
+				f.g.etatJeul2=f.g.ejl2;
 				f.g.labelAmpoule.setEnabled(true);
 				f.es.actif = true;
 				f.g.ea.actif = true;
