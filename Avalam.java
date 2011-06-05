@@ -410,6 +410,8 @@ public class Avalam{
 					etat=JOUER;
 				}else{
 					if(t.okAnim(f.g.coordToIndice(f.g.click))){
+						f.es.actif = false;
+						f.g.ea.actif = false;
 						f.g.animationPion(f.g.release,f.g.click);
 						f.g.repaint();
 					}
