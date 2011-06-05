@@ -204,6 +204,7 @@ public class Avalam{
                     ma = new Match(this);
                     ma.debutMatch();
                     f.activerAnnulerRefaire(false);
+					f.activerPause(false);
 					j.init();
 					t.init();
 					f.s.actualiser();
@@ -274,6 +275,7 @@ public class Avalam{
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
+				f.s.timer.start();
 				f.es.actif = true;
 				if(interupt){
 					etat=etatSuivant;
@@ -316,13 +318,9 @@ public class Avalam{
 			case PAUSE:
 				//TODO bloquer les clik souris sur le graphique
 				System.out.println("pause");
-				j.pause=true;
-				etatPause=etatSuivant;
-				f.m.actualiser();
-				pause();
-				j.pause=false;
-				etatSuivant=etatPause;
-				etat=ACTUALISER;
+				f.s.timer.stop();
+				JOptionPane.showMessageDialog(f, "Jeu en pause, cliquez sur OK pour reprendre la partie", "Pause", JOptionPane.INFORMATION_MESSAGE);
+				etat=JEU;
 				break;
 
 			//fin de partie
@@ -347,9 +345,9 @@ public class Avalam{
 
 			//calcul un coup a partir du bot
 			case BOT:
-				f.activerAnnulerRefaire(false);
 				System.out.println("bot");
 				f.g.labelAmpoule.setEnabled(false);
+				f.activerAnnulerRefaire(false);
 				f.es.actif = false;
 				f.g.ea.actif = false;
 				j.jouerBot();
