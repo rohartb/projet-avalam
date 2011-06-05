@@ -69,10 +69,10 @@ public class Reseau implements Runnable {
 				s = new String(buffer, 0, number);
 				a.j.J1.nom = s;
 				System.out.println("Je reçois le nom");
-				a.t.init();
-				a.f.g.repaint();
 			}
-			a.f.s.start = new Time(0);
+			a.t.init(); // raz du terrain
+			a.f.g.repaint();
+			a.f.s.start = new Time(0); // raz du timer
 
 		} catch (Exception e) {
 			System.out.print(" Reseau : " );
