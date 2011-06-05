@@ -258,7 +258,9 @@ public class Avalam{
 
 							//attente de la réponse
 							sock.setSoTimeout(10000);
-							while(! r.connexionAcceptee) {};
+							while(! r.connexionAcceptee) {
+								Thread.sleep(200);
+							}
 							System.out.println("La demande de connexion a été accpetée");
 							sock.setSoTimeout(0); // desactive le timeout
 
