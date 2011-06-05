@@ -67,6 +67,7 @@ class TerrainGraphique extends JComponent{
 		labelAmpoule = new JLabel(ampoule);
 		labelAmpoule.setDisabledIcon(new ImageIcon("images/ampouleoff.png"));
 		labelAmpoule.setEnabled(false);
+		labelAmpoule.setToolTipText("Aide");
 		this.add(labelAmpoule);
 
 		ea = new EcouteurDAide(a, this);
