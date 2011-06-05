@@ -30,7 +30,7 @@ class TerrainGraphique extends JComponent{
 	private BufferedImage BIFondAnimation;
 	public Image BIPlateau, imageJ1, imageJ2;
 
-	JButton annuler, rejouer;
+	JButton annuler,pause, rejouer;
 	ImageIcon ampoule;
 	JLabel labelAmpoule;
 	String etatJeul1, etatJeul2;
@@ -48,14 +48,19 @@ class TerrainGraphique extends JComponent{
 		File ap = new File(System.getProperty("user.home")+"/.Avalam/Config/apparence.cfg");
 
 		annuler = new JButton("↩");
+		pause = new JButton("❙❙");
 		rejouer = new JButton("↪");
 		this.add(annuler);
+		this.add(pause);
 		this.add(rejouer);
 		annuler.setActionCommand("annuler");
+		pause.setActionCommand("pause");
 		rejouer.setActionCommand("rejouer");
 		annuler.setToolTipText("Annuler le dernier coup joué");
+		pause.setToolTipText("Met le jeu en pause");
 		rejouer.setToolTipText("Rejouer le coup annulé");
 		annuler.addActionListener(a.f.em);
+		pause.addActionListener(a.f.em);
 		rejouer.addActionListener(a.f.em);
 
 		ampoule = new ImageIcon("images/ampoule.png");
@@ -196,9 +201,11 @@ class TerrainGraphique extends JComponent{
 
 		int yBiduleCentre = (yRect+hauteur/2)-(tailleCase/2+ metrics.getHeight()*2 + ampoule.getIconHeight())/2;
 		annuler.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
-		annuler.setBounds(xRect+gap, yBiduleCentre,tailleCase, tailleCase/2);
+		annuler.setBounds(xRect+gap/3, yBiduleCentre,tailleCase, tailleCase/2);
+		pause.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
+		pause.setBounds(xRect+(largeur-tailleCase)/2, yBiduleCentre,tailleCase, tailleCase/2);
 		rejouer.setFont(rejouer.getFont().deriveFont((float) (0.30*tailleCase)));
-		rejouer.setBounds(xRect+largeur-gap-tailleCase, yBiduleCentre, tailleCase, tailleCase/2);
+		rejouer.setBounds(xRect+largeur-gap/3-tailleCase, yBiduleCentre, tailleCase, tailleCase/2);
 
 		if (a.j.courantEstJ1())
 			drawable.setPaint(Themes.getCouleurPionJ1(theme));
