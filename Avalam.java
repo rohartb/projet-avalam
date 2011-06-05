@@ -19,7 +19,9 @@ public class Avalam{
 	boolean quit;
 	boolean save;
     boolean match;
+	boolean jeFaisLaConnexion;
 	boolean partieEnCours;
+	boolean partieReseauEnCours;
 
 	static final int INIT=-1;
 
@@ -257,6 +259,7 @@ public class Avalam{
 							System.out.println("La demande de connexion a été accpetée");
 							sock.setSoTimeout(0); // desactive le timeout
 							etat = PARTIERESEAU;
+							jeFaisLaConnexion = true;
 							//TODO activer mode match
 						} else {
 							System.out.println("Pas de connexion");
@@ -279,11 +282,15 @@ public class Avalam{
 
 			case PARTIERESEAU:
 				System.out.println("parti réseau");
-				pause();
+				if (! jeFaisLaConnexion) {
+					pause();
+				}
+				partieReseauEnCours = true;
 				t.init(); // raz du terrain
 				f.g.reinitialisationDesBI();
 				f.g.repaint();
 				f.s.start = new Time(0); // raz du timer
+				j.joueurCourant = 1;
 				j.actualiser();
 				etat = JEU;
 				break;
