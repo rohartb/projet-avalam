@@ -69,7 +69,7 @@ class Match{
 		int nbJ1 = a.j.J1.score;
 		int nbJ2 = a.j.J2.score;
 		// Affichage du la popup
-		String message= new String ("match " + (nbPartiesJouees+1) + "/" + nbPartiesTotales+ "\n");
+		String message= new String ("match " + (nbPartiesJouees) + "/" + nbPartiesTotales+ "\n");
 		String titre;
 		if(nbJ1 == nbJ2){
 			message+=("Personne ne gagne ! \n Score : "+nbJ1+" - "+nbJ2);
@@ -114,6 +114,13 @@ class Match{
 		// Affichage du la popup
 		nbToursJ1 += nbJ1;
 		nbToursJ2 += nbJ2;
+		if (nbJ2 > nbJ1) {
+			scoreMJ2++;
+		} else if(nbJ1 > nbJ2) {
+			scoreMJ1++;
+		}else {
+			scoreMJ1++; scoreMJ2++;
+		}
 		String message= new String ("Résultat du match : ");
 		String titre;
 		if(scoreMJ1 == scoreMJ2){
@@ -130,12 +137,10 @@ class Match{
 					titre=new String("Victoire");
 				}
 			}else{
-				if (nbJ2 > nbJ1) {
+				if (scoreMJ2 > scoreMJ1) {
 					vainqueur = a.j.J2.nom;
-					scoreMJ2++;
-				}else { // nbJ1 > nbJ2
+				}else { //
 					vainqueur = a.j.J1.nom;
-					scoreMJ1++;
 				}
 				message += (vainqueur+" remporte la partie ! \n Score :  "+scoreMJ1+" - "+scoreMJ2);
 				titre = new String("Victoire");
@@ -144,8 +149,18 @@ class Match{
 		message += ("\nStatistiques : \n " +
 		            " nombre de tours de " + a.j.J1.nom + " : " + nbToursJ1 + "\n" +
 		            " nombre de tours de " + a.j.J2.nom + " : " + nbToursJ2 + "\n");
-		String[] options = {"Continuer le match"};
-		JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		String[] options = {"Lancer un nouveau match", "Quitter le monde match"};
+		int rep = JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		if (rep == JOptionPane.YES_OPTION) {
+			System.out.println("Nouveau match");
+			a.etat = a.NOUVEAUMATCH;
+		}else if (rep == JOptionPane.NO_OPTION || rep == -1) {
+			System.out.println("Fin du mode match");
+			a.etat = a.OPTIONS;
+			a.f.o.ok.setEnabled(false);
+		} else {
+			System.err.println("Erreur fin match " + rep);
+		}
 	}
 
     public void finDeMatch(){

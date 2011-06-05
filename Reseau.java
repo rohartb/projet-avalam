@@ -39,22 +39,29 @@ public class Reseau implements Runnable {
 				//si on est le client on attend d'abord la valid
 				//System.out.println("caca");
 				number = inputReseau.read(buffer);
-				s = new String(buffer);
-				String[] tokens = s.split("[ ]+");
-				int t = Integer.valueOf(tokens[0]);
-				//System.out.println("'" + t + "'");
-				if (t == 1234) {
-					System.out.println("je reçois connexionAcceptee");
-					connexionAcceptee = true;
-					outputReseau.print(a.j.J1.nom);
-					number = inputReseau.read(buffer);
-					s = new String(buffer,0,number);
-					a.j.J2.nom = s;
-					System.out.println("Je change les noms");
+				if (number > 0) {
+				s = new String(buffer, 0, number);
+				System.out.println("longueur : " + s.length());
+
+					String[] tokens = s.split("[ ]+");
+					int t = Integer.valueOf(tokens[0]);
+					//System.out.println("'" + t + "'");
+					if (t == 1234) {
+						System.out.println("je reçois connexionAcceptee");
+						connexionAcceptee = true;
+						outputReseau.print(a.j.J1.nom);
+						number = inputReseau.read(buffer);
+						s = new String(buffer,0,number);
+						a.j.J2.nom = s;
+						System.out.println("Je change les noms");
+					}
+				} else {
+					JOptionPane.showMessageDialog(a.f,"Connexion refusée par l'hôte", "Connexion refusée", JOptionPane.ERROR_MESSAGE);
 				}
 			} else if (type == SERVEUR) {
 				outputReseau.print(a.j.J2.nom);
 				number = inputReseau.read(buffer);
+
 				s = new String(buffer, 0, number);
 				a.j.J1.nom = s;
 				System.out.println("Je change les noms");
