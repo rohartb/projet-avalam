@@ -74,11 +74,6 @@ public class Reseau implements Runnable {
 				a.j.J1.type=Jeu.RESEAU ;
 				a.j.J2.type=Jeu.HUMAIN ;
 			}
-			a.t.init(); // raz du terrain
-			a.f.g.reinitialisationDesBI();
-			a.f.g.repaint();
-			a.f.s.start = new Time(0); // raz du timer
-			a.j.actualiser();
 		} catch (Exception e) {
 			System.out.print(" Reseau : " );
 			e.printStackTrace();

@@ -27,7 +27,7 @@ public class Serveur implements Runnable {
 		            Socket client = listener.accept();
 
 		            a.interupt = true; // mise en pause du jeu (arrete les bots s'ils jouent)
-		            a.etatSuivant = a.PAUSE;
+		            a.etatSuivant = a.PARTIERESEAU;
 
 		            int choix = JOptionPane.showOptionDialog(null,client.getInetAddress().toString() + " souhaite jouer en réseau avec vous", "Requète de partie en réseau",
 		                                                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), null, null);

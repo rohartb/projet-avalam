@@ -3,6 +3,7 @@ import java.awt.Point;
 import java.io.File;
 import java.net.*;
 import java.util.*;
+import java.sql.Time;
 
 public class Avalam{
 	Fenetre f;
@@ -27,6 +28,7 @@ public class Avalam{
 	static final int PAUSE=3;
 	static final int BOT=4;
 	static final int RESEAU=5;
+	static final int PARTIERESEAU=31;
 	static final int AIDE=30;
 	static final int JOUERAUTO=6;
 	static final int JOUERMANU=7;
@@ -254,13 +256,14 @@ public class Avalam{
 							}
 							System.out.println("La demande de connexion a été accpetée");
 							sock.setSoTimeout(0); // desactive le timeout
-
+							etat = PARTIERESEAU;
+							//TODO activer mode match
 						} else {
 							System.out.println("Pas de connexion");
+							etat = JEU;
 						}
 					}
-					// on active le mode match ?
-					etat = JEU;
+
 				} catch (NoRouteToHostException nt) {
 					JOptionPane.showMessageDialog(f, "Hôte inconnu, connexion impossible", "Connexion impossible", JOptionPane.ERROR_MESSAGE);
 					etat = JEU;
@@ -272,6 +275,18 @@ public class Avalam{
 				} finally {
 					break;
 				}
+
+
+			case PARTIERESEAU:
+				pause();
+				t.init(); // raz du terrain
+				f.g.reinitialisationDesBI();
+				f.g.repaint();
+				f.s.start = new Time(0); // raz du timer
+				j.actualiser();
+				etat = JEU;
+				break;
+
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
 				System.out.println("jeu");
