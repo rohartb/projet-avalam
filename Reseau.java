@@ -48,6 +48,7 @@ public class Reseau implements Runnable {
 					//System.out.println("'" + t + "'");
 					if (t == 1234) {
 						System.out.println("je reçois connexionAcceptee");
+						a.t.init();
 						connexionAcceptee = true;
 						outputReseau.print(a.j.J1.nom);
 						number = inputReseau.read(buffer);
@@ -59,6 +60,7 @@ public class Reseau implements Runnable {
 					JOptionPane.showMessageDialog(a.f,"Connexion refusée par l'hôte", "Connexion refusée", JOptionPane.ERROR_MESSAGE);
 				}
 			} else if (type == SERVEUR) {
+				a.t.init();
 				outputReseau.print(a.j.J2.nom);
 				number = inputReseau.read(buffer);
 
@@ -73,7 +75,7 @@ public class Reseau implements Runnable {
 		}
 		a.f.g.repaint();
 		try {
-			sock.setSoTimeout(10000);
+			sock.setSoTimeout(30000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		};
