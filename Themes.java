@@ -15,7 +15,7 @@ public class Themes {
 	static private final  String T1O12    = "images/o12t1.png";
 	static private final  String T1R1     = "images/r1t1.png";
 	static private final  String T1J2     = "images/j2t1.png";
-	static private final  String T1O20    = "images/o22t1.png";
+	static private final  String T1O20    = "images/o20t1.png";
 	static private final  String T1O21    = "images/o21t1.png";
 	static private final  String T1O22    = "images/o22t1.png";
 	static private final  String T1R2     = "images/r2t1.png";
