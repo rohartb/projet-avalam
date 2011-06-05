@@ -155,7 +155,7 @@ public class Reseau implements Runnable {
 
 		String[] options = {"Quitter le jeu", "relancer une partie", "Relancer une partie en réseau"};
 		int rep = JOptionPane.showOptionDialog(null,
-		                              "La connexion avec " + nom + "a été interrompue",
+		                              "Fin de partie en réseau",
 		                              "Fin de partie en réseau",
 		                              JOptionPane.YES_NO_CANCEL_OPTION,
 		                              JOptionPane.ERROR_MESSAGE,

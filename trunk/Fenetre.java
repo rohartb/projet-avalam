@@ -29,28 +29,35 @@ class Fenetre extends JFrame implements Runnable{
 	void pleinEcran(){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice gs = ge.getDefaultScreenDevice();
-		if(!pleinEcran){
-			dispose();
-			setUndecorated(true);
-			setResizable(false);
-			setVisible(true);
-			if(gs.isFullScreenSupported()){
-				validate();
-				gs.setFullScreenWindow(this);
-				pleinEcran = true;
-				m.itemPleinEcran.setText("Quitter plein écran");
+		try {
+			if(!pleinEcran){
+				dispose();
+				setUndecorated(true);
+				setResizable(false);
+				setVisible(true);
+				if(gs.isFullScreenSupported()){
+					validate();
+					gs.setFullScreenWindow(this);
+					pleinEcran = true;
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					m.itemPleinEcran.setText("Quitter plein écran");
+				}else{
+					JOptionPane.showMessageDialog(null, "Erreur", "Plein écran non disponible sur votre Système", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}else{
-				JOptionPane.showMessageDialog(null, "Erreur", "Plein écran non disponible sur votre Système", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				setUndecorated(false);
+				setResizable(true);
+				if (System.getProperty("os.name").equals("Mac OS X")) {
+					System.setProperty ("apple.laf.useScreenMenuBar","true");
+					System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Test");
+				}
+				setVisible(true);
+				gs.setFullScreenWindow(null);
+				pleinEcran = false;
+				m.itemPleinEcran.setText("Plein écran");
 			}
-		}else{
-			dispose();
-			setUndecorated(false);
-			setResizable(true);
-			setVisible(true);
-			gs.setFullScreenWindow(null);
-			pleinEcran = false;
-			m.itemPleinEcran.setText("Plein écran");
-		}
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 
 

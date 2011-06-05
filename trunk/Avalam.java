@@ -319,7 +319,7 @@ public class Avalam{
 					etat=RESEAU;
 					break;
 				}
-				if (j.modeNormal)
+				if (j.modeNormal && !partieReseauEnCours)
 					f.g.labelAmpoule.setEnabled(true);
 				pause();
 				if(interupt){
