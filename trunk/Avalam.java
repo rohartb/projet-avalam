@@ -18,6 +18,7 @@ public class Avalam{
 	Serveur serv;
 	boolean quit;
 	boolean save;
+	boolean load;
     boolean match;
 	boolean jeFaisLaConnexion;
 	boolean partieEnCours;
@@ -464,14 +465,38 @@ public class Avalam{
 				}
 				break;
 
-			//TODO popop sauvegarder avant charger
 			case CHARGER:
 				System.out.println("charger");
 				f.s.timer.stop();
-				s.afficherCharger();
-				if(!j.revoirH)
-					f.s.timer.start();
-				etat=etatSuivant;
+				
+				if(!j.finPartie && !load && j.nbCoupsRestants!=292 && j.modeNormal && partieEnCours){
+					String[] options = {"Sauvegarder" , "Charger sans sauvegarder" , "Annuler"};
+					int choix  = JOptionPane.showOptionDialog(null, "Charger :\n voulez-vous sauvegarder la partie en cours ?", "Sauvegarder ?",
+					 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
+					if (choix == JOptionPane.YES_OPTION) {
+						//charger+sauvegarder
+						etat=SAUVER;
+						etatSuivant=CHARGER;
+						load=true;
+					}else if (choix == JOptionPane.NO_OPTION) {
+						//charger sans sauvegarder
+						s.afficherCharger();
+						if(!j.revoirH)
+							f.s.timer.start();
+						etat=etatSuivant;
+						load=false;
+					}else{
+						//annuler
+						f.s.timer.start();
+						etat=JEU;
+					}
+				}else{
+					s.afficherCharger();
+					if(!j.revoirH)
+						f.s.timer.start();
+					etat=etatSuivant;
+					load=false;
+				}
 				break;
 
 			//popop de sauvearde
@@ -487,6 +512,9 @@ public class Avalam{
 					etat=HISTORIQUE;
 				}else if(quit){
 					etat=QUITTER;
+				}else if(load){
+					etat=JEU;
+					load=false;
 				}else{
 					etat=JEU;
 				}
