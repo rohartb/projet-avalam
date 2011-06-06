@@ -90,6 +90,15 @@ class Sauvegarde{
             }
             a.f.s.start = new Time(temps);
             a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
+            
+            //grisage de l'aide si la partie est finie ou si on est dans historique
+            if(a.j.revoirH || a.j.finPartie){
+		        a.f.g.labelAmpoule.setEnabled(false);
+				a.f.g.ea.actif=false;
+			}else{
+				a.f.g.labelAmpoule.setEnabled(true);
+				a.f.g.ea.actif=true;
+			}
 
             //grisage des options annuler et refaire et voir dernier coup
             //annuler visible si la pile n'est pas vide ET (mode normal OU fin de partie)
