@@ -413,6 +413,7 @@ public class Options extends JDialog{
 			a.j.init();
 			a.j.J2.type = Jeu.HUMAIN;
 		}
+		appliquerRelancer.setEnabled(true);
 		annuler.setEnabled(true);
 		ok.setEnabled(true);
 		this.setVisible(false);

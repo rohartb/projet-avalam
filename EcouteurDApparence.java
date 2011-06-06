@@ -26,11 +26,11 @@ public class EcouteurDApparence implements ActionListener,
 			if (themeTmp == -1) {
 				themeTmp = a.f.g.theme;
 			}
-			if (cmd.equals("Theme 1")) {
+			if (cmd.equals("Thème bois")) {
 				a.f.g.theme = Themes.THEME1;
 			} else if (cmd.equals("Theme 2")) {
 				a.f.g.theme = Themes.THEME2;
-			} else if (cmd.equals("Theme 3")) {
+			} else if (cmd.equals("Thème marin")) {
 				a.f.g.theme = Themes.THEME3;
 			} else {
 				System.out.println("Commande : " + cmd );
@@ -44,7 +44,7 @@ public class EcouteurDApparence implements ActionListener,
 			app.sauver();
 			app.fermerApparence();
 			themeTmp = -1;
-			
+
 		} else if (cmd.equals("annuler")) {
 			if (themeTmp != -1) {
 				a.f.g.theme = themeTmp;

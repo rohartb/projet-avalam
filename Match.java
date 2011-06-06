@@ -161,6 +161,8 @@ class Match{
 
     public void finDeMatch(){
         //TODO popup de fin avec resultat et tout
+	    a.f.g.pause.setEnabled(true);
+	    a.f.m.pause.setEnabled(true);
         a.f.m.options.setEnabled(true);
         a.f.m.sauvegarder.setEnabled(true);
         a.f.m.charger.setEnabled(true);

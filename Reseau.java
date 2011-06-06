@@ -57,6 +57,9 @@ public class Reseau implements Runnable {
 						a.j.J2.type=Jeu.RESEAU;
 						a.f.es.actif = true;
 						connexionAcceptee = true;
+
+						a.f.g.pause.setEnabled(false);
+						a.f.m.pause.setEnabled(false);
 					}
 				} else {
 					//connexion refusée par le serveur
@@ -73,6 +76,9 @@ public class Reseau implements Runnable {
 
 				a.j.J1.type=Jeu.RESEAU ;
 				a.j.J2.type=Jeu.HUMAIN ;
+
+				a.f.g.pause.setEnabled(false);
+				a.f.m.pause.setEnabled(false);
 			}
 		} catch (Exception e) {
 			System.out.print(" Reseau : " );
@@ -144,6 +150,7 @@ public class Reseau implements Runnable {
 		} else if (rep == JOptionPane.CANCEL_OPTION) {
 			System.out.println("relancer la connexion");
 		}
+		finReseau();
 	}
 
 	public void finDePartieReseau() {
@@ -169,7 +176,13 @@ public class Reseau implements Runnable {
 		} else if (rep == JOptionPane.CANCEL_OPTION) {
 			System.out.println("relancer la connexion");
 		}
+		finReseau();
+	}
 
+	public void finReseau() {
+		a.partieReseauEnCours = false;
+		a.f.g.pause.setEnabled(true);
+		a.f.m.pause.setEnabled(true);
 	}
 }
 

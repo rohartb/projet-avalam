@@ -166,6 +166,25 @@ class TerrainGraphique extends JComponent{
 		drawable.fillOval(x+tailleCase/4, y+tailleCase/4, tailleCase/2, tailleCase/2);
 	}
 
+	public void panneauAide(Graphics2D drawable) {
+
+		int largeur = 5*ampoule.getIconWidth()/4;
+		int hauteur = 3*ampoule.getIconHeight()/2;
+		int xRect = p.width-tailleCase/2-largeur;
+		int yRect = gapV+tailleCase/2;
+		int xCentre = xRect+largeur/2;
+
+		Font f = new Font("Liberation Sans", 1 , (int) 12);
+		FontMetrics metrics = getFontMetrics(f);
+
+		RoundRectangle2D rect = new RoundRectangle2D.Float(xRect, yRect, largeur, hauteur, 20, 20);
+		drawable.setPaint(blancTransparent);
+		drawable.fill(rect);
+		labelAmpoule.setBounds(xCentre-ampoule.getIconWidth()/2, yRect+ampoule.getIconHeight()/6, ampoule.getIconWidth(), ampoule.getIconHeight());
+		int decalage = metrics.stringWidth("Aide");
+		drawable.setPaint(Color.black);
+		drawable.drawString("Aide", xCentre-decalage/2, ampoule.getIconHeight()/6+yRect+ampoule.getIconHeight()+ metrics.getHeight());
+	}
 
 
 	public void panneau(Graphics2D drawable) {
@@ -201,7 +220,7 @@ class TerrainGraphique extends JComponent{
 		                   null);
 
 
-		int yBiduleCentre = (yRect+hauteur/2)-(tailleCase/2+ metrics.getHeight()*2 + ampoule.getIconHeight())/2;
+		int yBiduleCentre = (yRect+hauteur/2)-(tailleCase/2+ metrics.getHeight()*2)/2;
 		int decalalge = (largeur-2*tailleCase)/4;
 		annuler.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
 		annuler.setBounds(xRect+decalalge, yBiduleCentre,2*tailleCase/3, tailleCase/2);
@@ -213,6 +232,8 @@ class TerrainGraphique extends JComponent{
 		rejouer.setBounds(xRect+3*decalalge+4*tailleCase/3, yBiduleCentre, 2*tailleCase/3, tailleCase/2);
 
 
+
+
 		if (a.j.courantEstJ1())
 			drawable.setPaint(Themes.getCouleurPionJ1(theme));
 		else
@@ -222,7 +243,7 @@ class TerrainGraphique extends JComponent{
 		drawable.drawString(etatJeul1, xCentre-decalage/2,yBiduleCentre+tailleCase);
 		decalage = metrics.stringWidth(etatJeul2);
 		drawable.drawString(etatJeul2, xCentre-decalage/2,yBiduleCentre+tailleCase+metrics.getHeight());
-		labelAmpoule.setBounds(xCentre-ampoule.getIconWidth()/2, yBiduleCentre+2*tailleCase/3+metrics.getHeight()*2, ampoule.getIconWidth(), ampoule.getIconHeight());
+
 
 
 		drawable.drawImage(imageJ1, xCentre-tailleCase/2,
@@ -459,7 +480,7 @@ class TerrainGraphique extends JComponent{
 			if (BIPlateau == null) {
 				reinitialisationDesBI();
 			}
-
+			panneauAide(drawable);
 			panneau(drawable);
 			drawable.drawImage(BIPlateau, gapG-tailleCase*1/5, gapV-tailleCase*1/5, (int) (tailleCase*9.3), (int) (tailleCase*9.3), null);
 			for(int i=0; i<N; i++){
@@ -480,6 +501,7 @@ class TerrainGraphique extends JComponent{
 		} else {
 			drawable.drawImage(BIFondAnimation, 0, 0, null);
 
+			panneauAide(drawable);
 			panneau(drawable);
 			if (adjacent) {
 				dessineAdjacent(drawable);
