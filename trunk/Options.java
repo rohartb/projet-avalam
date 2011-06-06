@@ -278,13 +278,13 @@ public class Options extends JDialog{
 
 		//Afficher déplacement d'un pion
 
-		activerAide = new JCheckBox("Activer");
+		activerAide = new JCheckBox("Activer                           ");
 		activerAide.setActionCommand("activeraide");
 		activerAide.addActionListener(eo);
 		activerAide.setSelected(aide);
 
 		JPanel panelOptionDAide = new JPanel();
-		panelOptionDAide.setBorder(BorderFactory.createTitledBorder("Aide"));
+		panelOptionDAide.setBorder(BorderFactory.createTitledBorder("Indications de déplacements"));
 		panelOptionDAide.add(activerAide);
 
 		/////// Panel Bouton Ok / Annuler
