@@ -138,9 +138,9 @@ class MenuAvalam extends JMenuBar{
 			a.f.g.annuler.setEnabled(false);
 		}else{
 			annuler.setEnabled(!a.j.h.annulerVide() && (a.j.revoirH || a.j.modeNormal)
-								&& !(a.j.J1.estRobot() || a.j.J2.estRobot()));
+								&& !(a.j.J1.estRobot() && a.j.J2.estRobot()));
 			a.f.g.annuler.setEnabled(!a.j.h.annulerVide() && (a.j.revoirH || a.j.modeNormal)
-								&& !(a.j.J1.estRobot() || a.j.J2.estRobot())); // bouton du terrain
+								&& !(a.j.J1.estRobot() && a.j.J2.estRobot())); // bouton du terrain
 		}
 
 		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
