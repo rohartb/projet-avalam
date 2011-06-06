@@ -153,11 +153,11 @@ public class EcouteurDOptions implements ActionListener,
 			if(o.typeJ1==a.j.HUMAIN){
 				o.nomJ1=a.j.J1.nom="Joueur1";
 			}else if(o.typeJ1==a.j.BOTLVL1){
-				o.nomJ1=a.j.J1.nom="EasyBot";
+				o.nomJ1=a.j.J1.nom="Salameche";
 			}else if(o.typeJ1==a.j.BOTLVL2){
-				o.nomJ1=a.j.J1.nom="MediumBot";
+				o.nomJ1=a.j.J1.nom="Reptincel";
 			}else if(o.typeJ1==a.j.BOTLVL3){
-				o.nomJ1=a.j.J1.nom="HardBot";
+				o.nomJ1=a.j.J1.nom="Dracaufeu";
 			}
 		}
 		
@@ -165,11 +165,11 @@ public class EcouteurDOptions implements ActionListener,
 			if(o.typeJ2==a.j.HUMAIN){
 				o.nomJ2=a.j.J2.nom="Joueur2";
 			}else if(o.typeJ2==a.j.BOTLVL1){
-				o.nomJ2=a.j.J2.nom="EasyBot";
+				o.nomJ2=a.j.J2.nom="Carapuce";
 			}else if(o.typeJ2==a.j.BOTLVL2){
-				o.nomJ2=a.j.J2.nom="MediumBot";
+				o.nomJ2=a.j.J2.nom="Carabaffe";
 			}else if(o.typeJ2==a.j.BOTLVL3){
-				o.nomJ2=a.j.J2.nom="HardBot";
+				o.nomJ2=a.j.J2.nom="Tortank";
 			}
 		}
 
