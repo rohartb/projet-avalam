@@ -195,6 +195,7 @@ class TerrainGraphique extends JComponent{
 		int largeur = 3*tailleCase;
 		int xCentre = xRect+(largeur/2);
 		int yCentre = yRect+(hauteur/2);
+		int tailleJoueur;
 
 		RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(xRect, yRect, largeur, hauteur, 20, 20);
 		drawable.setPaint(blancTransparent);
@@ -228,9 +229,14 @@ class TerrainGraphique extends JComponent{
 		drawable.drawString("J1", xRect+tailleCase/18+decalage/2,
 		                    yPion+2*diametrePion/3);
 
-		drawable.drawImage(imageJ2,xCentre-tailleCase/2,
+		if (a.j.courantEstJ1()) {
+			tailleJoueur = tailleCase;
+		} else {
+			tailleJoueur = 3*tailleCase/2;
+		}
+		drawable.drawImage(imageJ2,xCentre-tailleJoueur/2,
 		                   yTextHaut+3*metrics.getHeight()/2,
-		                   tailleCase, tailleCase,
+		                   tailleJoueur, tailleJoueur,
 		                   null);
 
 
@@ -260,10 +266,16 @@ class TerrainGraphique extends JComponent{
 		drawable.drawString(etatJeul2, xCentre-decalage/2,yBiduleCentre+tailleCase+metrics.getHeight());
 
 
+		// dessine le joueur 1
+		if (a.j.courantEstJ2()) {
+			tailleJoueur = tailleCase;
+		} else {
+			tailleJoueur = 3*tailleCase/2;
+		}
 
-		drawable.drawImage(imageJ1, xCentre-tailleCase/2,
-		                   yTextBas-metrics.getHeight()*2-tailleCase,
-		                   tailleCase, tailleCase, null);
+		drawable.drawImage(imageJ1, xCentre-tailleJoueur/2,
+		                   yTextBas-metrics.getHeight()*2-tailleJoueur,
+		                   tailleJoueur, tailleJoueur, null);
 
 
 		yPion = yTextBas-metrics.getHeight()*2;
