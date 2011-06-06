@@ -13,6 +13,7 @@ class Sauvegarde{
     JList listCharger;
     JButton fermer, charger, supprimer;
     JDialog fenetreCharger;
+	Object[] listeFichiers;
 
 	public Sauvegarde(Avalam a){
 		this.a = a;
@@ -90,7 +91,7 @@ class Sauvegarde{
             }
             a.f.s.start = new Time(temps);
             a.f.s.labelTemps.setText("  " + a.f.s.sdf.format(a.f.s.start));
-            
+
             //grisage de l'aide si la partie est finie ou si on est dans historique
             if(a.j.revoirH || a.j.finPartie){
 		        a.f.g.labelAmpoule.setEnabled(false);
@@ -238,7 +239,7 @@ class Sauvegarde{
 		};
 
 		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
-        Object[] listeFichiers = dossier.list(ff);
+        listeFichiers = dossier.list(ff);
 
         if(listeFichiers.length != 0) {
             listCharger.setListData(listeFichiers);
@@ -250,4 +251,21 @@ class Sauvegarde{
             supprimer.setEnabled(false);
         }
     }
+
+	public boolean fichierAChargerSontPresents() {
+        FilenameFilter ff = new FilenameFilter() {
+			public boolean accept(File f,String name) {
+				return name.endsWith(".save");
+			}
+		};
+
+		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
+        listeFichiers = dossier.list(ff);
+        System.out.println(listeFichiers.length + " ata");
+        if(listeFichiers.length > 0) {
+	        return true;
+        } else {
+	        return false;
+        }
+	}
 }

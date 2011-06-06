@@ -67,7 +67,7 @@ public class Options extends JDialog{
 		typeJ2 = a.j.J2.type;
 		nomJ1 = a.j.J1.nom;
 		nomJ2 = a.j.J2.nom;
-		
+
 		modeNormal= a.j.modeNormal;
 		aide = a.j.modeAide;
 
@@ -402,6 +402,39 @@ public class Options extends JDialog{
 		else
 			activerAide.setSelected(false);
 
+		if (a.j.J1 == null || a.j.J2 == null || a.j.h == null) {
+			ok.setLabel("Astuces");
+			ok.setActionCommand("astuces");
+			annuler.setLabel("Charger une partie");
+			annuler.setActionCommand("charger");
+			if (! a.s.fichierAChargerSontPresents()) {
+				annuler.setEnabled(false);
+			} else {
+				annuler.setEnabled(true);
+			}
+			ok.setEnabled(true);
+
+			getRootPane().setDefaultButton(appliquerRelancer);
+			appliquerRelancer.setLabel("Lancer la partie");
+		}
+
+		if (a.j.J1 != null && a.j.J2 != null && a.j.h != null) {
+			ok.setEnabled(true);
+			annuler.setEnabled(true);
+
+			ok.setLabel("Appliquer");
+			ok.setActionCommand("ok");
+
+			annuler.setLabel("Annuler");
+			annuler.setActionCommand("annuler");
+			annuler.setEnabled(true);
+
+			appliquerRelancer.setLabel("Appliquer et relancer");
+			appliquerRelancer.setActionCommand("appliquerrelancer");
+
+
+		}
+		this.pack();
 		this.setVisible(true);
 	}
 

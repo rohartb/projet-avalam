@@ -108,7 +108,7 @@ class MenuAvalam extends JMenuBar{
 		itemPleinEcran.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
 		affichage.add(itemPleinEcran);
 		this.add(affichage);
-        
+
         match= new JMenu("Match");
         nouveauMatch = new JMenuItem("Demmarer un nouveau match");
 		nouveauMatch.setActionCommand("nouveauMatch");
@@ -144,6 +144,10 @@ class MenuAvalam extends JMenuBar{
 	}
 
 	void actualiser(){
+		if (a.s.fichierAChargerSontPresents())
+			charger.setEnabled(true);
+		else
+			charger.setEnabled(false);
 
 		//si la taille de la pile est de 1 (un seul coup joue, coup d'un robot) et que c'est au joueur de jouer, on ne peut pas annuler! (sauf si on est en revoirHistorique)
 		if(a.j.h.tailleAnnuler()==1 && (a.j.J1.estRobot() || a.j.J2.estRobot()) && a.j.courantEstHumain() && !a.j.revoirH){
@@ -161,7 +165,7 @@ class MenuAvalam extends JMenuBar{
         nouveauMatch.setEnabled(a.j.modeNormal);
         abandonner.setEnabled(!a.j.modeNormal);
         quitterMatch.setEnabled(!a.j.modeNormal);
-        
+
         
 		if(!a.j.revoirH){
 			dernierCoup.setEnabled(!a.j.h.annulerVide());

@@ -23,7 +23,7 @@ public class EcouteurDOptions implements ActionListener,
                 traiterAppliquerModeMatch();
 				o.fermerOptions();
             }
-		} else if (cmd.equals("annuler" )) {
+		} else if (cmd.equals("annuler")) {
 			traiterAnnuler();
 			o.fermerOptions();
 		} else if (cmd.equals("appliquerrelancer")) {
@@ -34,6 +34,13 @@ public class EcouteurDOptions implements ActionListener,
                 traiterAppliquerModeMatch();
 				o.fermerOptions();
             }
+		} else if (cmd.equals("charger")) {
+			a.etat = a.CHARGER;
+			o.fermerOptions();
+		} else if (cmd.equals("astuces")) {
+			a.etatSuivant = a.ASTUCE;
+			a.etat = a.ASTUCE;
+			o.fermerOptions();
 		} else if (cmd.equals("machine1")) {
 			o.n10.setSelected(true);
 			o.n10.setEnabled(true);
@@ -147,8 +154,8 @@ public class EcouteurDOptions implements ActionListener,
 		//Changement des params sur le joueur actuel
 		a.j.J1.type = o.typeJ1;
 		a.j.J2.type = o.typeJ2;
-		
-		
+
+
 		if(o.nomJ1.equals("")){
 			if(o.typeJ1==a.j.HUMAIN){
 				o.nomJ1=a.j.J1.nom="Joueur1";
@@ -160,7 +167,7 @@ public class EcouteurDOptions implements ActionListener,
 				o.nomJ1=a.j.J1.nom="Dracaufeu";
 			}
 		}
-		
+
 		if(o.nomJ2.equals("")){
 			if(o.typeJ2==a.j.HUMAIN){
 				o.nomJ2=a.j.J2.nom="Joueur2";

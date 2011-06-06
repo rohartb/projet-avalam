@@ -117,13 +117,17 @@ public class Avalam{
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();//atente du unpause lorsque la fenetre a fini de charger
-				f.o.appliquerRelancer.setEnabled(false);
-				f.o.annuler.setEnabled(false);
+
 				f.o.afficherOptions();
-				if (j.modeNormal)
+
+				if (etat == CHARGER || etat == ASTUCE) {
+					System.out.println("je vais vers mon état spécial");
+					etatSuivant = OPTIONS;
+				} else if (j.modeNormal) {
 					etat = NOUVEAU;
-				else
+				} else {
 					etat = MATCH;
+				}
 				break;
 
 			//nouvelle partie
@@ -451,7 +455,7 @@ public class Avalam{
 			case CHARGER:
 				System.out.println("charger");
 				f.s.timer.stop();
-				
+
 				if(!j.finPartie && !load && j.nbCoupsRestants!=292 && j.modeNormal && partieEnCours){
 					String[] options = {"Sauvegarder" , "Charger sans sauvegarder" , "Annuler"};
 					int choix  = JOptionPane.showOptionDialog(null, "Charger :\n voulez-vous sauvegarder la partie en cours ?", "Sauvegarder ?",
@@ -499,7 +503,8 @@ public class Avalam{
 					etat=JEU;
 					load=false;
 				}else{
-					etat=JEU;
+					etat=ACTUALISER;
+					etatSuivant=JEU;
 				}
 				break;
 
@@ -513,11 +518,11 @@ public class Avalam{
 					ma.abandonne = ma.J2_ABANDONNE;
                 }
 				break;
-                    
+
             case QUITTERMATCH:
                 ma.finDeMatch();
                 break;
-                    
+
 			case OPTIONS:
 				System.out.println("options");
 				f.s.timer.stop();
@@ -553,7 +558,12 @@ public class Avalam{
 				f.s.timer.stop();
 				f.as.afficherAstuces();
 				f.s.timer.start();
-				etat=JEU;
+				if (j.J1 == null || j.J2 == null || j.h == null)
+					etat = OPTIONS;
+				else if (etatSuivant == ASTUCE)
+					etat = JEU;
+				else
+					etat=etatSuivant;
 				break;
 
 			//annule 1 coup
