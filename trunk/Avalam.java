@@ -129,7 +129,7 @@ public class Avalam{
 			//nouvelle partie
 			case NOUVEAU:
 				System.out.println("nouveau");
-				
+
 				if(!j.finPartie && !save && j.nbCoupsRestants!=292 && j.modeNormal && partieEnCours){
 					f.s.timer.stop();
 					String[] options = {"Sauvegarder" , "Nouveau jeu sans sauvegarder" , "Annuler"};
@@ -238,7 +238,7 @@ public class Avalam{
 					} else {
 						ip = (String) JOptionPane.showInputDialog(null,
 							"Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip,
-							"lala",
+							"Lancer une partie en réseau",
 							JOptionPane.INFORMATION_MESSAGE,
 							new ImageIcon("./images/reseau.png"),
 							null,
@@ -659,7 +659,7 @@ public class Avalam{
 					etat=etatSuivant;
 				}
 				break;
-				
+
 			case DERNIERCOUP:
 				System.out.println("dernierCoup");
 				ElemHist dernierCoup = j.h.annuler();

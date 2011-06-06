@@ -57,6 +57,7 @@ class Match{
         a.f.m.sauvegarder.setEnabled(false);
         a.f.m.charger.setEnabled(false);
         a.f.g.labelAmpoule.setEnabled(false);
+        a.f.g.repaint();
     }
 
 	public void popupFinDePartie() {
@@ -144,7 +145,7 @@ class Match{
 		message += ("\nStatistiques : \n" +
 		            "   nombre de tours de " + a.j.J1.nom + " : " + nbToursJ1 + "\n" +
 		            "   nombre de tours de " + a.j.J2.nom + " : " + nbToursJ2 + "\n");
-		String[] options = {"Lancer un nouveau match", "Quitter le monde match"};
+		String[] options = {"Lancer un nouveau match", "Quitter le mode match"};
 		int rep = JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 		if (rep == JOptionPane.YES_OPTION) {
 			System.out.println("Nouveau match");
