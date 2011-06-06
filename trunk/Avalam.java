@@ -238,7 +238,7 @@ public class Avalam{
 						JOptionPane.showMessageDialog(null,"Vérifiez votre connexion réseau.\nPartie en réseau impossible.", "Attention connexion" ,JOptionPane.WARNING_MESSAGE);
 					} else {
 						ip = (String) JOptionPane.showInputDialog(null,
-							"Entrez l'ip de notre adversaire\nVotre ip à contacter : " + ip,
+							"Entrez l'ip de notre adversaire\nVotre ip : " + ip,
 							"Lancer une partie en réseau",
 							JOptionPane.INFORMATION_MESSAGE,
 							new ImageIcon("./images/reseau.png"),
