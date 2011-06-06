@@ -400,7 +400,9 @@ public class Avalam{
 				f.g.repaint();
 				j.jouerBot();
 				f.g.animationPionAuto();
+				f.g.repaint();
 				f.g.animationPionAnnuler();
+				f.g.repaint();
 				f.g.repaint();
 				f.g.etatJeul1=f.g.ejl1;
 				f.g.etatJeul2=f.g.ejl2;
@@ -414,6 +416,7 @@ public class Avalam{
 			case JOUERAUTO:
 				System.out.println("jouer auto");
 				f.g.animationPionAuto();
+				pause(30);
 				etat=JOUER;
 				break;
 
@@ -575,18 +578,21 @@ public class Avalam{
 					j.h.ajouterAnnuler(coupJoueur);
 					j.c = new Coups(new Point(coupJoueur.lSource,coupJoueur.cSource),new Point(coupJoueur.lDest,coupJoueur.cDest));
 					f.g.animationPionAuto();
+					pause(50);
 					t.deplacer(j.c);
 
 					ElemHist coupOrdi = j.h.rejouer();
 					j.h.ajouterAnnuler(coupOrdi);
 					j.c = new Coups(new Point(coupOrdi.lSource,coupOrdi.cSource),new Point(coupOrdi.lDest,coupOrdi.cDest));
 					f.g.animationPionAuto();
+					pause(50);
 					t.deplacer(j.c);
 				}else{
 					ElemHist coup = j.h.rejouer();
 					j.h.ajouterAnnuler(coup);
 					j.c = new Coups(new Point(coup.lSource,coup.cSource),new Point(coup.lDest,coup.cDest));
 					f.g.animationPionAuto();
+					pause(50);
 					t.deplacer(j.c);
 					j.changerJoueur();
 				}
@@ -598,7 +604,7 @@ public class Avalam{
 				j.actualiser();
 				f.s.actualiser();
 				f.m.actualiser();
-				//f.g.repaint();
+				f.g.repaint();
 				if(!j.revoirH){
 					etat=JEU;
 				}else{
@@ -670,8 +676,11 @@ public class Avalam{
 				j.h.ajouterAnnuler(dernierCoup);
 				j.c = new Coups(new Point(dernierCoup.lSource,dernierCoup.cSource),new Point(dernierCoup.lDest,dernierCoup.cDest));
 				f.g.animationPionAnnuler();
+				f.g.repaint();
 				f.g.animationPionAuto();
+				pause(50);
 				t.deplacer(j.c);
+				f.g.repaint();
 				etat=ACTUALISER;
 
 			}
