@@ -19,7 +19,6 @@ public class Avalam{
 	boolean quit;
 	boolean save;
 	boolean load;
-    boolean match;
 	boolean jeFaisLaConnexion;
 	boolean partieEnCours;
 	boolean partieReseauEnCours;
@@ -39,6 +38,7 @@ public class Avalam{
 	static final int ANNULER=9;
 	static final int REJOUER=10;
 	static final int ABANDONNER=11;
+    static final int QUITTERMATCH=20;
 	static final int ACTUALISER=12;
 	static final int HISTORIQUE=18;
 	static final int DERNIERCOUP=19;
@@ -110,7 +110,6 @@ public class Avalam{
 				s = new Sauvegarde(this);
                 j.modeNormal = true;
 				quit=false;
-                match=false;
                 partieEnCours = false;
 				serv = new Serveur(this);
 				thServeur = new Thread(serv);
@@ -178,8 +177,7 @@ public class Avalam{
 
 
             case MATCH:
-	            System.out.println("match");
-	            if(partieEnCours && !j.finPartie && !match){
+	            if(partieEnCours && !j.finPartie){
 		            String[] options = {"Sauvegarder", "Continuer sans sauvegarder", "Annuler"};
 		            int choix  = JOptionPane.showOptionDialog(f, "Nouveau match :\n voulez-vous sauvegarder la partie en cours", "Sauvegarder ?",
 		                                                      0, JOptionPane.QUESTION_MESSAGE, new ImageIcon("./images/question.png"), options, options[0] );
@@ -204,20 +202,10 @@ public class Avalam{
 	            break;
 
             case NOUVEAUMATCH:
-                    //TODO popup de match
-                    System.out.println("nouveaumatch");
-                    match=true;
-                    ma = new Match(this);
-                    ma.debutMatch();
-                    f.activerAnnulerRefaire(false);
-					f.activerPause(false);
-					j.init();
-					t.init();
-					j.modeNormal=false;
-					f.s.actualiser();
-					save=false;
-					etat=JEU;
-                    break;
+                //TODO popup de match
+                ma = new Match(this);
+                ma.debutMatch();
+                break;
 
 
 			case CONNEXION:
@@ -357,14 +345,10 @@ public class Avalam{
 				if (partieReseauEnCours) {
 					r.finDePartieReseau();
 				} else if(j.modeNormal){
-                    			f.popupFinDePartie();
-                    			etat=etatSuivant;
-		                } else {
-					if(ma.scoreMJ1 >= ma.nbPartiesTotales || ma.scoreMJ2 >= ma.nbPartiesTotales)
-						ma.popupFinDeMatch();
-					else					
-						ma.popupFinDePartie();
-					etat=etatSuivant;				
+                    f.popupFinDePartie();
+                    etat=etatSuivant;
+                } else {
+                    ma.popupFinDePartie();
 				}
 				break;
 
@@ -522,21 +506,18 @@ public class Avalam{
 			//TODO
 			case ABANDONNER:
 				System.out.println("abandonner");
-				etat=etatSuivant;
-	 			ma.nbPartiesJouees++;
-				if(j.courantEstJ1())
+				etat=FIN;
+                if(j.courantEstJ1()) {
 					ma.abandonne = ma.J1_ABANDONNE;
-				else if(j.courantEstJ2())
+                } else if(j.courantEstJ2()) {
 					ma.abandonne = ma.J2_ABANDONNE;
-	                	if(ma.scoreMJ1 < ma.nbPartiesTotales && ma.scoreMJ2 < ma.nbPartiesTotales) {
-					ma.popupFinDePartie();
-	                	} else {
-		                	ma.popupFinDeMatch();
-		                	ma.finDeMatch();
-					ma.finMatch = true;
-				}
+                }
 				break;
-
+                    
+            case QUITTERMATCH:
+                ma.finDeMatch();
+                break;
+                    
 			case OPTIONS:
 				System.out.println("options");
 				f.s.timer.stop();

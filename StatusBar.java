@@ -95,7 +95,7 @@ public class StatusBar extends JPanel {
 		if (a.j.modeNormal)
 			labelMode.setText("Mode Normal");
 		else
-			labelMode.setText("Mode Match - partie " + (a.ma.nbPartiesJouees+1) + "/" + a.ma.nbPartiesTotales );
+			labelMode.setText("Mode Match - Score : " + (a.ma.scoreMJ1) + "-" + a.ma.scoreMJ2 + " sur " + a.ma.nbPartiesJouees + " partie(s)");
 	}
 }
 
