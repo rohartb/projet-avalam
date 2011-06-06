@@ -50,7 +50,7 @@ public class Jeu{
 	public void jouerBot(){
 		thBot=new Thread(b);
 		thBot.start();
-		a.pause(1500);
+		a.pause(4000);
 		thBot.stop();
 	}
 

@@ -38,7 +38,7 @@ public class Bot implements Runnable{
 		if(niveau==1)
 			nMax=0;
 		if(niveau==2)
-			nMax=2;
+			nMax=1;
 		if(niveau==3)
 			nMax=1000;//on limite pas le jouer difficile
 		n=0;
@@ -200,7 +200,7 @@ public class Bot implements Runnable{
 	
 	static int TOURFIN=10000000;
 	static int TOURDEF=100000;
-	static int MICKEY=1000;
+	static int TRUC=1000;
 	static int PIONS=10;
 	
 	public int eval(Simulation s, int tour){
@@ -208,35 +208,12 @@ public class Bot implements Runnable{
 		if(s.partieFinie()){
 			score = s.evaluerNbPions()*TOURFIN;
 		}else{
-			//score += s.configMickey()*MICKEY;
 			score += s.evaluerScoreCourant()*TOURDEF;
 			if(niveau>1)
 				score += s.evaluerNbPions()*PIONS;
-			//if(niveau>2)
-				//score += s.configMickey()*MICKEY;
-		
-		
-		/*	if(s.tour5Possible()){
-				if(tour==1){
-					score = score + 3;
-				}
-				else{
-					score = score-2;
-				}
-			}
-			else{
-				if(s.deuxToursIsolees()){
-					if(tour==1){
-						score = score + 2;
-					}
-					else{
-						score = score-2;
-					}
-				}
-			}
-			
-			/*score = score + s.tourDefinitive3AuCentre(1);	
-			score = score + s.tourDefinitive2AuCentre(1);*/			
+			/*if(niveau>2){
+				
+			}*/
 		}
 		return score;
 	}
