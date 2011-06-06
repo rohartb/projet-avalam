@@ -188,6 +188,7 @@ class TerrainGraphique extends JComponent{
 
 
 	public void panneau(Graphics2D drawable) {
+		setAntiAlias(drawable);
 		int xRect = tailleCase/4;
 		int yRect = gapV+tailleCase/2;
 		int hauteur = 8*tailleCase;
@@ -214,26 +215,40 @@ class TerrainGraphique extends JComponent{
 		decalage = metrics.stringWidth("Score : " + a.j.J2.score);
 		drawable.drawString("Score : " + a.j.J2.score, xCentre-decalage/2,yTextHaut+metrics.getHeight());
 
+		int diametrePion =tailleCase/2;
+		int xPion = xRect+tailleCase/8;
+		int yPion = yTextHaut+metrics.getHeight()/4;
+		drawable.setPaint(Themes.getCouleurPionJ2(theme));
+		drawable.fillOval(xPion, yPion ,
+		                  diametrePion, diametrePion);
+		drawable.setPaint(Themes.getCouleurChiffre(theme));
+		decalage = metrics.stringWidth("J1");
+		f = new Font("Liberation Sans", 1 , (int) (0.25*tailleCase));
+		drawable.setFont(f);
+		drawable.drawString("J1", xRect+tailleCase/18+decalage/2,
+		                    yPion+2*diametrePion/3);
+
 		drawable.drawImage(imageJ2,xCentre-tailleCase/2,
 		                   yTextHaut+3*metrics.getHeight()/2,
 		                   tailleCase, tailleCase,
 		                   null);
 
 
+
 		int yBiduleCentre = (yRect+hauteur/2)-(tailleCase/2+ metrics.getHeight()*2)/2;
-		int decalalge = (largeur-2*tailleCase)/4;
+		decalage = (largeur-2*tailleCase)/4;
 		annuler.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
-		annuler.setBounds(xRect+decalalge, yBiduleCentre,2*tailleCase/3, tailleCase/2);
+		annuler.setBounds(xRect+decalage, yBiduleCentre,2*tailleCase/3, tailleCase/2);
 
 		pause.setFont(annuler.getFont().deriveFont((float) (0.30*tailleCase)));
-		pause.setBounds(xRect+2*decalalge+2*tailleCase/3, yBiduleCentre,2*tailleCase/3, tailleCase/2);
+		pause.setBounds(xRect+2*decalage+2*tailleCase/3, yBiduleCentre,2*tailleCase/3, tailleCase/2);
 
 		rejouer.setFont(rejouer.getFont().deriveFont((float) (0.30*tailleCase)));
-		rejouer.setBounds(xRect+3*decalalge+4*tailleCase/3, yBiduleCentre, 2*tailleCase/3, tailleCase/2);
+		rejouer.setBounds(xRect+3*decalage+4*tailleCase/3, yBiduleCentre, 2*tailleCase/3, tailleCase/2);
 
 
-
-
+		f = new Font("Liberation Sans", 1 , (int) (0.35*tailleCase));
+		drawable.setFont(f);
 		if (a.j.courantEstJ1())
 			drawable.setPaint(Themes.getCouleurPionJ1(theme));
 		else
@@ -251,6 +266,20 @@ class TerrainGraphique extends JComponent{
 		                   tailleCase, tailleCase, null);
 
 
+		yPion = yTextBas-metrics.getHeight()*2;
+		drawable.setPaint(Themes.getCouleurPionJ1(theme));
+		drawable.fillOval(xPion, yPion ,
+		                  diametrePion, diametrePion);
+		drawable.setPaint(Themes.getCouleurChiffre(theme));
+		decalage = metrics.stringWidth("J1");
+		f = new Font("Liberation Sans", 1 , (int) (0.25*tailleCase));
+		drawable.setFont(f);
+		drawable.drawString("J2", xRect+tailleCase/18+decalage/2,
+		                    yPion+2*diametrePion/3);
+
+
+		f = new Font("Liberation Sans", 1 , (int) (0.35*tailleCase));
+		drawable.setFont(f);
 		drawable.setPaint(Themes.getCouleurPionJ1(theme));
 		decalage = metrics.stringWidth("Score : " + a.j.J1.score);
 		drawable.drawString("Score : " + a.j.J1.score, xCentre-decalage/2, yTextBas-metrics.getHeight());
@@ -390,7 +419,8 @@ class TerrainGraphique extends JComponent{
 
 
 	public static void setAntiAlias(Graphics2D drawable) {
-		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		                          RenderingHints.VALUE_ANTIALIAS_ON);
 		drawable.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 		                          RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		drawable.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -439,7 +469,6 @@ class TerrainGraphique extends JComponent{
 			} else { // reseau
 				imageJ2 = ImageIO.read(new File(Themes.getImageR2(theme)));
 			}
-
 		} catch (Exception e) {
 			System.out.println(e);
 		}
