@@ -117,7 +117,7 @@ public class Avalam{
 				thFenetre = new Thread(f);
 				thFenetre.start();
 				pause();//atente du unpause lorsque la fenetre a fini de charger
-				f.o.ok.setEnabled(false);
+				f.o.appliquerRelancer.setEnabled(false);
 				f.o.annuler.setEnabled(false);
 				f.o.afficherOptions();
 				if (j.modeNormal)

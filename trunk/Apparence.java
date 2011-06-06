@@ -20,7 +20,7 @@ public class Apparence extends JDialog {
 		this.setTitle("Apparence");
 		this.setModal(true);
 		// class de gestion de l'apparence du jeu
-		String[] themeStrings = {"Thème eco", "Theme 2", "Thème marin"};
+		String[] themeStrings = {"Thème bois", "Theme 2", "Thème marin"};
 
 
 		ComboTheme = new JComboBox(themeStrings);
