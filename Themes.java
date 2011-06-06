@@ -9,6 +9,7 @@ public class Themes {
 	static private final  Color T1plateau = new Color(102,51,0);
 	static private final  Color T1vide    = new Color(0,0,0);
 	static private final  Color T1fond    = new Color(51,153,153);
+
 	static private final  String T1J1     = "images/j1t1.png";
 	static private final  String T1O10    = "images/o10t1.png";
 	static private final  String T1O11    = "images/o11t1.png";
@@ -176,6 +177,7 @@ public class Themes {
 			return null;
 		}
 	}
+
 
 	static public String getImageJ2(int theme) {
 		switch(theme) {
