@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.*;
 import java.sql.Time;
 
-class Match{
+class Match {
 	Avalam a;
 
 	String nombrePartie;
@@ -15,36 +15,18 @@ class Match{
 	int nbToursJ1; // nb tour totale de J1
 	int nbToursJ2; // nb tour totale de J2
     boolean finMatch;
+    
+    //popupDebutPartie
+    JDialog fenetre;
+    JSlider slider;
 
 	public Match(Avalam a){
 		this.a = a;
     }
 
 	void debutMatch() {
-		boolean estPasBon = true;
         a.f.s.timer.stop();
-
-        while(estPasBon) {
-            nombrePartie = (String)JOptionPane.showInputDialog(a.f,"Bienvenue dans le mode Match\n"
-                                                               + a.j.J1.nom + " contre " + a.j.J2.nom + "\n\n"
-                                                               + "Veuillez entrer le nombre de partie a disputer","Match",JOptionPane.WARNING_MESSAGE,new ImageIcon("Images/match.png"), null,"3");
-            if(nombrePartie== null) { // retour au mode normal
-                a.etat=a.JEU;
-                a.j.modeNormal = true;
-                estPasBon = false;
-                a.etat = a.ACTUALISER;
-        		a.etatSuivant = a.JEU;
-                return;
-            } else {
-                try {
-                    nbPartiesTotales = Integer.valueOf(nombrePartie);
-                    estPasBon = false;
-                } catch (Exception e){
-                    estPasBon = true;
-                }
-            }
-        }
-        init();
+        popupDebutPartie();
     }
 
     public void init(){
@@ -58,6 +40,97 @@ class Match{
         a.f.m.charger.setEnabled(false);
         a.f.g.labelAmpoule.setEnabled(false);
         a.f.g.repaint();
+    }
+    
+    public void popupDebutPartie() {
+        fenetre = new JDialog();
+        fenetre.setModal(true);
+        fenetre.setResizable(false);
+        
+        //Panel du centre, avec l'icone et la liste
+        JPanel panelCentre = new JPanel(new FlowLayout());
+        
+            //Slider
+            slider = new JSlider(2,10,2);
+            slider.setMajorTickSpacing(2);
+            slider.setMinorTickSpacing(1);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+            slider.setSnapToTicks(true);
+            
+            //Icon
+            JLabel icone = new JLabel(new ImageIcon("images/match.png"),JLabel.CENTER);
+            
+            panelCentre.add(icone);
+            panelCentre.add(slider);
+        
+        fenetre.add(panelCentre);
+        
+        //Panel du bas, avec les trois boutons
+        JPanel panelBas = new JPanel(new BorderLayout());
+        
+            //Panel Boutons :
+            JPanel panelBoutons = new JPanel(new GridLayout(1,2,10,10));
+            
+            JButton annuler = new JButton("Annuler");
+            annuler.setActionCommand("annuler");
+            panelBoutons.add(annuler);
+            
+            JButton ok = new JButton("Ok");
+            ok.setActionCommand("ok");
+            panelBoutons.add(ok);
+            
+            EcouteurDeMatch em = new EcouteurDeMatch(this);
+            ok.addActionListener(em);
+            annuler.addActionListener(em);
+            panelBas.add(panelBoutons);
+            
+            //Espaces pour aerer les boutons
+            JPanel p1 = new JPanel();
+            p1.setSize(40,300);
+            JPanel p2 = new JPanel();
+            p2.setSize(40,300);
+            JPanel p3 = new JPanel();
+            p3.setSize(250,40);
+            JPanel p4 = new JPanel();
+            p4.setSize(250,40);
+            panelBas.add(p1,"North");
+            panelBas.add(p2,"South");
+            panelBas.add(p3,"East");
+            panelBas.add(p4,"West");
+        
+        fenetre.add(panelBas,"South");
+        
+        //Panel nord, label
+        JPanel panelNord = new JPanel(new GridLayout(2,1));
+        
+            //Panel vide pour aerer
+            panelNord.add(new JPanel());
+            
+            //Label
+            JLabel labelNord = new JLabel("Nombre de match gagnant :",JLabel.CENTER);
+            panelNord.add(labelNord);
+        
+        fenetre.add(panelNord,BorderLayout.NORTH);
+        
+        //Panel Est et ouest pour decaler la list du bord droit
+        JLabel pEst = new JLabel("      ");
+        fenetre.add(pEst,"East");
+        JLabel pOuest = new JLabel("  ");
+        fenetre.add(pOuest,"West");
+
+        
+        fenetre.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        fenetre.addWindowListener(em);
+        
+        fenetre.pack();
+        int resHauteur = Toolkit.getDefaultToolkit().getScreenSize().height;
+		int resLargeur = Toolkit.getDefaultToolkit().getScreenSize().width;
+		int hauteur  = (resHauteur - fenetre.getSize().height)/2;
+		int largeur  = (resLargeur - fenetre.getSize().width)/2;
+		fenetre.setLocation(largeur, hauteur);
+        
+        fenetre.setVisible(true);
     }
 
 	public void popupFinDePartie() {
@@ -161,13 +234,14 @@ class Match{
 
     public void finDeMatch(){
         //TODO popup de fin avec resultat et tout
-	    a.f.g.pause.setEnabled(true);
-	    a.f.m.pause.setEnabled(true);
+        System.out.println("feagae");
         a.f.m.options.setEnabled(true);
         a.f.m.sauvegarder.setEnabled(true);
         a.f.m.charger.setEnabled(true);
         a.f.g.labelAmpoule.setEnabled(true);
         a.j.modeNormal=true;
         a.partieEnCours = false;
+        a.f.m.pause.setEnabled(true);
+        a.f.g.pause.setEnabled(true);
     }
 }
