@@ -598,7 +598,7 @@ public class Avalam{
 				j.actualiser();
 				f.s.actualiser();
 				f.m.actualiser();
-				f.g.repaint();
+				//f.g.repaint();
 				if(!j.revoirH){
 					etat=JEU;
 				}else{

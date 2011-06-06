@@ -429,9 +429,9 @@ class TerrainGraphique extends JComponent{
 			for (int j = cAdjacent-1; j<= cAdjacent+1; j++) {
 				if (i < 9 && i > -1 && j < 9 && j > -1
 				    && t.plateau[i][j].estOccupee()) {
-					if (i == lAdjacent && j == cAdjacent) {
+					if (i == lAdjacent && j == cAdjacent){
 
-					} else if (a.t.estInferieurASix(i,j,lAdjacent, cAdjacent)) {
+					}else if (a.t.estInferieurASix(i,j,lAdjacent, cAdjacent)) {
 						dessineCaseAccessible(i,j, drawable);
 						dessineCase(i,j,drawable);
 					}
