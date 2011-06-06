@@ -171,6 +171,7 @@ class Fenetre extends JFrame implements Runnable{
 			System.exit(0);
 		}else{
 			a.j.revoirH=true;
+			g.labelAmpoule.setEnabled(false);
 			a.etatSuivant=a.HISTORIQUE;
 		}
 	}
