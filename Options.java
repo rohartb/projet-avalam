@@ -67,6 +67,31 @@ public class Options extends JDialog{
 		typeJ2 = a.j.J2.type;
 		nomJ1 = a.j.J1.nom;
 		nomJ2 = a.j.J2.nom;
+		
+		if(nomJ1.equals("")){
+			if(typeJ1==a.j.HUMAIN){
+				nomJ1=a.j.J1.nom="Joueur1";
+			}else if(typeJ1==a.j.BOTLVL1){
+				nomJ1=a.j.J1.nom="EasyBot";
+			}else if(typeJ1==a.j.BOTLVL2){
+				nomJ1=a.j.J1.nom="MediumBot";
+			}else if(typeJ1==a.j.BOTLVL3){
+				nomJ1=a.j.J1.nom="HardBot";
+			}
+		}
+		
+		if(nomJ2.equals("")){
+			if(typeJ2==a.j.HUMAIN){
+				nomJ2=a.j.J2.nom="Joueur2";
+			}else if(typeJ2==a.j.BOTLVL1){
+				nomJ2=a.j.J2.nom="EasyBot";
+			}else if(typeJ2==a.j.BOTLVL2){
+				nomJ2=a.j.J2.nom="MediumBot";
+			}else if(typeJ2==a.j.BOTLVL3){
+				nomJ2=a.j.J2.nom="HardBot";
+			}
+		}
+		
 		modeNormal= a.j.modeNormal;
 		aide = a.j.modeAide;
 

@@ -147,6 +147,31 @@ public class EcouteurDOptions implements ActionListener,
 		//Changement des params sur le joueur actuel
 		a.j.J1.type = o.typeJ1;
 		a.j.J2.type = o.typeJ2;
+		
+		
+		if(o.nomJ1.equals("")){
+			if(o.typeJ1==a.j.HUMAIN){
+				o.nomJ1=a.j.J1.nom="Joueur1";
+			}else if(o.typeJ1==a.j.BOTLVL1){
+				o.nomJ1=a.j.J1.nom="EasyBot";
+			}else if(o.typeJ1==a.j.BOTLVL2){
+				o.nomJ1=a.j.J1.nom="MediumBot";
+			}else if(o.typeJ1==a.j.BOTLVL3){
+				o.nomJ1=a.j.J1.nom="HardBot";
+			}
+		}
+		
+		if(o.nomJ2.equals("")){
+			if(o.typeJ2==a.j.HUMAIN){
+				o.nomJ2=a.j.J2.nom="Joueur2";
+			}else if(o.typeJ2==a.j.BOTLVL1){
+				o.nomJ2=a.j.J2.nom="EasyBot";
+			}else if(o.typeJ2==a.j.BOTLVL2){
+				o.nomJ2=a.j.J2.nom="MediumBot";
+			}else if(o.typeJ2==a.j.BOTLVL3){
+				o.nomJ2=a.j.J2.nom="HardBot";
+			}
+		}
 
 		a.j.modeNormal=o.modeNormal;
 
