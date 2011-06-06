@@ -35,7 +35,7 @@ class Match {
 
     public void init(){
         finMatch = false;
-	int abandonne = NON_ABANDONNE;
+        int abandonne = NON_ABANDONNE;
         scoreMJ1 = 0;
         scoreMJ2 = 0;
         nbToursJ1 = 0;
@@ -44,11 +44,20 @@ class Match {
         a.f.m.sauvegarder.setEnabled(false);
         a.f.m.charger.setEnabled(false);
         a.f.g.labelAmpoule.setEnabled(false);
-        a.f.g.repaint();
+        //a.f.g.repaint();
+        a.f.activerAnnulerRefaire(false);
+        a.f.activerPause(false);
+        a.j.init();
+        a.t.init();
+        a.j.modeNormal=false;
+        a.f.s.actualiser();
+        a.save=false;
+        a.etat=a.ACTUALISER;
     }
     
     public void popupDebutPartie() {
         fenetre = new JDialog();
+        fenetre.setTitle("Match");
         fenetre.setModal(true);
         fenetre.setResizable(false);
         
@@ -107,14 +116,16 @@ class Match {
         fenetre.add(panelBas,"South");
         
         //Panel nord, label
-        JPanel panelNord = new JPanel(new GridLayout(2,1));
+        JPanel panelNord = new JPanel(new GridLayout(3,1));
         
             //Panel vide pour aerer
             panelNord.add(new JPanel());
             
             //Label
-            JLabel labelNord = new JLabel("Nombre de match gagnant :",JLabel.CENTER);
+            JLabel labelNord = new JLabel("Choisir le nombre de parties a remporter",JLabel.CENTER);
+            JLabel labelBis = new JLabel("pour gagner le match :",JLabel.CENTER);
             panelNord.add(labelNord);
+            panelNord.add(labelBis);
         
         fenetre.add(panelNord,BorderLayout.NORTH);
         
@@ -140,33 +151,34 @@ class Match {
 
 	public void popupFinDePartie() {
 		String vainqueur;
+        nbPartiesJouees++;
 		int nbJ1 = a.j.J1.score;
 		int nbJ2 = a.j.J2.score;
 		// Affichage du la popup
-		String message= new String ("match " + (scoreMJ1) + "-" + (scoreMJ2) + " ,premier joueur à "+nbPartiesTotales+" gagne\n");
+		String message= new String ("Partie : " + nbPartiesJouees + " (match en "+nbPartiesTotales+" parties gagnante).\n");
 		String titre;
 		if(abandonne == NON_ABANDONNE) {
 			if(nbJ1 == nbJ2){
-				message+=("Personne ne gagne ! \n Score : "+nbJ1+" - "+nbJ2);
+				message+=("Personne ne gagne ! \n Score : "+scoreMJ1+" - "+scoreMJ2);
 				titre=new String("Egalité");
 			} else {
 				if((a.j.J1.estRobot() && a.j.J2.estHumain()) || (a.j.J2.estRobot() && a.j.J1.estHumain())) {
 					if (nbJ2 > nbJ1 && a.j.J2.estRobot()) {
-						message += ("Vous avez perdu! \n Score :  "+nbJ1+" - "+nbJ2);
+                        scoreMJ2++;
+						message += ("Vous avez perdu! \n Score :  "+scoreMJ1+" - "+scoreMJ2);
 						titre=new String("Défaite");
-						scoreMJ2++;
 					} else if (nbJ2 < nbJ1 && a.j.J1.estRobot()) {
-						message += ("Vous avez perdu! \n Score :  "+nbJ1+" - "+nbJ2);
+                        scoreMJ1++;
+						message += ("Vous avez perdu! \n Score :  "+scoreMJ1+" - "+scoreMJ2);
 						titre=new String("Défaite");
-						scoreMJ1++;
 					} else if (nbJ1 > nbJ2) {
-						message += ("Vous avez gagné! \n Score : "+nbJ1+" - "+nbJ2);
+                        scoreMJ1++;
+						message += ("Vous avez gagné! \n Score : "+scoreMJ1+" - "+scoreMJ2);
 						titre=new String("Victoire");
-						scoreMJ1++;
 					} else {
-						message += ("Vous avez gagné! \n Score : "+nbJ1+" - "+nbJ2);
+						scoreMJ2++;
+						message += ("Vous avez gagné! \n Score : "+scoreMJ1+" - "+scoreMJ2);
 						titre=new String("Victoire");
-						scoreMJ2++;				
 					}
 				}else{
 					if (nbJ2 > nbJ1) {
@@ -176,80 +188,75 @@ class Match {
 						vainqueur = a.j.J1.nom;
 						scoreMJ1++;
 					}
-					message += (vainqueur+" remporte la partie ! \n Score :  "+nbJ1+" - "+nbJ2);
+					message += (vainqueur+" remporte la partie ! \n Score :  "+scoreMJ1+" - "+scoreMJ2);
 					titre = new String("Victoire");
 				}
 			}
 			nbToursJ1 += nbJ1;
 			nbToursJ2 += nbJ2;
 		} else if (abandonne == J1_ABANDONNE) {
+            scoreMJ2++;
 			message += (a.j.J1.nom+ " abandonne ! "+scoreMJ1+"-"+scoreMJ2);
 			titre=new String("Abandon");
-			scoreMJ2++;
 		} else {
+            scoreMJ1++;
 			message += (a.j.J2.nom+ " abandonne ! "+scoreMJ1+"-"+scoreMJ2);
 			titre=new String("Abandon");
-			scoreMJ1++;
 		}
-		String[] options = {"Continuer le match"};
-		JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-		// nouvelle partie
-		a.j.init();
-		a.t.init();
-		a.j.finPartie = false;
-		a.etat = a.JEU;
+        abandonne = NON_ABANDONNE;
+        
+        if(scoreMJ1 >= nbPartiesTotales || scoreMJ2 >= nbPartiesTotales) {
+            popupFinDeMatch();
+        } else {
+            String[] options = {"Continuer le match"};
+            JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+            // nouvelle partie
+            a.j.init();
+            a.t.init();
+            a.j.finPartie = false;
+            a.etat = a.ACTUALISER;
+            a.etatSuivant = a.JEU;
+        }
 	}
 
 	public void popupFinDeMatch() {
 		String vainqueur;
 		int nbJ1 = a.j.J1.score;
 		int nbJ2 = a.j.J2.score;
+                
 		// Affichage du la popup
 		nbToursJ1 += nbJ1;
 		nbToursJ2 += nbJ2;
-		if (nbJ2 > nbJ1) {
-			scoreMJ2++;
-		} else if(nbJ1 > nbJ2) {
-			scoreMJ1++;
-		}else {
-			scoreMJ1++; scoreMJ2++;
-		}
-		String message= new String ("Résultat du match : ");
+        String message= new String ("Résultat du match : ");
 		String titre;
-		if(scoreMJ1 == scoreMJ2){
-			message+=("Personne ne gagne ! \n Score : "+scoreMJ1+" - "+scoreMJ2);
-			titre=new String("Egalité");
-		} else {
-			if((a.j.J1.estRobot() && a.j.J2.estHumain()) || (a.j.J2.estRobot() && a.j.J1.estHumain())) {
-				if ((nbJ2 > nbJ1 && a.j.J2.estRobot()) || (nbJ2 < nbJ1 && a.j.J1.estRobot())){
-					message += ("Vous avez perdu! \n Score : " + scoreMJ1 + " - " + scoreMJ2);
-					titre=new String("Défaite");
-				}
-				else{
-					message += ("Vous avez gagné! \n Score : " + scoreMJ1 + " - " + scoreMJ2);
-					titre=new String("Victoire");
-				}
-			}else{
-				if (scoreMJ2 > scoreMJ1) {
-					vainqueur = a.j.J2.nom;
-				}else { //
-					vainqueur = a.j.J1.nom;
-				}
-				message += (vainqueur+" remporte la partie ! \n Score :  "+scoreMJ1+" - "+scoreMJ2);
-				titre = new String("Victoire");
-			}
-		}
+        if((a.j.J1.estRobot() && a.j.J2.estHumain()) || (a.j.J2.estRobot() && a.j.J1.estHumain())) {
+            if ((scoreMJ2 > scoreMJ1 && a.j.J2.estRobot()) || (scoreMJ2 < scoreMJ1 && a.j.J1.estRobot())){
+                message += ("Vous avez perdu! \n Score : " + scoreMJ1 + " - " + scoreMJ2);
+                titre=new String("Défaite");
+            }
+            else{
+                message += ("Vous avez gagné! \n Score : " + scoreMJ1 + " - " + scoreMJ2);
+                titre=new String("Victoire");
+            }
+        }else{
+            if (scoreMJ2 > scoreMJ1) {
+                vainqueur = a.j.J2.nom;
+            }else { //
+                vainqueur = a.j.J1.nom;
+            }
+            message += (vainqueur+" remporte la partie ! \n Score :  "+scoreMJ1+" - "+scoreMJ2);
+            titre = new String("Victoire");
+        }
 		message += ("\nStatistiques : \n" +
 		            "   nombre de tours de " + a.j.J1.nom + " : " + nbToursJ1 + "\n" +
 		            "   nombre de tours de " + a.j.J2.nom + " : " + nbToursJ2 + "\n");
-		String[] options = {"Lancer un nouveau match", "Quitter le mode match"};
+		String[] options = {"Nouveau match", "Quitter le mode match"};
 		int rep = JOptionPane.showOptionDialog(a.f, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 		if (rep == JOptionPane.YES_OPTION) {
-			System.out.println("Nouveau match");
-			a.etat = a.NOUVEAUMATCH;
+            a.etat=a.NOUVEAUMATCH;
 		}else if (rep == JOptionPane.NO_OPTION || rep == -1) {
-			System.out.println("Fin du mode match");
-			a.etat = a.OPTIONS;
+            finDeMatch();
+            a.etat = a.OPTIONS;
 			a.f.o.ok.setEnabled(false);
 		} else {
 			System.err.println("Erreur fin match " + rep);
@@ -258,7 +265,6 @@ class Match {
 
     public void finDeMatch(){
         //TODO popup de fin avec resultat et tout
-        System.out.println("feagae");
         a.f.m.options.setEnabled(true);
         a.f.m.sauvegarder.setEnabled(true);
         a.f.m.charger.setEnabled(true);
@@ -267,5 +273,6 @@ class Match {
         a.partieEnCours = false;
         a.f.m.pause.setEnabled(true);
         a.f.g.pause.setEnabled(true);
+        a.etat = a.ACTUALISER;
     }
 }

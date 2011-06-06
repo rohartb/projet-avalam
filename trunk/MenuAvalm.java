@@ -7,11 +7,13 @@ class MenuAvalam extends JMenuBar{
 	private static final long serialVersionUID = 1L;
 
 	JMenu avalam;
-	JMenuItem nouveau, reseau, pause, sauvegarder, charger, abandonner, options, quitter;
+	JMenuItem nouveau, reseau, pause, sauvegarder, charger, options, quitter;
 	JMenu edition;
 	JMenuItem annuler, rejouer, dernierCoup;
 	JMenu affichage;
 	JMenuItem apparence, itemPleinEcran;
+    JMenu match;
+    JMenuItem abandonner, quitterMatch;
 	JMenu aide;
 	JMenuItem regle;
 	JMenuItem astuces;
@@ -60,13 +62,7 @@ class MenuAvalam extends JMenuBar{
 		charger.setMnemonic(KeyEvent.VK_C);
 		charger.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
 		avalam.add(charger);
-		abandonner = new JMenuItem("Abandonner");
-		abandonner.setActionCommand("abandonner");
-		abandonner.addActionListener(em);
-		abandonner.setMnemonic(KeyEvent.VK_B);
-		abandonner.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,Event.CTRL_MASK));
-		avalam.add(abandonner);
-		avalam.add(new JSeparator());
+        avalam.add(new JSeparator());
 		quitter = new JMenuItem("Quitter");
 		quitter.setActionCommand("quitter");
 		quitter.addActionListener(em);
@@ -112,6 +108,19 @@ class MenuAvalam extends JMenuBar{
 		itemPleinEcran.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
 		affichage.add(itemPleinEcran);
 		this.add(affichage);
+        
+        match= new JMenu("Match");
+        abandonner = new JMenuItem("Abandonner la partie");
+		abandonner.setActionCommand("abandonner");
+		abandonner.addActionListener(em);
+		abandonner.setMnemonic(KeyEvent.VK_B);
+		abandonner.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,Event.CTRL_MASK));
+		match.add(abandonner);
+        quitterMatch = new JMenuItem("Quitter le match");
+		quitterMatch.setActionCommand("quitterMatch");
+		quitterMatch.addActionListener(em);
+		match.add(quitterMatch);
+        this.add(match);
 
 		aide = new JMenu("Aide");
 		aide.setActionCommand("aide");
@@ -145,7 +154,8 @@ class MenuAvalam extends JMenuBar{
 
 		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
 		a.f.g.rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
-
+        match.setEnabled(!a.j.modeNormal);
+        
 		if(!a.j.revoirH){
 			dernierCoup.setEnabled(!a.j.h.annulerVide());
 		}else{

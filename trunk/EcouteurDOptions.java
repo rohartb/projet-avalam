@@ -188,9 +188,7 @@ public class EcouteurDOptions implements ActionListener,
 	}
 
     public void traiterAppliquerModeMatch() {
-	    System.out.println("appliq mode match");
         traiterOk(true);
-        System.out.println("etat appliquer mode match :"+a.etat+" etat suivant "+a.etatSuivant);
         a.etat = a.MATCH;
         a.etatSuivant = a.MATCH;
     }

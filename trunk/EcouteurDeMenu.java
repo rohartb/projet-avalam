@@ -32,9 +32,6 @@ class EcouteurDeMenu implements ActionListener{
  		}else if(cmd.equals("sauvegarder")){
 			a.etatSuivant=a.SAUVER;
 			a.unpause();
-		}else if(cmd.equals("abandonner")){
-			a.etatSuivant=a.ABANDONNER;
-			a.unpause();
 		}else if(cmd.equals("options")){
 			a.etatSuivant=a.OPTIONS;
 			a.unpause();
@@ -49,6 +46,12 @@ class EcouteurDeMenu implements ActionListener{
 			a.unpause();
 		}else if(cmd.equals("apparence")){
 			a.etatSuivant=a.APPARENCE;
+			a.unpause();
+        }else if(cmd.equals("abandonner")){
+			a.etatSuivant=a.ABANDONNER;
+			a.unpause();
+        }else if(cmd.equals("quitterMatch")){
+			a.etatSuivant=a.QUITTERMATCH;
 			a.unpause();
 		}else if(cmd.equals("aide")){
 
