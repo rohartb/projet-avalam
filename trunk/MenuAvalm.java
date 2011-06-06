@@ -13,7 +13,7 @@ class MenuAvalam extends JMenuBar{
 	JMenu affichage;
 	JMenuItem apparence, itemPleinEcran;
     JMenu match;
-    JMenuItem abandonner, quitterMatch;
+    JMenuItem nouveauMatch, abandonner, quitterMatch;
 	JMenu aide;
 	JMenuItem regle;
 	JMenuItem astuces;
@@ -110,6 +110,10 @@ class MenuAvalam extends JMenuBar{
 		this.add(affichage);
         
         match= new JMenu("Match");
+        nouveauMatch = new JMenuItem("Demmarer un nouveau match");
+		nouveauMatch.setActionCommand("nouveauMatch");
+		nouveauMatch.addActionListener(em);
+		match.add(nouveauMatch);
         abandonner = new JMenuItem("Abandonner la partie");
 		abandonner.setActionCommand("abandonner");
 		abandonner.addActionListener(em);
@@ -154,7 +158,10 @@ class MenuAvalam extends JMenuBar{
 
 		rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
 		a.f.g.rejouer.setEnabled(!a.j.h.rejouerVide() && (a.j.revoirH || a.j.modeNormal));
-        match.setEnabled(!a.j.modeNormal);
+        nouveauMatch.setEnabled(a.j.modeNormal);
+        abandonner.setEnabled(!a.j.modeNormal);
+        quitterMatch.setEnabled(!a.j.modeNormal);
+        
         
 		if(!a.j.revoirH){
 			dernierCoup.setEnabled(!a.j.h.annulerVide());

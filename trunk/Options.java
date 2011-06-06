@@ -30,7 +30,7 @@ public class Options extends JDialog{
 	//// niveau des bots
 	JRadioButton n10, n11, n12;
 	JRadioButton n20, n21, n22;
-	JRadioButton PartieNormale, PartieMatch;
+	//JRadioButton PartieNormale, PartieMatch;
 	JCheckBox activerAide;
 
 	JButton ok;
@@ -254,7 +254,7 @@ public class Options extends JDialog{
 		PanelChoixJoueur.add(PanelJ2);
 
 		//////// Panel Option de partie
-		PartieNormale = new JRadioButton("Normale");
+		/*PartieNormale = new JRadioButton("Normale");
 		PartieNormale.setActionCommand("normal");
 		PartieNormale.addActionListener(eo);
 		PartieNormale.setSelected(modeNormal);
@@ -266,14 +266,14 @@ public class Options extends JDialog{
 
 		ButtonGroup OptionDePartieGroup = new ButtonGroup();
 		OptionDePartieGroup.add(PartieMatch);
-		OptionDePartieGroup.add(PartieNormale);
+		OptionDePartieGroup.add(PartieNormale);*/
 
 
 
-		JPanel PanelOptionDeJeu = new JPanel();
+		/*JPanel PanelOptionDeJeu = new JPanel();
 		PanelOptionDeJeu.setBorder(BorderFactory.createTitledBorder("Option de partie"));
 		PanelOptionDeJeu.add(PartieNormale);
-		PanelOptionDeJeu.add(PartieMatch);
+		PanelOptionDeJeu.add(PartieMatch);*/
 
 
 		//Afficher déplacement d'un pion
@@ -307,7 +307,7 @@ public class Options extends JDialog{
 		PanelOkAnnuler.add(appliquerRelancer);
 
 		JPanel panelModeAide = new JPanel();
-		panelModeAide.add(PanelOptionDeJeu);
+		//panelModeAide.add(PanelOptionDeJeu);
 		panelModeAide.add(panelOptionDAide);
 
 		// Ajout des panels à la fenetre
@@ -392,10 +392,10 @@ public class Options extends JDialog{
 			n21.setEnabled(true);
 			n22.setEnabled(true);
 		}
-		if (a.j.modeNormal)
+		/*if (a.j.modeNormal)
 			PartieNormale.setSelected(true);
 		else
-			PartieMatch.setSelected(false);
+			PartieMatch.setSelected(false);*/
 
 		if (a.j.modeAide)
 			activerAide.setSelected(true);
