@@ -50,7 +50,7 @@ public class Jeu{
 	public void jouerBot(){
 		thBot=new Thread(b);
 		thBot.start();
-		a.pause(4000);
+		a.pause(2000);
 		thBot.stop();
 	}
 
@@ -63,10 +63,10 @@ public class Jeu{
 		if(!option.exists()){
 			J1.type=HUMAIN;
 			J1.joueur=JOUEUR1;
-			J1.nom="Joueur 1";
+			J1.nom="";
 			J2.type=BOTLVL1;
 			J2.joueur=JOUEUR2;
-			J2.nom="José";
+			J2.nom="";
 			modeNormal = true;
 			modeAide = true;
 		}else{

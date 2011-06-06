@@ -44,10 +44,10 @@ public class Options extends JDialog{
 		if(!option.exists()){
 			a.j.J1.type=Jeu.HUMAIN;
 			a.j.J1.joueur=Jeu.JOUEUR1;
-			a.j.J1.nom="Joueur 1";
+			a.j.J1.nom="";
 			a.j.J2.type=Jeu.BOTLVL1;
 			a.j.J2.joueur=Jeu.JOUEUR2;
-			a.j.J2.nom="José";
+			a.j.J2.nom="";
 			a.j.modeNormal = true;
 			a.j.modeAide = true;
 		}else{
