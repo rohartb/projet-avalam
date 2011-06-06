@@ -28,8 +28,6 @@ public class EcouteurDApparence implements ActionListener,
 			}
 			if (cmd.equals("Thème bois")) {
 				a.f.g.theme = Themes.THEME1;
-			} else if (cmd.equals("Theme 2")) {
-				a.f.g.theme = Themes.THEME2;
 			} else if (cmd.equals("Thème marin")) {
 				a.f.g.theme = Themes.THEME3;
 			} else {
