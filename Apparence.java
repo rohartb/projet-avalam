@@ -20,16 +20,14 @@ public class Apparence extends JDialog {
 		this.setTitle("Apparence");
 		this.setModal(true);
 		// class de gestion de l'apparence du jeu
-		String[] themeStrings = {"Thème bois", "Theme 2", "Thème marin"};
+		String[] themeStrings = {"Thème bois", "Thème marin"};
 
 
 		ComboTheme = new JComboBox(themeStrings);
 		if ( a.f.g.theme == Themes.THEME1 )
 			ComboTheme.setSelectedIndex(0);
-		else if ( a.f.g.theme == Themes.THEME2 )
-			ComboTheme.setSelectedIndex(1);
 		else if ( a.f.g.theme == Themes.THEME3 )
-			ComboTheme.setSelectedIndex(2);
+			ComboTheme.setSelectedIndex(1);
 
 		ComboTheme.setActionCommand("theme");
 		ComboTheme.setPreferredSize(new Dimension(100,30));
@@ -87,7 +85,10 @@ public class Apparence extends JDialog {
 
 	public void fermerApparence() {
 		this.setVisible(false);
-		ComboTheme.setSelectedIndex(a.f.g.theme-1);
+		if (a.f.g.theme == 1)
+			ComboTheme.setSelectedIndex(0);
+		else
+			ComboTheme.setSelectedIndex(1);
 	}
 
 	public void sauver(){

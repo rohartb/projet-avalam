@@ -9,35 +9,16 @@ public class Themes {
 	static private final  Color T1plateau = new Color(102,51,0);
 	static private final  Color T1vide    = new Color(0,0,0);
 	static private final  Color T1fond    = new Color(51,153,153);
-	static private final  String T1J1     = "images/joueur.png";
+	static private final  String T1J1     = "images/j1t1.png";
 	static private final  String T1O10    = "images/o10t1.png";
 	static private final  String T1O11    = "images/o11t1.png";
 	static private final  String T1O12    = "images/o12t1.png";
 	static private final  String T1R1     = "images/r1t1.png";
-	static private final  String T1J2     = "images/joueur.png";
+	static private final  String T1J2     = "images/j2t1.png";
 	static private final  String T1O20    = "images/o20t1.png";
 	static private final  String T1O21    = "images/o21t1.png";
 	static private final  String T1O22    = "images/o22t1.png";
 	static private final  String T1R2     = "images/r2t1.png";
-
-
-	static final int THEME2 = 2;
-	static private final  Color T2pionJ1  = new Color(255,255,51);
-	static private final  Color T2pionJ2  = new Color(204,0,55);
-	static private final  Color T2chiffre = new Color(0,0,0);
-	static private final  Color T2plateau = new Color(55,55,55);
-	static private final  Color T2vide    = new Color(0,0,0);
-	static private final  Color T2fond    = new Color(255,255,153);
-	static private final  String T2J1     = "images/joueur.png";
-	static private final  String T2O10    = "images/o10t2png";
-	static private final  String T2O11    = "images/o11t2png";
-	static private final  String T2O12    = "images/o12t2png";
-	static private final  String T2R1     = "images/r1t2.png";
-	static private final  String T2J2     = "images/joueur.png";
-	static private final  String T2O20    = "images/o20t2.png";
-	static private final  String T2O21    = "images/o21t2.png";
-	static private final  String T2O22    = "images/o22t2.png";
-	static private final  String T2R2     = "images/r2t2.png";
 
 
 	static final int THEME3 = 3;
@@ -48,12 +29,12 @@ public class Themes {
 	static private final  Color T3vide    = new Color(100,100,100);
 	static private final  Color T3fond    = new Color(17,68,119);
 
-	static private final  String T3J1     = "images/joueur.png";
+	static private final  String T3J1     = "images/j1t3.png";
 	static private final  String T3O10    = "images/o10t3.png";
 	static private final  String T3O11    = "images/o11t3.png";
 	static private final  String T3O12    = "images/o12t3.png";
 	static private final  String T3R1     = "images/r1t3.png";
-	static private final  String T3J2     = "images/joueur.png";
+	static private final  String T3J2     = "images/j2t3.png";
 	static private final  String T3O20    = "images/o20t3.png";
 	static private final  String T3O21    = "images/o21t3.png";
 	static private final  String T3O22    = "images/o22t3.png";
@@ -66,8 +47,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1:
 			return T1pionJ1;
-		case THEME2:
-			return T2pionJ1;
 		case THEME3:
 			return T3pionJ1;
 		default :
@@ -80,8 +59,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1:
 			return T1pionJ2;
-		case THEME2:
-			return T2pionJ2;
 		case THEME3:
 			return T3pionJ2;
 		default :
@@ -94,8 +71,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1:
 			return T1plateau;
-		case THEME2:
-			return T2plateau;
 		case THEME3:
 			return T3plateau;
 		default :
@@ -109,8 +84,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1:
 			return T1chiffre;
-		case THEME2:
-			return T2chiffre;
 		case THEME3:
 			return T3chiffre;
 		default :
@@ -123,8 +96,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1vide;
-		case THEME2 :
-			return T2vide;
 		case THEME3 :
 			return T3vide;
 		default :
@@ -137,8 +108,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1fond;
-		case THEME2 :
-			return T2fond;
 		case THEME3 :
 			return T3fond;
 		default :
@@ -151,8 +120,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1J1;
-		case THEME2 :
-			return T2J1;
 		case THEME3 :
 			return T3J1;
 		default :
@@ -165,8 +132,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 				return T1O10;
-		case THEME2 :
-				return T2O10;
 		case THEME3 :
 				return T3O10;
 		default :
@@ -179,8 +144,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 				return T1O11;
-		case THEME2 :
-				return T2O11;
 		case THEME3 :
 				return T3O11;
 		default :
@@ -193,8 +156,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 				return T1O12;
-		case THEME2 :
-				return T2O12;
 		case THEME3 :
 				return T3O12;
 		default :
@@ -208,8 +169,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1R1;
-		case THEME2 :
-			return T2R1;
 		case THEME3 :
 			return T3R1;
 		default :
@@ -222,8 +181,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1J2;
-		case THEME2 :
-			return T2J2;
 		case THEME3 :
 			return T3J2;
 		default :
@@ -236,8 +193,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1O20;
-		case THEME2 :
-			return T2O20;
 		case THEME3 :
 			return T3O20;
 		default :
@@ -250,8 +205,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1O21;
-		case THEME2 :
-			return T2O21;
 		case THEME3 :
 			return T3O21;
 		default :
@@ -265,8 +218,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1O22;
-		case THEME2 :
-			return T2O22;
 		case THEME3 :
 			return T3O22;
 		default :
@@ -279,8 +230,6 @@ public class Themes {
 		switch(theme) {
 		case THEME1 :
 			return T1R2;
-		case THEME2 :
-			return T2R2;
 		case THEME3 :
 			return T3R2;
 		default :
