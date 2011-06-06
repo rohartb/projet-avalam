@@ -69,7 +69,7 @@ public class Bot implements Runnable{
 						pDst = l.removeFirst();
 						c = new Coups(pSrc, pDst);
 						s.simulerCoup(c);
-						val = min(s,profondeur,2);
+						val = min(s,profondeur);
 						if(val>max){
 							randomcoup = new LinkedList<Coups>();
 							randomcoup.add(c);
@@ -96,7 +96,7 @@ public class Bot implements Runnable{
 						pDst = l.removeFirst();
 						c = new Coups(pSrc, pDst);
 						s.simulerCoup(c);
-						val = max(s,profondeur,1);
+						val = max(s,profondeur);
 						if(val<min){
 							randomcoup = new LinkedList<Coups>();
 							randomcoup.add(c);
@@ -119,19 +119,13 @@ public class Bot implements Runnable{
 	
 
 
-	public int min(Simulation s, int prof, int tour){
+	public int min(Simulation s, int prof){
 		if(prof==0 || s.partieFinie()){
 			if(s.partieFinie())
 				finEval=true;
-			return eval(s,tour);
+			return eval(s);
 		}
 		else{
-			if(tour==1){
-				tour=2;
-			}
-			else{
-				tour=1;
-			}
 			int min = 999999999;
 			int val,tailleCoup;
 			Point pSrc, pDst;
@@ -146,7 +140,7 @@ public class Bot implements Runnable{
 						pDst = l.removeFirst();
 						c = new Coups(pSrc, pDst);
 						s.simulerCoup(c);
-						val = max(s,prof-1,tour);
+						val = max(s,prof-1);
 						if(val<min){
 							min = val;
 						}
@@ -159,19 +153,13 @@ public class Bot implements Runnable{
 	}
 
 
-	public int max(Simulation s, int prof, int tour){
+	public int max(Simulation s, int prof){
 		if(prof==0 || s.partieFinie()){
 			if(s.partieFinie())
 				finEval=true;
-			return eval(s,tour);			
+			return eval(s);			
 		}
 		else{
-			if(tour==1){
-				tour=2;
-			}
-			else{
-				tour=1;
-			}
 			int max = -999999999;
 			int val,tailleCoup;
 			Point pSrc, pDst;
@@ -186,7 +174,7 @@ public class Bot implements Runnable{
 						pDst = l.removeFirst();
 						c = new Coups(pSrc, pDst);
 						s.simulerCoup(c);
-						val = min(s,prof-1,tour);;
+						val = min(s,prof-1);;
 						if(val>max){
 							max = val;
 						}
@@ -203,17 +191,18 @@ public class Bot implements Runnable{
 	static int TRUC=1000;
 	static int PIONS=10;
 	
-	public int eval(Simulation s, int tour){
+	public int eval(Simulation s){
 		int score=0;
 		if(s.partieFinie()){
 			score = s.evaluerNbPions()*TOURFIN;
 		}else{
-			score += s.evaluerScoreCourant()*TOURDEF;
+			if(niveau<3)
+				score += s.evaluerScoreCourant()*TOURDEF;
 			if(niveau>1)
 				score += s.evaluerNbPions()*PIONS;
-			/*if(niveau>2){
-				
-			}*/
+			if(niveau>2){
+				score += s.evaluerScoreCourantDiff();
+			}
 		}
 		return score;
 	}
