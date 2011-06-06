@@ -9,12 +9,12 @@ public class Themes {
 	static private final  Color T1plateau = new Color(102,51,0);
 	static private final  Color T1vide    = new Color(0,0,0);
 	static private final  Color T1fond    = new Color(51,153,153);
-	static private final  String T1J1     = "images/j1t1.png";
+	static private final  String T1J1     = "images/joueur.png";
 	static private final  String T1O10    = "images/o10t1.png";
 	static private final  String T1O11    = "images/o11t1.png";
 	static private final  String T1O12    = "images/o12t1.png";
 	static private final  String T1R1     = "images/r1t1.png";
-	static private final  String T1J2     = "images/j2t1.png";
+	static private final  String T1J2     = "images/joueur.png";
 	static private final  String T1O20    = "images/o20t1.png";
 	static private final  String T1O21    = "images/o21t1.png";
 	static private final  String T1O22    = "images/o22t1.png";
@@ -28,12 +28,12 @@ public class Themes {
 	static private final  Color T2plateau = new Color(55,55,55);
 	static private final  Color T2vide    = new Color(0,0,0);
 	static private final  Color T2fond    = new Color(255,255,153);
-	static private final  String T2J1     = "images/j1t2.png";
+	static private final  String T2J1     = "images/joueur.png";
 	static private final  String T2O10    = "images/o10t2png";
 	static private final  String T2O11    = "images/o11t2png";
 	static private final  String T2O12    = "images/o12t2png";
 	static private final  String T2R1     = "images/r1t2.png";
-	static private final  String T2J2     = "images/j2t2.png";
+	static private final  String T2J2     = "images/joueur.png";
 	static private final  String T2O20    = "images/o20t2.png";
 	static private final  String T2O21    = "images/o21t2.png";
 	static private final  String T2O22    = "images/o22t2.png";
@@ -48,12 +48,12 @@ public class Themes {
 	static private final  Color T3vide    = new Color(100,100,100);
 	static private final  Color T3fond    = new Color(17,68,119);
 
-	static private final  String T3J1     = "images/j1t3.png";
+	static private final  String T3J1     = "images/joueur.png";
 	static private final  String T3O10    = "images/o10t3.png";
 	static private final  String T3O11    = "images/o11t3.png";
 	static private final  String T3O12    = "images/o12t3.png";
 	static private final  String T3R1     = "images/r1t3.png";
-	static private final  String T3J2     = "images/j2t3.png";
+	static private final  String T3J2     = "images/joueur.png";
 	static private final  String T3O20    = "images/o20t3.png";
 	static private final  String T3O21    = "images/o21t3.png";
 	static private final  String T3O22    = "images/o22t3.png";

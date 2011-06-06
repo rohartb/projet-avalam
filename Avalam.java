@@ -213,6 +213,7 @@ public class Avalam{
 					f.activerPause(false);
 					j.init();
 					t.init();
+					j.modeNormal=false;
 					f.s.actualiser();
 					save=false;
 					etat=JEU;
@@ -356,18 +357,15 @@ public class Avalam{
 				if (partieReseauEnCours) {
 					r.finDePartieReseau();
 				} else if(j.modeNormal){
-                    f.popupFinDePartie();
-                    etat=etatSuivant;
-                } else {
-	                ma.nbPartiesJouees++;
-	                if(ma.nbPartiesJouees != ma.nbPartiesTotales) {
-		                ma.popupFinDePartie();
-	                } else {
-		                ma.popupFinDeMatch();
-		                ma.finDeMatch();
-		                ma.finMatch = true;
-	                }
-                }
+                    			f.popupFinDePartie();
+                    			etat=etatSuivant;
+		                } else {
+					if(ma.scoreMJ1 >= ma.nbPartiesTotales || ma.scoreMJ2 >= ma.nbPartiesTotales)
+						ma.popupFinDeMatch();
+					else					
+						ma.popupFinDePartie();
+					etat=etatSuivant;				
+				}
 				break;
 
 			//calcul un coup a partir du bot
@@ -440,7 +438,8 @@ public class Avalam{
 					}
 					etat=JEU;
 				}
-				f.g.labelAmpoule.setEnabled(true);
+				if (j.modeNormal)
+					f.g.labelAmpoule.setEnabled(true);
 				break;
 
 
@@ -523,7 +522,19 @@ public class Avalam{
 			//TODO
 			case ABANDONNER:
 				System.out.println("abandonner");
-				etat=FIN;
+				etat=etatSuivant;
+	 			ma.nbPartiesJouees++;
+				if(j.courantEstJ1())
+					ma.abandonne = ma.J1_ABANDONNE;
+				else if(j.courantEstJ2())
+					ma.abandonne = ma.J2_ABANDONNE;
+	                	if(ma.scoreMJ1 < ma.nbPartiesTotales && ma.scoreMJ2 < ma.nbPartiesTotales) {
+					ma.popupFinDePartie();
+	                	} else {
+		                	ma.popupFinDeMatch();
+		                	ma.finDeMatch();
+					ma.finMatch = true;
+				}
 				break;
 
 			case OPTIONS:
