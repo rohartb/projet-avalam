@@ -10,8 +10,6 @@ public class Bot implements Runnable{
 	int n,nMax;
 	boolean finEval;
 	Simulation s;
-	boolean pb;
-
 	
 	public Bot (Avalam a) {
 		this.a = a;
@@ -31,7 +29,6 @@ public class Bot implements Runnable{
 	}
 	
 	public void run() {
-		s = new Simulation(a.t.plateau);
 		if(a.j.joueurCourant==1)
 			niveau=a.j.J1.type;
 		else
@@ -39,21 +36,15 @@ public class Bot implements Runnable{
 		if(niveau==0)//humain demande aide
 			niveau=3;
 		finEval=false;
-		if(niveau==1){
-			n=0;
+		if(niveau==1)
 			nMax=0;
-		}
-		if(niveau==2){
-			n=1;
-			nMax=1;
-		}
-		if(niveau==3){
-			n=1;
+		if(niveau==2)
+			nMax=1;		
+		if(niveau==3)
 			nMax=1000;//on limite pas le jouer difficile
-		}
+		n=0;
 		while(!finEval && n<=nMax){
 			coupTemp=jouerMinMax(n);
-			pb = false;
 			n++;
 			a.j.c = new Coups(coupTemp.pDep,coupTemp.pArr);
 		}
@@ -79,7 +70,6 @@ public class Bot implements Runnable{
 							pDst = l.removeFirst();
 							c = new Coups(pSrc, pDst);
 							s.simulerCoup(c);
-							pb = true;
 							val = min(profondeur);
 							if(val>max){
 								randomcoup = new LinkedList<Coups>();
@@ -108,7 +98,6 @@ public class Bot implements Runnable{
 							pDst = l.removeFirst();
 							c = new Coups(pSrc, pDst);
 							s.simulerCoup(c);
-							pb = true;
 							val = max(profondeur);
 							if(val<min){
 								randomcoup = new LinkedList<Coups>();
