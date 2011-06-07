@@ -40,18 +40,15 @@ public class Reseau implements Runnable {
 				number = inputReseau.read(buffer);
 				if (number > 0) {
 				s = new String(buffer, 0, number);
-				System.out.println("longueur : " + s.length());
 
 					String[] tokens = s.split("[ ]+");
 					int t = Integer.valueOf(tokens[0]);
 					if (t == 1234) {
 						System.out.println("Connexion acceptee par le serveur");
 						outputReseau.print(a.j.J1.nom);
-						System.out.println("J'envoie mon nom");
 						number = inputReseau.read(buffer);
 						s = new String(buffer,0,number);
 						a.j.J2.nom = s;
-						System.out.println("Je reçois le nom");
 
 						a.j.J1.type=Jeu.HUMAIN;
 						a.j.J2.type=Jeu.RESEAU;
@@ -66,13 +63,11 @@ public class Reseau implements Runnable {
 					JOptionPane.showMessageDialog(a.f,"Connexion refusée par l'hôte", "Connexion refusée", JOptionPane.ERROR_MESSAGE);
 				}
 			} else if (type == SERVEUR) {
-				System.out.println("J'envoie mon nom");
 				outputReseau.print(a.j.J2.nom);
 
 				number = inputReseau.read(buffer);
 				s = new String(buffer, 0, number);
 				a.j.J1.nom = s;
-				System.out.println("Je reçois le nom");
 
 				a.j.J1.type=Jeu.RESEAU ;
 				a.j.J2.type=Jeu.HUMAIN ;
@@ -81,7 +76,6 @@ public class Reseau implements Runnable {
 				a.f.m.pause.setEnabled(false);
 			}
 		} catch (Exception e) {
-			System.out.print(" Reseau : " );
 			e.printStackTrace();
 		}
 
@@ -103,11 +97,9 @@ public class Reseau implements Runnable {
 					cDest  = Integer.valueOf(tokens[3]);
 					Coups c = new Coups(lSrc, cSrc, lDest, cDest);
 					a.j.c = c;
-					System.out.println("Coup " + c + " reçu");
 					a.unpause();
 				}
 			} catch (java.net.SocketTimeoutException t) {
-				System.out.println("pouet : " + t);
 				InterruptionReseau();
 				try {
 				sock.close();
@@ -120,7 +112,7 @@ public class Reseau implements Runnable {
 				InterruptionReseau();
 			}
 		}
-		System.out.println("Connection interropue");
+		System.out.println("Connection interrompue");
 	}
 
 	public void InterruptionReseau() {

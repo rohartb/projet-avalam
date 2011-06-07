@@ -51,7 +51,6 @@ public class Bot implements Runnable{
 	}
 	
 	public Coups jouerMinMax(int profondeur){
-		System.out.println("MinMax "+profondeur);
 		LinkedList<Point> l;
 		Point pSrc, pDst;
 		Coups c;
@@ -84,7 +83,6 @@ public class Bot implements Runnable{
 					}
 				}
 			}
-			System.out.println("max:"+max);
 		}		
 		else{
 			int min = 999999999;
@@ -112,7 +110,6 @@ public class Bot implements Runnable{
 					}
 				}
 			}
-			System.out.println("min:"+min);
 		}
 		if(randomcoup.size()==1){
 			return randomcoup.get(0);

@@ -57,7 +57,6 @@ public class Serveur implements Runnable {
 			            a.f.g.repaint();
 			            a.unpause();
 		            } else if (choix == JOptionPane.NO_OPTION || choix == -1) {
-			            System.out.println("Je ferme la connexion");
 			            client.close();
 			            a.unpause();
 		            }

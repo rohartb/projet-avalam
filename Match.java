@@ -266,7 +266,6 @@ class Match {
 	}
 
     public void finDeMatch(){
-        //TODO popup de fin avec resultat et tout
 	a.f.m.avalam.setEnabled(true);
 	a.f.m.edition.setEnabled(true);
         //a.f.m.options.setEnabled(true);
