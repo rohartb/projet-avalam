@@ -22,7 +22,6 @@ class Client {
             InputStream in = sock.getInputStream();
             PrintStream print = new PrintStream(sock.getOutputStream());
 
-            print.println("Coucou serveur, ici client !");
             byte [] buffer = new byte [1024];
                 int number;
 

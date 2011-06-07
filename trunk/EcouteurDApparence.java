@@ -30,8 +30,6 @@ public class EcouteurDApparence implements ActionListener,
 				a.f.g.theme = Themes.THEME1;
 			} else if (cmd.equals("Thème marin")) {
 				a.f.g.theme = Themes.THEME3;
-			} else {
-				System.out.println("Commande : " + cmd );
 			}
 			a.f.g.reinitialisationDesBI();
 			a.f.g.repaint();
@@ -57,7 +55,6 @@ public class EcouteurDApparence implements ActionListener,
 	public void itemStateChanged(ItemEvent e) {
 		JComboBox cb = (JComboBox) e.getSource();
 		String cmd = (String) cb.getSelectedItem();
-		System.out.println("Commande : " + cmd);
 	}
 
 

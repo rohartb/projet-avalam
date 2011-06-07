@@ -11,12 +11,10 @@ public class EcouteurDAstuces implements ActionListener,
 		this.a=a;
 		this.as=as;
 		this.num = nb;
-		System.out.println("lala c'est le num" +num);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		String cmd = e.getActionCommand();
-		System.out.println("Commande " + cmd);
+		String cmd = e.getActionCommand();;
 		if (cmd.equals("quitter")) {
 			traiterQuitter();
 		} else if (cmd.equals("precedent" )) {
