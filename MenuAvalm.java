@@ -70,6 +70,25 @@ class MenuAvalam extends JMenuBar{
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK));
 		avalam.add(quitter);
 		this.add(avalam);
+        
+        match= new JMenu("Match");
+        nouveauMatch = new JMenuItem("Demarrer un nouveau match");
+		nouveauMatch.setActionCommand("nouveauMatch");
+		nouveauMatch.addActionListener(em);
+		match.add(nouveauMatch);
+        abandonner = new JMenuItem("Abandonner la partie");
+		abandonner.setActionCommand("abandonner");
+		abandonner.addActionListener(em);
+		abandonner.setMnemonic(KeyEvent.VK_B);
+		abandonner.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,Event.CTRL_MASK));
+		match.add(abandonner);
+        quitterMatch = new JMenuItem("Quitter le match");
+		quitterMatch.setActionCommand("quitterMatch");
+		quitterMatch.addActionListener(em);
+		match.add(quitterMatch);
+        this.add(match);
+        
+
 
 		edition = new JMenu("Edition");
 		edition.setMnemonic(KeyEvent.VK_E);
@@ -109,24 +128,7 @@ class MenuAvalam extends JMenuBar{
 		affichage.add(itemPleinEcran);
 		this.add(affichage);
 
-        match= new JMenu("Match");
-        nouveauMatch = new JMenuItem("Demmarer un nouveau match");
-		nouveauMatch.setActionCommand("nouveauMatch");
-		nouveauMatch.addActionListener(em);
-		match.add(nouveauMatch);
-        abandonner = new JMenuItem("Abandonner la partie");
-		abandonner.setActionCommand("abandonner");
-		abandonner.addActionListener(em);
-		abandonner.setMnemonic(KeyEvent.VK_B);
-		abandonner.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,Event.CTRL_MASK));
-		match.add(abandonner);
-        quitterMatch = new JMenuItem("Quitter le match");
-		quitterMatch.setActionCommand("quitterMatch");
-		quitterMatch.addActionListener(em);
-		match.add(quitterMatch);
-        this.add(match);
-
-		aide = new JMenu("Aide");
+        aide = new JMenu("Aide");
 		aide.setActionCommand("aide");
 		aide.addActionListener(em);
 		aide.setMnemonic(KeyEvent.VK_D);
