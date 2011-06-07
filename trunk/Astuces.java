@@ -11,7 +11,7 @@ public class Astuces extends JDialog {
 	JButton precedent;
 	JButton suivant;
 	JLabel lesAstuces;
-	ImageIcon i[] = new ImageIcon[7];
+	ImageIcon i[] = new ImageIcon[8];
 
 	public Astuces(Avalam a){
 		i[0] = new ImageIcon("images/aide1.png");
@@ -21,6 +21,7 @@ public class Astuces extends JDialog {
 		i[4] = new ImageIcon("images/aide5.png");
 		i[5] = new ImageIcon("images/aide6.png");
 		i[6] = new ImageIcon("images/aide7.png");
+		i[7] = new ImageIcon("images/aide8.png");
 
 		this.a = a;
 		this.nbAstuce = 1;
