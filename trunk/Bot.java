@@ -39,7 +39,7 @@ public class Bot implements Runnable{
 		if(niveau==1)
 			nMax=0;
 		if(niveau==2)
-			nMax=1;		
+			nMax=1000;		
 		if(niveau==3)
 			nMax=1000;//on limite pas le jouer difficile
 		n=0;
@@ -205,13 +205,10 @@ public class Bot implements Runnable{
 		if(s.partieFinie()){
 			score = s.evaluerNbPions()*TOURFIN;
 		}else{
-			if(niveau<=3)
-				score += s.evaluerScoreCourant()*TOURDEF;
-			if(niveau>1)
+			score += s.evaluerScoreCourant()*TOURDEF;
+			if(niveau>2)
 				score += s.evaluerNbPions()*PIONS;
-			/*if(niveau>2){
-				score += s.evaluerScoreCourantDiff();
-			}*/
+			
 		}
 		return score;
 	}
