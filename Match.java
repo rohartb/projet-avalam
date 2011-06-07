@@ -40,9 +40,10 @@ class Match {
         scoreMJ2 = 0;
         nbToursJ1 = 0;
         nbToursJ2 = 0;
-        a.f.m.options.setEnabled(false);
-        a.f.m.sauvegarder.setEnabled(false);
-        a.f.m.charger.setEnabled(false);
+        a.f.m.avalam.setEnabled(false);
+	a.f.m.edition.setEnabled(false);
+        //a.f.m.sauvegarder.setEnabled(false);
+        //a.f.m.charger.setEnabled(false);
         a.f.g.labelAmpoule.setEnabled(false);
         a.f.g.ea.actif = false;
         //a.f.g.repaint();
@@ -259,7 +260,6 @@ class Match {
 		}else if (rep == JOptionPane.NO_OPTION || rep == -1) {
             finDeMatch();
             a.etat = a.OPTIONS;
-			a.f.o.ok.setEnabled(false);
 		} else {
 			System.err.println("Erreur fin match " + rep);
 		}
@@ -267,9 +267,11 @@ class Match {
 
     public void finDeMatch(){
         //TODO popup de fin avec resultat et tout
-        a.f.m.options.setEnabled(true);
-        a.f.m.sauvegarder.setEnabled(true);
-        a.f.m.charger.setEnabled(true);
+	a.f.m.avalam.setEnabled(true);
+	a.f.m.edition.setEnabled(true);
+        //a.f.m.options.setEnabled(true);
+        //a.f.m.sauvegarder.setEnabled(true);
+        //a.f.m.charger.setEnabled(true);
         a.f.g.labelAmpoule.setEnabled(true);
         a.f.g.ea.actif = true;
         a.j.modeNormal=true;
@@ -277,6 +279,9 @@ class Match {
         a.f.m.pause.setEnabled(true);
         a.f.g.pause.setEnabled(true);
         a.j.modeAide = true;
-        a.etat = a.ACTUALISER;
+	a.j.actualiser();
+	a.f.s.actualiser();
+	a.f.m.actualiser();
+	a.f.g.repaint();
     }
 }
