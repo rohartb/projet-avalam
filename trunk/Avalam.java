@@ -508,7 +508,6 @@ public class Avalam{
 				}
 				break;
 
-			//TODO
 			case ABANDONNER:
 				System.out.println("abandonner");
 				etat=FIN;
@@ -520,7 +519,14 @@ public class Avalam{
 				break;
 
             case QUITTERMATCH:
-                ma.finDeMatch();
+		int choixQuitter  = JOptionPane.showOptionDialog(f.g, "Voulez-vous vraiment quitter le match en cours ?", "Quitter ?",
+					 		  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,null,new ImageIcon("./images/question.png"));
+		if (choixQuitter == JOptionPane.YES_OPTION) {
+			ma.finDeMatch();
+			etat=OPTIONS;
+		} else {
+			etat=JEU;
+		}
                 break;
 
 			case OPTIONS:
