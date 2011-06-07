@@ -261,7 +261,6 @@ class Sauvegarde{
 
 		File dossier = new File(System.getProperty("user.home")+"/.Avalam/Sauvegardes/");
         listeFichiers = dossier.list(ff);
-        System.out.println(listeFichiers.length + " ata");
         if(listeFichiers.length > 0) {
 	        return true;
         } else {

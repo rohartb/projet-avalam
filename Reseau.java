@@ -163,10 +163,13 @@ public class Reseau implements Runnable {
 		                              options[0]);
 		if (rep == JOptionPane.YES_OPTION) {
 			System.out.println("quitter le jeu");
+			a.etat = a.QUITTER;
 		} else if (rep == JOptionPane.NO_OPTION) {
 			System.out.println("nouvelle partie");
+			a.etat = a.NOUVEAU;
 		} else if (rep == JOptionPane.CANCEL_OPTION) {
 			System.out.println("relancer la connexion");
+			a.etat = a.CONNEXION;
 		}
 		finReseau();
 	}
