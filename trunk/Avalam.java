@@ -99,7 +99,6 @@ public class Avalam{
 
 			//initialisation
 			case INIT:
-				System.out.println("init");
 				//creation du dossier .Avalam s'il n'existe pas
 				File dossier = new File(System.getProperty("user.home")+"/.Avalam");
 				if(!dossier.exists())
@@ -121,7 +120,6 @@ public class Avalam{
 				f.o.afficherOptions();
 
 				if (etat == CHARGER || etat == ASTUCE) {
-					System.out.println("je vais vers mon état spécial");
 					etatSuivant = OPTIONS;
 				} else if (j.modeNormal) {
 					etat = NOUVEAU;
@@ -132,7 +130,6 @@ public class Avalam{
 
 			//nouvelle partie
 			case NOUVEAU:
-				System.out.println("nouveau");
 
 				if(!j.finPartie && !save && j.nbCoupsRestants!=292 && j.modeNormal && partieEnCours){
 					f.s.timer.stop();
@@ -206,7 +203,6 @@ public class Avalam{
 	            break;
 
             case NOUVEAUMATCH:
-                //TODO popup de match
                 ma = new Match(this);
                 ma.debutMatch();
                 break;
@@ -239,7 +235,6 @@ public class Avalam{
 							null
 							);
 						if (ip != null && ip.matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*")) {
-							System.out.println("Connexion réseau !");
 							InetAddress addr = InetAddress.getByName(ip);
 							int port = 8100;
 							Socket sock = new Socket(addr, port);
@@ -251,13 +246,10 @@ public class Avalam{
 							while(! r.connexionAcceptee) {
 								Thread.sleep(200);
 							}
-							System.out.println("La demande de connexion a été accpetée");
 							sock.setSoTimeout(0); // desactive le timeout
 							etat = PARTIERESEAU;
 							jeFaisLaConnexion = true;
-							//TODO activer mode match
 						} else {
-							System.out.println("Pas de connexion");
 							etat = JEU;
 						}
 					}
@@ -268,7 +260,6 @@ public class Avalam{
 				} catch (ConnectException ce) {
 					JOptionPane.showMessageDialog(f, "Connexion refusée", "Connexion impossible. Aucun Joueur d'Avalam n'est pas résent à cette adresse", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e) {
-					System.out.print("\t Avalam : ");
 					e.printStackTrace();
 				} finally {
 					break;
@@ -276,7 +267,6 @@ public class Avalam{
 
 
 			case PARTIERESEAU:
-				System.out.println("parti réseau");
 				if (! jeFaisLaConnexion) {
 					pause();
 				}
@@ -292,7 +282,6 @@ public class Avalam{
 
 			//verif si fin de partie ou atends un coup a jouer
 			case JEU:
-				System.out.println("jeu");
 				f.s.timer.start();
 				f.es.actif = true;
 				if(interupt){
@@ -333,9 +322,7 @@ public class Avalam{
 				//SAUVEGARDER, CHARGER, PREFERENCES, OPTIONS, ANNLER,REFAIRE....
 
 			//met le jeu en pause
-			case PAUSE:
-				//TODO bloquer les clik souris sur le graphique
-				System.out.println("pause");
+			case PAUSE:;
 				f.s.timer.stop();
 				JOptionPane.showMessageDialog(f, "Jeu en pause, cliquez sur OK pour reprendre la partie", "Pause", JOptionPane.INFORMATION_MESSAGE);
 				etat=JEU;
@@ -343,7 +330,6 @@ public class Avalam{
 
 			//fin de partie
 			case FIN:
-				System.out.println("fin");
 				partieEnCours = false; // la partie est finie
 				f.s.timer.stop();
 				if (partieReseauEnCours) {
@@ -358,7 +344,6 @@ public class Avalam{
 
 			//calcul un coup a partir du bot
 			case BOT:
-				System.out.println("bot");
 				f.g.labelAmpoule.setEnabled(false);
 				f.activerAnnulerRefaire(false);
 				f.es.actif = false;
@@ -369,14 +354,11 @@ public class Avalam{
 
 			//calcul un coup reseau dans jeu.c
 			case RESEAU:
-				//TODO
-				System.out.println("reseau");
 				pause();
 				etat=JOUERAUTO;
 				break;
 
 			case AIDE:
-				System.out.println("aide");
 				f.g.labelAmpoule.setEnabled(false);
 				f.es.actif = false;
 				f.g.ea.actif = false;
@@ -401,7 +383,6 @@ public class Avalam{
 
 			//animation du coup du bot ou reseau
 			case JOUERAUTO:
-				System.out.println("jouer auto");
 				f.g.animationPionAuto();
 				pause(30);
 				etat=JOUER;
@@ -409,7 +390,6 @@ public class Avalam{
 
 			//animation du coup manuel
 			case JOUERMANU:
-				System.out.println("jouer manu");
 				pause();
 				f.g.labelAmpoule.setEnabled(false);
 				j.calculerCoup();
@@ -433,7 +413,6 @@ public class Avalam{
 
 			//joue le coup+ajoute a l'historique+ change le joueur courrant
 			case JOUER:
-				System.out.println("jouer");
 				partieEnCours = true;
 				ElemHist e = new ElemHist(j.c,t);
 				j.h.ajouterAnnuler(e);
@@ -441,7 +420,6 @@ public class Avalam{
 				t.deplacer(j.c);
 				etat=ACTUALISER;
 				if (j.partieEnReseau && j.courantEstHumain()) { // on envoi que si le coup est joué par le joueur
-					System.out.println("j'envoie mon coup sur le réseau");
 					r.outputReseau.print(j.c.toString());
 				}
 				j.changerJoueur();
@@ -453,7 +431,6 @@ public class Avalam{
 				break;
 
 			case CHARGER:
-				System.out.println("charger");
 				f.s.timer.stop();
 
 				if(!j.finPartie && !load && j.nbCoupsRestants!=292 && j.modeNormal && partieEnCours){
@@ -488,7 +465,6 @@ public class Avalam{
 
 			//popop de sauvearde
 			case SAUVER:
-				System.out.println("sauver");
 				f.s.timer.stop();
 				s.sauver();
 				if(!j.revoirH)
@@ -509,7 +485,6 @@ public class Avalam{
 				break;
 
 			case ABANDONNER:
-				System.out.println("abandonner");
 				etat=FIN;
                 if(j.courantEstJ1()) {
 					ma.abandonne = ma.J1_ABANDONNE;
@@ -530,7 +505,6 @@ public class Avalam{
                 break;
 
 			case OPTIONS:
-				System.out.println("options");
 				f.s.timer.stop();
 				f.o.afficherOptions();
 				if(!j.revoirH)
@@ -540,7 +514,6 @@ public class Avalam{
 				break;
 
 			case APPARENCE:
-				System.out.println("apparence");
 				f.s.timer.stop();
 				f.app.afficherApparence();
 				if(!j.revoirH)
@@ -550,7 +523,6 @@ public class Avalam{
 
 
 			case REGLE:
-				System.out.println("regle");
 				f.s.timer.stop();
 				f.r.afficherRegle();
 				if(!j.revoirH)
@@ -560,7 +532,6 @@ public class Avalam{
 
 
 			case ASTUCE:
-				System.out.println("astuces");
 				f.s.timer.stop();
 				f.as.afficherAstuces();
 				f.s.timer.start();
@@ -575,7 +546,6 @@ public class Avalam{
 			//annule 1 coup
 			case ANNULER:
 
-				System.out.println("annuler");
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
 				f.activerAnnulerRefaire(false);
 
@@ -604,9 +574,7 @@ public class Avalam{
 				break;
 
 				//rejoue 1 coup
-				//TODO si 1 joueur ordi
 			case REJOUER:
-				System.out.println("rejouer");
 				//grisage des fonctions et boutons annuler, rejouer et dernierCoup pendant le deplacement
 				f.activerAnnulerRefaire(false);
 				if( (j.J1.estRobot() || j.J2.estRobot()) && !j.revoirH){
@@ -636,7 +604,6 @@ public class Avalam{
 				break;
 
 			case ACTUALISER:
-				System.out.println("actualiser");
 				j.actualiser();
 				f.s.actualiser();
 				f.m.actualiser();
@@ -649,7 +616,6 @@ public class Avalam{
 				break;
 
 			case QUITTER:
-				System.out.println("quitter");
 				f.s.timer.stop();
                 if(j.modeNormal){
                     if(!j.finPartie && !quit){
@@ -689,7 +655,6 @@ public class Avalam{
 				break;
 
 			case HISTORIQUE:
-				System.out.println("historique");
 				f.m.actualiser();
 				f.es.actif=false;
 				pause();
@@ -703,7 +668,6 @@ public class Avalam{
 				break;
 
 			case DERNIERCOUP:
-				System.out.println("dernierCoup");
 				ElemHist dernierCoup = j.h.annuler();
 				j.h.ajouterRejouer(dernierCoup);
 				t.annuler(dernierCoup);
