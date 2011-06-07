@@ -49,8 +49,9 @@ public class Jeu{
 
 	public void jouerBot(){
 		thBot=new Thread(b);
+		b.s = new Simulation(a.t.plateau);
 		thBot.start();
-		a.pause(5000);
+		a.pause(3000);
 		thBot.stop();
 	}
 
