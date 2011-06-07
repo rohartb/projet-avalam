@@ -223,10 +223,10 @@ class TerrainGraphique extends JComponent{
 		drawable.fillOval(xPion, yPion ,
 		                  diametrePion, diametrePion);
 		drawable.setPaint(Themes.getCouleurChiffre(theme));
-		decalage = metrics.stringWidth("J1");
+		decalage = metrics.stringWidth("J2");
 		f = new Font("Liberation Sans", 1 , (int) (0.25*tailleCase));
 		drawable.setFont(f);
-		drawable.drawString("J1", xRect+tailleCase/18+decalage/2,
+		drawable.drawString("J2", xRect+tailleCase/18+decalage/2,
 		                    yPion+2*diametrePion/3);
 
 		if (a.j.courantEstJ1()) {
@@ -286,7 +286,7 @@ class TerrainGraphique extends JComponent{
 		decalage = metrics.stringWidth("J1");
 		f = new Font("Liberation Sans", 1 , (int) (0.25*tailleCase));
 		drawable.setFont(f);
-		drawable.drawString("J2", xRect+tailleCase/18+decalage/2,
+		drawable.drawString("J1", xRect+tailleCase/18+decalage/2,
 		                    yPion+2*diametrePion/3);
 
 
