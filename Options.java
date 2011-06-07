@@ -278,13 +278,13 @@ public class Options extends JDialog{
 
 		//Afficher déplacement d'un pion
 
-		activerAide = new JCheckBox("Activer                           ");
+		activerAide = new JCheckBox("Activer");
 		activerAide.setActionCommand("activeraide");
 		activerAide.addActionListener(eo);
 		activerAide.setSelected(aide);
 
 		JPanel panelOptionDAide = new JPanel();
-		panelOptionDAide.setBorder(BorderFactory.createTitledBorder("Indications de déplacements"));
+		panelOptionDAide.setBorder(BorderFactory.createTitledBorder("Indications de déplacement"));
 		panelOptionDAide.add(activerAide);
 
 		/////// Panel Bouton Ok / Annuler
@@ -306,13 +306,13 @@ public class Options extends JDialog{
 		PanelOkAnnuler.add(ok);
 		PanelOkAnnuler.add(appliquerRelancer);
 
-		JPanel panelModeAide = new JPanel();
+		//JPanel panelModeAide = new JPanel();
 		//panelModeAide.add(PanelOptionDeJeu);
-		panelModeAide.add(panelOptionDAide);
+		//panelModeAide.add(panelOptionDAide);
 
 		// Ajout des panels à la fenetre
 		this.add(PanelChoixJoueur, BorderLayout.NORTH);
-		this.add(panelModeAide);
+		this.add(panelOptionDAide);
 		this.add(PanelOkAnnuler  , BorderLayout.SOUTH);
 
 

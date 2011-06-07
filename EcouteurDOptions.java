@@ -35,6 +35,7 @@ public class EcouteurDOptions implements ActionListener,
 				o.fermerOptions();
             }
 		} else if (cmd.equals("charger")) {
+			a.etatSuivant = a.CHARGER;
 			a.etat = a.CHARGER;
 			o.fermerOptions();
 		} else if (cmd.equals("astuces")) {
