@@ -9,6 +9,9 @@ public class Bot implements Runnable{
 	Coups coupTemp;
 	int n,nMax;
 	boolean finEval;
+	Simulation s;
+	boolean pb;
+
 	
 	public Bot (Avalam a) {
 		this.a = a;
@@ -28,6 +31,7 @@ public class Bot implements Runnable{
 	}
 	
 	public void run() {
+		s = new Simulation(a.t.plateau);
 		if(a.j.joueurCourant==1)
 			niveau=a.j.J1.type;
 		else
@@ -35,15 +39,21 @@ public class Bot implements Runnable{
 		if(niveau==0)//humain demande aide
 			niveau=3;
 		finEval=false;
-		if(niveau==1)
+		if(niveau==1){
+			n=0;
 			nMax=0;
-		if(niveau==2)
+		}
+		if(niveau==2){
+			n=1;
 			nMax=1;
-		if(niveau==3)
+		}
+		if(niveau==3){
+			n=1;
 			nMax=1000;//on limite pas le jouer difficile
-		n=0;
+		}
 		while(!finEval && n<=nMax){
 			coupTemp=jouerMinMax(n);
+			pb = false;
 			n++;
 			a.j.c = new Coups(coupTemp.pDep,coupTemp.pArr);
 		}
@@ -51,7 +61,6 @@ public class Bot implements Runnable{
 	
 	public Coups jouerMinMax(int profondeur){
 		System.out.println("MinMax "+profondeur);
-		Simulation s = new Simulation(a.t.plateau);
 		LinkedList<Point> l;
 		Point pSrc, pDst;
 		Coups c;
@@ -62,68 +71,75 @@ public class Bot implements Runnable{
 			int max = -999999999;
 			for(int i=0; i<9; i++){
 				for(int j=0; j<9; j++){
-					pSrc = new Point(i,j);
-					tailleCoup = s.etatJeu[i][j].getTaille();
-					l = s.casesAdjacentes(i,j);
-					while(!l.isEmpty()){
-						pDst = l.removeFirst();
-						c = new Coups(pSrc, pDst);
-						s.simulerCoup(c);
-						val = min(s,profondeur);
-						if(val>max){
-							randomcoup = new LinkedList<Coups>();
-							randomcoup.add(c);
-							max = val;
+					if(s.etatJeu[i][j].estOccupee()){
+						pSrc = new Point(i,j);
+						tailleCoup = s.etatJeu[i][j].getTaille();
+						l = s.casesAdjacentes(i,j);
+						while(!l.isEmpty()){
+							pDst = l.removeFirst();
+							c = new Coups(pSrc, pDst);
+							s.simulerCoup(c);
+							pb = true;
+							val = min(profondeur);
+							if(val>max){
+								randomcoup = new LinkedList<Coups>();
+								randomcoup.add(c);
+								max = val;
+							}
+							if(val==max){
+								randomcoup.add(c);
+							}
+							s.annulerCoup(c,tailleCoup);
 						}
-						if(val==max){
-							randomcoup.add(c);
-						}
-						s.annulerCoup(c,tailleCoup);
 					}
 				}
 			}
 			System.out.println("max:"+max);
-		}
-		
+		}		
 		else{
 			int min = 999999999;
 			for(int i=0; i<9; i++){
 				for(int j=0; j<9; j++){
-					pSrc = new Point(i,j);
-					tailleCoup = s.etatJeu[i][j].getTaille();
-					l = s.casesAdjacentes(i,j);
-					while(!l.isEmpty()){
-						pDst = l.removeFirst();
-						c = new Coups(pSrc, pDst);
-						s.simulerCoup(c);
-						val = max(s,profondeur);
-						if(val<min){
-							randomcoup = new LinkedList<Coups>();
-							randomcoup.add(c);
-							min = val;
+					if(s.etatJeu[i][j].estOccupee()){
+						pSrc = new Point(i,j);
+						tailleCoup = s.etatJeu[i][j].getTaille();
+						l = s.casesAdjacentes(i,j);
+						while(!l.isEmpty()){
+							pDst = l.removeFirst();
+							c = new Coups(pSrc, pDst);
+							s.simulerCoup(c);
+							pb = true;
+							val = max(profondeur);
+							if(val<min){
+								randomcoup = new LinkedList<Coups>();
+								randomcoup.add(c);
+								min = val;
+							}
+							if(val==min){
+								randomcoup.add(c);
+							}
+							s.annulerCoup(c,tailleCoup);
 						}
-						if(val==min){
-							randomcoup.add(c);
-						}
-						s.annulerCoup(c,tailleCoup);
 					}
 				}
 			}
 			System.out.println("min:"+min);
 		}
-		if(randomcoup.size()==1)
+		if(randomcoup.size()==1){
 			return randomcoup.get(0);
-		else
+		}
+		else{
 			return randomcoup.get(r.nextInt(randomcoup.size()));
+		}
 	}
 	
 
 
-	public int min(Simulation s, int prof){
+	public int min( int prof){
 		if(prof==0 || s.partieFinie()){
 			if(s.partieFinie())
 				finEval=true;
-			return eval(s);
+			return eval();
 		}
 		else{
 			int min = 999999999;
@@ -133,18 +149,20 @@ public class Bot implements Runnable{
 			Coups c;
 			for(int i=0; i<9; i++){
 				for(int j=0; j<9; j++){
-					pSrc = new Point(i,j);
-					tailleCoup = s.etatJeu[i][j].getTaille();
-					l = s.casesAdjacentes(i,j);
-					while(!l.isEmpty()){
-						pDst = l.removeFirst();
-						c = new Coups(pSrc, pDst);
-						s.simulerCoup(c);
-						val = max(s,prof-1);
-						if(val<min){
-							min = val;
+					if(s.etatJeu[i][j].estOccupee()){
+						pSrc = new Point(i,j);
+						tailleCoup = s.etatJeu[i][j].getTaille();
+						l = s.casesAdjacentes(i,j);
+						while(!l.isEmpty()){
+							pDst = l.removeFirst();
+							c = new Coups(pSrc, pDst);
+							s.simulerCoup(c);
+							val = max(prof-1);
+							if(val<min){
+								min = val;
+							}
+							s.annulerCoup(c,tailleCoup);
 						}
-						s.annulerCoup(c,tailleCoup);
 					}
 				}
 			}
@@ -153,11 +171,11 @@ public class Bot implements Runnable{
 	}
 
 
-	public int max(Simulation s, int prof){
+	public int max( int prof){
 		if(prof==0 || s.partieFinie()){
 			if(s.partieFinie())
 				finEval=true;
-			return eval(s);			
+			return eval();			
 		}
 		else{
 			int max = -999999999;
@@ -167,18 +185,20 @@ public class Bot implements Runnable{
 			Coups c;
 			for(int i=0; i<9; i++){
 				for(int j=0; j<9; j++){
-					pSrc = new Point(i,j);
-					tailleCoup = s.etatJeu[i][j].getTaille();
-					l = s.casesAdjacentes(i,j);
-					while(!l.isEmpty()){
-						pDst = l.removeFirst();
-						c = new Coups(pSrc, pDst);
-						s.simulerCoup(c);
-						val = min(s,prof-1);;
-						if(val>max){
-							max = val;
+					if(s.etatJeu[i][j].estOccupee()){
+						pSrc = new Point(i,j);
+						tailleCoup = s.etatJeu[i][j].getTaille();
+						l = s.casesAdjacentes(i,j);
+						while(!l.isEmpty()){
+							pDst = l.removeFirst();
+							c = new Coups(pSrc, pDst);
+							s.simulerCoup(c);
+							val = min(prof-1);;
+							if(val>max){
+								max = val;
+							}
+							s.annulerCoup(c,tailleCoup);
 						}
-						s.annulerCoup(c,tailleCoup);
 					}
 				}
 			}
@@ -191,18 +211,18 @@ public class Bot implements Runnable{
 	static int TRUC=1000;
 	static int PIONS=10;
 	
-	public int eval(Simulation s){
+	public int eval(){
 		int score=0;
 		if(s.partieFinie()){
 			score = s.evaluerNbPions()*TOURFIN;
 		}else{
-			if(niveau<3)
+			if(niveau<=3)
 				score += s.evaluerScoreCourant()*TOURDEF;
 			if(niveau>1)
 				score += s.evaluerNbPions()*PIONS;
-			if(niveau>2){
+			/*if(niveau>2){
 				score += s.evaluerScoreCourantDiff();
-			}
+			}*/
 		}
 		return score;
 	}
